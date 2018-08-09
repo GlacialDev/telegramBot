@@ -33,16 +33,16 @@ bot.onText(/\/sendto (\-[0-9]+|[0-9]+) (\S+.*)/, (msg, match) => {
 
 bot.onText(/\/write (.+)/, (msg, match) => {
   let text = match[1];
-  fs.writeFile("hello.txt", text, function(error){
+  fs.writeFileSync("note.txt", text, function(error){
     if(error) throw error; // если возникла ошибка
     let data = fs.readFileSync("hello.txt", "utf8");
-    bot.sendMessage(msg.chat.id, "Асинхронная запись файла завершена. Содержимое файла: "+data)
+    bot.sendMessage(msg.chat.id, "Записано: "+data)
   });
 });
 
 bot.onText(/\/read/, (msg) => {
-  fs.readFile("hello.txt", "utf8", function(error,data){
+  fs.readFileSync("note.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
-    bot.sendMessage(msg.chat.id,"Асинхронное чтение файла завершено. Содержимое файла: "+data)
+    bot.sendMessage(msg.chat.id,"В последний раз вы записали "+data)
   });
 });
