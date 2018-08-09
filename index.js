@@ -35,7 +35,7 @@ bot.onText(/\/write (.+)/, (msg, match) => {
   let text = match[1];
   fs.writeFileSync("note.txt", text, function(error){
     if(error) throw error; // если возникла ошибка
-    let data = fs.readFileSync("hello.txt", "utf8");
+    let data = fs.readFileSync("note.txt", "utf8");
     bot.sendMessage(msg.chat.id, "Записано: "+data)
   });
 });
