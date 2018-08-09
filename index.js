@@ -5,7 +5,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(token(), { polling: true });
 
 function writeWhoAsk(message) {
-  text = message.from.id+' : '+message.from.id;
+  let text = message.from.id+' : '+message.from.id;
   fs.writeFile(`id_name/${message.from.id}+'_'+${message.from.id}.txt`, text, function(error){
     if(error) throw error; // если возникла ошибка
   });
