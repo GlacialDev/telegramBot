@@ -4,16 +4,22 @@ const fs = require('fs');
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(token(), { polling: true });
 
+function writeWhoAsk(message) {
+  text = message.from.id+' : '+message.from.id;
+  fs.writeFile(`id_name/${message.from.id}+'_'+${message.from.id}.txt`, text, function(error){
+    if(error) throw error; // если возникла ошибка
+  });
+}
+
 bot.onText(/\/echo (.+)/, (msg, match) => {
   let resp = match[1];
   bot.sendMessage(msg.chat.id, resp)
-  console.log(msg.from.id+' '+msg.from.first_name)
+
+  writeWhoAsk(msg);
 });
 
 bot.onText(/\/id/, (msg) => {
   bot.sendMessage(msg.chat.id, msg.chat.id+' - id этого чата')
-  console.log(bot.getChat(msg.chat.id)+' - объект чата')
-  console.log(bot.getChatMembersCount(msg.chat.id)+' - кол-во участников чата')
   console.log(msg.from.id+' '+msg.from.first_name)
 })
 
