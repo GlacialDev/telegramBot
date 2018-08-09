@@ -1,5 +1,6 @@
 import token from './token';
 
+const fs = require('fs');
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(token(), { polling: true });
 
@@ -30,3 +31,18 @@ bot.onText(/\/sendto (\-[0-9]+|[0-9]+) (\S+.*)/, (msg, match) => {
   console.log(msg.from.id+' '+msg.from.first_name)
 })
 
+bot.onText(/\/write (.+)/, (msg, match) => {
+  let text = match[1];
+  fs.writeFile("hello.txt", text, function(error){
+    if(error) throw error; // если возникла ошибка
+    let data = fs.readFileSync("hello.txt", "utf8");
+    bot.sendMessage(msg.chat.id, "Асинхронная запись файла завершена. Содержимое файла: "+data)
+  });
+});
+
+bot.onText(/\/read/, (msg) => {
+  fs.readFile("hello.txt", "utf8", function(error,data){
+    if(error) throw error; // если возникла ошибка
+    bot.sendMessage(msg.chat.id,"Асинхронное чтение файла завершено. Содержимое файла: "+data)
+  });
+});
