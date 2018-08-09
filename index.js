@@ -46,3 +46,8 @@ bot.onText(/\/read/, (msg) => {
     bot.sendMessage(msg.chat.id,"Содержимое файла: "+data)
   });
 });
+
+bot.onText(/\/note/, (msg) => {
+  const note = './note.txt';
+  bot.sendDocument(msg.chat.id, note);
+});
