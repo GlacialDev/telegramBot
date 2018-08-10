@@ -77,6 +77,6 @@ bot.onText(/\/note/, (msg) => {
 });
 
 var timerId = setInterval(function() {
-  let text = 'tik tak 2 sek proshlo'
+  let text = new Date();
   bot.sendMessage(groupChat, text);
 }, 2000);
