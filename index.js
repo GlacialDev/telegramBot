@@ -140,6 +140,12 @@ bot.onText(/\/images/, (msg) => {
     if(error) throw error; // если возникла ошибка
     let array = data.split(',');
     console.log(array);
+    let item = arr.pop();
+    console.log(item);
+    console.log(array);
+    let item = arr.pop();
+    console.log(item);
+    console.log(array);
     // bot.sendMessage(msg.chat.id,"Содержимое файла: "+array)
   });
 
