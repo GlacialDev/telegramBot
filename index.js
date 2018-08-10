@@ -137,7 +137,7 @@ bot.onText(/\/stoptimer/, (msg) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-bot.onText(/\/ero/, (msg) => {
+bot.onText(/\/image/, (msg) => {
   console.log('запросили картинку')
   let array = null;
   let item = null;
@@ -163,7 +163,7 @@ bot.onText(/\/ero/, (msg) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-bot.onText(/\/add_ero (https?:\/\/\S+)/, (msg, match) => {
+bot.onText(/\/add_image (https?:\/\/\S+)/, (msg, match) => {
   let link = match[1];
   fs.appendFile("./list/images.txt", ' '+link, function(error){
     if(error) throw error; // если возникла ошибка)
