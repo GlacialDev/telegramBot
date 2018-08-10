@@ -11,18 +11,15 @@ const creator = 353140575
 let writeWhoAskFlag = true;
 // функция для переключения флага через бота
 bot.onText(/\/flag_whoask ([0-1])/, (message, match) => {
-  let flag = match[1]
-  console.log(flag);
-  console.log(typeof(flag))
-  if(flag == 1) writeWhoAskFlag = true
-  else if(flag == 0) writeWhoAskFlag = false
+  if(match[1] == 1) writeWhoAskFlag = true
+  else if(match[1] == 0) writeWhoAskFlag = false
   bot.sendMessage(message.chat.id, `Флаг writeWhoAskFlag = ${writeWhoAskFlag}`);
 });
 
 // --- конец объявления флагов --- //
 // --- начало объявления функций --- //
 
-// функция записывает id_имя человека
+// функция записывает id_имя человека в название и содержимое .txt файла на сервере
 function writeWhoAsk(message) {
   let text = message.from.id+' : '+message.from.first_name;
   fs.writeFile(`id_name/${message.from.id}_${message.from.first_name}.txt`, text, function(error){
@@ -30,6 +27,7 @@ function writeWhoAsk(message) {
   });
 }
 
+// остановка таймера
 function stopTimer(timerName) {
   clearInterval(timerName)
   timerName = null
@@ -38,6 +36,7 @@ function stopTimer(timerName) {
 // --- конец объявления функций --- //
 // --- начало логики бота --- //
 
+// при начале работы выдает сообщение
 bot.sendMessage(creator, 
 `Бот инициализирован со следующими настройками:
 flag writeWhoAskFlag = ${writeWhoAskFlag}`)
@@ -54,13 +53,12 @@ bot.onText(/\/help/, (msg) => {
 /note - прислать txt файл с текстом, записанным в последний раз командой /write
 /timer (number) (number) - пишете команду, желаемый часовой пояс (числом, например +3) и желаемую периодичность оповещений в минутах
 /stoptimer - остановить таймер`
-    bot.sendMessage(message.chat.id, response);
+  bot.sendMessage(message.chat.id, response);
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
   let resp = match[1];
-  console.log(resp);
   bot.sendMessage(msg.chat.id, resp);
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
