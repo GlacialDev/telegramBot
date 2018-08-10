@@ -162,7 +162,7 @@ bot.onText(/\/ero/, (msg) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-bot.onText(/\/ero_add (https?:\/\/\S+)/, (msg, match) => {
+bot.onText(/\/add_ero (https?:\/\/\S+)/, (msg, match) => {
   let link = match[1];
   fs.appendFile("./list/images.txt", ' '+link, function(error){
     if(error) throw error; // если возникла ошибка)
