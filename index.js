@@ -140,10 +140,12 @@ bot.onText(/\/images/, (msg) => {
   let item;
   fs.readFile("./list/images.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
-    array = data.split(' ');
+    let innerArray = data.split(' ');
     console.log(array);
-    item = array.pop();
+    item = innerArray.pop();
     console.log(item);
+    array = innerArray;
+    console.log(array);
     bot.sendMessage(msg.chat.id, item)
   });
   // bot.sendMessage(msg.chat.id, item)
