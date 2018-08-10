@@ -148,7 +148,7 @@ bot.onText(/\/images/, (msg) => {
     fs.writeFile("./list/images.txt", '', function(error){
       if(error) throw error; // если возникла ошибка
       console.log('первая запись файла прошло')
-      for (items of array) {
+      for (let items in array) {
         console.log('цикл')
         fs.appendFile("./list/images.txt", items+' ',function(error){
           if(error) throw error; // если возникла ошибка)
