@@ -141,6 +141,7 @@ bot.onText(/\/images/, (msg) => {
     if(error) throw error; // если возникла ошибка
     let array = data.split(' ');
     item = array.pop();
+    console.log(item);
   });
   bot.sendMessage(msg.chat.id, item)
   fs.writeFile("./list/images.txt", '', function(error){
