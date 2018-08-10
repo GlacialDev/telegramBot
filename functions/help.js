@@ -1,4 +1,4 @@
-exports.help = function(message) {
+export let help = function(message) {
     let response = 
     `Привет, ${message.from.first_name}. Имеются следующие команды:\n
     /echo (text) - повторяет текст

@@ -18,7 +18,7 @@ function stopTimer() {
   timer = null
 }
 
-let helpFunc = require('./functions/help')
+let help = require('./functions/help')
 
 // function help(message) {
 //   let response = 
@@ -36,7 +36,7 @@ let helpFunc = require('./functions/help')
 // }
 
 bot.onText(/\/help/, (msg) => {
-  helpFunc.help(msg)
+  help.help(msg)
   writeWhoAsk(msg);
 });
 
