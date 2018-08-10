@@ -76,8 +76,17 @@ bot.onText(/\/note/, (msg) => {
   writeWhoAsk(msg);
 });
 
+// bot.onText(/\/timer (\-[0-9]+|[0-9]+) (\-[0-9]+|[0-9]+) /, (msg) => {
+  
+//   writeWhoAsk(msg);
+// });
+
+
+
+
+
 var timerId = setInterval(function() {
-  let gmt = 3
+  let gmt = +3
   let offset = 1000 * 3600 * gmt
   let time = +new Date() + offset;
   bot.sendMessage(groupChat, new Date(time));
