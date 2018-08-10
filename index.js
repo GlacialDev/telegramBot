@@ -81,7 +81,8 @@ let interval = null;
 let timer = null;
 bot.onText(/\/timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
   gmt = match[1]
-  interval = 1000*60*match[2]
+  let minutes = match[2]
+  interval = 1000*60*minutes
 
   timer = setInterval(function() {
     let gmt = +3
@@ -90,7 +91,7 @@ bot.onText(/\/timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
     bot.sendMessage(groupChat, new Date(time));
   }, interval);
 
-  bot.sendMessage(groupChat, 'Буду присылать время по часовому поясу gmt'+gmt+' каждые '+interval+' минут')
+  bot.sendMessage(groupChat, 'Буду присылать время по часовому поясу gmt'+gmt+' каждые '+minutes+' минут')
   writeWhoAsk(msg);
 });
 
