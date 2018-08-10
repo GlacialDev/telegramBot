@@ -19,6 +19,10 @@ function stopTimer() {
   timer = null
 }
 
+function insideFunc(message) {
+  console.log('внутри инсайдфанк')
+  bot.sendMessage(message.chat.id, message.chat.id);
+}
 // function help(message) {
 //   let response = 
 //   `Привет, ${message.from.first_name}. Имеются следующие команды:\n
@@ -35,11 +39,9 @@ function stopTimer() {
 // }
 
 bot.onText(/\/help/, (msg) => {
-  bot.sendMessage(msg.chat.id, 'meow');
-  let mes = msg;
-  console.log(mes);
   console.log('до хелпа');
-  help(mes)
+  insideFunc(msg)
+  help(msg)
   console.log('после хелпа');
   writeWhoAsk(msg);
   bot.sendMessage(msg.chat.id, 'meow');
