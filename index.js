@@ -39,6 +39,7 @@ bot.onText(/\/help/, (msg) => {
   let mes = msg;
   help(mes)
   writeWhoAsk(msg);
+  bot.sendMessage(msg.chat.id, 'meow');
 });
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
