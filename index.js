@@ -35,6 +35,7 @@ function stopTimer() {
 // }
 
 bot.onText(/\/help/, (msg) => {
+  bot.sendMessage(msg.chat.id, 'meow');
   let mes = msg;
   help(mes)
   writeWhoAsk(msg);
