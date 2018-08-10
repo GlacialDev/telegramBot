@@ -138,7 +138,8 @@ bot.onText(/\/stoptimer/, (msg) => {
 bot.onText(/\/images/, (msg) => {
   fs.readFile("./list/images.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
-    bot.sendMessage(msg.chat.id,"Содержимое файла: "+data)
+    let array = data.split(',');
+    bot.sendMessage(msg.chat.id,"Содержимое файла: "+array)
   });
 
 
