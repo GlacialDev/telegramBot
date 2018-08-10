@@ -168,7 +168,7 @@ bot.onText(/\/images/, (msg) => {
         });
       }
     }
-    console.log('по идее минус файл из txt')
+    console.log('по идее минус файл из txt надеюсь норм')
   });
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
