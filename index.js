@@ -138,7 +138,7 @@ bot.onText(/\/stoptimer/, (msg) => {
 bot.onText(/\/images/, (msg) => {
   fs.readFile("./list/images.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
-    let array = data.split(',');
+    let array = data.split(' ');
     console.log(array);
     let item = array.pop();
     console.log(item);
