@@ -140,23 +140,22 @@ bot.onText(/\/images/, (msg) => {
   let item;
   fs.readFile("./list/images.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
-    let innerArray = data.split(' ');
-    console.log(array);
-    item = innerArray.pop();
-    console.log(item);
-    array = innerArray;
-    console.log(array);
+    array = data.split(' ');
+    item = array.pop();
     bot.sendMessage(msg.chat.id, item)
+    console.log('чтение файла прошло')
   });
-  // bot.sendMessage(msg.chat.id, item)
-  // fs.writeFile("./list/images.txt", '', function(error){
-  //   if(error) throw error; // если возникла ошибка
-  // });
-  // for (img of array) {
-  //   fs.appendFile("./list/images.txt", img+' ',function(error){
-  //     if(error) throw error; // если возникла ошибка)
-  //   });
-  // }
+  fs.writeFile("./list/images.txt", '', function(error){
+    if(error) throw error; // если возникла ошибка
+    console.log('перезапись файла на пустой прошло')
+  });
+  for (img of array) {
+    console.log('цикл')
+    fs.appendFile("./list/images.txt", img+' ',function(error){
+      if(error) throw error; // если возникла ошибка)
+      console.log('добавление img в файл прошло')
+    });
+  }
   // fs.readFile("./list/images.txt", "utf8", function(error,data){
   //   if(error) throw error; // если возникла ошибка
   //   let array = data.split(' ');
