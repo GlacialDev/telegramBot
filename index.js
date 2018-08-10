@@ -136,10 +136,11 @@ bot.onText(/\/stoptimer/, (msg) => {
 });
 
 bot.onText(/\/images/, (msg) => {
+  let item;
   fs.readFile("./list/images.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     let array = data.split(' ');
-    let item = array.pop();
+    item = array.pop();
   });
   bot.sendMessage(msg.chat.id, item)
   fs.writeFile("./list/images.txt", '', function(error){
