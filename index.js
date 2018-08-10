@@ -76,17 +76,18 @@ bot.onText(/\/note/, (msg) => {
   writeWhoAsk(msg);
 });
 
-let gmt = null;
-let interval = null;
-let timer = null;
+let gmt = null
+let interval = null
+let timer = null
+let minutes = null
+let offset = null
 bot.onText(/\/timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
   gmt = match[1]
-  let minutes = match[2]
+  minutes = match[2]
+  offset = 1000 * 3600 * gmt
   interval = 1000*60*minutes
 
   timer = setInterval(function() {
-    let gmt = +3
-    let offset = 1000 * 3600 * gmt
     let time = +new Date() + offset;
     bot.sendMessage(groupChat, new Date(time));
   }, interval);
@@ -96,9 +97,12 @@ bot.onText(/\/timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
 });
 
 bot.onText(/\/stoptimer/, (msg) => {
-  gmt = null;
-  interval = null;
+  gmt = null
+  interval = null
+  minutes = null
+  offset = null
   clearInterval(timer)
+  timer = null
 
   bot.sendMessage(groupChat, 'Таймер остановлен')
   writeWhoAsk(msg);
