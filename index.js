@@ -1,5 +1,5 @@
 import token from './token';
-import help from './functions/help';
+import writeWhoAsk from './functions/writeWhoAsk'
 
 const fs = require('fs');
 const TelegramBot = require('node-telegram-bot-api');
@@ -7,42 +7,35 @@ const bot = new TelegramBot(token(), { polling: true });
 const groupChat = -307924393
 
 // функция записывает id_имя человека
-function writeWhoAsk(message) {
-  let text = message.from.id+' : '+message.from.first_name;
-  fs.writeFile(`id_name/${message.from.id}_${message.from.first_name}.txt`, text, function(error){
-    if(error) throw error; // если возникла ошибка
-  });
-}
-
-function stopTimer() {
-  clearInterval(timer)
-  timer = null
-}
-
-function insideFunc(message) {
-  console.log('внутри инсайдфанк')
-  bot.sendMessage(message.chat.id, message.chat.id);
-}
-// function help(message) {
-//   let response = 
-//   `Привет, ${message.from.first_name}. Имеются следующие команды:\n
-//   /echo (text) - повторяет текст
-//   /id - выдает id группового чата и ваш
-//   /photo (link) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу
-//   /sendto (id) (text) - пишете боту в лс id адресата и текст сообщения. При условии, что человек прописал у бота /start, ему придет сообщение с текстом от имени бота
-//   /write (text) - записать текст в файл на сервере
-//   /read - прочесть текст, записанный в файле командой /write
-//   /note - прислать txt файл с текстом, записанным в последний раз командой /write
-//   /timer (number) (number) - пишете команду, желаемый часовой пояс (числом, например +3) и желаемую периодичность оповещений в минутах
-//   /stoptimer - остановить таймер`
-//   bot.sendMessage(message.chat.id, response);
+// function writeWhoAsk(message) {
+//   let text = message.from.id+' : '+message.from.first_name;
+//   fs.writeFile(`id_name/${message.from.id}_${message.from.first_name}.txt`, text, function(error){
+//     if(error) throw error; // если возникла ошибка
+//   });
 // }
 
+function stopTimer(timerName) {
+  clearInterval(timerName)
+  timerName = null
+}
+
+function help(message) {
+  let response = 
+`Привет, ${message.from.first_name}. Имеются следующие команды:\n
+/echo (text) - повторяет текст
+/id - выдает id группового чата и ваш
+/photo (link) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу
+/sendto (id) (text) - пишете боту в лс id адресата и текст сообщения. При условии, что человек прописал у бота /start, ему придет сообщение с текстом от имени бота
+/write (text) - записать текст в файл на сервере
+/read - прочесть текст, записанный в файле командой /write
+/note - прислать txt файл с текстом, записанным в последний раз командой /write
+/timer (number) (number) - пишете команду, желаемый часовой пояс (числом, например +3) и желаемую периодичность оповещений в минутах
+/stoptimer - остановить таймер`
+  bot.sendMessage(message.chat.id, response);
+}
+
 bot.onText(/\/help/, (msg) => {
-  console.log('до хелпа');
-  insideFunc(msg)
   help(msg)
-  console.log('после хелпа');
   writeWhoAsk(msg);
   bot.sendMessage(msg.chat.id, 'meow');
 });
@@ -98,17 +91,18 @@ bot.onText(/\/note/, (msg) => {
 
 let timer = null
 bot.onText(/\/timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
-  stopTimer()
+  stopTimer(timer)
   let gmt = match[1]
   let minutes = match[2]
+
   if (minutes < 1) {
     bot.sendMessage(groupChat, 'Нельзя ставить время меньше 1 минуты, это может плохо кончиться для всех :(')
-    stopTimer()
+    stopTimer(timer)
     return
   }
+
   let offset = 1000 * 3600 * gmt
   let interval = 1000*60*minutes
-
   timer = setInterval(function() {
     let time = +new Date() + offset;
     bot.sendMessage(groupChat, new Date(time));
@@ -119,7 +113,7 @@ bot.onText(/\/timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
 });
 
 bot.onText(/\/stoptimer/, (msg) => {
-  stopTimer()
+  stopTimer(timer)
   bot.sendMessage(groupChat, 'Таймер остановлен')
   writeWhoAsk(msg);
 });
