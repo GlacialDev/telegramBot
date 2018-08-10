@@ -26,9 +26,15 @@ bot.onText(/\/id/, (msg) => {
 bot.onText(/\/photo (https?:\/\/\S+)/, (msg, match) => {
   let resp = match[1];
   bot.sendPhoto(-307924393, resp);
-  bot.sendMessage(-307924393, 'Счастья и хорошего настроения!');
   writeWhoAsk(msg);
 })
+
+bot.onText(/\/video (https?:\/\/\S+)/, (msg, match) => {
+  let resp = match[1];
+  bot.sendVideo(-307924393, resp);
+  writeWhoAsk(msg);
+})
+
 
 bot.onText(/\/sendto (\-[0-9]+|[0-9]+) (\S+.*)/, (msg, match) => {
   let id = match[1];
