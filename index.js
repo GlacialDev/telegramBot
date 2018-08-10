@@ -141,23 +141,25 @@ bot.onText(/\/images/, (msg) => {
   fs.readFile("./list/images.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     array = data.split(' ');
+    console.log(array);
     item = array.pop();
     console.log(item);
+    bot.sendMessage(msg.chat.id, item)
   });
-  bot.sendMessage(msg.chat.id, item)
-  fs.writeFile("./list/images.txt", '', function(error){
-    if(error) throw error; // если возникла ошибка
-  });
-  for (img of array) {
-    fs.appendFile("./list/images.txt", img+' ',function(error){
-      if(error) throw error; // если возникла ошибка)
-    });
-  }
-  fs.readFile("./list/images.txt", "utf8", function(error,data){
-    if(error) throw error; // если возникла ошибка
-    let array = data.split(' ');
-    console.log(array);
-  });
+  // bot.sendMessage(msg.chat.id, item)
+  // fs.writeFile("./list/images.txt", '', function(error){
+  //   if(error) throw error; // если возникла ошибка
+  // });
+  // for (img of array) {
+  //   fs.appendFile("./list/images.txt", img+' ',function(error){
+  //     if(error) throw error; // если возникла ошибка)
+  //   });
+  // }
+  // fs.readFile("./list/images.txt", "utf8", function(error,data){
+  //   if(error) throw error; // если возникла ошибка
+  //   let array = data.split(' ');
+  //   console.log(array);
+  // });
 
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
