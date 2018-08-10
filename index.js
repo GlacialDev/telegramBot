@@ -136,10 +136,11 @@ bot.onText(/\/stoptimer/, (msg) => {
 });
 
 bot.onText(/\/images/, (msg) => {
+  let array;
   let item;
   fs.readFile("./list/images.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
-    let array = data.split(' ');
+    array = data.split(' ');
     item = array.pop();
     console.log(item);
   });
