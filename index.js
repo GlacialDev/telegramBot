@@ -18,7 +18,7 @@ function stopTimer() {
   timer = null
 }
 
-import help from './functions/help'
+const help = require('./functions/help')
 
 // function help(message) {
 //   let response = 
