@@ -149,11 +149,11 @@ bot.onText(/\/images/, (msg) => {
     for (let items of array) {
       let i = 0;
       if (i = 0) {
-        i++;
         fs.writeFile("./list/images.txt", items,function(error){
           if(error) throw error; // если возникла ошибка)
           console.log('добавление img в файл прошло '+i)
         });
+        i++
       } else {
         fs.appendFile("./list/images.txt", ' '+items,function(error){
           if(error) throw error; // если возникла ошибка)
