@@ -137,15 +137,18 @@ bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
     let array = null;
     let item = null;
     let string = null;
+    let number = null;
     // открываем файл-буфер со ссылками
     fs.readFile("./list/images.txt", "utf8", function(error,data){
       if(error) throw error; // если возникла ошибка
       // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
       array = data.split(' ');
       item = array.shift();
+      number = array.length;
       // если ссылки кончились говорим что всё хана заправляйте новыми
       if (item == '') item = 'Картинки кончились :('
-      bot.sendMessage(msg.chat.id, item)
+      bot.sendMessage(groupChat, item)
+      bot.sendMessage(groupChat, `У меня в запасе осталось ${number} картинок`)
       // массив без элемента который мы достали pop()-ом преобразуем в строку
       string = array.join(' ')
       // и грузим обратно в файл-буффер
@@ -171,6 +174,21 @@ bot.onText(/\/add_ero (https?:\/\/\S+)/, (msg, match) => {
     bot.sendMessage(msg.chat.id, 'Картинка добавлена в очередь!')
   });
   
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
+
+bot.onText(/\/how_much_ero/, (msg) => {
+  let array = null;
+  let number = null;
+  // открываем файл-буфер со ссылками
+  fs.readFile("./list/images.txt", "utf8", function(error,data) {
+    if(error) throw error; // если возникла ошибка
+    // разбиваем содержимое файла на массив
+    array = data.split(' ');
+    // считаем количество элементов
+    number = array.length;
+    bot.sendMessage(groupChat, `У меня в запасе осталось ${number} картинок`)
+  });
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
