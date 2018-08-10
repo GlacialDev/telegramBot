@@ -138,13 +138,16 @@ bot.onText(/\/stoptimer/, (msg) => {
 bot.onText(/\/images/, (msg) => {
   let array;
   let item;
+  let insideTxt;
   fs.readFileSync("./list/images.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
-    array = data.split(' ');
-    item = array.pop();
-    bot.sendMessage(msg.chat.id, item)
-    console.log('чтение файла прошло')
+    insideTxt = data;
+   console.log('чтение файла прошло')
   });
+  console.log(insideTxt);
+  array = data.split(' ');
+  item = array.pop();
+  bot.sendMessage(msg.chat.id, item)
   console.log(item);
   item = array.pop();
   console.log(item);
