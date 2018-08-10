@@ -135,13 +135,17 @@ bot.onText(/\/stoptimer/, (msg) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-bot.onText(/\/images/, (msg) => {
-  let array;
-  let item;
-  let insideTxt;
+bot.onText(/\/ero/, (msg) => {
+  let array = null;
+  let item = null;
+  let string = null;
 
   fs.readFile("./list/images.txt", "utf8", function(error,data){
-    if(error) throw error; // если возникла ошибка
+    if(error) {
+      throw error; // если возникла ошибка
+      bot.sendMessage(msg.chat.id, 'Картинки кончились :(')
+      return
+    }
 
     array = data.split(' ');
     item = array.pop();
@@ -149,8 +153,7 @@ bot.onText(/\/images/, (msg) => {
   
     console.log('чтение файла прошло')
 
-    var string = array.join(' ')
-
+    string = array.join(' ')
     fs.writeFile("./list/images.txt", string, function(error){
       if(error) throw error; // если возникла ошибка)
       console.log('добавил оставшиеся картинки')
