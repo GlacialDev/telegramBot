@@ -1,4 +1,4 @@
-function help(message) {
+exports.help = function(message) {
     let response = 
     `Привет, ${message.from.first_name}. Имеются следующие команды:\n
     /echo (text) - повторяет текст
@@ -12,5 +12,3 @@ function help(message) {
     /stoptimer - остановить таймер`
     bot.sendMessage(message.chat.id, response);
 }
-
-export default help;
