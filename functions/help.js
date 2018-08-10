@@ -13,4 +13,4 @@ function help(message) {
     bot.sendMessage(message.chat.id, response);
 }
 
-export default helpF;
+export default help;
