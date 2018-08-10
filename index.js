@@ -76,18 +76,29 @@ bot.onText(/\/note/, (msg) => {
   writeWhoAsk(msg);
 });
 
-// bot.onText(/\/timer (\-[0-9]+|[0-9]+) (\-[0-9]+|[0-9]+) /, (msg) => {
-  
-//   writeWhoAsk(msg);
-// });
+let gmt = null;
+let interval = null;
+let timer = null;
+bot.onText(/\/timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
+  gmt = match[1]
+  interval = 1000*60*match[2]
 
+  timer = setInterval(function() {
+    let gmt = +3
+    let offset = 1000 * 3600 * gmt
+    let time = +new Date() + offset;
+    bot.sendMessage(groupChat, new Date(time));
+  }, interval);
 
+  bot.sendMessage(groupChat, 'Буду присылать время по часовому поясу gmt'+gmt+' каждые '+interval+' минут')
+  writeWhoAsk(msg);
+});
 
+bot.onText(/\/stoptimer/, (msg) => {
+  gmt = null;
+  interval = null;
+  timer = null;
 
-
-var timerId = setInterval(function() {
-  let gmt = +3
-  let offset = 1000 * 3600 * gmt
-  let time = +new Date() + offset;
-  bot.sendMessage(groupChat, new Date(time));
-}, 2000);
+  bot.sendMessage(groupChat, 'Таймер остановлен')
+  writeWhoAsk(msg);
+});
