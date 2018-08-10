@@ -1,4 +1,4 @@
-help = function help(message) {
+function help(message) {
     let response = 
     `Привет, ${message.from.first_name}. Имеются следующие команды:\n
     /echo (text) - повторяет текст
