@@ -139,7 +139,7 @@ bot.onText(/\/images/, (msg) => {
   let array;
   let item;
   let insideTxt;
-  fs.readFileSync("./list/images.txt", "utf8", function(error,data){
+  fs.readFile("./list/images.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     insideTxt = data;
    console.log('чтение файла прошло')
@@ -151,13 +151,14 @@ bot.onText(/\/images/, (msg) => {
   console.log(item);
   item = array.pop();
   console.log(item);
-  fs.writeFileSync("./list/images.txt", item+' ', function(error){
+
+  fs.writeFile("./list/images.txt", item+' ', function(error){
     if(error) throw error; // если возникла ошибка
     console.log('первая запись файла прошло')
   });
   for (items of array) {
     console.log('цикл')
-    fs.appendFileSync("./list/images.txt", items+' ',function(error){
+    fs.appendFile("./list/images.txt", items+' ',function(error){
       if(error) throw error; // если возникла ошибка)
       console.log('добавление img в файл прошло')
     });
