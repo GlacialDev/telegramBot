@@ -1,6 +1,6 @@
-function help(msg) {
+function help(message) {
     let response = 
-    `Привет, ${msg.from.first_name}. Имеются следующие команды:\n
+    `Привет, ${message.from.first_name}. Имеются следующие команды:\n
     /echo (text) - повторяет текст
     /id - выдает id группового чата и ваш
     /photo (link) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу
@@ -10,7 +10,7 @@ function help(msg) {
     /note - прислать txt файл с текстом, записанным в последний раз командой /write
     /timer (number) (number) - пишете команду, желаемый часовой пояс (числом, например +3) и желаемую периодичность оповещений в минутах
     /stoptimer - остановить таймер`
-    bot.sendMessage(msg.chat.id, response);
+    bot.sendMessage(message.chat.id, response);
 }
 
 export default help;
