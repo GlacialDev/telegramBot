@@ -75,3 +75,8 @@ bot.onText(/\/note/, (msg) => {
   bot.sendDocument(msg.chat.id, note);
   writeWhoAsk(msg);
 });
+
+var timerId = setInterval(function() {
+  let text = 'tik tak 2 sek proshlo'
+  bot.sendMessage(groupChat, text);
+}, 2000);
