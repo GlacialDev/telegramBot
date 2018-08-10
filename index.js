@@ -13,6 +13,18 @@ function writeWhoAsk(message) {
   });
 }
 
+bot.onText(/\/help/, (msg) => {
+  let response = `Привет, ${message.from.first_name} Имеются следующие команды:\n
+                  /echo (text) - повторяет текст\n/id - выдает id группового чата и ваш\n
+                  /photo (link) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу\n
+                  /sendto (id) (text) - пишете боту в лс id адресата и текст сообщения. При условии, что человек прописал у бота /start, ему придет сообщение с текстом от имени бота\n
+                  /write (text) - записать текст в файл на сервере\n
+                  /read - прочесть текст, записанный в файле командой /write\n
+                  /note - прислать txt файл с текстом, записанным в последний раз командой /write`
+  bot.sendMessage(msg.chat.id, response);
+  writeWhoAsk(msg);
+});
+
 bot.onText(/\/echo (.+)/, (msg, match) => {
   let resp = match[1];
   bot.sendMessage(msg.chat.id, resp);
@@ -21,6 +33,7 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 
 bot.onText(/\/id/, (msg) => {
   bot.sendMessage(msg.chat.id, msg.chat.id+' - id этого чата');
+  bot.sendMessage(msg.chat.id, msg.chat.from+' - а это ваш id');
   writeWhoAsk(msg);
 })
 
