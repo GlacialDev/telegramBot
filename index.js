@@ -13,6 +13,11 @@ function writeWhoAsk(message) {
   });
 }
 
+function stopTimer() {
+  clearInterval(timer)
+  timer = null
+}
+
 bot.onText(/\/help/, (msg) => {
   let response = 
 `Привет, ${msg.from.first_name}. Имеются следующие команды:\n
@@ -76,16 +81,17 @@ bot.onText(/\/note/, (msg) => {
   writeWhoAsk(msg);
 });
 
-let gmt = null
-let interval = null
 let timer = null
-let minutes = null
-let offset = null
 bot.onText(/\/timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
-  gmt = match[1]
-  minutes = match[2]
-  offset = 1000 * 3600 * gmt
-  interval = 1000*60*minutes
+  let gmt = match[1]
+  let minutes = match[2]
+  if (minutes < 1) {
+    bot.sendMessage(groupChat, 'Нельзя ставить время меньше 1 минуты, это может плохо кончиться для всех :(')
+    stopTimer()
+    return
+  }
+  let offset = 1000 * 3600 * gmt
+  let interval = 1000*60*minutes
 
   timer = setInterval(function() {
     let time = +new Date() + offset;
@@ -97,13 +103,7 @@ bot.onText(/\/timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
 });
 
 bot.onText(/\/stoptimer/, (msg) => {
-  gmt = null
-  interval = null
-  minutes = null
-  offset = null
-  clearInterval(timer)
-  timer = null
-
+  stopTimer()
   bot.sendMessage(groupChat, 'Таймер остановлен')
   writeWhoAsk(msg);
 });
