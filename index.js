@@ -46,13 +46,11 @@ bot.onText(/\/help/, (msg) => {
 `Привет, ${message.from.first_name}. Имеются следующие команды:\n
 /echo (text) - повторяет текст
 /id - выдает id группового чата и ваш
-/photo (link) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу
+/photo (url-ссылка на картинку) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу
 /sendto (id) (text) - пишете боту в лс id адресата и текст сообщения. При условии, что человек прописал у бота /start, ему придет сообщение с текстом от имени бота
-/write (text) - записать текст в файл на сервере
-/read - прочесть текст, записанный в файле командой /write
-/note - прислать txt файл с текстом, записанным в последний раз командой /write
-/timer (number) (number) - пишете команду, желаемый часовой пояс (числом, например +3) и желаемую периодичность оповещений в минутах
-/stoptimer - остановить таймер`
+/set_date_timer (number) (number) - пишете команду, желаемый часовой пояс (числом, например +3) и желаемую периодичность оповещений в минутах
+/stop_date_timer - остановить таймер
+/add_ero (url-ссылка на картинку) - отправляйте в лс боту телочек! а он потом их по таймеру будет выкидывать в группу :)`
   bot.sendMessage(message.chat.id, response);
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
@@ -82,113 +80,63 @@ bot.onText(/\/sendto (\-[0-9]+|[0-9]+) (\S+.*)/, (msg, match) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 })
 
-bot.onText(/\/write (.+)/, (msg, match) => {
-  let text = match[1];
-  fs.writeFile("note.txt", text, function(error){
-    if(error) throw error; // если возникла ошибка
-    let data = fs.readFileSync("note.txt", "utf8");
-    bot.sendMessage(msg.chat.id, "Записано: "+data)
-  });
-  if (writeWhoAskFlag) writeWhoAsk(msg);
-});
-
-bot.onText(/\/read/, (msg) => {
-  fs.readFile("note.txt", "utf8", function(error,data){
-    if(error) throw error; // если возникла ошибка
-    bot.sendMessage(msg.chat.id,"Содержимое файла: "+data)
-  });
-  if (writeWhoAskFlag) writeWhoAsk(msg);
-});
-
-bot.onText(/\/note/, (msg) => {
-  const note = './note.txt';
-  bot.sendDocument(msg.chat.id, note);
-  if (writeWhoAskFlag) writeWhoAsk(msg);
-});
-
+// таймер на дату
 let timer = null
-bot.onText(/\/timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
+bot.onText(/\/set_date_timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
+  // если переназначаем таймер, прошлый нужно остановить
   stopTimer(timer)
   let gmt = match[1]
   let minutes = match[2]
-
+  // нельзя ставить интервал таймера меньше чем на минуту
   if (minutes < 1) {
     bot.sendMessage(groupChat, 'Нельзя ставить время меньше 1 минуты, это может плохо кончиться для всех :(')
     stopTimer(timer)
     return
   }
-
+  // смещение на часовой пояс
   let offset = 1000 * 3600 * gmt
+  // интервал таймера
   let interval = 1000*60*minutes
+  // инициализация таймера
   timer = setInterval(function() {
+    // вычисление значения текущего времени в указанном часовом поясе
     let time = +new Date() + offset;
+    // и отправка результата в группу
     bot.sendMessage(groupChat, new Date(time));
   }, interval);
-
+  // оповещение о том что всё прошло без ошибок
   bot.sendMessage(groupChat, 'Буду присылать время по часовому поясу gmt'+gmt+' каждые '+minutes+' минут')
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-bot.onText(/\/stoptimer/, (msg) => {
+bot.onText(/\/stop_date_timer/, (msg) => {
   stopTimer(timer)
   bot.sendMessage(groupChat, 'Таймер остановлен')
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-bot.onText(/\/give_ero/, (msg) => {
-  let array = null;
-  let item = null;
-  let string = null;
-
-  // открываем файл-буфер со ссылками
-  fs.readFile("./list/images.txt", "utf8", function(error,data){
-    if(error) throw error; // если возникла ошибка
-    // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
-    array = data.split(' ');
-    item = array.shift();
-    // если ссылки кончились говорим что всё хана заправляйте новыми
-    if (item == '') item = 'Картинки кончились :('
-    bot.sendMessage(msg.chat.id, item)
-    // массив без элемента который мы достали pop()-ом преобразуем в строку
-    string = array.join(' ')
-    // и грузим обратно в файл-буффер
-    fs.writeFile("./list/images.txt", string, function(error){
-      if(error) throw error; // если возникла ошибка)
-    });
-  });
-
-  if (writeWhoAskFlag) writeWhoAsk(msg);
-});
-
-bot.onText(/\/add_ero (https?:\/\/\S+)/, (msg, match) => {
-  let link = match[1];
-  fs.appendFile("./list/images.txt", ' '+link, function(error){
-    if(error) throw error; // если возникла ошибка)
-    bot.sendMessage(msg.chat.id, 'Картинка добавлена в очередь!')
-  });
-});
-
 // картинки по расписанию
+// переменная таймера
 let eroTimer = null
-bot.onText(/\/ero_timer ([0-9]+)/, (msg, match) => {
+bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
+  // если переназначаем таймер, прошлый нужно остановить
   stopTimer(eroTimer)
   let hours = match[1]
-
+  // чтобы картинки не улетали как бешенные :)
   if (hours < 1) {
     bot.sendMessage(msg.chat.id, 'Нельзя ставить время меньше 1 часа')
     stopTimer(timer)
     return
   }
-
-  let interval = 1000*60*hours
-
+  // значение интервала для таймера
+  let interval = 1000*60*60*hours
+  // инициализация таймера
   eroTimer = setInterval(function() {
     let array = null;
     let item = null;
     let string = null;
-  
     // открываем файл-буфер со ссылками
     fs.readFile("./list/images.txt", "utf8", function(error,data){
       if(error) throw error; // если возникла ошибка
@@ -206,18 +154,24 @@ bot.onText(/\/ero_timer ([0-9]+)/, (msg, match) => {
       });
     });
   }, interval);
-
-  bot.sendMessage(msg.chat.id, 'Буду присылать картинки каждые '+hours+' часов')
-
-  if (writeWhoAskFlag) writeWhoAsk(msg);
+  // если всё прошло успешно и без ошибок, далее следует сообщение в группу
+  bot.sendMessage(groupChat, 'Буду присылать картинки каждые '+hours+' часов')
 });
 
 bot.onText(/\/stop_ero_timer/, (msg) => {
   stopTimer(eroTimer)
-  bot.sendMessage(msg.chat.id, 'Таймер остановлен')
-
-  if (writeWhoAskFlag) writeWhoAsk(msg);
+  // при остановке таймера группа об этом оповещается
+  bot.sendMessage(groupChat, 'Таймер картинок остановлен')
 });
 
+bot.onText(/\/add_ero (https?:\/\/\S+)/, (msg, match) => {
+  let link = match[1];
+  fs.appendFile("./list/images.txt", ' '+link, function(error){
+    if(error) throw error; // если возникла ошибка)
+    bot.sendMessage(msg.chat.id, 'Картинка добавлена в очередь!')
+  });
+  
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
 
 // --- конец логики бота --- //
