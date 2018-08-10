@@ -43,9 +43,16 @@ flag writeWhoAskFlag = ${writeWhoAskFlag}`);
 
 bot.onText(/\/help/, (msg) => {
   let response = 
-`Привет, ${message.from.first_name}. Имеются следующие команды:\n
-`
-  bot.sendMessage(message.chat.id, response);
+`Привет, ${msg.from.first_name}. Имеются следующие команды:\n
+/echo (text) - повторяет текст
+/id - выдает id группового чата и ваш
+/photo (url-ссылка на картинку) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу
+/sendto (id) (text) - пишете боту в лс id адресата и текст сообщения. При условии, что человек прописал у бота /start, ему придет сообщение с текстом от имени бота
+/set_date_timer (number) (number) - пишете команду, желаемый часовой пояс (числом, например +3) и желаемую периодичность оповещений в минутах
+/stop_date_timer - остановить таймер
+/add_ero (url-ссылка на картинку) - отправляйте в лс боту телочек! а он потом их по таймеру будет выкидывать в группу :)
+/how_much_ero - посмотреть сколько картинок осталось в очереди в таймере`
+  bot.sendMessage(msg.chat.id, response);
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
