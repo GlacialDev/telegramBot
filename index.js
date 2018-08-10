@@ -146,23 +146,18 @@ bot.onText(/\/images/, (msg) => {
     item = array.pop();
     bot.sendMessage(msg.chat.id, item)
     console.log('чтение файла прошло')
-    let i = 0;
     for (let items of array) {
-      console.log(i)
+      let i = 0;
       if (i = 0) {
         i++;
         fs.writeFile("./list/images.txt", items,function(error){
           if(error) throw error; // если возникла ошибка)
-          console.log('добавление img в файл прошло')
+          console.log('добавление img в файл прошло '+i)
         });
       } else {
-        fs.appendFile("./list/images.txt", ' ',function(error){
+        fs.appendFile("./list/images.txt", ' '+items,function(error){
           if(error) throw error; // если возникла ошибка)
-          console.log('добавление пробела в файл прошло')
-          fs.appendFile("./list/images.txt", items,function(error){
-            if(error) throw error; // если возникла ошибка)
-            console.log('добавление img в файл прошло')
-          });
+          console.log('добавление пробела+img в файл прошло '+i)
         });
       }
     }
