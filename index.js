@@ -13,8 +13,9 @@ let writeWhoAskFlag = true;
 bot.onText(/\/flag_whoask ([0-1])/, (message, match) => {
   let flag = match[1]
   console.log(flag);
-  if(flag === 1) writeWhoAskFlag = true
-  else if(flag === 0) writeWhoAskFlag = false
+  console.log(typeof(flag))
+  if(flag == 1) writeWhoAskFlag = true
+  else if(flag == 0) writeWhoAskFlag = false
   bot.sendMessage(message.chat.id, `Флаг writeWhoAskFlag = ${writeWhoAskFlag}`);
 });
 
