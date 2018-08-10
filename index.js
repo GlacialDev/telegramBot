@@ -11,7 +11,7 @@ const creator = 353140575
 let writeWhoAskFlag = true;
 // функция для переключения флага через бота
 bot.onText(/\/set-who-ask-flag false|\/set-who-ask-flag true/, (message, match) => {
-  let writeWhoAskFlag = match[1];
+  if(match[1]) writeWhoAskFlag = true; else writeWhoAskFlag = false
   bot.sendMessage(message.chat.id, `Флаг writeWhoAskFlag = ${writeWhoAskFlag}`);
 });
 
