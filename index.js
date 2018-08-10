@@ -36,7 +36,7 @@ let helpF = require('./functions/help.js')
 // }
 
 bot.onText(/\/help/, (msg) => {
-  help(msg)
+  helpF.help(msg)
   writeWhoAsk(msg);
 });
 
