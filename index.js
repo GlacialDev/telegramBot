@@ -189,6 +189,7 @@ bot.onText(/\/how_much_ero/, (msg) => {
     number = array.length;
     bot.sendMessage(msg.chat.id, `У меня в запасе осталось ${number} картинок`)
   });
+  
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
