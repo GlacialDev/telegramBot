@@ -147,7 +147,7 @@ bot.onText(/\/give_ero/, (msg) => {
     if(error) throw error; // если возникла ошибка
     // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
     array = data.split(' ');
-    item = array.pop();
+    item = array.shift();
     // если ссылки кончились говорим что всё хана заправляйте новыми
     if (item == '') item = 'Картинки кончились :('
     bot.sendMessage(msg.chat.id, item)
@@ -194,7 +194,7 @@ bot.onText(/\/ero_timer ([0-9]+)/, (msg, match) => {
       if(error) throw error; // если возникла ошибка
       // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
       array = data.split(' ');
-      item = array.pop();
+      item = array.shift();
       // если ссылки кончились говорим что всё хана заправляйте новыми
       if (item == '') item = 'Картинки кончились :('
       bot.sendMessage(msg.chat.id, item)
