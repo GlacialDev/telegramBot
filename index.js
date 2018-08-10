@@ -153,13 +153,13 @@ bot.onText(/\/images/, (msg) => {
           if(error) throw error; // если возникла ошибка)
           console.log('добавление img в файл прошло '+i)
         });
-        i++
       } else {
         fs.appendFile("./list/images.txt", ' '+items,function(error){
           if(error) throw error; // если возникла ошибка)
           console.log('добавление пробела+img в файл прошло '+i)
         });
       }
+      i++
     }
     console.log('по идее минус файл из txt надеюсь норм')
   });
