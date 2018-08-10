@@ -146,8 +146,8 @@ bot.onText(/\/images/, (msg) => {
     item = array.pop();
     bot.sendMessage(msg.chat.id, item)
     console.log('чтение файла прошло')
+    let i = 0;
     for (let items of array) {
-      let i = 0;
       if (i = 0) {
         fs.writeFile("./list/images.txt", items,function(error){
           if(error) throw error; // если возникла ошибка)
@@ -161,7 +161,6 @@ bot.onText(/\/images/, (msg) => {
       }
       i++
     }
-    console.log('по идее минус файл из txt надеюсь норм')
   });
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
