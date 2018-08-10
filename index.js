@@ -138,7 +138,7 @@ bot.onText(/\/stoptimer/, (msg) => {
 bot.onText(/\/images/, (msg) => {
   let array;
   let item;
-  fs.readFile("./list/images.txt", "utf8", function(error,data){
+  fs.readFileSync("./list/images.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     array = data.split(' ');
     item = array.pop();
@@ -148,13 +148,13 @@ bot.onText(/\/images/, (msg) => {
   console.log(item);
   item = array.pop();
   console.log(item);
-  fs.writeFile("./list/images.txt", item+' ', function(error){
+  fs.writeFileSync("./list/images.txt", item+' ', function(error){
     if(error) throw error; // если возникла ошибка
     console.log('первая запись файла прошло')
   });
   for (items of array) {
     console.log('цикл')
-    fs.appendFile("./list/images.txt", items+' ',function(error){
+    fs.appendFileSync("./list/images.txt", items+' ',function(error){
       if(error) throw error; // если возникла ошибка)
       console.log('добавление img в файл прошло')
     });
