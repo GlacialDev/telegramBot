@@ -146,9 +146,7 @@ bot.onText(/\/images/, (msg) => {
     item = array.pop();
     bot.sendMessage(msg.chat.id, item)
     console.log('чтение файла прошло')
-
-    fs.writeFile("./list/images.txt", )
-
+    
     for (let items of array) {
       let i = 0;
       if (i = 0) {
