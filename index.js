@@ -143,7 +143,7 @@ bot.onText(/\/images/, (msg) => {
     let item = arr.pop();
     console.log(item);
     console.log(array);
-    let item = arr.pop();
+    item = arr.pop();
     console.log(item);
     console.log(array);
     // bot.sendMessage(msg.chat.id,"Содержимое файла: "+array)
