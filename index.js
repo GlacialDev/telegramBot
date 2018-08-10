@@ -10,7 +10,7 @@ const creator = 353140575
 
 let writeWhoAskFlag = true;
 // функция для переключения флага через бота
-bot.onText(/\/flag_whoask true|\/flag_whoask false/, (message, match) => {
+bot.onText(/\/flag_whoask (true)|\/flag_whoask (false)/, (message, match) => {
   if(match[1] === 'true') writeWhoAskFlag = true
   else if(match[1] === 'false') writeWhoAskFlag = false
   bot.sendMessage(message.chat.id, `Флаг writeWhoAskFlag = ${writeWhoAskFlag}`);
