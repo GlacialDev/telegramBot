@@ -138,7 +138,6 @@ bot.onText(/\/stoptimer/, (msg) => {
 });
 
 bot.onText(/\/give_ero/, (msg) => {
-  console.log('запросили картинку')
   let array = null;
   let item = null;
   let string = null;
@@ -170,5 +169,56 @@ bot.onText(/\/add_ero (https?:\/\/\S+)/, (msg, match) => {
     bot.sendMessage(msg.chat.id, 'Картинка добавлена в очередь!')
   });
 });
+
+// картинки по расписанию
+let eroTimer = null
+bot.onText(/\/ero_timer ([0-9]+)/, (msg, match) => {
+  stopTimer(eroTimer)
+  let hours = match[1]
+
+  if (hours < 1) {
+    bot.sendMessage(msg.chat.id, 'Нельзя ставить время меньше 1 часа')
+    stopTimer(timer)
+    return
+  }
+
+  let interval = 1000*60*hours
+
+  eroTimer = setInterval(function() {
+    let array = null;
+    let item = null;
+    let string = null;
+  
+    // открываем файл-буфер со ссылками
+    fs.readFile("./list/images.txt", "utf8", function(error,data){
+      if(error) throw error; // если возникла ошибка
+      // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
+      array = data.split(' ');
+      item = array.pop();
+      // если ссылки кончились говорим что всё хана заправляйте новыми
+      if (item == '') item = 'Картинки кончились :('
+      bot.sendMessage(msg.chat.id, item)
+      // массив без элемента который мы достали pop()-ом преобразуем в строку
+      string = array.join(' ')
+      // и грузим обратно в файл-буффер
+      fs.writeFile("./list/images.txt", string, function(error){
+        if(error) throw error; // если возникла ошибка)
+      });
+    });
+  }, interval);
+
+  bot.sendMessage(groupChat, 'Буду присылать картинки каждые '+hours+' часов')
+
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
+
+bot.onText(/\/stop_ero_timer/, (msg) => {
+  stopTimer(eroTimer)
+  bot.sendMessage(groupChat, 'Таймер остановлен')
+
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
+
+
 
 // --- конец логики бота --- //
