@@ -138,6 +138,7 @@ bot.onText(/\/stoptimer/, (msg) => {
 });
 
 bot.onText(/\/ero/, (msg) => {
+  console.log('запросили картинку')
   let array = null;
   let item = null;
   let string = null;
