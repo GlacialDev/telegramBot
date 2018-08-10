@@ -50,7 +50,8 @@ bot.onText(/\/help/, (msg) => {
 /sendto (id) (text) - пишете боту в лс id адресата и текст сообщения. При условии, что человек прописал у бота /start, ему придет сообщение с текстом от имени бота
 /set_date_timer (number) (number) - пишете команду, желаемый часовой пояс (числом, например +3) и желаемую периодичность оповещений в минутах
 /stop_date_timer - остановить таймер
-/add_ero (url-ссылка на картинку) - отправляйте в лс боту телочек! а он потом их по таймеру будет выкидывать в группу :)`
+/add_ero (url-ссылка на картинку) - отправляйте в лс боту телочек! а он потом их по таймеру будет выкидывать в группу :)
+/how_much_ero - посмотреть сколько картинок осталось в очереди в таймере`
   bot.sendMessage(message.chat.id, response);
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
@@ -189,7 +190,7 @@ bot.onText(/\/how_much_ero/, (msg) => {
     number = array.length;
     bot.sendMessage(msg.chat.id, `У меня в запасе осталось ${number} картинок`)
   });
-  
+
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
