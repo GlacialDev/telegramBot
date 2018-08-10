@@ -9,7 +9,7 @@ const creator = 353140575
 // --- начало объявления флагов --- //
 
 let writeWhoAskFlag = true;
-// функция для переключения флага через бота
+// команда для переключения флага через бота
 bot.onText(/\/flag_whoask ([0-1])/, (message, match) => {
   if(match[1] == 1) writeWhoAskFlag = true
   else if(match[1] == 0) writeWhoAskFlag = false
@@ -134,5 +134,22 @@ bot.onText(/\/stoptimer/, (msg) => {
   bot.sendMessage(groupChat, 'Таймер остановлен')
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
+
+bot.onText(/\/images/, (msg) => {
+  fs.readFile("./list/images.txt", "utf8", function(error,data){
+    if(error) throw error; // если возникла ошибка
+    bot.sendMessage(msg.chat.id,"Содержимое файла: "+data)
+  });
+
+
+
+
+
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
+
+
+
+
 
 // --- конец логики бота --- //
