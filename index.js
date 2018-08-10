@@ -141,14 +141,11 @@ bot.onText(/\/ero/, (msg) => {
   let string = null;
 
   fs.readFile("./list/images.txt", "utf8", function(error,data){
-    if(error) {
-      throw error; // если возникла ошибка
-      this.bot.sendMessage(msg.chat.id, 'Картинки кончились :(')
-      return;
-    }
+    if(error) throw error; // если возникла ошибка
 
     array = data.split(' ');
     item = array.pop();
+    if (item == '') item = 'Картинки кончились :('
     bot.sendMessage(msg.chat.id, item)
   
     console.log('чтение файла прошло')
