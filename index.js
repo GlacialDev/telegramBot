@@ -83,6 +83,7 @@ bot.onText(/\/note/, (msg) => {
 
 let timer = null
 bot.onText(/\/timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
+  stopTimer()
   let gmt = match[1]
   let minutes = match[2]
   if (minutes < 1) {
