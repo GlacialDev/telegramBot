@@ -152,18 +152,19 @@ bot.onText(/\/images/, (msg) => {
       for (let items of array) {
         console.log('цикл')
   
-        fs.appendFile("./list/images.txt", items+' ',function(error){
-          if(error) throw error; // если возникла ошибка)
-          console.log('добавление img в файл прошло')
+      fs.appendFile("./list/images.txt", items+' ',function(error){
+        if(error) throw error; // если возникла ошибка)
+        console.log('добавление img в файл прошло')
+
+        fs.readFile("./list/images.txt", "utf8", function(error,data){
+          if(error) throw error; // если возникла ошибка
+          let array = data.split(' ');
+          console.log(array);
+          console.log('финальное чтение файла прошло');
         });
+      });
   
       }
-      fs.readFile("./list/images.txt", "utf8", function(error,data){
-        if(error) throw error; // если возникла ошибка
-        let array = data.split(' ');
-        console.log(array);
-        console.log('финальное чтение файла прошло');
-      });
     // });
   });
 
