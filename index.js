@@ -141,34 +141,28 @@ bot.onText(/\/images/, (msg) => {
   let insideTxt;
   fs.readFile("./list/images.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
-    insideTxt = data;
-   console.log('чтение файла прошло')
-  });
-  console.log(insideTxt);
-  array = data.split(' ');
-  item = array.pop();
-  bot.sendMessage(msg.chat.id, item)
-  console.log(item);
-  item = array.pop();
-  console.log(item);
-
-  fs.writeFile("./list/images.txt", item+' ', function(error){
-    if(error) throw error; // если возникла ошибка
-    console.log('первая запись файла прошло')
-  });
-  for (items of array) {
-    console.log('цикл')
-    fs.appendFile("./list/images.txt", items+' ',function(error){
-      if(error) throw error; // если возникла ошибка)
-      console.log('добавление img в файл прошло')
+    array = data.split(' ');
+    item = array.pop();
+    bot.sendMessage(msg.chat.id, item)
+    console.log('чтение файла прошло')
+    fs.writeFile("./list/images.txt", '', function(error){
+      if(error) throw error; // если возникла ошибка
+      console.log('первая запись файла прошло')
+      for (items of array) {
+        console.log('цикл')
+        fs.appendFile("./list/images.txt", items+' ',function(error){
+          if(error) throw error; // если возникла ошибка)
+          console.log('добавление img в файл прошло')
+        });
+      }
+      fs.readFile("./list/images.txt", "utf8", function(error,data){
+        if(error) throw error; // если возникла ошибка
+        let array = data.split(' ');
+        console.log(array);
+        console.log('финальное чтение файла прошло');
+      });
     });
-  }
-  // fs.readFile("./list/images.txt", "utf8", function(error,data){
-  //   if(error) throw error; // если возникла ошибка
-  //   let array = data.split(' ');
-  //   console.log(array);
-  // });
-
+  });
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
