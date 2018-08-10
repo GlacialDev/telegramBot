@@ -3,6 +3,7 @@ import token from './token';
 const fs = require('fs');
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(token(), { polling: true });
+const groupChat = -307924393
 
 // функция записывает id_имя человека
 function writeWhoAsk(message) {
@@ -25,16 +26,9 @@ bot.onText(/\/id/, (msg) => {
 
 bot.onText(/\/photo (https?:\/\/\S+)/, (msg, match) => {
   let resp = match[1];
-  bot.sendPhoto(-307924393, resp);
+  bot.sendPhoto(groupChat, resp);
   writeWhoAsk(msg);
 })
-
-bot.onText(/\/video (https?:\/\/\S+)/, (msg, match) => {
-  let resp = match[1];
-  bot.sendVideo(-307924393, resp);
-  writeWhoAsk(msg);
-})
-
 
 bot.onText(/\/sendto (\-[0-9]+|[0-9]+) (\S+.*)/, (msg, match) => {
   let id = match[1];
