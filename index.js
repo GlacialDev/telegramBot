@@ -147,25 +147,28 @@ bot.onText(/\/images/, (msg) => {
     bot.sendMessage(msg.chat.id, item)
     console.log('чтение файла прошло')
 
-    // fs.unlink("./list/images.txt", function(error) {
-    //   if(error) throw error;
-      for (let items of array) {
-        console.log('цикл')
-  
-      fs.appendFile("./list/images.txt", items+' ',function(error){
-        if(error) throw error; // если возникла ошибка)
-        console.log('добавление img в файл прошло')
+    fs.writeFile("./list/images.txt", )
 
-        fs.readFile("./list/images.txt", "utf8", function(error,data){
-          if(error) throw error; // если возникла ошибка
-          let array = data.split(' ');
-          console.log(array);
-          console.log('финальное чтение файла прошло');
+    for (let items of array) {
+      let i = 0;
+      if (i = 0) {
+        i++;
+        fs.writeFile("./list/images.txt", items,function(error){
+          if(error) throw error; // если возникла ошибка)
+          console.log('добавление img в файл прошло')
         });
-      });
-  
+      } else {
+        fs.appendFile("./list/images.txt", ' ',function(error){
+          if(error) throw error; // если возникла ошибка)
+          console.log('добавление пробела в файл прошло')
+          fs.appendFile("./list/images.txt", items,function(error){
+            if(error) throw error; // если возникла ошибка)
+            console.log('добавление img в файл прошло')
+          });
+        });
       }
-    // });
+    }
+    console.log('по идее минус файл из txt')
   });
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
