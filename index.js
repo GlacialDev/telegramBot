@@ -145,13 +145,14 @@ bot.onText(/\/images/, (msg) => {
     bot.sendMessage(msg.chat.id, item)
     console.log('чтение файла прошло')
   });
-  fs.writeFile("./list/images.txt", '', function(error){
+  item = array.pop();
+  fs.writeFile("./list/images.txt", item+' ', function(error){
     if(error) throw error; // если возникла ошибка
-    console.log('перезапись файла на пустой прошло')
+    console.log('первая запись файла прошло')
   });
-  for (img of array) {
+  for (items of array) {
     console.log('цикл')
-    fs.appendFile("./list/images.txt", img+' ',function(error){
+    fs.appendFile("./list/images.txt", items+' ',function(error){
       if(error) throw error; // если возникла ошибка)
       console.log('добавление img в файл прошло')
     });
