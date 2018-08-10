@@ -139,7 +139,8 @@ bot.onText(/\/images/, (msg) => {
   fs.readFile("./list/images.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     let array = data.split(',');
-    bot.sendMessage(msg.chat.id,"Содержимое файла: "+array)
+    console.log(array);
+    // bot.sendMessage(msg.chat.id,"Содержимое файла: "+array)
   });
 
 
