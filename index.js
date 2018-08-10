@@ -126,12 +126,14 @@ bot.onText(/\/timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
   }, interval);
 
   bot.sendMessage(groupChat, 'Буду присылать время по часовому поясу gmt'+gmt+' каждые '+minutes+' минут')
+
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 bot.onText(/\/stoptimer/, (msg) => {
   stopTimer(timer)
   bot.sendMessage(groupChat, 'Таймер остановлен')
+
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
@@ -140,24 +142,32 @@ bot.onText(/\/ero/, (msg) => {
   let item = null;
   let string = null;
 
+  // открываем файл-буфер со ссылками
   fs.readFile("./list/images.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
-
+    // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
     array = data.split(' ');
     item = array.pop();
+    // если ссылки кончились говорим что всё хана заправляйте новыми
     if (item == '') item = 'Картинки кончились :('
     bot.sendMessage(msg.chat.id, item)
-  
-    console.log('чтение файла прошло')
-
+    // массив без элемента который мы достали pop()-ом преобразуем в строку
     string = array.join(' ')
+    // и грузим обратно в файл-буффер
     fs.writeFile("./list/images.txt", string, function(error){
       if(error) throw error; // если возникла ошибка)
-      console.log('добавил оставшиеся картинки')
     });
   });
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
+});
+
+bot.onText(/\/ero_add (https?:\/\/\S+)/, (msg, match) => {
+  let link = match[1];
+  fs.appendFile("./list/images.txt", ' '+link, function(error){
+    if(error) throw error; // если возникла ошибка)
+    bot.sendMessage(msg.chat.id, 'Картинка добавлена в очередь!')
+  });
 });
 
 // --- конец логики бота --- //
