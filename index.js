@@ -36,8 +36,11 @@ function stopTimer() {
 
 bot.onText(/\/help/, (msg) => {
   bot.sendMessage(msg.chat.id, 'meow');
-  console.log(msg);
+  let mes = msg;
+  console.log(mes);
+  console.log('до хелпа');
   help(mes)
+  console.log('после хелпа');
   writeWhoAsk(msg);
   bot.sendMessage(msg.chat.id, 'meow');
 });

@@ -1,4 +1,5 @@
 function help(message) {
+    console.log('внутри helpa')
     let response = 
     `Привет, ${message.from.first_name}. Имеются следующие команды:\n
     /echo (text) - повторяет текст
