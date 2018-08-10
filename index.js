@@ -147,8 +147,8 @@ bot.onText(/\/images/, (msg) => {
     bot.sendMessage(msg.chat.id, item)
     console.log('чтение файла прошло')
 
-    fs.unlink("./list/images.txt", function(error) {
-      if(error) throw error;
+    // fs.unlink("./list/images.txt", function(error) {
+    //   if(error) throw error;
       for (let items of array) {
         console.log('цикл')
   
@@ -164,7 +164,7 @@ bot.onText(/\/images/, (msg) => {
         console.log(array);
         console.log('финальное чтение файла прошло');
       });
-    });
+    // });
   });
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
