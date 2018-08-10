@@ -1,4 +1,4 @@
-function help(message) {
+help = function help(message) {
     let response = 
     `Привет, ${message.from.first_name}. Имеются следующие команды:\n
     /echo (text) - повторяет текст
@@ -13,4 +13,4 @@ function help(message) {
     bot.sendMessage(message.chat.id, response);
 }
 
-export default help;
+export default helpF;
