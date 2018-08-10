@@ -78,6 +78,5 @@ bot.onText(/\/note/, (msg) => {
 
 var timerId = setInterval(function() {
   let time = +new Date();
-  time.setDate(time + 1000 * 60 * 60 * 3)
   bot.sendMessage(groupChat, time);
 }, 2000);
