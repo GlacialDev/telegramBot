@@ -98,7 +98,7 @@ bot.onText(/\/timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
 bot.onText(/\/stoptimer/, (msg) => {
   gmt = null;
   interval = null;
-  timer = null;
+  clearInterval(timer)
 
   bot.sendMessage(groupChat, 'Таймер остановлен')
   writeWhoAsk(msg);
