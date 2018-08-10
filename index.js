@@ -207,18 +207,17 @@ bot.onText(/\/ero_timer ([0-9]+)/, (msg, match) => {
     });
   }, interval);
 
-  bot.sendMessage(groupChat, 'Буду присылать картинки каждые '+hours+' часов')
+  bot.sendMessage(msg.chat.id, 'Буду присылать картинки каждые '+hours+' часов')
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 bot.onText(/\/stop_ero_timer/, (msg) => {
   stopTimer(eroTimer)
-  bot.sendMessage(groupChat, 'Таймер остановлен')
+  bot.sendMessage(msg.chat.id, 'Таймер остановлен')
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
-
 
 
 // --- конец логики бота --- //
