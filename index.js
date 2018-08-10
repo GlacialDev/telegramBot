@@ -77,6 +77,8 @@ bot.onText(/\/note/, (msg) => {
 });
 
 var timerId = setInterval(function() {
-  let time = +new Date();
-  bot.sendMessage(groupChat, time);
+  let gmt = 3
+  let offset = 1000 * 3600 * gmt
+  let time = +new Date() + offset;
+  bot.sendMessage(groupChat, new Date(time));
 }, 2000);
