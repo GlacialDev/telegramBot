@@ -53,7 +53,7 @@ function find(requestMes) {
   // encounter unexpected authorization errors, double-check this host against
   // the endpoint for your Bing Search instance in your Azure dashboard.
   let host = 'api.cognitive.microsoft.com';
-  let path = '/bing/v7.0/images/visualsearch';
+  let path = '/bing/v7.0/images';
   
   let term = requestMes;
   
