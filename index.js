@@ -314,8 +314,8 @@ bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
 
 bot.onText(/\/find (.+)/), (msg, match) => {
   let text = match[1];
-  bot.sendMessage(msg.chat.id, 'ищу '+text)
-  find(req);
+  bot.sendMessage(msg.chat.id, text);
+  // find(text);
 }
 
 // --- конец логики бота --- //
