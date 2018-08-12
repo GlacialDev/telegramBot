@@ -236,7 +236,11 @@ bot.onText(/\/random$/, (msg) => {
 });
 
 bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
-  bot.sendMessage(msg.chat.id, 'начал запись')
+  bot.sendMessage(msg.chat.id, 'Записываю')
+  // обнуление файла
+  fs.writeFileSync("./list/random.txt", ' ', function(error){
+    if(error) throw error; // если возникла ошибка
+  });
 
   let times = match[1]
   for(let i = 0; i < times; i++) {
