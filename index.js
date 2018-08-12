@@ -295,7 +295,6 @@ bot.onText(/\/random$/, (msg) => {
 });
 
 bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
-  bot.sendMessage(msg.chat.id, 'Записываю')
   // обнуление файла
   fs.writeFileSync("./list/random.txt", '', function(error){
     if(error) throw error; // если возникла ошибка
@@ -318,7 +317,6 @@ bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
 });
 
 bot.onText(/\/roll_file ([0-9]+)/, (msg, match) => {
-  bot.sendMessage(msg.chat.id, 'Записываю')
   // обнуление файла
   fs.writeFileSync("./list/roll.txt", '', function(error){
     if(error) throw error; // если возникла ошибка
@@ -350,12 +348,11 @@ bot.onText(/\/search (.+)/, (msg, match) => {
 });
 
 bot.onText(/\/ali/, (msg) => {
-  let array = null; 
   fs.readFile("./list/request.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
-    array = JSON.stringify(data).value;
+    let jsontext = JSON.stringify(data).value;
     console.log(data);  
-    console.log(array);
+    console.log(jsontext);
   });
 });
 // --- конец логики бота --- //
