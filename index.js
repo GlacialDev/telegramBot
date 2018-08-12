@@ -288,9 +288,9 @@ bot.onText(/\/search (.+)/, (msg, match) => {
   bot.sendMessage(msg.chat.id, 'Ищу '+text);
   fs.readFile("./list/request.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
-    // let body = JSON.stringify(data);
+    let body = JSON.stringify(data);
     // console.log(body)
-    let value = JSON.parse(data);
+    let value = JSON.parse(body);
     console.log(value)
   });
 });
