@@ -195,12 +195,14 @@ bot.onText(/\/how_much_ero/, (msg) => {
 });
 
 
-bot.onText(/\/roll/, (msg) => {
+bot.onText(/\/roll^(.+)/, (msg) => {
   let min = 0
   let max = 100
   let roll = Math.random() * (max - min) + min
   let roundRoll =  Math.round(roll)
   bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
+
+  if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 bot.onText(/\/roll_interval ([0-9]+) ([0-9]+)/, (msg, match) => {
@@ -209,6 +211,8 @@ bot.onText(/\/roll_interval ([0-9]+) ([0-9]+)/, (msg, match) => {
   let roll = Math.random() * (max - min) + min
   let roundRoll =  Math.round(roll)
   bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
+  
+  if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 // --- конец логики бота --- //
