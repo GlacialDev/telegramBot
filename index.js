@@ -77,7 +77,7 @@ function find(requestMes) {
       response.on('error', function (e) {
           console.log('Error: ' + e.message);
       });
-      fs.writeFile("./list/request.txt", body, function(error){
+      fs.writeFileSync("./list/request.txt", body, function(error){
         if(error) throw error; // если возникла ошибка)
       });
   };
