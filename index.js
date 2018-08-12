@@ -312,10 +312,10 @@ bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-bot.onText(/\/find (.+)/), (msg, match) => {
+bot.onText(/\/find (.+)/, (msg, match) => {
   let text = match[1];
   bot.sendMessage(msg.chat.id, text);
-  // find(text);
-}
+  find(text);
+});
 
 // --- конец логики бота --- //
