@@ -195,7 +195,7 @@ bot.onText(/\/how_much_ero/, (msg) => {
 });
 
 
-bot.onText(/\/roll^(.+)/, (msg) => {
+bot.onText(/(\/roll)/, (msg, match) => {
   let min = 0
   let max = 100
   let roll = Math.random() * (max - min) + min
