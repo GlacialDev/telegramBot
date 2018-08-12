@@ -72,14 +72,14 @@ function search(requestMes) {
                   console.log(header + ": " + response.headers[header]);
           body = JSON.stringify(JSON.parse(body), null, '  ');
           console.log('\nJSON Response:\n');
-          fs.writeFileSync("./list/request.txt", body, function(error){
-            if(error) throw error; // если возникла ошибка)
-          });
           console.log(body);
+
       });
       response.on('error', function (e) {
           console.log('Error: ' + e.message);
       });
+
+      return body;
   };
 
   let bing_image_search = function (search) {
@@ -352,7 +352,7 @@ bot.onText(/\/ali/, (msg) => {
     if(error) throw error; // если возникла ошибка
     // let jsontext = JSON.stringify(data);
     // console.log(data);  
-    console.log(data.value);
+    console.log(search('meow').value);
     // contentUrl
     // var arr = ["Яблоко", "Апельсин", "Груша"];
 
