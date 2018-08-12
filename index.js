@@ -71,8 +71,8 @@ function search(requestMes) {
               if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
                   console.log(header + ": " + response.headers[header]);
           body = JSON.stringify(JSON.parse(body), null, '  ');
-          console.log('\nJSON Response:\n');
-          console.log(body);
+          // console.log('\nJSON Response:\n');
+          // console.log(body);
 
       });
       response.on('error', function (e) {
