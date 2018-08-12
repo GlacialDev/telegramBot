@@ -300,7 +300,7 @@ bot.onText(/\/search (.+)/, (msg, match) => {
 bot.onText(/\/ali/, (msg, match) => {
   fs.readFile("./list/request.json", "utf8", function(error,data){
     let value = JSON.parse(JSON.stringify(data));
-    console.log(value)
+    console.log(value.value)
   });
 });
 
