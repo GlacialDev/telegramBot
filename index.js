@@ -344,21 +344,8 @@ bot.onText(/\/roll_file ([0-9]+)/, (msg, match) => {
 bot.onText(/\/search (.+)/, (msg, match) => {
   let text = match[1];
   bot.sendMessage(msg.chat.id, 'Ищу '+text);
-  search(text);
+  let data = search(text);
+  console.log(data.value);
 });
 
-bot.onText(/\/ali/, (msg) => {
-  fs.readFile("./list/request.txt", "utf8", function(error,data){
-    if(error) throw error; // если возникла ошибка
-    // let jsontext = JSON.stringify(data);
-    // console.log(data);  
-    console.log(search('meow').value);
-    // contentUrl
-    // var arr = ["Яблоко", "Апельсин", "Груша"];
-
-    // arr.forEach(function(item, i, arr) {
-    //   alert( i + ": " + item + " (массив:" + arr + ")" );
-    // });
-  });
-});
 // --- конец логики бота --- //
