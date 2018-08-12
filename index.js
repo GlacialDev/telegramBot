@@ -6,7 +6,7 @@ const bot = new TelegramBot(token(), { polling: true });
 const groupChat = -307924393
 const creator = 353140575
 
-// --- начало объявления флагов --- //
+// --- начало объявления флагов и настроек --- //
 
 let writeWhoAskFlag = true;
 // команда для переключения флага через бота
@@ -16,7 +16,7 @@ bot.onText(/\/flag_whoask ([0-1])/, (message, match) => {
   bot.sendMessage(message.chat.id, `Флаг writeWhoAskFlag = ${writeWhoAskFlag}`);
 });
 
-// --- конец объявления флагов --- //
+// --- конец объявления флагов и настроек --- //
 // --- начало объявления функций --- //
 
 // функция записывает id_имя человека в название и содержимое .txt файла на сервере
@@ -50,7 +50,7 @@ bot.onText(/\/help/, (msg) => {
 /sendto (id) (текст) - пишете боту в лс id адресата и текст сообщения. При условии, что человек прописал у бота /start, ему придет сообщение с текстом от имени бота
 /set_date_timer (число) (число) - пишете команду, желаемый часовой пояс (числом, например +3) и желаемую периодичность оповещений в минутах
 /stop_date_timer - остановить таймер
-/add_ero (url-ссылка на картинку) - отправляйте в лс боту телочек! а он потом их по таймеру будет выкидывать в группу :)
+/add_ero (url-ссылка на картинку) - отправляйте в лс боту девушек! а он потом их по таймеру будет выкидывать в группу :)
 /how_much_ero - посмотреть сколько картинок осталось в очереди в таймере
 /roll - выбросить число от 0 до 100
 /roll - (число1) (число2) - выбросить число в интервале от числа 1 до числа 2`
@@ -59,8 +59,8 @@ bot.onText(/\/help/, (msg) => {
 });
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
-  let resp = match[1];
-  bot.sendMessage(msg.chat.id, resp);
+  let text = match[1];
+  bot.sendMessage(msg.chat.id, text);
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
@@ -71,8 +71,8 @@ bot.onText(/\/id/, (msg) => {
 })
 
 bot.onText(/\/photo (https?:\/\/\S+)/, (msg, match) => {
-  let resp = match[1];
-  bot.sendPhoto(groupChat, resp);
+  let link = match[1];
+  bot.sendPhoto(groupChat, link);
   if (writeWhoAskFlag) writeWhoAsk(msg);
 })
 
@@ -97,7 +97,7 @@ bot.onText(/\/set_date_timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, mat
     return
   }
   // смещение на часовой пояс
-  let offset = 1000 * 3600 * gmt
+  let offset = 1000*60*60*gmt
   // интервал таймера
   let interval = 1000*60*minutes
   // инициализация таймера
@@ -196,8 +196,7 @@ bot.onText(/\/how_much_ero/, (msg) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-
-bot.onText(/(\/roll$)/, (msg, match) => {
+bot.onText(/(\/roll$)/, (msg) => {
   let min = 0
   let max = 100
   let roll = Math.random() * (max - min) + min
@@ -217,10 +216,22 @@ bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-bot.onText(/бот/, (msg, match) => {
-  bot.sendMessage(msg.chat.id, 'раз два три')
+bot.onText(/\/random/, (msg, match) => {
+  let crypto = require('crypto')
+  let format = require('biguint-format')
+
+  function randomC (qty) {
+    let x= crypto.randomBytes(qty);
+    return format(x, 'dec');
+  }
+  function random (low, high) {
+    return randomC(4)/Math.pow(2,4*8-1) * (high - low) + low;
+  }
+  console.log(random(0,100));
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
+
+
 
 // --- конец логики бота --- //
