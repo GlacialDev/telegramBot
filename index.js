@@ -317,6 +317,7 @@ function search(requestMes) {
         let valueArray = jsonAnswer.value;
         valueArray.forEach(function(item, i, arr) {
           searchArray.push(item.contentUrl)
+          console.log(searchArray);
         });
         // body = JSON.stringify(JSON.parse(body), null, '  ');
         // console.log('\nJSON Response:\n');
@@ -355,7 +356,6 @@ bot.onText(/\/search (.+)/, (msg, match) => {
   let text = match[1];
   bot.sendMessage(msg.chat.id, 'Ищу '+text);
   search(text)
-  console.log(searchArray);
 });
 
 // --- конец логики бота --- //
