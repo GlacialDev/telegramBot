@@ -75,9 +75,9 @@ function find(requestMes) {
       response.on('error', function (e) {
           console.log('Error: ' + e.message);
       });
-      fs.writeFileSync("./list/request.txt", body, function(error){
-        if(error) throw error; // если возникла ошибка
-      });
+      // fs.writeFileSync("./list/request.txt", body, function(error){
+      //   if(error) throw error; // если возникла ошибка
+      // });
   };
   
   let bing_image_search = function (search) {
