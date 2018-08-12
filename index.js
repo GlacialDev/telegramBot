@@ -328,6 +328,8 @@ bot.onText(/\/ali/, (msg) => {
   fs.readFileSync("./list/request.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     array = data.value;
+    
+  console.log(array);
   });
 
   console.log(array);
