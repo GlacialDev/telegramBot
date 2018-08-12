@@ -353,12 +353,4 @@ bot.onText(/\/search (.+)/, (msg, match) => {
   search(text);
 });
 
-bot.onText(/\/ali/, (msg, match) => {
-  fs.readFile("./list/request.json", "utf8", function(error,data){
-    let value = JSON.parse(JSON.stringify(data));
-    console.log(value.value[1])
-  });
-});
-
-
 // --- конец логики бота --- //
