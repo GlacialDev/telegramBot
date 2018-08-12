@@ -78,7 +78,9 @@ function search(requestMes) {
             // header keys are lower-cased by Node.js
             if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
                 console.log(header + ": " + response.headers[header]);
-        body = JSON.stringify(JSON.parse(body), null, '  ');
+        let jsonAnswer = JSON.parse(body);
+        console.log(jsonAnswer.value)
+        // body = JSON.stringify(JSON.parse(body), null, '  ');
         // console.log('\nJSON Response:\n');
         // console.log(body);
     });

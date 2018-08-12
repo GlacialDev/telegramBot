@@ -283,18 +283,74 @@ bot.onText(/\/roll_file ([0-9]+)/, (msg, match) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
+
+
+
+
+
+
+function search(requestMes) {
+  // Replace the subscriptionKey string value with your valid subscription key.
+  let subscriptionKey = azureKey();
+
+  // Verify the endpoint URI.  At this writing, only one endpoint is used for Bing
+  // search APIs.  In the future, regional endpoints may be available.  If you
+  // encounter unexpected authorization errors, double-check this host against
+  // the endpoint for your Bing Search instance in your Azure dashboard.
+  let host = 'api.cognitive.microsoft.com';
+  let path = '/bing/v7.0/images/search';
+
+  let term = requestMes;
+
+  let response_handler = function (response) {
+    let body = '';
+    response.on('data', function (d) {
+        body += d;
+    });
+    response.on('end', function () {
+        console.log('\nRelevant Headers:\n');
+        for (var header in response.headers)
+            // header keys are lower-cased by Node.js
+            if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
+                console.log(header + ": " + response.headers[header]);
+        let jsonAnswer = JSON.parse(body);
+        console.log(jsonAnswer.value)
+        // body = JSON.stringify(JSON.parse(body), null, '  ');
+        // console.log('\nJSON Response:\n');
+        // console.log(body);
+    });
+    response.on('error', function (e) {
+        console.log('Error: ' + e.message);
+    });
+  };
+
+  let bing_image_search = function (search) {
+    console.log('Searching images for: ' + term);
+    let request_params = {
+          method : 'GET',
+          hostname : host,
+          path : path + '?q=' + encodeURIComponent(search),
+          headers : {
+              'Ocp-Apim-Subscription-Key' : subscriptionKey,
+          }
+      };
+
+      let req = https.request(request_params, response_handler);
+      req.end();
+  }
+
+  if (subscriptionKey.length === 32) {
+      bing_image_search(term);
+  } else {
+      console.log('Invalid Bing Search API subscription key!');
+      console.log('Please paste yours into the source code.');
+  }
+}
+
 bot.onText(/\/search (.+)/, (msg, match) => {
   let text = match[1];
   bot.sendMessage(msg.chat.id, 'Ищу '+text);
-  // fs.readFile("./list/request.json", "utf8", function(error,data){
-  //   if(error) throw error; // если возникла ошибка
-  //   let body = JSON.stringify(data);
-  //   // console.log(body)
-  //   console.log(value)
-  // });
-  
-  let value = JSON.parse("./list/request.json");
-  console.log(value)
+  search(text);
 });
 
 bot.onText(/\/ali/, (msg, match) => {
