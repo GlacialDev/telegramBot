@@ -217,4 +217,10 @@ bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
+bot.onText(/бот/, (msg, match) => {
+  bot.sendMessage(msg.chat.id, 'раз два три')
+
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
+
 // --- конец логики бота --- //
