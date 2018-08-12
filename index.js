@@ -297,4 +297,10 @@ bot.onText(/\/search (.+)/, (msg, match) => {
   console.log(value)
 });
 
+bot.onText(/\/ali/, (msg, match) => {
+  let value = JSON.parse("./list/request.json");
+  console.log(value)
+});
+
+
 // --- конец логики бота --- //
