@@ -246,7 +246,7 @@ bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
       if(error) throw error; // если возникла ошибка
     });
 
-    if (i == 9999) {
+    if (i == times-1) {
       let file = "./list/random.txt";
       bot.sendDocument(msg.chat.id, file);
     }
