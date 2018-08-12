@@ -317,6 +317,32 @@ bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
+bot.onText(/\/roll_file ([0-9]+)/, (msg, match) => {
+  bot.sendMessage(msg.chat.id, 'Записываю')
+  // обнуление файла
+  fs.writeFileSync("./list/roll.txt", '', function(error){
+    if(error) throw error; // если возникла ошибка
+  });
+
+  let times = match[1]
+  for(let i = 0; i < times; i++) {
+    let min = 0
+    let max = 100
+    let roll = Math.random() * (max - min) + min
+    let roundRoll =  Math.round(roll)
+    let text = roundRoll+' ';
+    
+    fs.appendFileSync("./list/roll.txt", text, function(error){
+      if(error) throw error; // если возникла ошибка
+    });
+    console.log(i);
+  }
+
+  bot.sendDocument(msg.chat.id, "./list/roll.txt");
+
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
+
 bot.onText(/\/search (.+)/, (msg, match) => {
   let text = match[1];
   bot.sendMessage(msg.chat.id, 'Ищу '+text);
