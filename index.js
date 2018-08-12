@@ -46,7 +46,7 @@ function random (low, high) {
   return randomC(4)/Math.pow(2,4*8) * (high - low) + low;
 }
 
-function find(requestMes) {
+function search(requestMes) {
   // Replace the subscriptionKey string value with your valid subscription key.
   let subscriptionKey = azureKey();
 
@@ -317,10 +317,19 @@ bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-bot.onText(/\/find (.+)/, (msg, match) => {
+bot.onText(/\/search (.+)/, (msg, match) => {
   let text = match[1];
-  bot.sendMessage(msg.chat.id, text);
-  find(text);
+  bot.sendMessage(msg.chat.id, 'Ищу '+text);
+  search(text);
 });
 
+bot.onText(/\/ali/, (msg) => {
+  let array = null; 
+  fs.readFileSync("./list/request.txt", "utf8", function(error,data){
+    if(error) throw error; // если возникла ошибка
+    array = data.value;
+  });
+
+  console.log(array);
+});
 // --- конец логики бота --- //
