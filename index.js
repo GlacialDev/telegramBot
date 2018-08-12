@@ -214,7 +214,7 @@ bot.onText(/\/roll_interval ([0-9]+) ([0-9]+)/, (msg, match) => {
   console.log('diff '+diff)
   let random = Math.random()
   console.log('random '+random)
-  let roll = random * diff
+  let roll = +(random * diff)
   console.log('roll '+roll)
   console.log('min '+min)
   let rollMin = min + roll
