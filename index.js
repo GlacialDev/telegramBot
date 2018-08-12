@@ -372,7 +372,8 @@ bot.onText(/\/give_ero/, (msg) => {
     item = array.shift();
     // если ссылки кончились говорим что всё хана заправляйте новыми
     if (item == '') item = 'Картинки кончились :('
-    bot.sendMessage(msg.chat.id, item)
+    bot.sendMessage(groupChat, item)
+    bot.sendMessage(groupChat, `У меня в запасе осталось ${number} картинок`)
     // массив без элемента который мы достали pop()-ом преобразуем в строку
     string = array.join(' ')
     // и грузим обратно в файл-буффер
