@@ -204,7 +204,6 @@ bot.onText(/\/roll/, (msg) => {
 });
 
 bot.onText(/\/roll_interval ([0-9]+) ([0-9]+)/, (msg, match) => {
-  console.log(match[1]+' '+match[2])
   let min = match[1]
   let max = match[2]
   let roll = Math.random() * (max - min) + min
