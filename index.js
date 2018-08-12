@@ -1,5 +1,8 @@
 import token from './token';
 
+const crypto = require('crypto')
+const format = require('biguint-format')
+
 const fs = require('fs');
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(token(), { polling: true });
@@ -217,9 +220,6 @@ bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
 });
 
 bot.onText(/\/random/, (msg, match) => {
-  let crypto = require('crypto')
-  let format = require('biguint-format')
-
   function randomC (qty) {
     let x= crypto.randomBytes(qty);
     return format(x, 'dec');
