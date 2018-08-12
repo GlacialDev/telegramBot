@@ -210,9 +210,13 @@ bot.onText(/\/roll_interval ([0-9]+) ([0-9]+)/, (msg, match) => {
   bot.sendMessage(msg.chat.id, msg.from.first_name+' отладка min '+min)
   let max = match[2]
   bot.sendMessage(msg.chat.id, msg.from.first_name+' отладка max '+max)
-  let roll = (Math.random() * (max - min) + min)
+  let diff = max - min
+  bot.sendMessage(msg.chat.id, msg.from.first_name+' отладка diff '+diff)
+  let roll = Math.random() * (max - min)
   bot.sendMessage(msg.chat.id, msg.from.first_name+' отладка roll '+roll)
-  let roundRoll =  Math.round(roll)
+  let rollMin = roll + min;
+  bot.sendMessage(msg.chat.id, msg.from.first_name+' отладка roll '+rollMin)
+  let roundRoll =  Math.round(rollMin)
   bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
   
   if (writeWhoAskFlag) writeWhoAsk(msg);
