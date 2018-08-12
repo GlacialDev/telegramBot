@@ -194,4 +194,12 @@ bot.onText(/\/how_much_ero/, (msg) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
+bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
+  console.log(match[1]+' '+match[2])
+  let max = match[1]
+  let min = match[2]
+  let roll = Math.random() * (max - min) + min;
+  bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roll)
+});
+
 // --- конец логики бота --- //
