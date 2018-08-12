@@ -316,8 +316,9 @@ function search(requestMes) {
         let jsonAnswer = JSON.parse(body);
         let valueArray = jsonAnswer.value;
         valueArray.forEach(function(item, i, arr) {
-          searchArray.push(item.contentUrl)
-          console.log(searchArray);
+          fs.appendFile("./list/images.txt", ' '+item.contentUrl, function(error){
+            if(error) throw error; // если возникла ошибка)
+          });
         });
         // body = JSON.stringify(JSON.parse(body), null, '  ');
         // console.log('\nJSON Response:\n');
@@ -357,5 +358,31 @@ bot.onText(/\/search (.+)/, (msg, match) => {
   bot.sendMessage(msg.chat.id, 'Ищу '+text);
   search(text)
 });
+
+bot.onText(/\/give_ero/, (msg) => {
+  let array = null;
+  let item = null;
+  let string = null;
+
+  // открываем файл-буфер со ссылками
+  fs.readFile("./list/images.txt", "utf8", function(error,data){
+    if(error) throw error; // если возникла ошибка
+    // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
+    array = data.split(' ');
+    item = array.shift();
+    // если ссылки кончились говорим что всё хана заправляйте новыми
+    if (item == '') item = 'Картинки кончились :('
+    bot.sendMessage(msg.chat.id, item)
+    // массив без элемента который мы достали pop()-ом преобразуем в строку
+    string = array.join(' ')
+    // и грузим обратно в файл-буффер
+    fs.writeFile("./list/images.txt", string, function(error){
+      if(error) throw error; // если возникла ошибка)
+    });
+  });
+
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
+
 
 // --- конец логики бота --- //
