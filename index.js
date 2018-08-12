@@ -228,7 +228,7 @@ bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-bot.onText(/\/random/, (msg) => {
+bot.onText(/\/random$/, (msg) => {
   let roundRoll =  Math.round(random(0,100))
   bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
 
@@ -236,17 +236,21 @@ bot.onText(/\/random/, (msg) => {
 });
 
 bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
+  bot.sendMessage(msg.chat.id, 'начал запись')
   let times = match[1]
   for(let i = 0; i < times; i++) {
     let roundRoll =  Math.round(random(0,100))
-    text = roundRoll+'\n'
+    let text = roundRoll+'\n'
     
     fs.appendFile("./list/random.txt", text, function(error){
       if(error) throw error; // если возникла ошибка
     });
+
+    if (i == 9999) {
+      let file = "./list/random.txt";
+      bot.sendDocument(msg.chat.id, file);
+    }
   }
-  let file = "./list/random.txt";
-  bot.sendDocument(msg.chat.id, file);
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
