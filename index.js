@@ -313,7 +313,7 @@ bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
 });
 
 bot.onText(/\/search (.+)/), (msg, match) => {
-  console.log('ищу')
+  bot.sendMessage(msg.chat.id, 'ищу')
   let req = match[1];
   search(req);
 }
