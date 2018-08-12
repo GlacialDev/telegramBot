@@ -227,7 +227,9 @@ bot.onText(/\/random/, (msg) => {
   function random (low, high) {
     return randomC(4)/Math.pow(2,4*8-1) * (high - low) + low;
   }
-  console.log(random(0,100));
+
+  let roundRoll =  Math.round(random(0,100))
+  bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
