@@ -351,8 +351,7 @@ bot.onText(/\/search (.+)/, (msg, match) => {
 
 bot.onText(/\/ali/, (msg) => {
   let array = null; 
-  console.log('meow')
-  fs.readFileSync("./list/request.txt", "utf8", function(error,data){
+  fs.readFile("./list/request.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     array = JSON.stringify(data).value;
     console.log(data);  
