@@ -345,7 +345,7 @@ bot.onText(/\/search (.+)/, (msg, match) => {
   let text = match[1];
   bot.sendMessage(msg.chat.id, 'Ищу '+text);
   let data = search(text);
-  console.log(data.value);
+  console.log(data);
 });
 
 // --- конец логики бота --- //
