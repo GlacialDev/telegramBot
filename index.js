@@ -286,13 +286,15 @@ bot.onText(/\/roll_file ([0-9]+)/, (msg, match) => {
 bot.onText(/\/search (.+)/, (msg, match) => {
   let text = match[1];
   bot.sendMessage(msg.chat.id, 'Ищу '+text);
-  fs.readFile("./list/request.txt", "utf8", function(error,data){
-    if(error) throw error; // если возникла ошибка
-    let body = JSON.stringify(data);
-    // console.log(body)
-    let value = JSON.parse(body);
-    console.log(value)
-  });
+  // fs.readFile("./list/request.json", "utf8", function(error,data){
+  //   if(error) throw error; // если возникла ошибка
+  //   let body = JSON.stringify(data);
+  //   // console.log(body)
+  //   console.log(value)
+  // });
+  
+  let value = JSON.parse("./list/request.json");
+  console.log(value)
 });
 
 // --- конец логики бота --- //
