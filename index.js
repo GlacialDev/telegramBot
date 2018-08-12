@@ -46,7 +46,7 @@ function random (low, high) {
   return randomC(4)/Math.pow(2,4*8) * (high - low) + low;
 }
 
-function search (requestMes) {
+function find(requestMes) {
   let subscriptionKey = '15481db916bb49d69e21b902504e2f01';
   // Verify the endpoint URI.  At this writing, only one endpoint is used for Bing
   // search APIs.  In the future, regional endpoints may be available.  If you
@@ -312,9 +312,10 @@ bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-bot.onText(/\/search (.+)/), (msg, match) => {
-  let req = match[1];
-  bot.sendMessage(msg.chat.id, 'ищу '+req)
-  // search(req);
+bot.onText(/\/find (.+)/), (msg, match) => {
+  let text = match[1];
+  bot.sendMessage(msg.chat.id, 'ищу '+text)
+  find(req);
 }
+
 // --- конец логики бота --- //
