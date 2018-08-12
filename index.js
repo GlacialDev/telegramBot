@@ -202,12 +202,12 @@ bot.onText(/\/roll/, (msg) => {
   bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roll)
 });
 
-bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
-  console.log(match[1]+' '+match[2])
-  let min = match[1]
-  let max = match[2]
-  let roll = Match.round(Math.random() * (max - min) + min)
-  bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roll)
-});
+// bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
+//   console.log(match[1]+' '+match[2])
+//   let min = match[1]
+//   let max = match[2]
+//   let roll = Match.round(Math.random() * (max - min) + min)
+//   bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roll)
+// });
 
 // --- конец логики бота --- //
