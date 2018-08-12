@@ -36,6 +36,15 @@ function stopTimer(timerName) {
   timerName = null
 }
 
+// функции для генерации случайных чисел
+function randomC (qty) {
+  let x= crypto.randomBytes(qty);
+  return format(x, 'dec');
+}
+function random (low, high) {
+  return randomC(4)/Math.pow(2,4*8) * (high - low) + low;
+}
+
 // --- конец объявления функций --- //
 // --- начало логики бота --- //
 
@@ -220,24 +229,10 @@ bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
 });
 
 bot.onText(/\/random/, (msg) => {
-  function randomC (qty) {
-    let x= crypto.randomBytes(qty);
-    return format(x, 'dec');
-  }
-  function random (low, high) {
-    return randomC(4)/Math.pow(2,4*8) * (high - low) + low;
-  }
-
   let roundRoll =  Math.round(random(0,100))
   bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
-
-  for(let i = 0; i < 200; i++) {
-    console.log(Math.round(random(0,100)));
-  }
 });
-
-
 
 // --- конец логики бота --- //
