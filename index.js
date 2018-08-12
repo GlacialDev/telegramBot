@@ -235,4 +235,21 @@ bot.onText(/\/random/, (msg) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
+bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
+  let times = match[1]
+  for(let i = 0; i < times; i++) {
+    let roundRoll =  Math.round(random(0,100))
+    text = roundRoll+'\n'
+    
+    fs.appendFile("./list/random.txt", text, function(error){
+      if(error) throw error; // если возникла ошибка
+    });
+  }
+  let file = "./list/random.txt";
+  bot.sendDocument(msg.chat.id, file);
+
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
+
+
 // --- конец логики бота --- //
