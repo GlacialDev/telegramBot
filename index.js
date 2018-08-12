@@ -298,8 +298,10 @@ bot.onText(/\/search (.+)/, (msg, match) => {
 });
 
 bot.onText(/\/ali/, (msg, match) => {
-  let value = JSON.parse("./list/request.json");
-  console.log(value)
+  fs.readFile("./list/request.json", "utf8", function(error,data){
+    let value = JSON.parse(data);
+    console.log(value)
+  });
 });
 
 
