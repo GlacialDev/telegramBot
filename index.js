@@ -225,7 +225,7 @@ bot.onText(/\/random/, (msg) => {
     return format(x, 'dec');
   }
   function random (low, high) {
-    return randomC(4)/Math.pow(2,4*8-1) * (high - low) + low;
+    return randomC(4)/Math.pow(2,4*8) * (high - low) + low;
   }
 
   let roundRoll =  Math.round(random(0,100))
