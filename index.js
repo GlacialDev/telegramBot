@@ -207,7 +207,9 @@ bot.onText(/\/roll^(.+)/, (msg) => {
 
 bot.onText(/\/roll_interval ([0-9]+) ([0-9]+)/, (msg, match) => {
   let min = match[1]
+  bot.sendMessage(msg.chat.id, msg.from.first_name+' отладка min '+min)
   let max = match[2]
+  bot.sendMessage(msg.chat.id, msg.from.first_name+' отладка max '+max)
   let roll = (Math.random() * (max - min)) + min
   bot.sendMessage(msg.chat.id, msg.from.first_name+' отладка '+roll)
   let roundRoll =  Math.round(roll)
