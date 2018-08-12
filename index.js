@@ -240,14 +240,17 @@ bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
   let times = match[1]
   for(let i = 0; i < times; i++) {
     let roundRoll =  Math.round(random(0,100))
-    let text = `${roundRoll}\n`
+    let text;
+    if (i = 0) text = `${roundRoll}`; else text = `\n${roundRoll}`
     
     fs.appendFileSync("./list/random.txt", text, function(error){
       if(error) throw error; // если возникла ошибка
     });
+  
+    
   }
 
-  
+
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
