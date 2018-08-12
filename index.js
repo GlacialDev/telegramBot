@@ -1,9 +1,9 @@
-import token from './token';
+import token from './secret/token';
+import azureKey from './secret/azureKey';
 
 const crypto = require('crypto')
 const format = require('biguint-format')
 const https = require('https')
-
 const fs = require('fs');
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(token(), { polling: true });
@@ -47,7 +47,7 @@ function random (low, high) {
 }
 
 function find(requestMes) {
-  let subscriptionKey = '15481db916bb49d69e21b902504e2f01';
+  let subscriptionKey = azureKey();
   // Verify the endpoint URI.  At this writing, only one endpoint is used for Bing
   // search APIs.  In the future, regional endpoints may be available.  If you
   // encounter unexpected authorization errors, double-check this host against
