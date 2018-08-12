@@ -232,6 +232,10 @@ bot.onText(/\/random/, (msg) => {
   bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
+
+  for(let i = 0; i < 200; i++) {
+    console.log(Math.round(random(0,100)));
+  }
 });
 
 
