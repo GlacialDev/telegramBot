@@ -352,7 +352,13 @@ bot.onText(/\/ali/, (msg) => {
     if(error) throw error; // если возникла ошибка
     let jsontext = JSON.stringify(data);
     // console.log(data);  
-    console.log(jsontext);
+    console.log(jsontext.value);
+    // contentUrl
+    // var arr = ["Яблоко", "Апельсин", "Груша"];
+
+    // arr.forEach(function(item, i, arr) {
+    //   alert( i + ": " + item + " (массив:" + arr + ")" );
+    // });
   });
 });
 // --- конец логики бота --- //
