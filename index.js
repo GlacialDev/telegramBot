@@ -314,7 +314,7 @@ function search(requestMes) {
             if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
                 console.log(header + ": " + response.headers[header]);
         let jsonAnswer = JSON.parse(body);
-        console.log(jsonAnswer.value)
+        return(jsonAnswer.value)
         // body = JSON.stringify(JSON.parse(body), null, '  ');
         // console.log('\nJSON Response:\n');
         // console.log(body);
@@ -350,7 +350,7 @@ function search(requestMes) {
 bot.onText(/\/search (.+)/, (msg, match) => {
   let text = match[1];
   bot.sendMessage(msg.chat.id, 'Ищу '+text);
-  search(text);
+  console.log(search(text));
 });
 
 // --- конец логики бота --- //
