@@ -219,7 +219,7 @@ bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-bot.onText(/\/random/, (msg, match) => {
+bot.onText(/\/random/, (msg) => {
   function randomC (qty) {
     let x= crypto.randomBytes(qty);
     return format(x, 'dec');
