@@ -72,13 +72,13 @@ function find(requestMes) {
                   console.log(header + ": " + response.headers[header]);
           body = JSON.stringify(JSON.parse(body), null, '  ');
           console.log('\nJSON Response:\n');
+          fs.writeFileSync("./list/request.txt", body, function(error){
+            if(error) throw error; // если возникла ошибка)
+          });
           console.log(body);
       });
       response.on('error', function (e) {
           console.log('Error: ' + e.message);
-      });
-      fs.writeFileSync("./list/request.txt", body, function(error){
-        if(error) throw error; // если возникла ошибка)
       });
   };
 
