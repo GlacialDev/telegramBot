@@ -301,6 +301,7 @@ function search(requestMes) {
   let path = '/bing/v7.0/images/search';
 
   let term = requestMes;
+  let array;
 
   let response_handler = function (response) {
     let body = '';
@@ -314,7 +315,7 @@ function search(requestMes) {
             if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
                 console.log(header + ": " + response.headers[header]);
         let jsonAnswer = JSON.parse(body);
-        return(jsonAnswer.value)
+        array = jsonAnswer.value
         // body = JSON.stringify(JSON.parse(body), null, '  ');
         // console.log('\nJSON Response:\n');
         // console.log(body);
@@ -345,6 +346,8 @@ function search(requestMes) {
       console.log('Invalid Bing Search API subscription key!');
       console.log('Please paste yours into the source code.');
   }
+
+  return(array)
 }
 
 bot.onText(/\/search (.+)/, (msg, match) => {
