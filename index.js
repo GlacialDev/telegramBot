@@ -290,6 +290,7 @@ bot.onText(/\/search (.+)/, (msg, match) => {
   fs.readFile("./list/request.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     body = JSON.stringify(data);
+    console.log(body);
   });
   console.log(body);
 });
