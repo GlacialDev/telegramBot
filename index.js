@@ -350,7 +350,7 @@ bot.onText(/\/search (.+)/, (msg, match) => {
 bot.onText(/\/ali/, (msg) => {
   fs.readFile("./list/request.txt", "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
-    let jsontext = JSON.stringify(data).value;
+    let jsontext = JSON.stringify(data);
     // console.log(data);  
     console.log(jsontext);
   });
