@@ -31,12 +31,12 @@ function writeWhoAsk(message) {
 }
 
 // проверка, внесен ли запрашивающий в список авторизованных лиц
-function authCheck(message) {
-  let id = message.from.id
-  config.authorizedUsers.forEach(function(item, i, array) {
-    if (id = item) return true
-  });
-}
+// function authCheck(message) {
+//   let id = message.from.id
+//   config.authorizedUsers.forEach(function(item, i, array) {
+//     if (id = item) return true
+//   });
+// }
 
 // остановка таймера
 function stopTimer(timerName) {
