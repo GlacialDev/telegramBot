@@ -1,9 +1,3 @@
-// то же самое, что в таймере, но вручную по команде /give_ero
-bot.onText(/\/give_ero/, (msg) => {
-  takeFromBuffer("./list/ero.txt", msg.chat.id, true)
-  if (writeWhoAskFlag) writeWhoAsk(msg);
-});
-
 // на сервере есть файл note.txt куда по этой команде бот записывает текст
 bot.onText(/\/write (.+)/, (msg, match) => {
   let text = match[1];

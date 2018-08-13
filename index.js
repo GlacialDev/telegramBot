@@ -295,4 +295,10 @@ bot.onText(/\/more/, (msg) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
+// то же самое, что в таймере, но вручную по команде /give_ero
+bot.onText(/\/give_ero/, (msg) => {
+  takeFromBuffer("./list/ero.txt", msg.chat.id, true)
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
+
 // --- конец логики бота --- //
