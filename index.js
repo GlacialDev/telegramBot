@@ -241,10 +241,10 @@ bot.onText(/\/set_ero_timer ([0-9]+) (.+)/, (msg, match) => {
   bot.sendMessage(groupChat, 'Буду присылать картинки каждые '+hours+' часов')
 });
 
-bot.onText(/\/stop_ero_timer (.+)/, (msg) => {
+bot.onText(/\/stop_ero_timer (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
   if (adminCheck(match[1]) !=true) return
-  
+
   stopTimer(eroTimer)
   // при остановке таймера группа об этом оповещается
   bot.sendMessage(groupChat, 'Таймер картинок остановлен')
