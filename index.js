@@ -31,10 +31,10 @@ function writeWhoAsk(message) {
 }
 
 // проверка, внесен ли запрашивающий в список авторизованных лиц
-function authCheck(id) {
-  let who = id
+function authCheck(message) {
+  let id = message.from.id
   config.authorizedUsers.forEach(function(item, i, array) {
-    if (who = item) return true
+    if (id = item) return true
   });
 }
 
@@ -163,11 +163,9 @@ bot.onText(/\/help/, (msg) => {
 });
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
-  if (authCheck(msg.from.id)) {
     let text = match[1];
     bot.sendMessage(msg.chat.id, text);
     if (writeWhoAskFlag) writeWhoAsk(msg);
-  }
 });
 
 bot.onText(/\/id/, (msg) => {
