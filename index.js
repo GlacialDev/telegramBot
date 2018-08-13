@@ -119,6 +119,8 @@ function search(requestMes) {
 
     let req = https.request(request_params, response_handler);
     req.end();
+
+    takeFromBuffer("./list/search.txt", msg.chat.id, false)
   }
 
   if (subscriptionKey.length === 32) {
@@ -288,9 +290,6 @@ bot.onText(/\/search (.+)/, (msg, match) => {
     if(error) throw error; // если возникла ошибка
   });
   search(text)
-
-  
-  takeFromBuffer("./list/search.txt", msg.chat.id, false)
 });
 
 // если нужно следующий результат
