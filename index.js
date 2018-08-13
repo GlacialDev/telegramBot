@@ -48,7 +48,7 @@ function random (low, high) {
 
 // достать ссылку из .txt файла (path), отослать по id (where) 
 // и сообщать об оставшемся кол-ве картинок в буфере (howMuchLeft)
-function takeFromBuffer(path, where, howMuchLeftFlag) {
+function takeFromBuffer(path, sendTo, howMuchLeftFlag) {
   // открываем файл-буфер со ссылками
   fs.readFile(path, "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
@@ -57,11 +57,11 @@ function takeFromBuffer(path, where, howMuchLeftFlag) {
     let item = array.shift();
     // если ссылки кончились говорим что всё хана заправляйте новыми
     if (item == '') item = 'Картинки кончились :('
-    bot.sendMessage(where, item)
+    bot.sendMessage(sendTo, item)
     // если требуется сообщить оставшееся количество картинок в буфере
     if (howMuchLeftFlag) {
       let number = array.length;
-      bot.sendMessage(where, `У меня в запасе осталось ${number} картинок`)
+      bot.sendMessage(sendTo, `У меня в запасе осталось ${number} картинок`)
     }
     // массив без элемента который мы достали shift-ом преобразуем в строку
     let string = array.join(' ')
@@ -104,7 +104,6 @@ function search(requestMes) {
           if(error) throw error; // если возникла ошибка)
         });
       });
-      takeFromBuffer("./list/search.txt", msg.chat.id, false)
     });
     response.on('error', function (e) {
       console.log('Error: ' + e.message);
