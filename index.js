@@ -1,12 +1,11 @@
-import token from './secret/token';
-import azureKey from './secret/azureKey';
+import config from './secret/config';
 
 const crypto = require('crypto')
 const format = require('biguint-format')
 const https = require('https')
 const fs = require('fs');
 const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot(token(), { polling: true });
+const bot = new TelegramBot(config.token, { polling: true });
 const groupChat = -307924393
 const creator = 353140575
 
@@ -28,6 +27,13 @@ function writeWhoAsk(message) {
   let text = message.from.id+' : '+message.from.first_name;
   fs.writeFile(`id_name/${message.from.id}_${message.from.first_name}.txt`, text, function(error){
     if(error) throw error; // если возникла ошибка
+  });
+}
+
+// проверка, внесен ли запрашивающий в список авторизованных лиц
+function authCheck(id) {
+  config.authorizedUsers.forEach(function(item, i, array) {
+    if (id = item) return true
   });
 }
 
@@ -75,7 +81,7 @@ function takeFromBuffer(path, sendTo, howMuchLeftFlag) {
 // функция поиска изображений через api поисковика Bing
 // все как в тамошней документации кроме пары вещей где комментарии
 function search(requestMes) {
-  let subscriptionKey = azureKey();
+  let subscriptionKey = config.azureKey;
   let host = 'api.cognitive.microsoft.com';
   let path = '/bing/v7.0/images/search';
   let term = requestMes;
@@ -156,9 +162,11 @@ bot.onText(/\/help/, (msg) => {
 });
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
-  let text = match[1];
-  bot.sendMessage(msg.chat.id, text);
-  if (writeWhoAskFlag) writeWhoAsk(msg);
+  if (authCheck(msg.from.id)) {
+    let text = match[1];
+    bot.sendMessage(msg.chat.id, text);
+    if (writeWhoAskFlag) writeWhoAsk(msg);
+  }
 });
 
 bot.onText(/\/id/, (msg) => {
@@ -282,7 +290,7 @@ bot.onText(/\/random$/, (msg) => {
 // поиск картинки по запросу с выдачей первого результата
 bot.onText(/\/search (.+)/, (msg, match) => {
   let text = match[1];
-  bot.sendMessage(msg.chat.id, 'Пытаюсь найти '+text+'. Постараюсь ответить через 3 секунды');
+  bot.sendMessage(msg.chat.id, 'Ищу '+text+'. Результат ждите через 3 секунды');
   // обнуляю файл после предыдущего запроса
   fs.writeFileSync("./list/search.txt", '', function(error){
     if(error) throw error; // если возникла ошибка
@@ -302,11 +310,4 @@ bot.onText(/\/search_more/, (msg) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-bot.onText(/проверка/, (msg) => {
-  bot.sendMessage(msg.chat.id, msg.chat.id+' - id этого чата');
-  bot.sendMessage(msg.chat.id, msg.from.id+' - а это ваш id');
-  if (writeWhoAskFlag) writeWhoAsk(msg);
-})
-
-
-// --- конец логики бота --- //
+ // --- конец логики бота --- //
