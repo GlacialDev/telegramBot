@@ -31,4 +31,71 @@ bot.onText(/\/note/, (msg) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
+// выкинуть случайное число от 0 до 100
+bot.onText(/(\/roll$)/, (msg) => {
+  let min = 0
+  let max = 100
+  let roll = Math.random() * (max - min) + min
+  let roundRoll =  Math.round(roll)
+  bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
 
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
+
+// выкинуть случайное число в заданном интервале
+bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
+  let min = +match[1]
+  let max = +match[2]
+  let roll = Math.random() * (max - min) + min
+  let roundRoll =  Math.round(roll)
+  bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
+  
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
+
+// записывает указанное число рандомных чисел в .txt файл на сервере
+bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
+  // обнуление файла
+  fs.writeFileSync("./list/random.txt", '', function(error){
+    if(error) throw error; // если возникла ошибка
+  });
+
+  let times = match[1]
+  for(let i = 0; i < times; i++) {
+    let roundRoll =  Math.round(random(0,100))
+    let text = roundRoll+' ';
+    
+    fs.appendFileSync("./list/random.txt", text, function(error){
+      if(error) throw error; // если возникла ошибка
+    });
+  }
+
+  bot.sendDocument(msg.chat.id, "./list/random.txt");
+
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
+
+// записывает указанное число рандомных чисел в .txt файл на сервере
+bot.onText(/\/roll_file ([0-9]+)/, (msg, match) => {
+  // обнуление файла
+  fs.writeFileSync("./list/roll.txt", '', function(error){
+    if(error) throw error; // если возникла ошибка
+  });
+
+  let times = match[1]
+  for(let i = 0; i < times; i++) {
+    let min = 0
+    let max = 100
+    let roll = Math.random() * (max - min) + min
+    let roundRoll =  Math.round(roll)
+    let text = roundRoll+' ';
+    
+    fs.appendFileSync("./list/roll.txt", text, function(error){
+      if(error) throw error; // если возникла ошибка
+    });
+  }
+
+  bot.sendDocument(msg.chat.id, "./list/roll.txt");
+
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
