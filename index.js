@@ -118,9 +118,7 @@ function search(requestMes) {
     };
 
     let req = https.request(request_params, response_handler);
-    req.end();
-
-    takeFromBuffer("./list/search.txt", msg.chat.id, false)
+    req.end(takeFromBuffer("./list/search.txt", msg.chat.id, false));
   }
 
   if (subscriptionKey.length === 32) {
