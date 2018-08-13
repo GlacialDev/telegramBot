@@ -11,25 +11,10 @@ const creator = 353140575
 
 // --- начало объявления флагов и настроек --- //
 
-let writeWhoAskFlag = true;
-// команда для переключения флага через бота
-bot.onText(/\/flag_whoask ([0-1])/, (message, match) => {
-  if (authCheck(msg) != true) return
-  if(match[1] == 1) writeWhoAskFlag = true
-  else if(match[1] == 0) writeWhoAskFlag = false
-  bot.sendMessage(message.chat.id, `Флаг writeWhoAskFlag = ${writeWhoAskFlag}`);
-});
+
 
 // --- конец объявления флагов и настроек --- //
 // --- начало объявления функций --- //
-
-// функция записывает id_имя человека в название и содержимое .txt файла на сервере
-function writeWhoAsk(message) {
-  let text = message.from.id+' : '+message.from.first_name;
-  fs.writeFile(`id_name/${message.from.id}_${message.from.first_name}.txt`, text, function(error){
-    if(error) throw error; // если возникла ошибка
-  });
-}
 
 // проверка, внесен ли запрашивающий в список авторизованных лиц
 function authCheck(message) {
@@ -42,6 +27,10 @@ function authCheck(message) {
       return ok
     }
   }
+}
+
+function adminCheck(pass) {
+  if (pass === config.adminPass) return true
 }
   
 // остановка таймера
@@ -147,8 +136,7 @@ function search(requestMes) {
 
 // при начале работы выдает сообщение
 bot.sendMessage(creator, 
-`Бот инициализирован со следующими настройками:
-flag writeWhoAskFlag = ${writeWhoAskFlag}`);
+`Бот инициализирован`);
 
 bot.onText(/\/help/, (msg) => {
   if (authCheck(msg) != true) return
@@ -230,8 +218,10 @@ bot.onText(/\/stop_date_timer/, (msg) => {
 
 // таймер на выдачу картинок
 let eroTimer = null
-bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
+bot.onText(/\/set_ero_timer ([0-9]+) (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
+  if (adminCheck(match[2]) !=true) return
+
   // если переназначаем таймер, прошлый нужно остановить
   stopTimer(eroTimer)
   let hours = match[1]
@@ -245,14 +235,16 @@ bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
   let interval = 1000*60*60*hours
   // инициализация таймера
   eroTimer = setInterval(function() {
-    takePhotoFromBuffer("./list/ero.txt", groupChat, true)
+    takePhotoFromBuffer("./list/ero.txt", groupChat, false)
   }, interval);
   // если всё прошло успешно и без ошибок, далее следует сообщение в группу
   bot.sendMessage(groupChat, 'Буду присылать картинки каждые '+hours+' часов')
 });
 
-bot.onText(/\/stop_ero_timer/, (msg) => {
+bot.onText(/\/stop_ero_timer (.+)/, (msg) => {
   if (authCheck(msg) != true) return
+  if (adminCheck(match[1]) !=true) return
+  
   stopTimer(eroTimer)
   // при остановке таймера группа об этом оповещается
   bot.sendMessage(groupChat, 'Таймер картинок остановлен')
@@ -293,13 +285,13 @@ bot.onText(/\/random$/, (msg) => {
 bot.onText(/\/search (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
   let text = match[1];
-  bot.sendMessage(msg.chat.id, 'Ищу '+text+'. Результат ждите через 3 секунды');
   // обнуляю файл после предыдущего запроса
   fs.writeFileSync("./list/search.txt", '', function(error){
     if(error) throw error; // если возникла ошибка
   });
   search(text)
 
+  bot.sendMessage(msg.chat.id, 'Ищу '+text+'. Результат ждите через 3 секунды');
   setTimeout(function() {
     takePhotoFromBuffer("./list/search.txt",  msg.chat.id, false)
   }, 3000);
@@ -309,11 +301,6 @@ bot.onText(/\/search (.+)/, (msg, match) => {
 bot.onText(/\/search_more/, (msg) => {
   if (authCheck(msg) != true) return
   takePhotoFromBuffer("./list/search.txt", msg.chat.id, false)
-});
-
-bot.onText(/\/give_ero/, (msg) => {
-  if (authCheck(msg) != true) return
-  takePhotoFromBuffer("./list/ero.txt", msg.chat.id, true)
 });
 
  // --- конец логики бота --- //
