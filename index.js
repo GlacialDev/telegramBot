@@ -94,10 +94,6 @@ function search(requestMes) {
       // в этом месте парсю тело запроса и вытаскиваю массив со свойствами (одно из них мне нужно чтобы скинуть картинку в чат)
       let jsonAnswer = JSON.parse(body);
       let valueArray = jsonAnswer.value;
-      // обнуляю файл после предыдущего запроса
-      fs.writeFileSync("./list/search.txt", '', function(error){
-        if(error) throw error; // если возникла ошибка
-      });
       // вытаскиваю ссылку на картинку в буфер
       valueArray.forEach(function(item, i, valueArray) {
         fs.appendFileSync("./list/search.txt", ' '+item.contentUrl, function(error){
@@ -355,6 +351,10 @@ bot.onText(/\/roll_file ([0-9]+)/, (msg, match) => {
 bot.onText(/\/search (.+)/, (msg, match) => {
   let text = match[1];
   bot.sendMessage(msg.chat.id, 'Пытаюсь найти '+text);
+  // обнуляю файл после предыдущего запроса
+  fs.writeFileSync("./list/search.txt", '', function(error){
+    if(error) throw error; // если возникла ошибка
+  });
   search(text)
   takeFromBuffer("./list/search.txt", msg.chat.id, false)
   if (writeWhoAskFlag) writeWhoAsk(msg);
