@@ -50,7 +50,7 @@ function random (low, high) {
 // и сообщать об оставшемся кол-ве картинок в буфере (howMuchLeft)
 function takeFromBuffer(path, sendTo, howMuchLeftFlag) {
   // открываем файл-буфер со ссылками
-  fs.readFile(path, "utf8", function(error,data){
+  fs.readFileSync(path, "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
     let array = data.split(' ');
