@@ -123,7 +123,6 @@ function search(requestMes) {
 
   if (subscriptionKey.length === 32) {
     bing_image_search(term);
-    takeFromBuffer("./list/search.txt", msg.chat.id, false)
   } else {
     console.log('Invalid Bing Search API subscription key!');
     console.log('Please paste yours into the source code.');
@@ -289,6 +288,9 @@ bot.onText(/\/search (.+)/, (msg, match) => {
     if(error) throw error; // если возникла ошибка
   });
   search(text)
+
+  
+  takeFromBuffer("./list/search.txt", msg.chat.id, false)
 });
 
 // если нужно следующий результат
