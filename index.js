@@ -285,8 +285,8 @@ bot.onText(/\/search (.+)/, (msg, match) => {
   // обнуляю файл после предыдущего запроса
   fs.writeFileSync("./list/search.txt", '', function(error){
     if(error) throw error; // если возникла ошибка
+    search(text)
   });
-  search(text)
 
   let array = null;
   let number = null;
