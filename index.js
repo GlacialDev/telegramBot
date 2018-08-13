@@ -146,75 +146,44 @@ bot.onText(/\/help/, (msg) => {
 /id - выдает id группового чата и ваш
 /photo (url-ссылка на картинку) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу
 /sendto (id) (текст) - пишете боту в лс id адресата и текст сообщения. При условии, что человек прописал у бота /start, ему придет сообщение с текстом от имени бота
-/set_date_timer (число) (число) - пишете команду, желаемый часовой пояс (числом, например +3) и желаемую периодичность оповещений в минутах
-/stop_date_timer - остановить таймер
+/set_ero_timer (время) (пароль) - установить таймер отсылки картинок, время в часах
+/stop_ero_timer (пароль) - остановить таймер отсылки картинок
 /add_ero (url-ссылка на картинку) - отправляйте в лс боту девушек! а он потом их по таймеру будет выкидывать в группу :)
 /how_much_ero - посмотреть сколько картинок осталось в очереди в таймере
 /random - выбросить число от 0 до 100
 /search (текст) - выполнить поиск картинки по запросу
-/search_result - получить результат поиска (можно выполнять много раз)`
+/search_more - получить другую картинку по прошлому запросу (можно выполнять много раз)`
   bot.sendMessage(msg.chat.id, response);
 });
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
+
   let text = match[1];
   bot.sendMessage(msg.chat.id, text);
 });
 
 bot.onText(/\/id/, (msg) => {
   if (authCheck(msg) != true) return
+
   bot.sendMessage(msg.chat.id, msg.chat.id+' - id этого чата');
   bot.sendMessage(msg.chat.id, msg.from.id+' - а это ваш id');
 })
 
 bot.onText(/\/photo (https?:\/\/\S+)/, (msg, match) => {
   if (authCheck(msg) != true) return
+
   let link = match[1];
   bot.sendPhoto(groupChat, link);
 })
 
 bot.onText(/\/sendto (\-[0-9]+|[0-9]+) (\S+.*)/, (msg, match) => {
   if (authCheck(msg) != true) return
+  
   let id = match[1];
   let text = match[2];
   bot.sendMessage(id, text);
 })
-
-// таймер на дату
-let timer = null
-bot.onText(/\/set_date_timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
-  if (authCheck(msg) != true) return
-  // если переназначаем таймер, прошлый нужно остановить
-  stopTimer(timer)
-  let gmt = match[1]
-  let minutes = match[2]
-  // нельзя ставить интервал таймера меньше чем на минуту
-  if (minutes < 1) {
-    bot.sendMessage(groupChat, 'Нельзя ставить время меньше 1 минуты, это может плохо кончиться для всех :(')
-    stopTimer(timer)
-    return
-  }
-  // смещение на часовой пояс
-  let offset = 1000*60*60*gmt
-  // интервал таймера
-  let interval = 1000*60*minutes
-  // инициализация таймера
-  timer = setInterval(function() {
-    // вычисление значения текущего времени в указанном часовом поясе
-    let time = +new Date() + offset;
-    // и отправка результата в группу
-    bot.sendMessage(groupChat, new Date(time));
-  }, interval);
-  // оповещение о том что всё прошло без ошибок
-  bot.sendMessage(groupChat, 'Буду присылать время по часовому поясу gmt'+gmt+' каждые '+minutes+' минут')
-});
-
-bot.onText(/\/stop_date_timer/, (msg) => {
-  if (authCheck(msg) != true) return
-  stopTimer(timer)
-  bot.sendMessage(groupChat, 'Таймер остановлен')
-});
 
 // таймер на выдачу картинок
 let eroTimer = null
@@ -252,6 +221,7 @@ bot.onText(/\/stop_ero_timer (.+)/, (msg, match) => {
 
 bot.onText(/\/add_ero (https?:\/\/\S+)/, (msg, match) => {
   if (authCheck(msg) != true) return
+
   let link = match[1];
   fs.appendFile("./list/images.txt", ' '+link, function(error){
     if(error) throw error; // если возникла ошибка)
@@ -261,6 +231,7 @@ bot.onText(/\/add_ero (https?:\/\/\S+)/, (msg, match) => {
 
 bot.onText(/\/how_much_ero/, (msg) => {
   if (authCheck(msg) != true) return
+
   let array = null;
   let number = null;
   // открываем файл-буфер со ссылками
@@ -277,6 +248,7 @@ bot.onText(/\/how_much_ero/, (msg) => {
 // выкинуть случайное число от 0 до 100 (другой способ)
 bot.onText(/\/random$/, (msg) => {
   if (authCheck(msg) != true) return
+
   let roundRoll =  Math.round(random(0,100))
   bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
 });
@@ -284,6 +256,7 @@ bot.onText(/\/random$/, (msg) => {
 // поиск картинки по запросу с выдачей первого результата
 bot.onText(/\/search (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
+
   let text = match[1];
   // обнуляю файл после предыдущего запроса
   fs.writeFileSync("./list/search.txt", '', function(error){
@@ -300,6 +273,7 @@ bot.onText(/\/search (.+)/, (msg, match) => {
 // если нужно следующий результат
 bot.onText(/\/search_more/, (msg) => {
   if (authCheck(msg) != true) return
+
   takePhotoFromBuffer("./list/search.txt", msg.chat.id, false)
 });
 

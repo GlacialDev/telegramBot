@@ -96,10 +96,48 @@ bot.onText(/\/give_ero/, (msg) => {
   takePhotoFromBuffer("./list/ero.txt", msg.chat.id, true)
 });
 
+// таймер на дату
+let timer = null
+bot.onText(/\/set_date_timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
+  if (authCheck(msg) != true) return
+  // если переназначаем таймер, прошлый нужно остановить
+  stopTimer(timer)
+  let gmt = match[1]
+  let minutes = match[2]
+  // нельзя ставить интервал таймера меньше чем на минуту
+  if (minutes < 1) {
+    bot.sendMessage(groupChat, 'Нельзя ставить время меньше 1 минуты, это может плохо кончиться для всех :(')
+    stopTimer(timer)
+    return
+  }
+  // смещение на часовой пояс
+  let offset = 1000*60*60*gmt
+  // интервал таймера
+  let interval = 1000*60*minutes
+  // инициализация таймера
+  timer = setInterval(function() {
+    // вычисление значения текущего времени в указанном часовом поясе
+    let time = +new Date() + offset;
+    // и отправка результата в группу
+    bot.sendMessage(groupChat, new Date(time));
+  }, interval);
+  // оповещение о том что всё прошло без ошибок
+  bot.sendMessage(groupChat, 'Буду присылать время по часовому поясу gmt'+gmt+' каждые '+minutes+' минут')
+});
+
+bot.onText(/\/stop_date_timer/, (msg) => {
+  if (authCheck(msg) != true) return
+  stopTimer(timer)
+  bot.sendMessage(groupChat, 'Таймер остановлен')
+});
+
+
+
+
+
+
 // строка для записи id
 // if (writeWhoAskFlag) writeWhoAsk(msg);
-
-
 let writeWhoAskFlag = true;
 // команда для переключения флага через бота
 bot.onText(/\/flag_whoask ([0-1])/, (message, match) => {
