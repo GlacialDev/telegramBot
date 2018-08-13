@@ -70,7 +70,7 @@ function takePhotoFromBuffer(path, sendTo, howMuchLeftFlag) {
     let item = array.shift();
     // если ссылки кончились говорим что всё хана заправляйте новыми
     if (item == '') item = 'Картинки кончились :('
-    bot.sendMessage(sendTo, item)
+    bot.sendPhoto(sendTo, item)
     // если требуется сообщить оставшееся количество картинок в буфере
     if (howMuchLeftFlag) {
       let number = array.length;
