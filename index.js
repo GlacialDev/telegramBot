@@ -7,7 +7,7 @@ const fs = require('fs');
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(config.token, { polling: true });
 const apiai = require('apiai');
-const botIsClever_HeCanTalk = apiai(config.dialogFlowClientAccesToken);
+const botIsClever_HeCanTalk = apiai(config.dialogFlowClientAccessToken);
 const groupChat = -307924393
 const creator = 353140575
 
