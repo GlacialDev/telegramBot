@@ -57,12 +57,12 @@ function takeFromBuffer(path, sendTo, howMuchLeftFlag) {
     let item = array.shift();
     // если ссылки кончились говорим что всё хана заправляйте новыми
     if (item == '') item = 'Картинки кончились :('
-    // bot.sendMessage(sendTo, item)
-    // // если требуется сообщить оставшееся количество картинок в буфере
-    // if (howMuchLeftFlag) {
-    //   let number = array.length;
-    //   bot.sendMessage(sendTo, `У меня в запасе осталось ${number} картинок`)
-    // }
+    bot.sendMessage(sendTo, item)
+    // если требуется сообщить оставшееся количество картинок в буфере
+    if (howMuchLeftFlag) {
+      let number = array.length;
+      bot.sendMessage(sendTo, `У меня в запасе осталось ${number} картинок`)
+    }
     // массив без элемента который мы достали shift-ом преобразуем в строку
     let string = array.join(' ')
     // и грузим обратно в файл-буфер
@@ -70,13 +70,6 @@ function takeFromBuffer(path, sendTo, howMuchLeftFlag) {
       if(error) throw error; // если возникла ошибка)
     });
   });
-  return () => {
-    bot.sendMessage(sendTo, item)
-    if (howMuchLeftFlag) {
-      let number = array.length;
-      bot.sendMessage(sendTo, `У меня в запасе осталось ${number} картинок`)
-    }
-  }
 }
 
 // функция поиска изображений через api поисковика Bing
@@ -304,8 +297,27 @@ bot.onText(/\/more/, (msg) => {
 
 // то же самое, что в таймере, но вручную по команде /give_ero
 bot.onText(/\/give_ero/, (msg) => {
-  let result = takeFromBuffer()
-  result("./list/ero.txt", msg.chat.id, true)
+  // открываем файл-буфер со ссылками
+  fs.readFileSync("./list/ero.txt", "utf8", function(error,data){
+    if(error) throw error; // если возникла ошибка
+    // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
+    let array = data.split(' ');
+    let item = array.shift();
+    // если ссылки кончились говорим что всё хана заправляйте новыми
+    if (item == '') item = 'Картинки кончились :('
+    bot.sendMessage(msg.chat.id, item)
+    // если требуется сообщить оставшееся количество картинок в буфере
+    if (true) {
+      let number = array.length;
+      bot.sendMessage(msg.chat.id, `У меня в запасе осталось ${number} картинок`)
+    }
+    // массив без элемента который мы достали shift-ом преобразуем в строку
+    let string = array.join(' ')
+    // и грузим обратно в файл-буфер
+    fs.writeFileSync("./list/ero.txt", string, function(error){
+      if(error) throw error; // если возникла ошибка)
+    });
+  });
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
