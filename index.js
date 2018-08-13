@@ -46,7 +46,8 @@ function random (low, high) {
   return randomC(4)/Math.pow(2,4*8) * (high - low) + low;
 }
 
-let searchArray = [];
+// функция поиска изображений через api поисковика Bing
+// все как в тамошней документации кроме пары вещей где комментарии
 function search(requestMes) {
   let subscriptionKey = azureKey();
   let host = 'api.cognitive.microsoft.com';
@@ -64,16 +65,20 @@ function search(requestMes) {
             // header keys are lower-cased by Node.js
             if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
                 console.log(header + ": " + response.headers[header]);
+        // в этом месте парсю тело запроса и вытаскиваю массив со свойствами (одно из них мне нужно чтобы скинуть картинку в чат)
         let jsonAnswer = JSON.parse(body);
         let valueArray = jsonAnswer.value;
+        // обнуляю файл после предыдущего запроса
         fs.writeFileSync("./list/search.txt", '', function(error){
           if(error) throw error; // если возникла ошибка
         });
-        valueArray.forEach(function(item, i, arr) {
-          fs.appendFile("./list/search.txt", ' '+item.contentUrl, function(error){
+        // вытаскиваю ссылку на картинку в буфер
+        valueArray.forEach(function(item, i, valueArray) {
+          fs.appendFileSync("./list/search.txt", ' '+item.contentUrl, function(error){
             if(error) throw error; // если возникла ошибка)
           });
         });
+        // какой то код который мне не нужен но был в документации
         // body = JSON.stringify(JSON.parse(body), null, '  ');
         // console.log('\nJSON Response:\n');
         // console.log(body);
@@ -106,25 +111,26 @@ function search(requestMes) {
   }
 }
 
-function takeFromBuffer(path, where, howMuch) {
-    let array = null;
-    let item = null;
-    let string = null;
-    let number = null;
+// достать ссылку из .txt файла (path), отослать по id (where) 
+// и сообщать об оставшемся кол-ве картинок в буфере (howMuchLeft)
+function takeFromBuffer(path, where, howMuchLeftFlag) {
     // открываем файл-буфер со ссылками
     fs.readFile(path, "utf8", function(error,data){
       if(error) throw error; // если возникла ошибка
       // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
-      array = data.split(' ');
-      item = array.shift();
-      number = array.length;
+      let array = data.split(' ');
+      let item = array.shift();
       // если ссылки кончились говорим что всё хана заправляйте новыми
       if (item == '') item = 'Картинки кончились :('
       bot.sendMessage(where, item)
-      if (howMuch) bot.sendMessage(groupChat, `У меня в запасе осталось ${number} картинок`)
-      // массив без элемента который мы достали pop()-ом преобразуем в строку
-      string = array.join(' ')
-      // и грузим обратно в файл-буффер
+      // если требуется сообщить оставшееся количество картинок в буфере
+      if (howMuchLeftFlag) {
+        let number = array.length;
+        bot.sendMessage(where, `У меня в запасе осталось ${number} картинок`)
+      }
+      // массив без элемента который мы достали shift-ом преобразуем в строку
+      let string = array.join(' ')
+      // и грузим обратно в файл-буфер
       fs.writeFile(path, string, function(error){
         if(error) throw error; // если возникла ошибка)
       });
@@ -218,8 +224,7 @@ bot.onText(/\/stop_date_timer/, (msg) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
-// картинки по расписанию
-// переменная таймера
+// таймер на выдачу картинок
 let eroTimer = null
 bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
   // если переназначаем таймер, прошлый нужно остановить
@@ -273,6 +278,7 @@ bot.onText(/\/how_much_ero/, (msg) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
+// выкинуть случайное число от 0 до 100
 bot.onText(/(\/roll$)/, (msg) => {
   let min = 0
   let max = 100
@@ -283,6 +289,7 @@ bot.onText(/(\/roll$)/, (msg) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
+// выкинуть случайное число в заданном интервале
 bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
   let min = +match[1]
   let max = +match[2]
@@ -293,6 +300,7 @@ bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
+// выкинуть случайное число от 0 до 100 (другой способ)
 bot.onText(/\/random$/, (msg) => {
   let roundRoll =  Math.round(random(0,100))
   bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
@@ -300,6 +308,7 @@ bot.onText(/\/random$/, (msg) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
+// записывает указанное число рандомных чисел в .txt файл на сервере
 bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
   // обнуление файла
   fs.writeFileSync("./list/random.txt", '', function(error){
@@ -314,7 +323,6 @@ bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
     fs.appendFileSync("./list/random.txt", text, function(error){
       if(error) throw error; // если возникла ошибка
     });
-    console.log(i);
   }
 
   bot.sendDocument(msg.chat.id, "./list/random.txt");
@@ -322,6 +330,7 @@ bot.onText(/\/random_file ([0-9]+)/, (msg, match) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
+// записывает указанное число рандомных чисел в .txt файл на сервере
 bot.onText(/\/roll_file ([0-9]+)/, (msg, match) => {
   // обнуление файла
   fs.writeFileSync("./list/roll.txt", '', function(error){
@@ -339,7 +348,6 @@ bot.onText(/\/roll_file ([0-9]+)/, (msg, match) => {
     fs.appendFileSync("./list/roll.txt", text, function(error){
       if(error) throw error; // если возникла ошибка
     });
-    console.log(i);
   }
 
   bot.sendDocument(msg.chat.id, "./list/roll.txt");
@@ -347,12 +355,16 @@ bot.onText(/\/roll_file ([0-9]+)/, (msg, match) => {
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
+// поиск картинки по запросу с выдачей первого результата
 bot.onText(/\/search (.+)/, (msg, match) => {
   let text = match[1];
   bot.sendMessage(msg.chat.id, 'Пытаюсь найти '+text);
   search(text)
+  takeFromBuffer("./list/search.txt", msg.chat.id, false)
+  if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
+// если нужно следующий результат
 bot.onText(/\/more/, (msg) => {
   takeFromBuffer("./list/search.txt", msg.chat.id, false)
   if (writeWhoAskFlag) writeWhoAsk(msg);
