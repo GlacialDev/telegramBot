@@ -30,7 +30,15 @@ function authCheck(message) {
 }
 
 function adminCheck(pass) {
-  if (pass === config.adminPass) return true
+  let id = message.from.id
+  let array = config.adminUsers
+  let ok = false;
+  for (let i = 0; i < array.length; i++) {
+    if (id === array[i]) { 
+      ok = true
+      return ok
+    }
+  }
 }
   
 // остановка таймера
@@ -146,8 +154,8 @@ bot.onText(/\/help/, (msg) => {
 /id - выдает id группового чата и ваш
 /photo (url-ссылка на картинку) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу
 /sendto (id) (текст) - пишете боту в лс id адресата и текст сообщения. При условии, что человек прописал у бота /start, ему придет сообщение с текстом от имени бота
-/set_ero_timer (время) (пароль) - установить таймер отсылки картинок, время в часах
-/stop_ero_timer (пароль) - остановить таймер отсылки картинок
+/set_ero_timer (время) - установить таймер отсылки картинок, время в часах (админ-команда!)
+/stop_ero_timer - остановить таймер отсылки картинок (админ-команда!)
 /add_ero (url-ссылка на картинку) - отправляйте в лс боту девушек! а он потом их по таймеру будет выкидывать в группу :)
 /how_much_ero - посмотреть сколько картинок осталось в очереди в таймере
 /random - выбросить число от 0 до 100
@@ -187,9 +195,8 @@ bot.onText(/\/sendto (\-[0-9]+|[0-9]+) (\S+.*)/, (msg, match) => {
 
 // таймер на выдачу картинок
 let eroTimer = null
-bot.onText(/\/set_ero_timer ([0-9]+) (.+)/, (msg, match) => {
-  if (authCheck(msg) != true) return
-  if (adminCheck(match[2]) !=true) return
+bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
+  if (adminCheck(msg) != true) return
 
   // если переназначаем таймер, прошлый нужно остановить
   stopTimer(eroTimer)
@@ -210,9 +217,8 @@ bot.onText(/\/set_ero_timer ([0-9]+) (.+)/, (msg, match) => {
   bot.sendMessage(groupChat, 'Буду присылать картинки каждые '+hours+' часов')
 });
 
-bot.onText(/\/stop_ero_timer (.+)/, (msg, match) => {
-  if (authCheck(msg) != true) return
-  if (adminCheck(match[1]) !=true) return
+bot.onText(/\/stop_ero_timer/, (msg) => {
+  if (adminCheck(msg) != true) return
 
   stopTimer(eroTimer)
   // при остановке таймера группа об этом оповещается
