@@ -50,7 +50,7 @@ function random (low, high) {
 // и сообщать об оставшемся кол-ве картинок в буфере (howMuchLeft)
 function takeFromBuffer(path, sendTo, howMuchLeftFlag) {
   // открываем файл-буфер со ссылками
-  fs.readFileSync(path, "utf8", function(error,data){
+  fs.readFile(path, "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
     let array = data.split(' ');
@@ -356,13 +356,13 @@ bot.onText(/\/search (.+)/, (msg, match) => {
     if(error) throw error; // если возникла ошибка
   });
   search(text)
-  takeFromBuffer("./list/search.txt", msg.chat.id, false)
+  takeFromBuffer("./list/search.txt", msg.chat.id, true)
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 // если нужно следующий результат
 bot.onText(/\/more/, (msg) => {
-  takeFromBuffer("./list/search.txt", msg.chat.id, false)
+  takeFromBuffer("./list/search.txt", msg.chat.id, true)
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
