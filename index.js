@@ -293,7 +293,7 @@ bot.onText(/\/search_more/, (msg) => {
 
  // --- конец логики бота --- //
 
-function talk(text) {
+function talk(text, id) {
   let talkRequest = botIsClever_HeCanTalk.textRequest(text, {
       sessionId: 'Canadian_bot_talk_to_you'
   });
@@ -301,7 +301,7 @@ function talk(text) {
   talkRequest.on('response', function(response) {
       console.log(response.result.fulfillment.speech);
       let botTalk = response.result.fulfillment.speech
-      bot.sendMessage(msg.chat.id, botTalk);
+      bot.sendMessage(id, botTalk);
   });
   
   talkRequest.on('error', function(error) {
@@ -315,5 +315,6 @@ bot.onText(/\/bot (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
 
   let text = match[1];
-  talk(text);
+  let id = msg.chat.id;
+  talk(text, id);
 });
