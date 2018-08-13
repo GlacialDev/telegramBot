@@ -40,6 +40,7 @@ function authCheck(message) {
       flag = true
       return console.log('return');
     }
+  return flag
   });
   
 }
