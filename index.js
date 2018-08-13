@@ -288,6 +288,12 @@ bot.onText(/\/search (.+)/, (msg, match) => {
     if(error) throw error; // если возникла ошибка
   });
   search(text)
+
+  setTimeout(function() {
+    takeFromBuffer("./list/search.txt",  msg.chat.id, false)
+  }, 3000);
+  
+  if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 // если нужно следующий результат
