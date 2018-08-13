@@ -14,6 +14,7 @@ const creator = 353140575
 let writeWhoAskFlag = true;
 // команда для переключения флага через бота
 bot.onText(/\/flag_whoask ([0-1])/, (message, match) => {
+  if (authCheck(msg) != true) return
   if(match[1] == 1) writeWhoAskFlag = true
   else if(match[1] == 0) writeWhoAskFlag = false
   bot.sendMessage(message.chat.id, `Флаг writeWhoAskFlag = ${writeWhoAskFlag}`);
@@ -150,6 +151,7 @@ bot.sendMessage(creator,
 flag writeWhoAskFlag = ${writeWhoAskFlag}`);
 
 bot.onText(/\/help/, (msg) => {
+  if (authCheck(msg) != true) return
   let response = 
 `Привет, ${msg.from.first_name}. Имеются следующие команды:\n
 /echo (текст) - повторяет текст
@@ -179,21 +181,22 @@ bot.onText(/\/id/, (msg) => {
 })
 
 bot.onText(/\/photo (https?:\/\/\S+)/, (msg, match) => {
+  if (authCheck(msg) != true) return
   let link = match[1];
   bot.sendPhoto(groupChat, link);
-  if (writeWhoAskFlag) writeWhoAsk(msg);
 })
 
 bot.onText(/\/sendto (\-[0-9]+|[0-9]+) (\S+.*)/, (msg, match) => {
+  if (authCheck(msg) != true) return
   let id = match[1];
   let text = match[2];
   bot.sendMessage(id, text);
-  if (writeWhoAskFlag) writeWhoAsk(msg);
 })
 
 // таймер на дату
 let timer = null
 bot.onText(/\/set_date_timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {
+  if (authCheck(msg) != true) return
   // если переназначаем таймер, прошлый нужно остановить
   stopTimer(timer)
   let gmt = match[1]
@@ -217,20 +220,18 @@ bot.onText(/\/set_date_timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, mat
   }, interval);
   // оповещение о том что всё прошло без ошибок
   bot.sendMessage(groupChat, 'Буду присылать время по часовому поясу gmt'+gmt+' каждые '+minutes+' минут')
-
-  if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 bot.onText(/\/stop_date_timer/, (msg) => {
+  if (authCheck(msg) != true) return
   stopTimer(timer)
   bot.sendMessage(groupChat, 'Таймер остановлен')
-
-  if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 // таймер на выдачу картинок
 let eroTimer = null
 bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
+  if (authCheck(msg) != true) return
   // если переназначаем таймер, прошлый нужно остановить
   stopTimer(eroTimer)
   let hours = match[1]
@@ -251,22 +252,23 @@ bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
 });
 
 bot.onText(/\/stop_ero_timer/, (msg) => {
+  if (authCheck(msg) != true) return
   stopTimer(eroTimer)
   // при остановке таймера группа об этом оповещается
   bot.sendMessage(groupChat, 'Таймер картинок остановлен')
 });
 
 bot.onText(/\/add_ero (https?:\/\/\S+)/, (msg, match) => {
+  if (authCheck(msg) != true) return
   let link = match[1];
   fs.appendFile("./list/images.txt", ' '+link, function(error){
     if(error) throw error; // если возникла ошибка)
     bot.sendMessage(msg.chat.id, 'Картинка добавлена в очередь!')
   });
-  
-  if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 bot.onText(/\/how_much_ero/, (msg) => {
+  if (authCheck(msg) != true) return
   let array = null;
   let number = null;
   // открываем файл-буфер со ссылками
@@ -278,20 +280,18 @@ bot.onText(/\/how_much_ero/, (msg) => {
     number = array.length;
     bot.sendMessage(msg.chat.id, `У меня в запасе осталось ${number} картинок`)
   });
-
-  if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 // выкинуть случайное число от 0 до 100 (другой способ)
 bot.onText(/\/random$/, (msg) => {
+  if (authCheck(msg) != true) return
   let roundRoll =  Math.round(random(0,100))
   bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
-
-  if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 // поиск картинки по запросу с выдачей первого результата
 bot.onText(/\/search (.+)/, (msg, match) => {
+  if (authCheck(msg) != true) return
   let text = match[1];
   bot.sendMessage(msg.chat.id, 'Ищу '+text+'. Результат ждите через 3 секунды');
   // обнуляю файл после предыдущего запроса
@@ -303,14 +303,17 @@ bot.onText(/\/search (.+)/, (msg, match) => {
   setTimeout(function() {
     takePhotoFromBuffer("./list/search.txt",  msg.chat.id, false)
   }, 3000);
-  
-  if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 // если нужно следующий результат
 bot.onText(/\/search_more/, (msg) => {
+  if (authCheck(msg) != true) return
   takePhotoFromBuffer("./list/search.txt", msg.chat.id, false)
-  if (writeWhoAskFlag) writeWhoAsk(msg);
+});
+
+bot.onText(/\/give_ero/, (msg) => {
+  if (authCheck(msg) != true) return
+  takePhotoFromBuffer("./list/ero.txt", msg.chat.id, true)
 });
 
  // --- конец логики бота --- //
