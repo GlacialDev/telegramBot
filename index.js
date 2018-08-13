@@ -6,6 +6,8 @@ const https = require('https')
 const fs = require('fs');
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(config.token, { polling: true });
+const apiai = require('apiai');
+const botIsClever_HeCanTalk = apiai(config.dialogFlowClientAccesToken);
 const groupChat = -307924393
 const creator = 353140575
 
@@ -290,3 +292,28 @@ bot.onText(/\/search_more/, (msg) => {
 });
 
  // --- конец логики бота --- //
+
+function talk(text) {
+  let talkRequest = botIsClever_HeCanTalk.textRequest(text, {
+      sessionId: 'Canadian_bot_talk_to_you'
+  });
+  
+  talkRequest.on('response', function(response) {
+      console.log(response);
+  });
+  
+  talkRequest.on('error', function(error) {
+      console.log(error);
+  });
+  
+  talkRequest.end();
+}
+
+bot.onText(/\/bot (.+)/, (msg, match) => {
+  if (authCheck(msg) != true) return
+
+  let text = match[1];
+  talk(text);
+  
+  bot.sendMessage(msg.chat.id, '123123123');
+});
