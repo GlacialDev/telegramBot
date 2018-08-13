@@ -149,10 +149,10 @@ function talk(text, id) {
   
   talkRequest.on('response', function(response) {
       let botTalk = response.result.fulfillment.speech
+      console.log(botTalk);
       bot.sendMessage(id, botTalk);
   });
   
-  if (error) bot.sendMessage(id, 'Кажется, я не понял, что ты имеешь в виду.');
   talkRequest.on('error', function(error) {
       console.log(error);
   });
