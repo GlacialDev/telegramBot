@@ -60,7 +60,7 @@ function random (low, high) {
 
 // достать ссылку из .txt файла (path), отослать по id (where) 
 // и сообщать об оставшемся кол-ве картинок в буфере (howMuchLeft)
-function takeFromBuffer(path, sendTo, howMuchLeftFlag) {
+function takePhotoFromBuffer(path, sendTo, howMuchLeftFlag) {
   // открываем файл-буфер со ссылками
   fs.readFile(path, "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
@@ -173,9 +173,9 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 });
 
 bot.onText(/\/id/, (msg) => {
+  if (authCheck(msg) != true) return
   bot.sendMessage(msg.chat.id, msg.chat.id+' - id этого чата');
   bot.sendMessage(msg.chat.id, msg.from.id+' - а это ваш id');
-  if (writeWhoAskFlag) writeWhoAsk(msg);
 })
 
 bot.onText(/\/photo (https?:\/\/\S+)/, (msg, match) => {
@@ -244,7 +244,7 @@ bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
   let interval = 1000*60*60*hours
   // инициализация таймера
   eroTimer = setInterval(function() {
-    takeFromBuffer("./list/ero.txt", groupChat, true)
+    takePhotoFromBuffer("./list/ero.txt", groupChat, true)
   }, interval);
   // если всё прошло успешно и без ошибок, далее следует сообщение в группу
   bot.sendMessage(groupChat, 'Буду присылать картинки каждые '+hours+' часов')
@@ -301,7 +301,7 @@ bot.onText(/\/search (.+)/, (msg, match) => {
   search(text)
 
   setTimeout(function() {
-    takeFromBuffer("./list/search.txt",  msg.chat.id, false)
+    takePhotoFromBuffer("./list/search.txt",  msg.chat.id, false)
   }, 3000);
   
   if (writeWhoAskFlag) writeWhoAsk(msg);
@@ -309,7 +309,7 @@ bot.onText(/\/search (.+)/, (msg, match) => {
 
 // если нужно следующий результат
 bot.onText(/\/search_more/, (msg) => {
-  takeFromBuffer("./list/search.txt", msg.chat.id, false)
+  takePhotoFromBuffer("./list/search.txt", msg.chat.id, false)
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
