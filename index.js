@@ -306,6 +306,7 @@ function talk(text, id) {
   
   talkRequest.on('error', function(error) {
       console.log(error);
+      bot.sendMessage(id, 'Кажется, я не понял, что ты имеешь в виду.');
   });
   
   talkRequest.end();
