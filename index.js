@@ -144,17 +144,18 @@ function search(requestMes) {
 // dialogflow и гугл нейросети, которые говорят с тобой!
 function talk(text, id) {
   let talkRequest = botIsClever_HeCanTalk.textRequest(text, {
-      sessionId: 'Canadian_bot_talk_to_you'
+    sessionId: 'Canadian_bot_talk_to_you'
   });
   
   talkRequest.on('response', function(response) {
-      let botTalk = response.result.fulfillment.speech
-      if (botTalk == '') bot.sendMessage(id, 'Я хз что ответить, сори');
-      bot.sendMessage(id, botTalk);
+    let botTalk = response.result.fulfillment.speech
+    if (botTalk == '') bot.sendMessage(id, 'Я хз что ответить, сори. Возможно позже я пойму, что нужно было сказать в ответ на это...');
+    bot.sendMessage(id, botTalk);
   });
   
   talkRequest.on('error', function(error) {
-      console.log(error);
+    if (error) bot.sendMessage(id, 'Там, где расположены мои мозги, какие то проблемы. В общем, я не могу ответить :(');
+    console.log(error);
   });
   
   talkRequest.end();
