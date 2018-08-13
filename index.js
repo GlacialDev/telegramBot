@@ -35,7 +35,10 @@ function authCheck(message) {
   let id = message.from.id
   config.authorizedUsers.forEach(function(item, i, array) {
     console.log(id +' '+item)
-    if (id = item) return true
+    if (id = item) {
+      console.log('true')
+      return true
+    }
   });
 }
 
