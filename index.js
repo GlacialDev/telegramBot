@@ -53,7 +53,7 @@ function takeFromBuffer(path, sendTo, howMuchLeftFlag) {
   fs.readFileSync(path, "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
-    let array = data.split(' ');
+    let array = data.split('\n');
     let item = array.shift();
     // если ссылки кончились говорим что всё хана заправляйте новыми
     if (item == '') item = 'Картинки кончились :('
