@@ -279,21 +279,14 @@ bot.onText(/\/random$/, (msg) => {
 });
 
 // поиск картинки по запросу с выдачей первого результата
-let searchResult;
 bot.onText(/\/search (.+)/, (msg, match) => {
-  clearTimeout(searchResult)
-  let id = msg.chat.id;
   let text = match[1];
-  bot.sendMessage(id, 'Пытаюсь найти '+text+'. Результат ожидается через 3 секунды');
+  bot.sendMessage(msg.chat.id, 'Пытаюсь найти '+text+'. Результат ожидается через 3 секунды');
   // обнуляю файл после предыдущего запроса
   fs.writeFileSync("./list/search.txt", '', function(error){
     if(error) throw error; // если возникла ошибка
   });
   search(text)
-  // через 3 секунды отдаю результат
-  searchResult = setTimeout(function() {
-    takeFromBuffer("./list/search.txt", id, false)
-  }, 3000);
 });
 
 // если нужно следующий результат
