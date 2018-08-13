@@ -299,7 +299,7 @@ function talk(text) {
   });
   
   talkRequest.on('response', function(response) {
-      console.log(response);
+      console.log(response.result.fulfullment.speech);
   });
   
   talkRequest.on('error', function(error) {
