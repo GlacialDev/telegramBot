@@ -93,3 +93,9 @@ bot.onText(/\/roll_file ([0-9]+)/, (msg, match) => {
 
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
+
+// то же самое, что в таймере, но вручную по команде /give_ero
+bot.onText(/\/give_ero/, (msg) => {
+  takeFromBuffer("./list/ero.txt", msg.chat.id, true)
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+});

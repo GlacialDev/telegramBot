@@ -148,8 +148,9 @@ bot.onText(/\/help/, (msg) => {
 /stop_date_timer - остановить таймер
 /add_ero (url-ссылка на картинку) - отправляйте в лс боту девушек! а он потом их по таймеру будет выкидывать в группу :)
 /how_much_ero - посмотреть сколько картинок осталось в очереди в таймере
-/roll - выбросить число от 0 до 100
-/roll - (число1) (число2) - выбросить число в интервале от числа 1 до числа 2`
+/random - выбросить число от 0 до 100
+/search (текст) - выполнить поиск картинки по запросу
+/search_result - получить результат поиска (можно выполнять много раз)`
   bot.sendMessage(msg.chat.id, response);
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
@@ -229,13 +230,13 @@ bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
     return
   }
   // значение интервала для таймера
-  let interval = 1000*5*1*hours
+  let interval = 1000*60*60*hours
   // инициализация таймера
   eroTimer = setInterval(function() {
-    takeFromBuffer("./list/ero.txt", creator, true)
+    takeFromBuffer("./list/ero.txt", groupChat, true)
   }, interval);
   // если всё прошло успешно и без ошибок, далее следует сообщение в группу
-  bot.sendMessage(creator, 'Буду присылать картинки каждые '+hours+' часов')
+  bot.sendMessage(groupChat, 'Буду присылать картинки каждые '+hours+' часов')
 });
 
 bot.onText(/\/stop_ero_timer/, (msg) => {
@@ -281,7 +282,7 @@ bot.onText(/\/random$/, (msg) => {
 // поиск картинки по запросу с выдачей первого результата
 bot.onText(/\/search (.+)/, (msg, match) => {
   let text = match[1];
-  bot.sendMessage(msg.chat.id, 'Пытаюсь найти '+text+'. Результат ожидается через 3 секунды');
+  bot.sendMessage(msg.chat.id, 'Пытаюсь найти '+text+);
   // обнуляю файл после предыдущего запроса
   fs.writeFileSync("./list/search.txt", '', function(error){
     if(error) throw error; // если возникла ошибка
@@ -290,14 +291,8 @@ bot.onText(/\/search (.+)/, (msg, match) => {
 });
 
 // если нужно следующий результат
-bot.onText(/\/more/, (msg) => {
+bot.onText(/\/search_result/, (msg) => {
   takeFromBuffer("./list/search.txt", msg.chat.id, false)
-  if (writeWhoAskFlag) writeWhoAsk(msg);
-});
-
-// то же самое, что в таймере, но вручную по команде /give_ero
-bot.onText(/\/give_ero/, (msg) => {
-  takeFromBuffer("./list/ero.txt", msg.chat.id, true)
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
