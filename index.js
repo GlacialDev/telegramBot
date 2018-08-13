@@ -290,8 +290,10 @@ bot.onText(/\/search (.+)/, (msg, match) => {
     if(error) throw error; // если возникла ошибка
   });
   search(text)
-  
-  searchResult = setTimeout(takeFromBuffer("./list/search.txt", id, false), 3000);
+  // через 3 секунды отдаю результат
+  searchResult = setTimeout(function() {
+    takeFromBuffer("./list/search.txt", id, false)
+  }, 3000);
 });
 
 // если нужно следующий результат
