@@ -36,17 +36,13 @@ function authCheck(message) {
   let array = config.authorizedUsers
   let ok = false;
   for (let i = 0; i < array.length; i++) {
-    console.log(i+' : '+id+' '+array[i])
     if (id === array[i]) { 
-      console.log('внутри if');
       ok = true
-      console.log(ok);
       return ok
     }
   }
 }
   
-
 // остановка таймера
 function stopTimer(timerName) {
   clearInterval(timerName)
@@ -168,15 +164,12 @@ bot.onText(/\/help/, (msg) => {
 /search (текст) - выполнить поиск картинки по запросу
 /search_result - получить результат поиска (можно выполнять много раз)`
   bot.sendMessage(msg.chat.id, response);
-  if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
-  if (authCheck(msg)) {
-    let text = match[1];
-    bot.sendMessage(msg.chat.id, text);
-    if (writeWhoAskFlag) writeWhoAsk(msg);
-  }
+  if (authCheck(msg) != true) return
+  let text = match[1];
+  bot.sendMessage(msg.chat.id, text);
 });
 
 bot.onText(/\/id/, (msg) => {
