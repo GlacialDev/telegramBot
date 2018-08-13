@@ -57,11 +57,11 @@ function takeFromBuffer(path, sendTo, howMuchLeftFlag) {
     let item = array.shift();
     // если ссылки кончились говорим что всё хана заправляйте новыми
     if (item == '') item = 'Картинки кончились :('
-    this.bot.sendMessage(sendTo, item)
+    bot.sendMessage(sendTo, item)
     // если требуется сообщить оставшееся количество картинок в буфере
     if (howMuchLeftFlag) {
       let number = array.length;
-      this.bot.sendMessage(sendTo, `У меня в запасе осталось ${number} картинок`)
+      bot.sendMessage(sendTo, `У меня в запасе осталось ${number} картинок`)
     }
     // массив без элемента который мы достали shift-ом преобразуем в строку
     let string = array.join(' ')
