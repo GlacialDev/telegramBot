@@ -140,6 +140,25 @@ function search(requestMes) {
     console.log('Please paste yours into the source code.');
   }
 }
+
+// dialogflow и гугл нейросети, которые говорят с тобой!
+function talk(text, id) {
+  let talkRequest = botIsClever_HeCanTalk.textRequest(text, {
+      sessionId: 'Canadian_bot_talk_to_you'
+  });
+  
+  talkRequest.on('response', function(response) {
+      let botTalk = response.result.fulfillment.speech
+      bot.sendMessage(id, botTalk);
+  });
+  
+  talkRequest.on('error', function(error) {
+      console.log(error);
+      bot.sendMessage(id, 'Кажется, я не понял, что ты имеешь в виду.');
+  });
+  
+  talkRequest.end();
+}
  
 // --- конец объявления функций --- //
 // --- начало логики бота --- //
@@ -291,27 +310,6 @@ bot.onText(/\/search_more/, (msg) => {
   takePhotoFromBuffer("./list/search.txt", msg.chat.id, false)
 });
 
- // --- конец логики бота --- //
-
-function talk(text, id) {
-  let talkRequest = botIsClever_HeCanTalk.textRequest(text, {
-      sessionId: 'Canadian_bot_talk_to_you'
-  });
-  
-  talkRequest.on('response', function(response) {
-      console.log(response.result.fulfillment.speech);
-      let botTalk = response.result.fulfillment.speech
-      bot.sendMessage(id, botTalk);
-  });
-  
-  talkRequest.on('error', function(error) {
-      console.log(error);
-      bot.sendMessage(id, 'Кажется, я не понял, что ты имеешь в виду.');
-  });
-  
-  talkRequest.end();
-}
-
 bot.onText(/\/bot (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
 
@@ -319,3 +317,5 @@ bot.onText(/\/bot (.+)/, (msg, match) => {
   let id = msg.chat.id;
   talk(text, id);
 });
+
+ // --- конец логики бота --- //
