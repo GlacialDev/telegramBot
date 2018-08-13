@@ -96,7 +96,7 @@ function search(requestMes) {
       let valueArray = jsonAnswer.value;
       // вытаскиваю ссылку на картинку в буфер
       valueArray.forEach(function(item, i, valueArray) {
-        fs.appendFileSync("./list/search.txt", ' '+item.contentUrl, function(error){
+        fs.appendFileSync("./list/search.txt", item.contentUrl+' ', function(error){
           if(error) throw error; // если возникла ошибка)
         });
       });
@@ -123,6 +123,7 @@ function search(requestMes) {
 
   if (subscriptionKey.length === 32) {
     bing_image_search(term);
+    takeFromBuffer("./list/search.txt", msg.chat.id, false)
   } else {
     console.log('Invalid Bing Search API subscription key!');
     console.log('Please paste yours into the source code.');
