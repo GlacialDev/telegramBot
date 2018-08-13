@@ -33,17 +33,17 @@ function writeWhoAsk(message) {
 // проверка, внесен ли запрашивающий в список авторизованных лиц
 function authCheck(message) {
   let id = message.from.id
-  let flag;
-  config.authorizedUsers.forEach(function(item, i, array) {
-    console.log(id+' '+item)
-    if (id === item) {
-      flag = true
-      return console.log('return');
+  let array = config.authorizedUsers
+  let ok = false;
+  for (let i = 0; i < array.length; i++) {
+    if (id === array[i]) { 
+      ok = true
+      return
     }
-  return flag
-  });
-  
+  return ok
+  }
 }
+  
 
 // остановка таймера
 function stopTimer(timerName) {
