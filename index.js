@@ -40,10 +40,9 @@ function authCheck(message) {
     if (id === array[i]) { 
       console.log('внутри if');
       ok = true
-      return
+      console.log(ok);
+      return ok
     }
-  console.log(ok);
-  return ok
   }
 }
   
