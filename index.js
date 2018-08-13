@@ -53,7 +53,7 @@ function takeFromBuffer(path, sendTo, howMuchLeftFlag) {
   fs.readFileSync(path, "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
-    let array = data.split('^p');
+    let array = data.split('\b');
     let item = array.shift();
     // если ссылки кончились говорим что всё хана заправляйте новыми
     if (item == '') item = 'Картинки кончились :('
@@ -64,7 +64,7 @@ function takeFromBuffer(path, sendTo, howMuchLeftFlag) {
       bot.sendMessage(sendTo, `У меня в запасе осталось ${number} картинок`)
     }
     // массив без элемента который мы достали shift-ом преобразуем в строку
-    let string = array.join('^p')
+    let string = array.join('\b')
     // и грузим обратно в файл-буфер
     fs.writeFileSync(path, string, function(error){
       if(error) throw error; // если возникла ошибка)
@@ -261,7 +261,7 @@ bot.onText(/\/how_much_ero/, (msg) => {
   fs.readFile("./list/ero.txt", "utf8", function(error,data) {
     if(error) throw error; // если возникла ошибка
     // разбиваем содержимое файла на массив
-    array = data.split('^p');
+    array = data.split('\b');
     // считаем количество элементов
     number = array.length;
     bot.sendMessage(msg.chat.id, `У меня в запасе осталось ${number} картинок`)
