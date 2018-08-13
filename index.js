@@ -53,7 +53,7 @@ function takeFromBuffer(path, sendTo, howMuchLeftFlag) {
   fs.readFileSync(path, "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
-    let array = data.split('\r');
+    let array = data.split('\v');
     let item = array.shift();
     // если ссылки кончились говорим что всё хана заправляйте новыми
     if (item == '') item = 'Картинки кончились :('
@@ -261,7 +261,7 @@ bot.onText(/\/how_much_ero/, (msg) => {
   fs.readFile("./list/ero.txt", "utf8", function(error,data) {
     if(error) throw error; // если возникла ошибка
     // разбиваем содержимое файла на массив
-    array = data.split('\r');
+    array = data.split('\v');
     // считаем количество элементов
     number = array.length;
     bot.sendMessage(msg.chat.id, `У меня в запасе осталось ${number} картинок`)
