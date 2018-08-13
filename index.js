@@ -310,7 +310,7 @@ bot.onText(/\/search_more/, (msg) => {
   takePhotoFromBuffer("./list/search.txt", msg.chat.id, false)
 });
 
-bot.onText(/\/bot (.+)/, (msg, match) => {
+bot.onText(/\/бот (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
 
   let text = match[1];
