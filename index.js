@@ -281,29 +281,19 @@ bot.onText(/\/random$/, (msg) => {
 // поиск картинки по запросу с выдачей первого результата
 bot.onText(/\/search (.+)/, (msg, match) => {
   let text = match[1];
-  bot.sendMessage(msg.chat.id, 'Пытаюсь найти '+text);
+  bot.sendMessage(msg.chat.id, 'Пытаюсь найти '+text+'. Результат ожидается через 3 секунды');
   // обнуляю файл после предыдущего запроса
   fs.writeFileSync("./list/search.txt", '', function(error){
     if(error) throw error; // если возникла ошибка
-    search(text)
   });
-
-  let array = null;
-  let number = null;
-  // открываем файл-буфер со ссылками
-  fs.readFile("./list/search.txt", "utf8", function(error,data) {
-    if(error) throw error; // если возникла ошибка
-    // разбиваем содержимое файла на массив
-    array = data.split(' ');
-    // считаем количество элементов
-    number = array.length;
-    bot.sendMessage(msg.chat.id, `У меня в запасе осталось ${number} картинок`)
-  });
+  search(text)
+  
+  setTimeout(takeFromBuffer("./list/search.txt", msg.chat.id, false), 3000);
 });
 
 // если нужно следующий результат
 bot.onText(/\/more/, (msg) => {
-  takeFromBuffer("./list/search.txt", msg.chat.id, true)
+  takeFromBuffer("./list/search.txt", msg.chat.id, false)
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
