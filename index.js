@@ -118,7 +118,7 @@ function search(requestMes) {
     };
 
     let req = https.request(request_params, response_handler);
-    req.end(takeFromBuffer("./list/search.txt", msg.chat.id, false));
+    req.end();
   }
 
   if (subscriptionKey.length === 32) {
@@ -295,5 +295,12 @@ bot.onText(/\/search_result/, (msg) => {
   takeFromBuffer("./list/search.txt", msg.chat.id, false)
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
+
+bot.onText(/проверка/, (msg) => {
+  bot.sendMessage(msg.chat.id, msg.chat.id+' - id этого чата');
+  bot.sendMessage(msg.chat.id, msg.from.id+' - а это ваш id');
+  if (writeWhoAskFlag) writeWhoAsk(msg);
+})
+
 
 // --- конец логики бота --- //
