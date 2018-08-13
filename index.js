@@ -196,8 +196,11 @@ bot.onText(/\/sendto (\-[0-9]+|[0-9]+) (\S+.*)/, (msg, match) => {
 // таймер на выдачу картинок
 let eroTimer = null
 bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
-  if (adminCheck(msg) != true) return
-
+  if (adminCheck(msg) != true) {
+    bot.sendMessage(msg.chat.id, 'Только для посвященных')
+    return
+  }
+  
   // если переназначаем таймер, прошлый нужно остановить
   stopTimer(eroTimer)
   let hours = match[1]
@@ -218,7 +221,10 @@ bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
 });
 
 bot.onText(/\/stop_ero_timer/, (msg) => {
-  if (adminCheck(msg) != true) return
+  if (adminCheck(msg) != true) {
+    bot.sendMessage(msg.chat.id, 'Только для посвященных')
+    return
+  }
 
   stopTimer(eroTimer)
   // при остановке таймера группа об этом оповещается
