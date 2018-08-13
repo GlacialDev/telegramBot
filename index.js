@@ -31,12 +31,12 @@ function writeWhoAsk(message) {
 }
 
 // проверка, внесен ли запрашивающий в список авторизованных лиц
-// function authCheck(message) {
-//   let id = message.from.id
-//   config.authorizedUsers.forEach(function(item, i, array) {
-//     if (id = item) return true
-//   });
-// }
+function authCheck(message) {
+  let id = message.from.id
+  config.authorizedUsers.forEach(function(item, i, array) {
+    if (id = item) return true
+  });
+}
 
 // остановка таймера
 function stopTimer(timerName) {
@@ -163,9 +163,11 @@ bot.onText(/\/help/, (msg) => {
 });
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
+  if (authCheck(msg)) {
     let text = match[1];
     bot.sendMessage(msg.chat.id, text);
     if (writeWhoAskFlag) writeWhoAsk(msg);
+  }
 });
 
 bot.onText(/\/id/, (msg) => {
