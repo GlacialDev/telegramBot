@@ -153,8 +153,8 @@ function talk(text, id) {
   });
   
   talkRequest.on('error', function(error) {
-      console.log(error);
       bot.sendMessage(id, 'Кажется, я не понял, что ты имеешь в виду.');
+      console.log(error);
   });
   
   talkRequest.end();
@@ -181,7 +181,8 @@ bot.onText(/\/help/, (msg) => {
 /how_much_ero - посмотреть сколько картинок осталось в очереди в таймере
 /random - выбросить число от 0 до 100
 /search (текст) - выполнить поиск картинки по запросу
-/search_more - получить другую картинку по прошлому запросу (можно выполнять много раз)`
+/search_more - получить другую картинку по прошлому запросу (можно выполнять много раз)
+!бот (текст) - поговорить с ботом`
   bot.sendMessage(msg.chat.id, response);
 });
 
@@ -310,7 +311,7 @@ bot.onText(/\/search_more/, (msg) => {
   takePhotoFromBuffer("./list/search.txt", msg.chat.id, false)
 });
 
-bot.onText(/\/бот (.+)/, (msg, match) => {
+bot.onText(/!бот (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
 
   let text = match[1];
