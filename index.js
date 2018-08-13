@@ -74,7 +74,7 @@ function takeFromBuffer(path, sendTo, howMuchLeftFlag) {
 
 // функция поиска изображений через api поисковика Bing
 // все как в тамошней документации кроме пары вещей где комментарии
-function search(requestMes) {
+// function search(requestMes) {
   let subscriptionKey = azureKey();
   let host = 'api.cognitive.microsoft.com';
   let path = '/bing/v7.0/images/search';
@@ -127,7 +127,7 @@ function search(requestMes) {
     console.log('Invalid Bing Search API subscription key!');
     console.log('Please paste yours into the source code.');
   }
-}
+// }
  
 // --- конец объявления функций --- //
 // --- начало логики бота --- //
@@ -349,65 +349,15 @@ bot.onText(/\/roll_file ([0-9]+)/, (msg, match) => {
 
 // поиск картинки по запросу с выдачей первого результата
 bot.onText(/\/search (.+)/, (msg, match) => {
+  let text = match[1];
   bot.sendMessage(msg.chat.id, 'Пытаюсь найти '+text);
   // обнуляю файл после предыдущего запроса
   fs.writeFileSync("./list/search.txt", '', function(error){
     if(error) throw error; // если возникла ошибка
   });
-  let subscriptionKey = azureKey();
-  let host = 'api.cognitive.microsoft.com';
-  let path = '/bing/v7.0/images/search';
-  let term = match[1];
-
-  let response_handler = function (response) {
-    let body = '';
-    response.on('data', function (d) {
-        body += d;
-    });
-    response.on('end', function () {
-      console.log('\nRelevant Headers:\n');
-      for (var header in response.headers)
-          // header keys are lower-cased by Node.js
-          if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
-              console.log(header + ": " + response.headers[header]);
-      // в этом месте парсю тело запроса и вытаскиваю массив со свойствами (одно из них мне нужно чтобы скинуть картинку в чат)
-      let jsonAnswer = JSON.parse(body);
-      let valueArray = jsonAnswer.value;
-      // вытаскиваю ссылку на картинку в буфер
-      valueArray.forEach(function(item, i, valueArray) {
-        fs.appendFileSync("./list/search.txt", ' '+item.contentUrl, function(error){
-          if(error) throw error; // если возникла ошибка)
-        });
-      });
-    });
-    response.on('error', function (e) {
-      console.log('Error: ' + e.message);
-    });
-  };
-
-  let bing_image_search = function (search) {
-    console.log('Searching images for: ' + term);
-    let request_params = {
-          method : 'GET',
-          hostname : host,
-          path : path + '?q=' + encodeURIComponent(search),
-          headers : {
-              'Ocp-Apim-Subscription-Key' : subscriptionKey,
-          }
-    };
-
-    let req = https.request(request_params, response_handler);
-    req.end();
-
-    takeFromBuffer("./list/search.txt", msg.chat.id, true)
-  }
-
-  if (subscriptionKey.length === 32) {
-    bing_image_search(term);
-  } else {
-    console.log('Invalid Bing Search API subscription key!');
-    console.log('Please paste yours into the source code.');
-  }
+  search(text)
+  takeFromBuffer("./list/search.txt", msg.chat.id, true)
+  if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
 // если нужно следующий результат
