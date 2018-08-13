@@ -299,7 +299,9 @@ function talk(text) {
   });
   
   talkRequest.on('response', function(response) {
-      console.log(response.result.fulfullment.speech);
+      console.log(response.result.fulfillment.speech);
+      let botTalk = response.result.fulfillment.speech
+      bot.sendMessage(msg.chat.id, botTalk);
   });
   
   talkRequest.on('error', function(error) {
@@ -314,6 +316,4 @@ bot.onText(/\/bot (.+)/, (msg, match) => {
 
   let text = match[1];
   talk(text);
-  
-  bot.sendMessage(msg.chat.id, '123123123');
 });
