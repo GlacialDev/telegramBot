@@ -46,6 +46,32 @@ function random (low, high) {
   return randomC(4)/Math.pow(2,4*8) * (high - low) + low;
 }
 
+// достать ссылку из .txt файла (path), отослать по id (where) 
+// и сообщать об оставшемся кол-ве картинок в буфере (howMuchLeft)
+function takeFromBuffer(path, where, howMuchLeftFlag) {
+  // открываем файл-буфер со ссылками
+  fs.readFile(path, "utf8", function(error,data){
+    if(error) throw error; // если возникла ошибка
+    // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
+    let array = data.split(' ');
+    let item = array.shift();
+    // если ссылки кончились говорим что всё хана заправляйте новыми
+    if (item == '') item = 'Картинки кончились :('
+    bot.sendMessage(where, item)
+    // если требуется сообщить оставшееся количество картинок в буфере
+    if (howMuchLeftFlag) {
+      let number = array.length;
+      bot.sendMessage(where, `У меня в запасе осталось ${number} картинок`)
+    }
+    // массив без элемента который мы достали shift-ом преобразуем в строку
+    let string = array.join(' ')
+    // и грузим обратно в файл-буфер
+    fs.writeFileSync(path, string, function(error){
+      if(error) throw error; // если возникла ошибка)
+    });
+  });
+}
+
 // функция поиска изображений через api поисковика Bing
 // все как в тамошней документации кроме пары вещей где комментарии
 function search(requestMes) {
@@ -60,31 +86,28 @@ function search(requestMes) {
         body += d;
     });
     response.on('end', function () {
-        console.log('\nRelevant Headers:\n');
-        for (var header in response.headers)
-            // header keys are lower-cased by Node.js
-            if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
-                console.log(header + ": " + response.headers[header]);
-        // в этом месте парсю тело запроса и вытаскиваю массив со свойствами (одно из них мне нужно чтобы скинуть картинку в чат)
-        let jsonAnswer = JSON.parse(body);
-        let valueArray = jsonAnswer.value;
-        // обнуляю файл после предыдущего запроса
-        fs.writeFileSync("./list/search.txt", '', function(error){
-          if(error) throw error; // если возникла ошибка
+      console.log('\nRelevant Headers:\n');
+      for (var header in response.headers)
+          // header keys are lower-cased by Node.js
+          if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
+              console.log(header + ": " + response.headers[header]);
+      // в этом месте парсю тело запроса и вытаскиваю массив со свойствами (одно из них мне нужно чтобы скинуть картинку в чат)
+      let jsonAnswer = JSON.parse(body);
+      let valueArray = jsonAnswer.value;
+      // обнуляю файл после предыдущего запроса
+      fs.writeFileSync("./list/search.txt", '', function(error){
+        if(error) throw error; // если возникла ошибка
+      });
+      // вытаскиваю ссылку на картинку в буфер
+      valueArray.forEach(function(item, i, valueArray) {
+        fs.appendFileSync("./list/search.txt", ' '+item.contentUrl, function(error){
+          if(error) throw error; // если возникла ошибка)
         });
-        // вытаскиваю ссылку на картинку в буфер
-        valueArray.forEach(function(item, i, valueArray) {
-          fs.appendFileSync("./list/search.txt", ' '+item.contentUrl, function(error){
-            if(error) throw error; // если возникла ошибка)
-          });
-        });
-        // какой то код который мне не нужен но был в документации
-        // body = JSON.stringify(JSON.parse(body), null, '  ');
-        // console.log('\nJSON Response:\n');
-        // console.log(body);
+      });
+      takeFromBuffer("./list/search.txt", msg.chat.id, false)
     });
     response.on('error', function (e) {
-        console.log('Error: ' + e.message);
+      console.log('Error: ' + e.message);
     });
   };
 
@@ -97,44 +120,18 @@ function search(requestMes) {
           headers : {
               'Ocp-Apim-Subscription-Key' : subscriptionKey,
           }
-      };
+    };
 
-      let req = https.request(request_params, response_handler);
-      req.end();
+    let req = https.request(request_params, response_handler);
+    req.end();
   }
 
   if (subscriptionKey.length === 32) {
-      bing_image_search(term);
+    bing_image_search(term);
   } else {
-      console.log('Invalid Bing Search API subscription key!');
-      console.log('Please paste yours into the source code.');
+    console.log('Invalid Bing Search API subscription key!');
+    console.log('Please paste yours into the source code.');
   }
-}
-
-// достать ссылку из .txt файла (path), отослать по id (where) 
-// и сообщать об оставшемся кол-ве картинок в буфере (howMuchLeft)
-function takeFromBuffer(path, where, howMuchLeftFlag) {
-    // открываем файл-буфер со ссылками
-    fs.readFile(path, "utf8", function(error,data){
-      if(error) throw error; // если возникла ошибка
-      // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
-      let array = data.split(' ');
-      let item = array.shift();
-      // если ссылки кончились говорим что всё хана заправляйте новыми
-      if (item == '') item = 'Картинки кончились :('
-      bot.sendMessage(where, item)
-      // если требуется сообщить оставшееся количество картинок в буфере
-      if (howMuchLeftFlag) {
-        let number = array.length;
-        bot.sendMessage(where, `У меня в запасе осталось ${number} картинок`)
-      }
-      // массив без элемента который мы достали shift-ом преобразуем в строку
-      let string = array.join(' ')
-      // и грузим обратно в файл-буфер
-      fs.writeFile(path, string, function(error){
-        if(error) throw error; // если возникла ошибка)
-      });
-    });
 }
  
 // --- конец объявления функций --- //
