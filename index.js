@@ -149,6 +149,7 @@ function talk(text, id) {
   
   talkRequest.on('response', function(response) {
       let botTalk = response.result.fulfillment.speech
+      console.log(response);
       console.log(botTalk);
       bot.sendMessage(id, botTalk);
   });
