@@ -66,7 +66,7 @@ function takeFromBuffer(path, sendTo, howMuchLeftFlag) {
     // массив без элемента который мы достали shift-ом преобразуем в строку
     let string = array.join(' ')
     // и грузим обратно в файл-буфер
-    fs.writeFileSync(path, string, function(error){
+    fs.writeFile(path, string, function(error){
       if(error) throw error; // если возникла ошибка)
     });
   });
