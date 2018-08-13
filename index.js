@@ -152,8 +152,8 @@ function talk(text, id) {
       bot.sendMessage(id, botTalk);
   });
   
+  if (error) bot.sendMessage(id, 'Кажется, я не понял, что ты имеешь в виду.');
   talkRequest.on('error', function(error) {
-      bot.sendMessage(id, 'Кажется, я не понял, что ты имеешь в виду.');
       console.log(error);
   });
   
