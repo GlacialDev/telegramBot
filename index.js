@@ -229,13 +229,13 @@ bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
     return
   }
   // значение интервала для таймера
-  let interval = 1000*60*60*hours
+  let interval = 1000*5*1*hours
   // инициализация таймера
   eroTimer = setInterval(function() {
-    takeFromBuffer("./list/ero.txt", groupChat, true)
+    takeFromBuffer("./list/ero.txt", creator, true)
   }, interval);
   // если всё прошло успешно и без ошибок, далее следует сообщение в группу
-  bot.sendMessage(groupChat, 'Буду присылать картинки каждые '+hours+' часов')
+  bot.sendMessage(creator, 'Буду присылать картинки каждые '+hours+' часов')
 });
 
 bot.onText(/\/stop_ero_timer/, (msg) => {
