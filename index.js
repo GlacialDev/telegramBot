@@ -36,10 +36,13 @@ function authCheck(message) {
   let array = config.authorizedUsers
   let ok = false;
   for (let i = 0; i < array.length; i++) {
+    console.log(i+' : '+id+' '+array[i])
     if (id === array[i]) { 
+      console.log('внутри if');
       ok = true
       return
     }
+  console.log(ok);
   return ok
   }
 }
