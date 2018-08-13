@@ -282,7 +282,7 @@ bot.onText(/\/random$/, (msg) => {
 // поиск картинки по запросу с выдачей первого результата
 bot.onText(/\/search (.+)/, (msg, match) => {
   let text = match[1];
-  bot.sendMessage(msg.chat.id, 'Пытаюсь найти '+text);
+  bot.sendMessage(msg.chat.id, 'Пытаюсь найти '+text+'. Постараюсь ответить через 3 секунды');
   // обнуляю файл после предыдущего запроса
   fs.writeFileSync("./list/search.txt", '', function(error){
     if(error) throw error; // если возникла ошибка
@@ -297,7 +297,7 @@ bot.onText(/\/search (.+)/, (msg, match) => {
 });
 
 // если нужно следующий результат
-bot.onText(/\/search_result/, (msg) => {
+bot.onText(/\/search_more/, (msg) => {
   takeFromBuffer("./list/search.txt", msg.chat.id, false)
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
