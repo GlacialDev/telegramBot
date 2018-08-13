@@ -32,8 +32,9 @@ function writeWhoAsk(message) {
 
 // проверка, внесен ли запрашивающий в список авторизованных лиц
 function authCheck(id) {
+  let who = id
   config.authorizedUsers.forEach(function(item, i, array) {
-    if (id = item) return true
+    if (who = item) return true
   });
 }
 
