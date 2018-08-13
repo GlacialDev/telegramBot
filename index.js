@@ -304,7 +304,8 @@ bot.onText(/\/more/, (msg) => {
 
 // то же самое, что в таймере, но вручную по команде /give_ero
 bot.onText(/\/give_ero/, (msg) => {
-  takeFromBuffer("./list/ero.txt", msg.chat.id, true)
+  let result = takeFromBuffer()
+  result("./list/ero.txt", msg.chat.id, true)
   if (writeWhoAskFlag) writeWhoAsk(msg);
 });
 
