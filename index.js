@@ -165,7 +165,7 @@ function talk(text, id) {
 // и передает полученную строку в другой файл
 function replacer(path1, path2) {
   // достать данные из path1
-  fs.readFileSync(path1, "utf8", function(error,data){
+  fs.readFile(path1, "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     let string = data.replace(/\s+/g, ' ')
 
@@ -173,6 +173,7 @@ function replacer(path1, path2) {
     // вставить их в path2
     fs.appendFile(path2, ' '+string, function(error){
       if(error) throw error; // если возникла ошибка)
+      bot.sendMessage(msg.chat.id, `Перемещение закончено`)
     })
     // и удалить содержимое path1
     fs.writeFile(path1, '', function(error){
@@ -336,7 +337,6 @@ bot.onText(/\/ero_replacer/, (msg) => {
   if (adminCheck(msg) != true) return
 
   replacer('./list/savefrom.txt', './list/ero.txt')
-  bot.sendMessage(msg.chat.id, `Перемещение закончено`)
 })
 
  // --- конец логики бота --- //
