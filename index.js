@@ -164,7 +164,7 @@ function talk(text, id) {
 function replacer(path, path2) {
   fs.readFile(path, "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
-    let string = data.replace(/\s/g, ' ')
+    let string = data.replace(/\s+/g, ' ')
     fs.writeFile(path2, string, function(error){
       if(error) throw error; // если возникла ошибка)
     })
