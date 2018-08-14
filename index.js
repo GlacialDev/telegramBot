@@ -68,11 +68,7 @@ function takePhotoFromBuffer(path, sendTo, howMuchLeftFlag) {
     let array = data.split(' ');
     let item = array.shift();
     // если ссылки кончились говорим что всё хана заправляйте новыми
-    if (item == '') {
-      item = 'Картинки кончились :('
-    } else if (item == ' ') {
-      item = array.shift();
-    }
+    if (item == '') item = 'Картинки кончились :('
     bot.sendPhoto(sendTo, item)
     // если требуется сообщить оставшееся количество картинок в буфере
     if (howMuchLeftFlag) {
@@ -165,6 +161,8 @@ function talk(text, id) {
   talkRequest.end();
 }
 
+// заменяет несимвольные разделители или много пробелов одним пробелом 
+// и передает полученную строку в другой файл
 function replacer(path1, path2) {
   // достать данные из path1
   fs.readFile(path1, "utf8", function(error,data){
@@ -324,6 +322,7 @@ bot.onText(/\/search_more/, (msg) => {
   takePhotoFromBuffer("./list/search.txt", msg.chat.id, false)
 });
 
+// говорить с ботом
 bot.onText(/!бот (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
 
@@ -332,17 +331,11 @@ bot.onText(/!бот (.+)/, (msg, match) => {
   talk(text, id);
 });
 
-bot.onText(/\/replace/, (msg) => {
+// из saveform.txt в ero.txt в нужном формате
+bot.onText(/\/ero_replacer/, (msg) => {
   if (adminCheck(msg) != true) return
 
   replacer('./list/savefrom.txt', './list/ero.txt')
 })
-
-// то же самое, что в таймере, но вручную по команде /give_ero
-bot.onText(/\/give_ero/, (msg) => {
-  if (authCheck(msg) != true) return
-
-  takePhotoFromBuffer("./list/ero.txt", msg.chat.id, false)
-});
 
  // --- конец логики бота --- //

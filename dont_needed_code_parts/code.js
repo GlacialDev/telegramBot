@@ -93,6 +93,7 @@ bot.onText(/\/roll_file ([0-9]+)/, (msg, match) => {
 // то же самое, что в таймере, но вручную по команде /give_ero
 bot.onText(/\/give_ero/, (msg) => {
   if (authCheck(msg) != true) return
+  
   takePhotoFromBuffer("./list/ero.txt", msg.chat.id, true)
 });
 
