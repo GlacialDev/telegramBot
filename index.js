@@ -161,26 +161,24 @@ function talk(text, id) {
   talkRequest.end();
 }
 
-function replacer(path) {
-  fs.readFile(path, "utf8", function(error,data){
+function replacer(path1, path2) {
+  // достать данные из path1
+  fs.readFile(path1, "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     let string = data.replace(/\s+/g, ' ')
-    fs.writeFile(path, string, function(error){
+
+    
+    // вставить их в path2
+    fs.appendFile(path2, ' '+string, function(error){
+      if(error) throw error; // если возникла ошибка)
+    })
+    // и удалить содержимое path1
+    fs.writeFile(path1, '', function(error){
       if(error) throw error; // если возникла ошибка)
     })
   })
 }
 
-function appender(path, path2) {
-  fs.readFile(path, "utf8", function(error,data){
-    if(error) throw error; // если возникла ошибка
-    let string = data
-    fs.appendFile(path2, ' '+string, function(error){
-      if(error) throw error; // если возникла ошибка)
-    })
-  })
-}
- 
 // --- конец объявления функций --- //
 // --- начало логики бота --- //
 
@@ -343,8 +341,7 @@ bot.onText(/!бот (.+)/, (msg, match) => {
 bot.onText(/\/replace/, (msg) => {
   if (adminCheck(msg) != true) return
 
-  replacer('./list/savefrom.txt')
-  
+  replacer('./list/savefrom.txt', './list/ero.txt')
 })
 
 // то же самое, что в таймере, но вручную по команде /give_ero
