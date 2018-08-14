@@ -200,7 +200,7 @@ bot.onText(/\/help/, (msg) => {
   if (authCheck(msg) != true) return
   let response = 
 `Привет, ${msg.from.first_name}. Имеются следующие команды:\n
-- /admin_help - <b>админ-команды</b>
+- /admin_help - админ-команды
 - /echo (текст) - повторяет текст
 - /id - выдает id группового чата и ваш
 - /photo (url-ссылка на картинку) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу
@@ -210,7 +210,7 @@ bot.onText(/\/help/, (msg) => {
 - /search (текст) - выполнить поиск картинки по запросу
 - /search_more - получить другую картинку по прошлому запросу (можно выполнять много раз)
 - !бот (текст) - поговорить с ботом`
-  bot.sendMessage(msg.chat.id, response, parse_mode='HTML');
+  bot.sendMessage(msg.chat.id, response);
 });
 
 bot.onText(/\/admin_help/, (msg) => {
