@@ -96,6 +96,16 @@ bot.onText(/\/give_ero/, (msg) => {
   takePhotoFromBuffer("./list/ero.txt", msg.chat.id, true)
 });
 
+bot.onText(/\/add_ero (https?:\/\/\S+)/, (msg, match) => {
+  if (authCheck(msg) != true) return
+
+  let link = match[1];
+  fs.appendFile("./list/images.txt", ' '+link, function(error){
+    if(error) throw error; // если возникла ошибка)
+    bot.sendMessage(msg.chat.id, 'Картинка добавлена в очередь!')
+  });
+});
+
 // таймер на дату
 let timer = null
 bot.onText(/\/set_date_timer (\-[0-9]+|0|\+[0-9]+) (\-[0-9]+|[0-9]+)/, (msg, match) => {

@@ -68,7 +68,11 @@ function takePhotoFromBuffer(path, sendTo, howMuchLeftFlag) {
     let array = data.split(' ');
     let item = array.shift();
     // если ссылки кончились говорим что всё хана заправляйте новыми
-    if (item == '') item = 'Картинки кончились :('
+    if (item == '') {
+      item = 'Картинки кончились :('
+    } else if (item == ' ') {
+      item = array.shift();
+    }
     bot.sendPhoto(sendTo, item)
     // если требуется сообщить оставшееся количество картинок в буфере
     if (howMuchLeftFlag) {
@@ -270,16 +274,6 @@ bot.onText(/\/stop_ero_timer/, (msg) => {
   stopTimer(eroTimer)
   // при остановке таймера группа об этом оповещается
   bot.sendMessage(groupChat, 'Таймер картинок остановлен')
-});
-
-bot.onText(/\/add_ero (https?:\/\/\S+)/, (msg, match) => {
-  if (authCheck(msg) != true) return
-
-  let link = match[1];
-  fs.appendFile("./list/images.txt", ' '+link, function(error){
-    if(error) throw error; // если возникла ошибка)
-    bot.sendMessage(msg.chat.id, 'Картинка добавлена в очередь!')
-  });
 });
 
 bot.onText(/\/how_much_ero/, (msg) => {
