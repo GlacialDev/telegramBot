@@ -161,11 +161,21 @@ function talk(text, id) {
   talkRequest.end();
 }
 
-function replacer(path, path2) {
+function replacer(path) {
   fs.readFile(path, "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
     let string = data.replace(/\s+/g, ' ')
-    fs.writeFile(path2, string, function(error){
+    fs.writeFile(path, string, function(error){
+      if(error) throw error; // если возникла ошибка)
+    })
+  })
+}
+
+function appender(path, path2) {
+  fs.readFile(path, "utf8", function(error,data){
+    if(error) throw error; // если возникла ошибка
+    let string = data
+    fs.appendFile(path2, ' '+string, function(error){
       if(error) throw error; // если возникла ошибка)
     })
   })
@@ -331,15 +341,17 @@ bot.onText(/!бот (.+)/, (msg, match) => {
 });
 
 bot.onText(/\/replace/, (msg) => {
-  if (authCheck(msg) != true) return
+  if (adminCheck(msg) != true) return
 
-  replacer('./list/savefrom.txt', './list/savefromREPLACED.txt')
+  replacer('./list/savefrom.txt')
+  
 })
 
 // то же самое, что в таймере, но вручную по команде /give_ero
 bot.onText(/\/give_ero/, (msg) => {
   if (authCheck(msg) != true) return
-  takePhotoFromBuffer("./list/ero.txt", msg.chat.id, true)
+
+  takePhotoFromBuffer("./list/ero.txt", msg.chat.id, false)
 });
 
  // --- конец логики бота --- //
