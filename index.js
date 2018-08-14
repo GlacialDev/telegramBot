@@ -163,7 +163,7 @@ function talk(text, id) {
 
 // заменяет несимвольные разделители или много пробелов одним пробелом 
 // и передает полученную строку в другой файл
-function replacer(path1, path2) {
+function replacer(path1, path2, id) {
   // достать данные из path1
   fs.readFile(path1, "utf8", function(error,data){
     if(error) throw error; // если возникла ошибка
@@ -173,7 +173,7 @@ function replacer(path1, path2) {
     // вставить их в path2
     fs.appendFile(path2, ' '+string, function(error){
       if(error) throw error; // если возникла ошибка)
-      bot.sendMessage(msg.chat.id, `Перемещение закончено`)
+      bot.sendMessage(id, `Перемещение закончено`)
     })
     // и удалить содержимое path1
     fs.writeFile(path1, '', function(error){
@@ -336,7 +336,7 @@ bot.onText(/!бот (.+)/, (msg, match) => {
 bot.onText(/\/ero_replacer/, (msg) => {
   if (adminCheck(msg) != true) return
 
-  replacer('./list/savefrom.txt', './list/ero.txt')
+  replacer('./list/savefrom.txt', './list/ero.txt', msg.chat.id)
 })
 
  // --- конец логики бота --- //
