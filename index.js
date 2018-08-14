@@ -162,7 +162,7 @@ function talk(text, id) {
 }
 
 // заменяет несимвольные разделители или много пробелов одним пробелом 
-// и передает полученную строку в другой файл
+// и передает полученную строку в другой файл, о чем затем оповещает
 function replacer(path1, path2, id) {
   // достать данные из path1
   fs.readFile(path1, "utf8", function(error,data){
@@ -204,14 +204,21 @@ bot.onText(/\/help/, (msg) => {
 - /id - выдает id группового чата и ваш
 - /photo (url-ссылка на картинку) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу
 - /sendto (id) (текст) - пишете боту в лс id адресата и текст сообщения. При условии, что человек прописал у бота /start, ему придет сообщение с текстом от имени бота
-- /set_ero_timer (время) - установить таймер отсылки картинок, время в часах (админ-команда!)
-- /stop_ero_timer - остановить таймер отсылки картинок (админ-команда!)
-- /ero_replacer - из savefrom списка в список таймера (админ-команда!)
 - /how_much_ero - посмотреть сколько картинок осталось в очереди в таймере
 - /random - выбросить число от 0 до 100
 - /search (текст) - выполнить поиск картинки по запросу
 - /search_more - получить другую картинку по прошлому запросу (можно выполнять много раз)
 - !бот (текст) - поговорить с ботом`
+  bot.sendMessage(msg.chat.id, response);
+});
+
+bot.onText(/\/admin_help/, (msg) => {
+  if (authCheck(msg) != true) return
+  let response = 
+`Привет, ${msg.from.first_name}. Имеются следующие команды:\n
+- /set_ero_timer (время) - установить таймер отсылки картинок, время в часах (админ-команда!)
+- /stop_ero_timer - остановить таймер отсылки картинок (админ-команда!)
+- /ero_replacer - из savefrom списка в список таймера (админ-команда!)`
   bot.sendMessage(msg.chat.id, response);
 });
 
@@ -282,6 +289,13 @@ bot.onText(/\/stop_ero_timer/, (msg) => {
   bot.sendMessage(groupChat, 'Таймер картинок остановлен')
 });
 
+// из saveform.txt в ero.txt в нужном формате
+bot.onText(/\/ero_replacer/, (msg) => {
+  if (adminCheck(msg) != true) return
+
+  replacer('./list/savefrom.txt', './list/ero.txt', msg.chat.id)
+})
+
 bot.onText(/\/how_much_ero/, (msg) => {
   if (authCheck(msg) != true) return
 
@@ -299,7 +313,7 @@ bot.onText(/\/how_much_ero/, (msg) => {
 });
 
 // выкинуть случайное число от 0 до 100 (другой способ)
-bot.onText(/\/random$/, (msg) => {
+bot.onText(/\/random/, (msg) => {
   if (authCheck(msg) != true) return
 
   let roundRoll =  Math.round(random(0,100))
@@ -338,12 +352,5 @@ bot.onText(/!бот (.+)/, (msg, match) => {
   let id = msg.chat.id;
   talk(text, id);
 });
-
-// из saveform.txt в ero.txt в нужном формате
-bot.onText(/\/ero_replacer/, (msg) => {
-  if (adminCheck(msg) != true) return
-
-  replacer('./list/savefrom.txt', './list/ero.txt', msg.chat.id)
-})
 
  // --- конец логики бота --- //
