@@ -160,6 +160,16 @@ function talk(text, id) {
   
   talkRequest.end();
 }
+
+function replacer(path, path2) {
+  fs.readFile(path, "utf8", function(error,data){
+    if(error) throw error; // если возникла ошибка
+    let string = data.replace(/\s/g, ' ')
+    fs.writeFile(path2, string, function(error){
+      if(error) throw error; // если возникла ошибка)
+    })
+  })
+}
  
 // --- конец объявления функций --- //
 // --- начало логики бота --- //
@@ -319,5 +329,11 @@ bot.onText(/!бот (.+)/, (msg, match) => {
   let id = msg.chat.id;
   talk(text, id);
 });
+
+bot.onText(/\/replace/, (msg) => {
+  if (authCheck(msg) != true) return
+
+  replacer('./list/savefrom.txt', './list/savefromREPLACED.txt')
+})
 
  // --- конец логики бота --- //
