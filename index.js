@@ -200,6 +200,7 @@ bot.onText(/\/help/, (msg) => {
   if (authCheck(msg) != true) return
   let response = 
 `Привет, ${msg.from.first_name}. Имеются следующие команды:\n
+- /admin_help - <b>админ-команды</b>
 - /echo (текст) - повторяет текст
 - /id - выдает id группового чата и ваш
 - /photo (url-ссылка на картинку) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу
@@ -209,16 +210,16 @@ bot.onText(/\/help/, (msg) => {
 - /search (текст) - выполнить поиск картинки по запросу
 - /search_more - получить другую картинку по прошлому запросу (можно выполнять много раз)
 - !бот (текст) - поговорить с ботом`
-  bot.sendMessage(msg.chat.id, response);
+  bot.sendMessage(msg.chat.id, response, parse_mode='HTML');
 });
 
 bot.onText(/\/admin_help/, (msg) => {
   if (authCheck(msg) != true) return
   let response = 
 `Привет, ${msg.from.first_name}. Имеются следующие команды:\n
-- /set_ero_timer (время) - установить таймер отсылки картинок, время в часах (админ-команда!)
-- /stop_ero_timer - остановить таймер отсылки картинок (админ-команда!)
-- /ero_replacer - из savefrom списка в список таймера (админ-команда!)`
+- /set_ero_timer (время) - установить таймер отсылки картинок, время в часах
+- /stop_ero_timer - остановить таймер отсылки картинок
+- /ero_replacer - из savefrom списка в список таймера`
   bot.sendMessage(msg.chat.id, response);
 });
 
