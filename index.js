@@ -402,8 +402,6 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 });
 
 bot.onText(/\/file/, (msg) => {
-  bot.sendMessage(msg.chat.id, msg.message_id)
-
   https.request({
     hostname: 'api.telegram.org',
     path: '/bot'+token+'/getUpdates?offset=-1'
