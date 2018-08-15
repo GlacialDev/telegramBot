@@ -401,8 +401,11 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
   bot.sendMessage(msg.chat.id, 'Хорошо, ' + name + ', я обязательно напомню... если не забуду')
 });
 
-bot.on('document', (msg) => {
-  bot.downloadFile(msg.document.file_id, '.\\list\\download').then(() => console.log('zagruzil'), (e) => { console.log('ne zagruzil'); console.log(e) })
+bot.on('document', (msg) => {\
+  let id = msg.chat.id
+  bot.downloadFile(msg.document.file_id, './list/download').then(
+    () =>  bot.sendMessage(id, 'Загрузился'), 
+    (e) => { bot.sendMessage(id, 'Не загрузился'); console.log(e) })
 })
 
 // --- конец логики бота --- //
