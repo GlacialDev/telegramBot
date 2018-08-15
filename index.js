@@ -406,8 +406,8 @@ bot.on('document', (msg) => {
   // bot.downloadFile(msg.document.file_id, './list/download').then(
   //   () =>  bot.sendMessage(id, 'Загрузился'), 
   //   (e) => { bot.sendMessage(id, 'Не загрузился'); console.log(e) })
-  bot.getFileLink(msg.document.file_id).then(
-    () =>  bot.sendMessage(id, fileUrl), 
+  let fileUrl = bot.getFileLink(msg.document.file_id).then(
+    (fileUrl) =>  bot.sendMessage(id, fileUrl), 
     (e) => { bot.sendMessage(id, 'Не загрузился'); console.log(e) })
 })
 
