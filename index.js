@@ -11,11 +11,6 @@ const botIsClever_HeCanTalk = apiai(config.dialogFlowClientAccessToken);
 const groupChat = -307924393
 const creator = 353140575
 
-// --- начало объявления флагов и настроек --- //
-
-let downloadEnabledFlag = 0;
-
-// --- конец объявления флагов и настроек --- //
 // --- начало объявления функций --- //
 
 // проверка, внесен ли запрашивающий в список авторизованных лиц
@@ -30,7 +25,7 @@ function authCheck(message) {
     }
   }
 }
-
+// проверка, является ли запрашивающий админом 
 function adminCheck(message) {
   let id = message.from.id
   let array = config.adminUsers
@@ -47,15 +42,6 @@ function adminCheck(message) {
 function stopTimer(timerName) {
   clearInterval(timerName)
   timerName = null
-}
-
-// функции для генерации случайных чисел
-function randomC(qty) {
-  let x = crypto.randomBytes(qty);
-  return format(x, 'dec');
-}
-function random(low, high) {
-  return randomC(4) / Math.pow(2, 4 * 8) * (high - low) + low;
 }
 
 // достать ссылку из .txt файла (path), отослать по id (where) 
@@ -190,16 +176,61 @@ function replacer(path1, path2, id) {
 }
 
 // --- конец объявления функций --- //
+// --- начало объявления флагов и настроек --- //
+
+let downloadEnabledFlag = 0;
+bot.onText(/\/download_enable/, (msg, match) => {
+  if (adminCheck(msg) != true) return
+  downloadEnabledFlag = 1
+  bot.sendMessage(id, 'Загрузка файлов разрешена')
+});
+bot.onText(/\/download_disable/, (msg, match) => {
+  if (adminCheck(msg) != true) return
+  downloadEnabledFlag = 0
+  bot.sendMessage(id, 'Загрузка файлов запрещена')
+});
+
+// выдает настройки бота
+bot.onText(/\/bot_settings/, (msg, match) => {
+  if (adminCheck(msg) != true) return
+  bot.sendMessage(id, 
+`Настройки:
+- download: ${downloadEnabledFlag}`)
+});
+
+// --- конец объявления флагов и настроек --- //
 // --- начало логики бота --- //
 
 // при начале работы выдает сообщение
 bot.sendMessage(creator,
-  `Бот инициализирован`);
+`Бот инициализирован`);
+
+// скачивает скидываемые документы если включен соответствующий флаг
+bot.on('document', (msg) => {
+  if (adminCheck(msg) != true) {
+    if (downloadEnabledFlag != 1) { bot.sendMessage(id, 'Загрузка файлов запрещена'); return }
+  }
+
+  let id = msg.chat.id
+  let name = msg.document.file_name
+
+  let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
+    (filePath) =>  {
+      fs.rename(filePath, './download/'+name, (error, data) => {
+        if (error) throw error; // если возникла ошибка
+      })
+      bot.sendMessage(id, 'Файл успешно загружен')
+    }, 
+    (e) => { 
+      bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка')
+      console.log(e) 
+  })
+})
 
 bot.onText(/\/help/, (msg) => {
   if (authCheck(msg) != true) return
   let response =
-    `Привет, ${msg.from.first_name}. Имеются следующие команды:\n
+`Привет, ${msg.from.first_name}. Имеются следующие команды:\n
 - /admin_help - админ-команды
 - /echo (текст) - повторяет текст
 - /id - выдает id группового чата и ваш
@@ -218,10 +249,12 @@ bot.onText(/\/help/, (msg) => {
 bot.onText(/\/admin_help/, (msg) => {
   if (authCheck(msg) != true) return
   let response =
-    `Привет, ${msg.from.first_name}. Имеются следующие команды:\n
+`Привет, ${msg.from.first_name}. Имеются следующие команды:\n
 - /set_ero_timer (время) - установить таймер отсылки картинок, время в часах
 - /stop_ero_timer - остановить таймер отсылки картинок
-- /ero_replacer - из savefrom списка в список таймера`
+- /ero_replacer - из savefrom списка в список таймера
+- /bot_settings - настройки и флаги бота
+- /download_enable /download_disable - вкл./откл. загрузку файлов`
   bot.sendMessage(msg.chat.id, response);
 });
 
@@ -400,39 +433,5 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 
   bot.sendMessage(msg.chat.id, 'Хорошо, ' + name + ', я обязательно напомню... если не забуду')
 });
-
-// разрешение на загрузку файла
-bot.onText(/\/download/, (msg, match) => {
-  if (adminCheck(msg) != true) return
-
-  downloadEnabledFlag = 1
-  bot.sendMessage(id, 'Загрузка файла разрешена')
-});
-
-bot.on('document', (msg) => {
-  if (adminCheck(msg) != true) {
-    if (authCheck(msg) != true) return
-    if (downloadEnabledFlag != 1) bot.sendMessage(msg.chat.id, 'Перед загрузкой необходимо получить разрешение'); return
-  }
-
-  let id = msg.chat.id
-  let name = msg.document.file_name
-
-  let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
-    (filePath) =>  {
-      fs.rename(filePath, './download/'+name, (error, data) => {
-        if (error) throw error; // если возникла ошибка
-      })
-      bot.sendMessage(id, 'Файл успешно загружен. Для загрузки следующего файла запросите разрешение снова')
-      downloadEnabledFlag = 0
-    }, 
-    (e) => { 
-      bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка. Для следующей попытки загрузки запросите разрешение снова')
-      downloadEnabledFlag = 0
-      console.log(e) 
-  })
-})
-
-
 
 // --- конец логики бота --- //
