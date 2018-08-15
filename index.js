@@ -401,25 +401,49 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
   bot.sendMessage(msg.chat.id, 'Хорошо, ' + name + ', я обязательно напомню... если не забуду')
 });
 
-bot.on('document', (msg) => {
-  if (authCheck(msg) != true) return
 
-  let id = msg.chat.id
-  let name = msg.document.file_name
+// bot.on('document', (msg) => {
+//   if (adminCheck(msg) != true) return
 
-  let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
-    (filePath) =>  {
-      fs.rename(filePath, './download/'+name, (error, data) => {
-        if (error) throw error; // если возникла ошибка
-      })
-      bot.sendMessage(id, 'Файл успешно загружен')
-    }, 
-    (e) => { 
-      bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка') 
-      console.log(e) 
+//   let id = msg.chat.id
+//   let name = msg.document.file_name
+
+//   let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
+//     (filePath) =>  {
+//       fs.rename(filePath, './download/'+name, (error, data) => {
+//         if (error) throw error; // если возникла ошибка
+//       })
+//       bot.sendMessage(id, 'Файл успешно загружен')
+//     }, 
+//     (e) => { 
+//       bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка') 
+//       console.log(e) 
+//   }) 
+// })
+
+bot.onText(/\/download/, (msg, match) => {
+  if (adminCheck(msg) != true) return
+
+  bot.on('document', (msg) => {
+    if (adminCheck(msg) != true) return
+  
+    let id = msg.chat.id
+    let name = msg.document.file_name
+  
+    let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
+      (filePath) =>  {
+        fs.rename(filePath, './download/'+name, (error, data) => {
+          if (error) throw error; // если возникла ошибка
+        })
+        bot.sendMessage(id, 'Файл успешно загружен')
+      }, 
+      (e) => { 
+        bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка') 
+        console.log(e) 
+    }) 
   })
+  
+});
 
-  // /\w+.\w+$/ regexp 
-})
 
 // --- конец логики бота --- //
