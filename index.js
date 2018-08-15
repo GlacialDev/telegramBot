@@ -408,25 +408,16 @@ bot.on('document', (msg) => {
   let name = msg.document.file_name
 
   let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
-    (filePath) =>  bot.sendMessage(id, 'Загрузился + '+filePath), 
-    (e) => { bot.sendMessage(id, 'Не загрузился'); console.log(e) })
-  
-  // let fileUrl = bot.getFileLink(msg.document.file_id).then(
-  //   (fileUrl) => {
-  //     let request = https.get(fileUrl, function(response) {
+    (filePath) =>  {
+      bot.sendMessage(id, 'file_name '+name)
+      bot.sendMessage(id, 'Загрузился + '+filePath)
+    }, 
+    (e) => { 
+      bot.sendMessage(id, 'Не загрузился') 
+      console.log(e) 
+  })
 
-  //       const settings = {
-  //         encoding: 'utf8',
-  //         autoClose: true
-  //       }
-
-  //       let file = fs.createWriteStream("./download/file.txt", settings);
-  //       response.pipe(file)
-  //     })
-
-  //     bot.sendMessage(id, 'вроде загрузился')
-  //   },
-  //   (e) => { bot.sendMessage(id, 'Не загрузился'); console.log(e) })
+  // /\w+.\w+$/ regexp 
 })
 
 // --- конец логики бота --- //
