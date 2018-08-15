@@ -360,7 +360,7 @@ bot.onText(/\/calc ([^a-z\s]+)/, (msg, match) => {
 
   let expressionString = match[1]
   console.log(expressionString)
-  let expressionResult = parseFloat(expressionString)
+  let expressionResult = eval(expressionString)
   console.log(expressionResult)
   bot.sendMessage(msg.chat.id, 'Результат вычисления составляет '+expressionResult);
 });
