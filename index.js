@@ -407,10 +407,10 @@ bot.onText(/\/file/, (msg) => {
     path: '/bot'+config.token+'/getUpdates?offset=-1'
   }, function (res) {
     console.log("statusCode: ", res.statusCode);
+    console.log(res);
     res.on('data', function (data) {
       console.log(data);
-    }
-    );
+    });
   }).on('error', function (e) {
     console.error(e);
   }).end();
