@@ -267,7 +267,6 @@ bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
   // чтобы картинки не улетали как бешенные :)
   if (hours < 1) {
     bot.sendMessage(msg.chat.id, 'Нельзя ставить время меньше 1 часа')
-    stopTimer(timer)
     return
   }
   // значение интервала для таймера
