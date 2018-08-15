@@ -402,8 +402,7 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 });
 
 bot.on('document', (msg) => {
-  bot.getFileLink(msg.document.file_id)
-  bot.downloadFile(msg.document.file_id, './list/download')
+  bot.downloadFile(msg.document.file_id, './list/download/')
 })
 
 // --- конец логики бота --- //
