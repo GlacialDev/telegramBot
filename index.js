@@ -410,10 +410,17 @@ bot.on('document', (msg) => {
   
   let fileUrl = bot.getFileLink(msg.document.file_id).then(
     (fileUrl) => {
-      let file = fs.createWriteStream("./download/file.txt");
       let request = https.get(fileUrl, function(response) {
+
+        const settings = {
+          encoding: 'utf8',
+          autoClose: true
+        }
+
+        let file = fs.createWriteStream("./download/file.txt", settings);
         response.pipe(file)
       })
+      
       bot.sendMessage(id, 'вроде загрузился')
     },
     (e) => { bot.sendMessage(id, 'Не загрузился'); console.log(e) })
