@@ -182,18 +182,18 @@ let downloadEnabledFlag = 0;
 bot.onText(/\/download_enable/, (msg, match) => {
   if (adminCheck(msg) != true) return
   downloadEnabledFlag = 1
-  bot.sendMessage(id, 'Загрузка файлов разрешена')
+  bot.sendMessage(msg.chat.id, 'Загрузка файлов разрешена')
 });
 bot.onText(/\/download_disable/, (msg, match) => {
   if (adminCheck(msg) != true) return
   downloadEnabledFlag = 0
-  bot.sendMessage(id, 'Загрузка файлов запрещена')
+  bot.sendMessage(msg.chat.id, 'Загрузка файлов запрещена')
 });
 
 // выдает настройки бота
 bot.onText(/\/bot_settings/, (msg, match) => {
   if (adminCheck(msg) != true) return
-  bot.sendMessage(id, 
+  bot.sendMessage(msg.chat.id, 
 `Настройки:
 - download: ${downloadEnabledFlag}`)
 });
