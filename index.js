@@ -24,7 +24,7 @@ function authCheck(message) {
   let array = config.authorizedUsers
   let ok = false;
   for (let i = 0; i < array.length; i++) {
-    if (id === array[i]) { 
+    if (id === array[i]) {
       ok = true
       return ok
     }
@@ -36,13 +36,13 @@ function adminCheck(message) {
   let array = config.adminUsers
   let ok = false;
   for (let i = 0; i < array.length; i++) {
-    if (id === array[i]) { 
+    if (id === array[i]) {
       ok = true
       return ok
     }
   }
 }
-  
+
 // остановка таймера
 function stopTimer(timerName) {
   clearInterval(timerName)
@@ -50,20 +50,20 @@ function stopTimer(timerName) {
 }
 
 // функции для генерации случайных чисел
-function randomC (qty) {
-  let x= crypto.randomBytes(qty);
+function randomC(qty) {
+  let x = crypto.randomBytes(qty);
   return format(x, 'dec');
 }
-function random (low, high) {
-  return randomC(4)/Math.pow(2,4*8) * (high - low) + low;
+function random(low, high) {
+  return randomC(4) / Math.pow(2, 4 * 8) * (high - low) + low;
 }
 
 // достать ссылку из .txt файла (path), отослать по id (where) 
 // и сообщать об оставшемся кол-ве картинок в буфере (howMuchLeft)
 function takePhotoFromBuffer(path, sendTo, howMuchLeftFlag) {
   // открываем файл-буфер со ссылками
-  fs.readFile(path, "utf8", function(error,data){
-    if(error) throw error; // если возникла ошибка
+  fs.readFile(path, "utf8", function (error, data) {
+    if (error) throw error; // если возникла ошибка
     // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
     let array = data.split(' ');
     let item = array.shift();
@@ -78,8 +78,8 @@ function takePhotoFromBuffer(path, sendTo, howMuchLeftFlag) {
     // массив без элемента который мы достали shift-ом преобразуем в строку
     let string = array.join(' ')
     // и грузим обратно в файл-буфер
-    fs.writeFile(path, string, function(error){
-      if(error) throw error; // если возникла ошибка)
+    fs.writeFile(path, string, function (error) {
+      if (error) throw error; // если возникла ошибка)
     });
   });
 }
@@ -95,21 +95,21 @@ function search(requestMes) {
   let response_handler = function (response) {
     let body = '';
     response.on('data', function (d) {
-        body += d;
+      body += d;
     });
     response.on('end', function () {
       console.log('\nRelevant Headers:\n');
       for (var header in response.headers)
-          // header keys are lower-cased by Node.js
-          if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
-              console.log(header + ": " + response.headers[header]);
+        // header keys are lower-cased by Node.js
+        if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
+          console.log(header + ": " + response.headers[header]);
       // в этом месте парсю тело запроса и вытаскиваю массив со свойствами (одно из них мне нужно чтобы скинуть картинку в чат)
       let jsonAnswer = JSON.parse(body);
       let valueArray = jsonAnswer.value;
       // вытаскиваю ссылку на картинку в буфер
-      valueArray.forEach(function(item, i, valueArray) {
-        fs.appendFileSync("./list/search.txt", item.contentUrl+' ', function(error){
-          if(error) throw error; // если возникла ошибка)
+      valueArray.forEach(function (item, i, valueArray) {
+        fs.appendFileSync("./list/search.txt", item.contentUrl + ' ', function (error) {
+          if (error) throw error; // если возникла ошибка)
         });
       });
     });
@@ -121,12 +121,12 @@ function search(requestMes) {
   let bing_image_search = function (search) {
     console.log('Searching images for: ' + term);
     let request_params = {
-          method : 'GET',
-          hostname : host,
-          path : path + '?q=' + encodeURIComponent(search),
-          headers : {
-              'Ocp-Apim-Subscription-Key' : subscriptionKey,
-          }
+      method: 'GET',
+      hostname: host,
+      path: path + '?q=' + encodeURIComponent(search),
+      headers: {
+        'Ocp-Apim-Subscription-Key': subscriptionKey,
+      }
     };
 
     let req = https.request(request_params, response_handler);
@@ -146,18 +146,18 @@ function talk(text, id) {
   let talkRequest = botIsClever_HeCanTalk.textRequest(text, {
     sessionId: 'Canadian_bot_talk_to_you'
   });
-  
-  talkRequest.on('response', function(response) {
+
+  talkRequest.on('response', function (response) {
     let botTalk = response.result.fulfillment.speech
     if (botTalk == '') bot.sendMessage(id, 'Я хз что ответить, сори. Возможно позже я пойму, что нужно было сказать в ответ на это...');
     bot.sendMessage(id, botTalk);
   });
-  
-  talkRequest.on('error', function(error) {
+
+  talkRequest.on('error', function (error) {
     if (error) bot.sendMessage(id, 'Там, где расположены мои мозги, какие то проблемы. В общем, я не могу ответить :(');
     console.log(error);
   });
-  
+
   talkRequest.end();
 }
 
@@ -165,26 +165,26 @@ function talk(text, id) {
 // и передает полученную строку в другой файл, о чем затем оповещает
 function replacer(path1, path2, id) {
   // достать данные из path1
-  fs.readFile(path1, "utf8", function(error,data){
-    if(error) throw error; // если возникла ошибка
+  fs.readFile(path1, "utf8", function (error, data) {
+    if (error) throw error; // если возникла ошибка
     let string = data
     // вставить данные в path2
-    fs.appendFile(path2, string+' ', function(error){
-      if(error) throw error; // если возникла ошибка)
+    fs.appendFile(path2, string + ' ', function (error) {
+      if (error) throw error; // если возникла ошибка)
       // достать данные из path2 и отформатировать
-      fs.readFile(path2, "utf8", function(error,data){
-        if(error) throw error; // если возникла ошибка
+      fs.readFile(path2, "utf8", function (error, data) {
+        if (error) throw error; // если возникла ошибка
         let string2 = data.replace(/\s+/g, ' ')
         // отформатированное записать обратно
-        fs.writeFile(path2, string2, function(error){
-          if(error) throw error; // если возникла ошибка)
+        fs.writeFile(path2, string2, function (error) {
+          if (error) throw error; // если возникла ошибка)
           bot.sendMessage(id, `Перемещение закончено`)
         })
       })
     })
     // очистить файл path1
-    fs.writeFile(path1, '', function(error){
-      if(error) throw error; // если возникла ошибка)
+    fs.writeFile(path1, '', function (error) {
+      if (error) throw error; // если возникла ошибка)
     })
   })
 }
@@ -193,13 +193,13 @@ function replacer(path1, path2, id) {
 // --- начало логики бота --- //
 
 // при начале работы выдает сообщение
-bot.sendMessage(creator, 
-`Бот инициализирован`);
+bot.sendMessage(creator,
+  `Бот инициализирован`);
 
 bot.onText(/\/help/, (msg) => {
   if (authCheck(msg) != true) return
-  let response = 
-`Привет, ${msg.from.first_name}. Имеются следующие команды:\n
+  let response =
+    `Привет, ${msg.from.first_name}. Имеются следующие команды:\n
 - /admin_help - админ-команды
 - /echo (текст) - повторяет текст
 - /id - выдает id группового чата и ваш
@@ -217,8 +217,8 @@ bot.onText(/\/help/, (msg) => {
 
 bot.onText(/\/admin_help/, (msg) => {
   if (authCheck(msg) != true) return
-  let response = 
-`Привет, ${msg.from.first_name}. Имеются следующие команды:\n
+  let response =
+    `Привет, ${msg.from.first_name}. Имеются следующие команды:\n
 - /set_ero_timer (время) - установить таймер отсылки картинок, время в часах
 - /stop_ero_timer - остановить таймер отсылки картинок
 - /ero_replacer - из savefrom списка в список таймера`
@@ -235,8 +235,8 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 bot.onText(/\/id/, (msg) => {
   if (authCheck(msg) != true) return
 
-  bot.sendMessage(msg.chat.id, msg.chat.id+' - id этого чата');
-  bot.sendMessage(msg.chat.id, msg.from.id+' - а это ваш id');
+  bot.sendMessage(msg.chat.id, msg.chat.id + ' - id этого чата');
+  bot.sendMessage(msg.chat.id, msg.from.id + ' - а это ваш id');
 })
 
 bot.onText(/\/photo (https?:\/\/\S+)/, (msg, match) => {
@@ -248,7 +248,7 @@ bot.onText(/\/photo (https?:\/\/\S+)/, (msg, match) => {
 
 bot.onText(/\/sendto (\-[0-9]+|[0-9]+) (\S+.*)/, (msg, match) => {
   if (authCheck(msg) != true) return
-  
+
   let id = match[1];
   let text = match[2];
   bot.sendMessage(id, text);
@@ -261,7 +261,7 @@ bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
     bot.sendMessage(msg.chat.id, 'Только для посвященных')
     return
   }
-  
+
   // если переназначаем таймер, прошлый нужно остановить
   stopTimer(eroTimer)
   let hours = match[1]
@@ -271,13 +271,13 @@ bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
     return
   }
   // значение интервала для таймера
-  let interval = 1000*60*60*hours
+  let interval = 1000 * 60 * 60 * hours
   // инициализация таймера
-  eroTimer = setInterval(function() {
+  eroTimer = setInterval(function () {
     takePhotoFromBuffer("./list/ero.txt", groupChat, false)
   }, interval);
   // если всё прошло успешно и без ошибок, далее следует сообщение в группу
-  bot.sendMessage(groupChat, 'Буду присылать картинки каждые '+hours+' часов')
+  bot.sendMessage(groupChat, 'Буду присылать картинки каждые ' + hours + ' часов')
 });
 
 bot.onText(/\/stop_ero_timer/, (msg) => {
@@ -304,8 +304,8 @@ bot.onText(/\/how_much_ero/, (msg) => {
   let array = null;
   let number = null;
   // открываем файл-буфер со ссылками
-  fs.readFile("./list/ero.txt", "utf8", function(error,data) {
-    if(error) throw error; // если возникла ошибка
+  fs.readFile("./list/ero.txt", "utf8", function (error, data) {
+    if (error) throw error; // если возникла ошибка
     // разбиваем содержимое файла на массив
     array = data.split(' ');
     // считаем количество элементов
@@ -320,8 +320,8 @@ bot.onText(/(\/roll$)/, (msg) => {
   let min = 0
   let max = 100
   let roll = Math.random() * (max - min) + min
-  let roundRoll =  Math.round(roll)
-  bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
+  let roundRoll = Math.round(roll)
+  bot.sendMessage(msg.chat.id, msg.from.first_name + ' выбросил ' + roundRoll)
 });
 
 // выкинуть случайное число в заданном интервале
@@ -330,8 +330,8 @@ bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
   let min = +match[1]
   let max = +match[2]
   let roll = Math.random() * (max - min) + min
-  let roundRoll =  Math.round(roll)
-  bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
+  let roundRoll = Math.round(roll)
+  bot.sendMessage(msg.chat.id, msg.from.first_name + ' выбросил ' + roundRoll)
 });
 
 // поиск картинки по запросу с выдачей первого результата
@@ -340,14 +340,14 @@ bot.onText(/\/search (.+)/, (msg, match) => {
 
   let text = match[1];
   // обнуляю файл после предыдущего запроса
-  fs.writeFileSync("./list/search.txt", '', function(error){
-    if(error) throw error; // если возникла ошибка
+  fs.writeFileSync("./list/search.txt", '', function (error) {
+    if (error) throw error; // если возникла ошибка
   });
   search(text)
 
-  bot.sendMessage(msg.chat.id, 'Ищу '+text+'. Результат ждите через 3 секунды');
-  setTimeout(function() {
-    takePhotoFromBuffer("./list/search.txt",  msg.chat.id, false)
+  bot.sendMessage(msg.chat.id, 'Ищу ' + text + '. Результат ждите через 3 секунды');
+  setTimeout(function () {
+    takePhotoFromBuffer("./list/search.txt", msg.chat.id, false)
   }, 3000);
 });
 
@@ -386,23 +386,36 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
   }
 
   if (timeMeasure = 'минут') {
-    timeToRemind = 1000*60*time
-  } else 
-  if (timeMeasure = 'час') {
-    timeToRemind = 1000*60*60*time
-  } else {
-    timeToRemind = 1000*60*60*24*time
-  }
+    timeToRemind = 1000 * 60 * time
+  } else
+    if (timeMeasure = 'час') {
+      timeToRemind = 1000 * 60 * 60 * time
+    } else {
+      timeToRemind = 1000 * 60 * 60 * 24 * time
+    }
 
   setTimeout(() => {
-    bot.sendMessage(id, name+', ты просил напомнить: '+note)
+    bot.sendMessage(id, name + ', ты просил напомнить: ' + note)
   }, timeToRemind)
 
-  bot.sendMessage(msg.chat.id, 'Хорошо, '+name+', я обязательно напомню... если не забуду')
+  bot.sendMessage(msg.chat.id, 'Хорошо, ' + name + ', я обязательно напомню... если не забуду')
 });
 
 bot.onText(/\/file/, (msg) => {
   bot.sendMessage(msg.chat.id, msg.message_id)
+
+  https.request({
+    hostname: 'api.telegram.org',
+    path: '/bot'+token+'/getUpdates?offset=-1'
+  }, function (res) {
+    console.log("statusCode: ", res.statusCode);
+    res.on('data', function (data) {
+      console.log(data);
+    }
+    );
+  }).on('error', function (e) {
+    console.error(e);
+  }).end();
 })
 
 
