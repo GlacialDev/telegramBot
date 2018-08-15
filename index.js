@@ -410,7 +410,7 @@ bot.on('document', (msg) => {
   
   let fileUrl = bot.getFileLink(msg.document.file_id).then(
     (fileUrl) => {
-      let file = fs.createWriteStream("file.txt");
+      let file = fs.createWriteStream("./download/file.txt");
       let request = https.get(fileUrl, function(response) {
         response.pipe(file)
       })
