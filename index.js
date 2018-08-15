@@ -255,7 +255,7 @@ bot.onText(/\/sendto (\-[0-9]+|[0-9]+) (\S+.*)/, (msg, match) => {
 
 // таймер на выдачу картинок
 let eroTimer = null
-bot.onText(/\/set_ero_timer (\d+)/, (msg, match) => {
+bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
   if (adminCheck(msg) != true) {
     bot.sendMessage(msg.chat.id, 'Только для посвященных')
     return
