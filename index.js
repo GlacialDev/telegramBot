@@ -405,7 +405,7 @@ bot.on('document', (msg) => {
   let id = msg.chat.id
   let name = msg.document.file_name
 
-  let filePath = bot.downloadFile(msg.document.file_id, `./list/download/${id}_${name}`).then(
+  let filePath = bot.downloadFile(msg.document.file_id, `./download/`).then(
     (filePath) =>  bot.sendMessage(id, 'Загрузился'), 
     (e) => { bot.sendMessage(id, 'Не загрузился'); console.log(e) })
   
