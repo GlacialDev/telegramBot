@@ -359,7 +359,9 @@ bot.onText(/\/calc ([^a-z\s]+)/, (msg, match) => {
   if (authCheck(msg) != true) return
 
   let expressionString = match[1]
-  let expressionResult = parseFloat(expressionString);
+  console.log(expressionString)
+  let expressionResult = parseFloat(expressionString)
+  console.log(expressionResult)
   bot.sendMessage(msg.chat.id, 'Результат вычисления составляет '+expressionResult);
 });
 
