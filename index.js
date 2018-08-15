@@ -402,20 +402,18 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 });
 
 bot.onText(/\/file/, (msg) => {
-
+  https.request({
+    hostname: 'api.telegram.org',
+    path: '/bot'+config.token+'/getUpdates?offset=-1'
+  }, function (res) {
+    console.log("statusCode: ", res.statusCode);
+    res.on('data', function (data) {
+      console.log(data);
+    }
+    );
+  }).on('error', function (e) {
+    console.error(e);
+  }).end();
 })
-
-https.request({
-  hostname: 'api.telegram.org',
-  path: '/bot'+config.token+'/getUpdates?offset=-1'
-}, function (res) {
-  console.log("statusCode: ", res.statusCode);
-  res.on('data', function (data) {
-    console.log(data);
-  }
-  );
-}).on('error', function (e) {
-  console.error(e);
-}).end();
 
 // --- конец логики бота --- //
