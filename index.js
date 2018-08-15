@@ -401,8 +401,8 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
   bot.sendMessage(msg.chat.id, 'Хорошо, ' + name + ', я обязательно напомню... если не забуду')
 });
 
-bot.on('document', (msg) => {
-  bot.sendMessage(msg.chat.id, msg.file_id)
+bot.on('message', (msg) => {
+  bot.sendMessage(msg.chat.id, msg.document.file_id)
 })
 
 // --- конец логики бота --- //
