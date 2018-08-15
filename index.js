@@ -412,10 +412,10 @@ bot.on('document', (msg) => {
       fs.rename(filePath, './download/'+name, (error, data) => {
         if (error) throw error; // если возникла ошибка
       })
-      bot.sendMessage(id, 'Загрузился + ')
+      bot.sendMessage(id, 'Файл успешно загружен')
     }, 
     (e) => { 
-      bot.sendMessage(id, 'Не загрузился') 
+      bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка') 
       console.log(e) 
   })
 
