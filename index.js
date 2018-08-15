@@ -208,7 +208,7 @@ bot.sendMessage(creator,
 // скачивает скидываемые документы если включен соответствующий флаг
 bot.on('document', (msg) => {
   if (adminCheck(msg) != true) {
-    if (downloadEnabledFlag != 1) { bot.sendMessage(id, 'Загрузка файлов запрещена'); return }
+    if (downloadEnabledFlag != 1) { bot.sendMessage(msg.chat.id, 'Загрузка файлов запрещена'); return }
   }
 
   let id = msg.chat.id
