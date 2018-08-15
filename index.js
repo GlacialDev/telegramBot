@@ -1,7 +1,7 @@
 import config from './secret/config';
 
-const crypto = require('crypto')
-const format = require('biguint-format')
+// const crypto = require('crypto')
+// const format = require('biguint-format')
 const https = require('https')
 const fs = require('fs');
 const TelegramBot = require('node-telegram-bot-api');
@@ -206,7 +206,8 @@ bot.onText(/\/help/, (msg) => {
 - /photo (url-ссылка на картинку) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу
 - /sendto (id) (текст) - пишете боту в лс id адресата и текст сообщения. При условии, что человек прописал у бота /start, ему придет сообщение с текстом от имени бота
 - /how_much_ero - посмотреть сколько картинок осталось в очереди в таймере
-- /random - выбросить число от 0 до 100
+- /roll - выбросить число от 0 до 100
+- /roll (число1) (число2) - выбросить число от (числа1) до (числа2)
 - /search (текст) - выполнить поиск картинки по запросу
 - /search_more - получить другую картинку по прошлому запросу (можно выполнять много раз)
 - /remind_me (текст) через (число) (минут/дней/часов - можно в любом склонении) - напомнит вам в личку через заданное время то что вы написали в (тексте), при условии, что вы прописали у бота /start
@@ -313,11 +314,23 @@ bot.onText(/\/how_much_ero/, (msg) => {
   });
 });
 
-// выкинуть случайное число от 0 до 100 (другой способ)
-bot.onText(/\/random/, (msg) => {
+// выкинуть случайное число от 0 до 100
+bot.onText(/(\/roll$)/, (msg) => {
   if (authCheck(msg) != true) return
+  let min = 0
+  let max = 100
+  let roll = Math.random() * (max - min) + min
+  let roundRoll =  Math.round(roll)
+  bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
+});
 
-  let roundRoll =  Math.round(random(0,100))
+// выкинуть случайное число в заданном интервале
+bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
+  if (authCheck(msg) != true) return
+  let min = +match[1]
+  let max = +match[2]
+  let roll = Math.random() * (max - min) + min
+  let roundRoll =  Math.round(roll)
   bot.sendMessage(msg.chat.id, msg.from.first_name+' выбросил '+roundRoll)
 });
 
