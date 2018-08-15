@@ -346,12 +346,20 @@ bot.onText(/\/search_more/, (msg) => {
 });
 
 // говорить с ботом
-bot.onText(/!бот (.+)/, (msg, match) => {
+bot.onText(/!бот, (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
 
   let text = match[1];
   let id = msg.chat.id;
   talk(text, id);
+});
+
+// посчитать пример
+bot.onText(/\/calc ([^a-z\s]+)/, (msg, match) => {
+  if (authCheck(msg) != true) return
+
+  let expressionResult = +match[1];
+  bot.sendMessage(msg.chat.id, 'Результат вычисления составляет '+expressionResult);
 });
 
  // --- конец логики бота --- //
