@@ -401,35 +401,20 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
   bot.sendMessage(msg.chat.id, 'Хорошо, ' + name + ', я обязательно напомню... если не забуду')
 });
 
-
-// bot.on('document', (msg) => {
-//   if (adminCheck(msg) != true) return
-
-//   let id = msg.chat.id
-//   let name = msg.document.file_name
-
-//   let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
-//     (filePath) =>  {
-//       fs.rename(filePath, './download/'+name, (error, data) => {
-//         if (error) throw error; // если возникла ошибка
-//       })
-//       bot.sendMessage(id, 'Файл успешно загружен')
-//     }, 
-//     (e) => { 
-//       bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка') 
-//       console.log(e) 
-//   }) 
-// })
-
+// разрешение на загрузку файла
 bot.onText(/\/download/, (msg, match) => {
   if (adminCheck(msg) != true) return
 
   downloadEnabledFlag = 1
+  bot.sendMessage(id, 'Загрузка файла разрешена')
 });
 
 bot.on('document', (msg) => {
-  if (adminCheck(msg) != true) return
-  if (downloadEnabledFlag != 1) return
+  if (authCheck(msg) != true) return
+  if (downloadEnabledFlag != 1) {  
+    bot.sendMessage(id, 'Перед загрузкой необходимо получить разрешение')
+    return
+  }
 
   let id = msg.chat.id
   let name = msg.document.file_name
@@ -439,11 +424,11 @@ bot.on('document', (msg) => {
       fs.rename(filePath, './download/'+name, (error, data) => {
         if (error) throw error; // если возникла ошибка
       })
-      bot.sendMessage(id, 'Файл успешно загружен')
+      bot.sendMessage(id, 'Файл успешно загружен. Для загрузки следующего файла запросите разрешение снова')
       downloadEnabledFlag = 0
     }, 
     (e) => { 
-      bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка')
+      bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка. Для следующей попытки загрузки запросите разрешение снова')
       downloadEnabledFlag = 0
       console.log(e) 
   })
