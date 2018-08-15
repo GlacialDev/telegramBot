@@ -409,8 +409,8 @@ bot.on('document', (msg) => {
 
   let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
     (filePath) =>  {
-      bot.sendMessage(id, 'file_name '+name)
-      bot.sendMessage(id, 'Загрузился + '+filePath)
+      fs.rename(filePath, './download/'+name)
+      bot.sendMessage(id, 'Загрузился + ')
     }, 
     (e) => { 
       bot.sendMessage(id, 'Не загрузился') 
