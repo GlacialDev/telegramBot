@@ -402,24 +402,25 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 });
 
 bot.onText(/\/file/, (msg) => {
-  console.log(bot.getMessages(msg.message_id-1))
+  let lastMsg = msg.message_id-1
+  // console.log(bot.getMessages(msg.message_id-1))
   // bot.sendMessage(msg.chat.id, msg.message_id)
   // console.log(messages.getMessages(msg.message_id-1))
 
 
-  // https.request({
-  //   hostname: 'api.telegram.org',
-  //   path: '/bot'+config.token+'/getUpdates?offset=-1'
-  // }, function (res) {
-  //   console.log("statusCode: ", res.statusCode);
-  //   console.log(res.update_id);
-  //   res.on('data', function (data) {
-  //     console.log(data);
-  //     console.log(data.update_id);
-  //   });
-  // }).on('error', function (e) {
-  //   console.error(e);
-  // }).end();
+  https.request({
+    hostname: 'api.telegram.org',
+    path: '/bot'+config.token+'/getMessages?id=<'+lastMsg+'>'
+  }, function (res) {
+    console.log("statusCode: ", res.statusCode);
+    console.log(res.update_id);
+    res.on('data', function (data) {
+      console.log(data);
+      console.log(data.update_id);
+    });
+  }).on('error', function (e) {
+    console.error(e);
+  }).end();
 })
 
 // --- конец логики бота --- //
