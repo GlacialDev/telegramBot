@@ -418,14 +418,14 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
     return
   }
 
-  if (timeMeasure = 'минут') {
+  if (timeMeasure === 'минут') {
     timeToRemind = 1000 * 60 * time
   } else
-    if (timeMeasure = 'час') {
-      timeToRemind = 1000 * 60 * 60 * time
-    } else {
-      timeToRemind = 1000 * 60 * 60 * 24 * time
-    }
+  if (timeMeasure === 'час') {
+    timeToRemind = 1000 * 60 * 60 * time
+  } else {
+    timeToRemind = 1000 * 60 * 60 * 24 * time
+  }
 
   setTimeout(() => {
     bot.sendMessage(id, name + ', ты просил напомнить: ' + note)
