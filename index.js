@@ -209,6 +209,7 @@ bot.onText(/\/help/, (msg) => {
 - /random - выбросить число от 0 до 100
 - /search (текст) - выполнить поиск картинки по запросу
 - /search_more - получить другую картинку по прошлому запросу (можно выполнять много раз)
+- /remind_me (текст) через (число) (минут/дней/часов - можно в любом склонении) - напомнит вам в личку через заданное время то что вы написали в (тексте)
 - !бот (текст) - поговорить с ботом`
   bot.sendMessage(msg.chat.id, response);
 });
@@ -367,11 +368,6 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 
   let timeToRemind;
 
-  if (time < 1) {
-    bot.sendMessage(msg.chat.id, 'Нельзя ставить значение времени меньше 1')
-    return
-  }
-
   if (timeMeasure = 'минут') {
     timeToRemind = 1000*60*time
   } else 
@@ -384,7 +380,7 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
   setTimeout(() => {
     bot.sendMessage(id, name+', ты просил напомнить: '+note)
   }, timeToRemind)
-  
+
   bot.sendMessage(msg.chat.id, 'Хорошо, '+name+', я обязательно напомню... если не забуду')
 });
 
