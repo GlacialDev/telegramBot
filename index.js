@@ -410,10 +410,9 @@ bot.onText(/\/download/, (msg, match) => {
 });
 
 bot.on('document', (msg) => {
-  if (authCheck(msg) != true) return
-  if (downloadEnabledFlag != 1) {  
-    bot.sendMessage(msg.chat.id, 'Перед загрузкой необходимо получить разрешение')
-    return
+  if (adminCheck(msg) != true) {
+    if (authCheck(msg) != true) return
+    if (downloadEnabledFlag != 1) bot.sendMessage(msg.chat.id, 'Перед загрузкой необходимо получить разрешение'); return
   }
 
   let id = msg.chat.id
