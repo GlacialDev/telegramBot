@@ -354,15 +354,36 @@ bot.onText(/!бот, (.+)/, (msg, match) => {
   talk(text, id);
 });
 
-// посчитать пример
-bot.onText(/\/calc ([^a-z\s]+)/, (msg, match) => {
+// функция-напоминалка
+bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня|дней)/, (msg, match) => {
   if (authCheck(msg) != true) return
 
-  let expressionString = match[1]
-  console.log(expressionString)
-  let expressionResult = eval(expressionString)
-  console.log(expressionResult)
-  bot.sendMessage(msg.chat.id, 'Результат вычисления составляет '+expressionResult);
+  let id = msg.from.id
+  let name = msg.from.first_name
+
+  let note = match[1]
+  let time = match[2]
+  let timeMeasure = match[3]
+
+  let timeToRemind;
+
+  if (time < 1) {
+    bot.sendMessage(msg.chat.id, 'Нельзя ставить значение времени меньше 1')
+    return
+  }
+
+  if (timeMeasure = 'минут') {
+    timeToRemind = 1000*60*time
+  } else 
+  if (timeMeasure = 'час') {
+    timeToRemind = 1000*60*60*time
+  } else {
+    timeToRemind = 1000*60*60*24*time
+  }
+
+  setTimeout(() => {
+    bot.sendMessage(id, name+', ты просил напомнить: '+note)
+  }, timeToRemind)
 });
 
  // --- конец логики бота --- //
