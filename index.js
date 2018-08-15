@@ -403,8 +403,11 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 
 bot.on('document', (msg) => {
   let id = msg.chat.id
-  bot.downloadFile(msg.document.file_id, './list/download').then(
-    () =>  bot.sendMessage(id, 'Загрузился'), 
+  // bot.downloadFile(msg.document.file_id, './list/download').then(
+  //   () =>  bot.sendMessage(id, 'Загрузился'), 
+  //   (e) => { bot.sendMessage(id, 'Не загрузился'); console.log(e) })
+  bot.getFileLink(msg.document.file_id).then(
+    () =>  bot.sendMessage(id, fileUrl), 
     (e) => { bot.sendMessage(id, 'Не загрузился'); console.log(e) })
 })
 
