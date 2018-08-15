@@ -402,8 +402,8 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 });
 
 bot.on('document', (msg) => {
-  bot.getFileLink(msg.document.file_id).then(bot.sendMessage(msg.chat.id, fileURI))
-  // bot.sendMessage(msg.chat.id, msg.document.file_id+' poluchil')
+  bot.getFileLink(msg.document.file_id)
+  bot.downloadFile(msg.document.file_id, './list/download')
 })
 
 // --- конец логики бота --- //
