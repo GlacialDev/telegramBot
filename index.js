@@ -403,27 +403,28 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 
 bot.on('document', (msg) => {
   let id = msg.chat.id
+  let name = msg.document.file_name
 
-  // let filePath = bot.downloadFile(msg.document.file_id, './list/download').then(
-  //   (filePath) =>  bot.sendMessage(id, 'Загрузился'), 
-  //   (e) => { bot.sendMessage(id, 'Не загрузился'); console.log(e) })
-  
-  let fileUrl = bot.getFileLink(msg.document.file_id).then(
-    (fileUrl) => {
-      let request = https.get(fileUrl, function(response) {
-
-        const settings = {
-          encoding: 'utf8',
-          autoClose: true
-        }
-
-        let file = fs.createWriteStream("./download/file.txt", settings);
-        response.pipe(file)
-      })
-      
-      bot.sendMessage(id, 'вроде загрузился')
-    },
+  let filePath = bot.downloadFile(msg.document.file_id, `./list/download/${id}_${name}`).then(
+    (filePath) =>  bot.sendMessage(id, 'Загрузился'), 
     (e) => { bot.sendMessage(id, 'Не загрузился'); console.log(e) })
+  
+  // let fileUrl = bot.getFileLink(msg.document.file_id).then(
+  //   (fileUrl) => {
+  //     let request = https.get(fileUrl, function(response) {
+
+  //       const settings = {
+  //         encoding: 'utf8',
+  //         autoClose: true
+  //       }
+
+  //       let file = fs.createWriteStream("./download/file.txt", settings);
+  //       response.pipe(file)
+  //     })
+
+  //     bot.sendMessage(id, 'вроде загрузился')
+  //   },
+  //   (e) => { bot.sendMessage(id, 'Не загрузился'); console.log(e) })
 })
 
 // --- конец логики бота --- //
