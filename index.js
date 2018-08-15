@@ -13,7 +13,7 @@ const creator = 353140575
 
 // --- начало объявления флагов и настроек --- //
 
-
+let downloadEnabledFlag = 0;
 
 // --- конец объявления флагов и настроек --- //
 // --- начало объявления функций --- //
@@ -424,26 +424,31 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 bot.onText(/\/download/, (msg, match) => {
   if (adminCheck(msg) != true) return
 
-  bot.on('document', (msg) => {
-    if (adminCheck(msg) != true) return
-  
-    let id = msg.chat.id
-    let name = msg.document.file_name
-  
-    let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
-      (filePath) =>  {
-        fs.rename(filePath, './download/'+name, (error, data) => {
-          if (error) throw error; // если возникла ошибка
-        })
-        bot.sendMessage(id, 'Файл успешно загружен')
-      }, 
-      (e) => { 
-        bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка') 
-        console.log(e) 
-    }) 
-  })
-  
+  downloadEnabledFlag = 1
 });
+
+bot.on('document', (msg) => {
+  if (adminCheck(msg) != true) return
+  if (downloadEnabledFlag != 1) return
+
+  let id = msg.chat.id
+  let name = msg.document.file_name
+
+  let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
+    (filePath) =>  {
+      fs.rename(filePath, './download/'+name, (error, data) => {
+        if (error) throw error; // если возникла ошибка
+      })
+      bot.sendMessage(id, 'Файл успешно загружен')
+      downloadEnabledFlag = 0
+    }, 
+    (e) => { 
+      bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка')
+      downloadEnabledFlag = 0
+      console.log(e) 
+  })
+})
+
 
 
 // --- конец логики бота --- //
