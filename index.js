@@ -411,7 +411,7 @@ bot.on('document', (msg) => {
   let fileUrl = bot.getFileLink(msg.document.file_id).then(
     (fileUrl) => {
       let file = fs.createWriteStream("file.txt");
-      let request = https.get(filePath, function(response) {
+      let request = https.get(fileUrl, function(response) {
         response.pipe(file)
       })
       bot.sendMessage(id, 'вроде загрузился')
