@@ -177,14 +177,14 @@ function replacer(path1, path2, id) {
         let string2 = data.replace(/\s+/g, ' ')
         // отформатированное записать обратно
         fs.writeFile(path2, string2, function (error) {
-          if (error) throw error; // если возникла ошибка)
+          if (error) throw error; // если возникла ошибка
           bot.sendMessage(id, `Перемещение закончено`)
         })
       })
     })
     // очистить файл path1
     fs.writeFile(path1, '', function (error) {
-      if (error) throw error; // если возникла ошибка)
+      if (error) throw error; // если возникла ошибка
     })
   })
 }
@@ -409,7 +409,9 @@ bot.on('document', (msg) => {
 
   let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
     (filePath) =>  {
-      fs.rename(filePath, './download/'+name)
+      fs.rename(filePath, './download/'+name, (error, data) => {
+        if (error) throw error; // если возникла ошибка
+      })
       bot.sendMessage(id, 'Загрузился + ')
     }, 
     (e) => { 
