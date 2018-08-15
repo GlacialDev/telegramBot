@@ -255,7 +255,7 @@ bot.onText(/\/sendto (\-[0-9]+|[0-9]+) (\S+.*)/, (msg, match) => {
 
 // таймер на выдачу картинок
 let eroTimer = null
-bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
+bot.onText(/\/set_ero_timer (\d+)/, (msg, match) => {
   if (adminCheck(msg) != true) {
     bot.sendMessage(msg.chat.id, 'Только для посвященных')
     return
@@ -367,6 +367,11 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
   let timeMeasure = match[3]
 
   let timeToRemind;
+
+  if (time < 1) {
+    bot.sendMessage(msg.chat.id, 'Нельзя ставить значение времени меньше 1. Попробуй поменять размерность')
+    return
+  }
 
   if (timeMeasure = 'минут') {
     timeToRemind = 1000*60*time
