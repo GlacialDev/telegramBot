@@ -402,7 +402,7 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 });
 
 bot.on('document', (msg) => {
-  bot.downloadFile(msg.document.file_id, './list/download/')
+  bot.downloadFile(msg.document.file_id, './list/download/').then(() => console.log('zagruzil'), (e) => console.log('ne zagruzil')
 })
 
 // --- конец логики бота --- //
