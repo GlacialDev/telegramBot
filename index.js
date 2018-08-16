@@ -265,33 +265,33 @@ bot.on('document', (msg) => {
   //   (e) => console.log(e)
   // )
 
-  let readableStream = bot.getFileStream(msg.document.file_id)
-  readableStream.setEncoding('utf8')
-  let dest = './download/'+name
-  let file = fs.createWriteStream(dest);
-  readableStream.pipe(file)
-  file.on('finish', function() {
-    file.close();  // close() is async, call cb after close completes.
-    console.log('easy')
-  });
-  file.on('error', function(err) { // Handle errors
-    fs.unlink(dest); // Delete the file async. (But we don't check the result)
-    console.log('error '+err)
-  });
+  // let readableStream = bot.getFileStream(msg.document.file_id)
+  // readableStream.setEncoding('utf8')
+  // let dest = './download/'+name
+  // let file = fs.createWriteStream(dest);
+  // readableStream.pipe(file)
+  // file.on('finish', function() {
+  //   file.close();  // close() is async, call cb after close completes.
+  //   console.log('easy')
+  // });
+  // file.on('error', function(err) { // Handle errors
+  //   fs.unlink(dest); // Delete the file async. (But we don't check the result)
+  //   console.log('error '+err)
+  // });
   
 
 
-  // let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
-  //   (filePath) =>  {
-  //     fs.rename(filePath, './download/'+name, (error, data) => {
-  //       if (error) throw error; // если возникла ошибка
-  //     })
-  //     bot.sendMessage(id, 'Файл успешно загружен')
-  //   }, 
-  //   (e) => { 
-  //     bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка')
-  //     console.log(e) 
-  // })
+  let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
+    (filePath) =>  {
+      fs.rename(filePath, './download/'+name, (error, data) => {
+        if (error) throw error; // если возникла ошибка
+      })
+      bot.sendMessage(id, 'Файл успешно загружен')
+    }, 
+    (e) => { 
+      bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка')
+      console.log(e) 
+  })
 })
 
 bot.onText(/\/help/, (msg) => {
