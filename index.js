@@ -4,6 +4,7 @@ import config from './secret/config';
 // const format = require('biguint-format')
 const https = require('https')
 const fs = require('fs');
+const request = require('request');
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(config.token, { polling: true });
 const apiai = require('apiai');
@@ -224,12 +225,11 @@ bot.on('document', (msg) => {
 
   let id = msg.chat.id
   let name = msg.document.file_name
-
-  var fs = require('fs');
-  var request = require('request');
   
-  var download = function(url, dest, cb) {
-      var file = fs.createWriteStream(dest);
+  let download = function(url, dest, cb) {
+      let file = fs.createWriteStream(dest, {
+        encoding: "utf8"
+      });
       var sendReq = request.get(url);
   
       // verify response code
@@ -260,7 +260,7 @@ bot.on('document', (msg) => {
   let fileURI = bot.getFileLink(msg.document.file_id).then(
     (fileURI) => {
       bot.sendMessage(id, fileURI)
-      download(fileURI, './download/'+name, 'meow')
+      download(fileURI, './download/'+name, (mes) => {console.log(mes)})
     },
     (e) => console.log(e)
   )
