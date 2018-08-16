@@ -175,6 +175,16 @@ function replacer(path1, path2, id) {
   })
 }
 
+function passGenerator(length, charSet) {
+  charSet = charSet || 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let randomString = '';
+  for (let i = 0; i < length; i++) {
+      let randomPoz = Math.floor(Math.random() * charSet.length);
+      randomString += charSet.substring(randomPoz,randomPoz+1);
+  }
+  return randomString;
+}
+
 // --- конец объявления функций --- //
 // --- начало объявления флагов и настроек --- //
 
@@ -206,6 +216,7 @@ bot.sendMessage(creator,
 `Бот инициализирован`);
 
 // скачивает скидываемые документы если включен соответствующий флаг
+// для админа разрешение не требуется
 bot.on('document', (msg) => {
   if (adminCheck(msg) != true) {
     if (downloadEnabledFlag != 1) { bot.sendMessage(msg.chat.id, 'Загрузка файлов запрещена'); return }
@@ -258,11 +269,17 @@ bot.onText(/\/admin_help/, (msg) => {
   bot.sendMessage(msg.chat.id, response);
 });
 
-bot.onText(/\/echo (.+)/, (msg, match) => {
-  if (authCheck(msg) != true) return
+function echo(bot, msg, arg) {
 
   let text = match[1];
   bot.sendMessage(msg.chat.id, text);
+}
+
+
+bot.onText(/\/echo (.+)/, (msg, match) => {
+  if (authCheck(msg) != true) return
+
+  echo(bot, msg, text)
 });
 
 bot.onText(/\/id/, (msg) => {
@@ -433,5 +450,21 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 
   bot.sendMessage(msg.chat.id, 'Хорошо, ' + name + ', я обязательно напомню... если не забуду')
 });
+
+// простенький генератор пароля
+bot.onText(/\/eazy_pass ([0-9]+)/, (msg, match) => {
+  if (authCheck(msg) != true) return
+
+  let length = match[1]
+  let pass = passGenerator(length)
+  bot.sendMessage(msg.chat.id, 'Сгенерирован пароль: '+pass)
+});
+
+// сложный генератор пароля
+// bot.onText(/\/hard_pass ( - - - )/, (msg, match) => {
+//   if (authCheck(msg) != true) return
+
+// });
+
 
 // --- конец логики бота --- //
