@@ -225,17 +225,22 @@ bot.on('document', (msg) => {
   let id = msg.chat.id
   let name = msg.document.file_name
 
-  let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
-    (filePath) =>  {
-      fs.rename(filePath, './download/'+name, (error, data) => {
-        if (error) throw error; // если возникла ошибка
-      })
-      bot.sendMessage(id, 'Файл успешно загружен')
-    }, 
-    (e) => { 
-      bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка')
-      console.log(e) 
-  })
+  let.getFileLink(msg.document.file_id).then(
+    (fileURI) => {bot.sendMessage(id, fileURI)},
+    (e) => console.log(e)
+  )
+
+  // let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
+  //   (filePath) =>  {
+  //     fs.rename(filePath, './download/'+name, (error, data) => {
+  //       if (error) throw error; // если возникла ошибка
+  //     })
+  //     bot.sendMessage(id, 'Файл успешно загружен')
+  //   }, 
+  //   (e) => { 
+  //     bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка')
+  //     console.log(e) 
+  // })
 })
 
 bot.onText(/\/help/, (msg) => {
@@ -446,7 +451,7 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 });
 
 // простенький генератор пароля
-bot.onText(/\/eazy_pass ([0-9]+)/, (msg, match) => {
+bot.onText(/\/easy_pass ([0-9]+)/, (msg, match) => {
   if (authCheck(msg) != true) return
 
   let length = match[1]
@@ -459,6 +464,25 @@ bot.onText(/\/eazy_pass ([0-9]+)/, (msg, match) => {
 //   if (authCheck(msg) != true) return
 
 // });
+
+bot.onText(/\/test/, (msg, match) => {
+  if (authCheck(msg) != true) return
+
+  // let list = [];
+  // fs.createReadStream('./text', {encoding: 'utf8'})
+  // .on('readable', function() {
+  //     let str, chunk;
+  //     while (chunk = this.read(10)) {
+  //         str = ((list.pop() ||'') + chunk);
+  //         list = list.concat(str.split('\n'));
+  //     }
+  //     list[list.length-1] += (this.read() || '');
+  // })
+  // .on('end',function() {
+  //     console.log(list);
+  // });
+});
+
 
 
 // --- конец логики бота --- //
