@@ -220,9 +220,7 @@ bot.sendMessage(creator,
 // скачивает скидываемые документы если включен соответствующий флаг
 // для админа разрешение не требуется
 bot.on('document', (msg) => {
-  if (adminCheck(msg) != true) {
-    if (downloadEnabledFlag != 1) { bot.sendMessage(msg.chat.id, 'Загрузка файлов запрещена'); return }
-  }
+  if (downloadEnabledFlag != 1) return 
 
   let id = msg.chat.id
   let name = msg.document.file_name
@@ -233,9 +231,11 @@ bot.on('document', (msg) => {
         if (error) throw error; // если возникла ошибка
       })
       bot.sendMessage(id, 'Файл успешно загружен')
+      downloadEnabledFlag = 0
     }, 
     (e) => { 
       bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка')
+      downloadEnabledFlag = 0
       console.log(e) 
   })
 })
@@ -466,7 +466,7 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
   let outputFileName = match[1]+'.'+match[3]
 
   bot.sendMessage(msg.chat.id, 'Приступаю к конвертированию, придется немного подождать')
-  
+
   fs.createReadStream('./download/'+inputfileName)
   .pipe(cloudconvert.convert({
       inputformat: inputFormat,
