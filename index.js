@@ -486,7 +486,6 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
   })
   .on('error', function() {
     bot.sendMessage(msg.chat.id, 'Случилась какая-то ошибка. Конвертировать не удалось =/')
-    console.log(e)
   })
 });
 
