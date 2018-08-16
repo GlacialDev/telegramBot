@@ -260,7 +260,7 @@ bot.on('document', (msg) => {
   let fileURI = bot.getFileLink(msg.document.file_id).then(
     (fileURI) => {
       bot.sendMessage(id, fileURI)
-      download(fileURI, './download/text.txt', (mes) => {console.log(mes)})
+      download(fileURI, './download/text.txt', 'meow')
     },
     (e) => console.log(e)
   )
