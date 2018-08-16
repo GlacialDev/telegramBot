@@ -266,7 +266,7 @@ bot.on('document', (msg) => {
 
   let readableStream = bot.getFileStream(msg.document.file_id, { encoding: "utf8" })
   let dest = './download/'+name
-  let file = fs.createWriteStream(dest);
+  let file = fs.createWriteStream(dest, { encoding: "utf8" });
   readableStream.pipe(file)
   file.on('finish', function() {
     file.close();  // close() is async, call cb after close completes.
