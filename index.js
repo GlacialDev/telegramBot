@@ -270,6 +270,11 @@ bot.on('document', (msg) => {
   readableStream.pipe(file)
   file.on('finish', function() {
     file.close();  // close() is async, call cb after close completes.
+    console.log('easy')
+  });
+  file.on('error', function(err) { // Handle errors
+    fs.unlink(dest); // Delete the file async. (But we don't check the result)
+    console.log('error '+err)
   });
   
 
