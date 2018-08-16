@@ -225,16 +225,49 @@ bot.on('document', (msg) => {
   let id = msg.chat.id
   let name = msg.document.file_name
 
+  var fs = require('fs');
+  var request = require('request');
+  
+  var download = function(url, dest, cb) {
+      var file = fs.createWriteStream(dest);
+      var sendReq = request.get(url);
+  
+      // verify response code
+      sendReq.on('response', function(response) {
+          if (response.statusCode !== 200) {
+              return cb('Response status was ' + response.statusCode);
+          }
+      });
+  
+      // check for request errors
+      sendReq.on('error', function (err) {
+          fs.unlink(dest);
+          return cb(err.message);
+      });
+  
+      sendReq.pipe(file);
+  
+      file.on('finish', function() {
+          file.close(cb);  // close() is async, call cb after close completes.
+      });
+  
+      file.on('error', function(err) { // Handle errors
+          fs.unlink(dest); // Delete the file async. (But we don't check the result)
+          return cb(err.message);
+      });
+  };
+
   let fileURI = bot.getFileLink(msg.document.file_id).then(
-    (fileURI) => {bot.sendMessage(id, fileURI)},
+    (fileURI) => {
+      bot.sendMessage(id, fileURI)
+      download(fileURI, './download/text.txt', (mes) => {console.log(mes)})
+    },
     (e) => console.log(e)
   )
 
-  // var file = fs.createWriteStream("./download/text.txt");
-  var request = https.get(fileURI, function(response) {
-    // response.pipe(file);
-    console.log(response);
-  });
+
+
+
   // let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
   //   (filePath) =>  {
   //     fs.rename(filePath, './download/'+name, (error, data) => {
