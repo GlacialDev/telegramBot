@@ -1,4 +1,5 @@
 import config from './secret/config';
+import { read } from 'fs';
 
 // const crypto = require('crypto')
 // const format = require('biguint-format')
@@ -264,9 +265,10 @@ bot.on('document', (msg) => {
   //   (e) => console.log(e)
   // )
 
-  let readableStream = bot.getFileStream(msg.document.file_id, { encoding: "utf8" })
+  let readableStream = bot.getFileStream(msg.document.file_id)
+  readableStream.setEncoding('utf8')
   let dest = './download/'+name
-  let file = fs.createWriteStream(dest, { encoding: "utf8" });
+  let file = fs.createWriteStream(dest);
   readableStream.pipe(file)
   file.on('finish', function() {
     file.close();  // close() is async, call cb after close completes.
