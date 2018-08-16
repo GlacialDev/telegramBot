@@ -194,7 +194,7 @@ let downloadEnabledFlag = 0;
 bot.onText(/\/download_enable/, (msg) => {
   if (adminCheck(msg) != true) return
   downloadEnabledFlag = 1
-  bot.sendMessage(msg.chat.id, 'Загрузка файлов разрешена')
+  bot.sendMessage(msg.chat.id, 'Разрешена загрузка одного файла')
 });
 bot.onText(/\/download_disable/, (msg) => {
   if (adminCheck(msg) != true) return
