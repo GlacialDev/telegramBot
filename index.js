@@ -266,7 +266,7 @@ bot.on('document', (msg) => {
   // )
 
   let readableStream = bot.getFileStream(msg.document.file_id)
-  readableStream.setEncoding('utf8')
+  readableStream.setEncoding('windows-1251')
   let dest = './download/'+name
   let file = fs.createWriteStream(dest);
   readableStream.pipe(file)
