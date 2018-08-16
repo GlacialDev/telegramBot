@@ -457,26 +457,25 @@ bot.onText(/\/pass_gen ([0-9]+)/, (msg, match) => {
   bot.sendMessage(msg.chat.id, 'Сгенерирован пароль: '+pass)
 });
 
-// сложный генератор пароля
-// bot.onText(/\/hard_pass ( - - - )/, (msg, match) => {
-//   if (authCheck(msg) != true) return
-
-// });
-
-bot.onText(/\/convert_to (.+)/, (msg, match) => {
+bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
+  
+  let inputfileName = match[1]+'.'+match[2]
+  let inputFormat = match[2]
+  let outputFormat = match[3]
+  let outputFileName = match[1]+'.'+match[3]
 
-  fs.createReadStream('./download/input.txt')
+  fs.createReadStream('./download/'+inputfileName)
   .pipe(cloudconvert.convert({
-      inputformat: 'txt',
-      outputformat: 'pdf',
+      inputformat: inputFormat,
+      outputformat: outputFormat,
       converteroptions: {
           quality : 75,
       }
   }))
-  .pipe(fs.createWriteStream('./download/output.pdf'))
+  .pipe(fs.createWriteStream('./download/converted/'+outputFileName))
   .on('finish', function() {
-      console.log('Done!');
+      bot.sendDocument(msg.chat.id, './download/converted/'+outputFileName)
   });
 });
 
