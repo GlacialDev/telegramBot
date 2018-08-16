@@ -1,5 +1,4 @@
 import config from './secret/config';
-import { read } from 'fs';
 
 // const crypto = require('crypto')
 // const format = require('biguint-format')
@@ -10,6 +9,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(config.token, { polling: true });
 const apiai = require('apiai');
 const botIsClever_HeCanTalk = apiai(config.dialogFlowClientAccessToken);
+const cloudconvert = new (require('cloudconvert'))(config.cloudConvertApiKey);
 const groupChat = -307924393
 const creator = 353140575
 
@@ -227,60 +227,6 @@ bot.on('document', (msg) => {
   let id = msg.chat.id
   let name = msg.document.file_name
   
-  // let download = function(url, dest, cb) {
-  //     let file = fs.createWriteStream(dest);
-  //     let sendReq = request.get(url);
-  //     let readfile = fs.createReadStream(file)
-  
-  //     // verify response code
-  //     sendReq.on('response', function(response) {
-  //         if (response.statusCode !== 200) {
-  //             return cb('Response status was ' + response.statusCode);
-  //         }
-  //     });
-  
-  //     // check for request errors
-  //     sendReq.on('error', function (err) {
-  //         fs.unlink(dest);
-  //         return cb(err.message);
-  //     });
-  
-  //     sendReq.pipe(file);
-  
-  //     file.on('finish', function() {
-  //         file.close(cb);  // close() is async, call cb after close completes.
-  //     });
-  
-  //     file.on('error', function(err) { // Handle errors
-  //         fs.unlink(dest); // Delete the file async. (But we don't check the result)
-  //         return cb(err.message);
-  //     });
-  // };
-
-  // let fileURI = bot.getFileLink(msg.document.file_id).then(
-  //   (fileURI) => {
-  //     bot.sendMessage(id, fileURI)
-  //     download(fileURI, './download/'+name, (mes) => {console.log(mes)})
-  //   },
-  //   (e) => console.log(e)
-  // )
-
-  // let readableStream = bot.getFileStream(msg.document.file_id)
-  // readableStream.setEncoding('utf8')
-  // let dest = './download/'+name
-  // let file = fs.createWriteStream(dest);
-  // readableStream.pipe(file)
-  // file.on('finish', function() {
-  //   file.close();  // close() is async, call cb after close completes.
-  //   console.log('easy')
-  // });
-  // file.on('error', function(err) { // Handle errors
-  //   fs.unlink(dest); // Delete the file async. (But we don't check the result)
-  //   console.log('error '+err)
-  // });
-  
-
-
   let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
     (filePath) =>  {
       fs.rename(filePath, './download/'+name, (error, data) => {
@@ -309,6 +255,7 @@ bot.onText(/\/help/, (msg) => {
 - /search (текст) - выполнить поиск картинки по запросу
 - /search_more - получить другую картинку по прошлому запросу (можно выполнять много раз)
 - /remind_me (текст) через (число) (минут/дней/часов - можно в любом склонении) - напомнит вам в личку через заданное время то что вы написали в (тексте), при условии, что вы прописали у бота /start
+- /pass_gen (число) - генерирует пароль длиной в (число) символов
 - !бот, (текст) - поговорить с ботом`
   bot.sendMessage(msg.chat.id, response);
 });
@@ -502,7 +449,7 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 });
 
 // простенький генератор пароля
-bot.onText(/\/easy_pass ([0-9]+)/, (msg, match) => {
+bot.onText(/\/pass_gen ([0-9]+)/, (msg, match) => {
   if (authCheck(msg) != true) return
 
   let length = match[1]
@@ -516,24 +463,21 @@ bot.onText(/\/easy_pass ([0-9]+)/, (msg, match) => {
 
 // });
 
-bot.onText(/\/test/, (msg, match) => {
+bot.onText(/\/convert_to (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
 
-  // let list = [];
-  // fs.createReadStream('./text', {encoding: 'utf8'})
-  // .on('readable', function() {
-  //     let str, chunk;
-  //     while (chunk = this.read(10)) {
-  //         str = ((list.pop() ||'') + chunk);
-  //         list = list.concat(str.split('\n'));
-  //     }
-  //     list[list.length-1] += (this.read() || '');
-  // })
-  // .on('end',function() {
-  //     console.log(list);
-  // });
+  fs.createReadStream('./download/input.txt')
+  .pipe(cloudconvert.convert({
+      inputformat: 'txt',
+      outputformat: 'pdf',
+      converteroptions: {
+          quality : 75,
+      }
+  }))
+  .pipe(fs.createWriteStream('./download/output.pdf'))
+  .on('finish', function() {
+      console.log('Done!');
+  });
 });
-
-
 
 // --- конец логики бота --- //
