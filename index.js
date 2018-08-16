@@ -226,46 +226,50 @@ bot.on('document', (msg) => {
   let id = msg.chat.id
   let name = msg.document.file_name
   
-  let download = function(url, dest, cb) {
-      let file = fs.createWriteStream(dest, {
-        encoding: "utf8"
-      });
-      var sendReq = request.get(url);
+  // let download = function(url, dest, cb) {
+  //     let file = fs.createWriteStream(dest);
+  //     let sendReq = request.get(url);
+  //     let readfile = fs.createReadStream(file)
   
-      // verify response code
-      sendReq.on('response', function(response) {
-          if (response.statusCode !== 200) {
-              return cb('Response status was ' + response.statusCode);
-          }
-      });
+  //     // verify response code
+  //     sendReq.on('response', function(response) {
+  //         if (response.statusCode !== 200) {
+  //             return cb('Response status was ' + response.statusCode);
+  //         }
+  //     });
   
-      // check for request errors
-      sendReq.on('error', function (err) {
-          fs.unlink(dest);
-          return cb(err.message);
-      });
+  //     // check for request errors
+  //     sendReq.on('error', function (err) {
+  //         fs.unlink(dest);
+  //         return cb(err.message);
+  //     });
   
-      sendReq.pipe(file);
+  //     sendReq.pipe(file);
   
-      file.on('finish', function() {
-          file.close(cb);  // close() is async, call cb after close completes.
-      });
+  //     file.on('finish', function() {
+  //         file.close(cb);  // close() is async, call cb after close completes.
+  //     });
   
-      file.on('error', function(err) { // Handle errors
-          fs.unlink(dest); // Delete the file async. (But we don't check the result)
-          return cb(err.message);
-      });
-  };
+  //     file.on('error', function(err) { // Handle errors
+  //         fs.unlink(dest); // Delete the file async. (But we don't check the result)
+  //         return cb(err.message);
+  //     });
+  // };
 
-  let fileURI = bot.getFileLink(msg.document.file_id).then(
-    (fileURI) => {
-      bot.sendMessage(id, fileURI)
-      download(fileURI, './download/'+name, (mes) => {console.log(mes)})
-    },
-    (e) => console.log(e)
-  )
+  // let fileURI = bot.getFileLink(msg.document.file_id).then(
+  //   (fileURI) => {
+  //     bot.sendMessage(id, fileURI)
+  //     download(fileURI, './download/'+name, (mes) => {console.log(mes)})
+  //   },
+  //   (e) => console.log(e)
+  // )
 
-
+  let readableStream = bot.getFileStream(msg.document.file_id)
+  let file = fs.createWriteStream(dest);
+  readableStream.pipe(file)
+  file.on('finish', function() {
+    file.close();  // close() is async, call cb after close completes.
+  });
 
 
   // let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
