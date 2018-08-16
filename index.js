@@ -465,6 +465,8 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
   let outputFormat = match[3]
   let outputFileName = match[1]+'.'+match[3]
 
+  bot.sendMessage(msg.chat.id, 'Приступаю к конвертированию, придется немного подождать')
+  
   fs.createReadStream('./download/'+inputfileName)
   .pipe(cloudconvert.convert({
       inputformat: inputFormat,
