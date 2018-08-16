@@ -244,7 +244,7 @@ bot.onText(/\/help/, (msg) => {
   if (authCheck(msg) != true) return
   let response =
 `Привет, ${msg.from.first_name}. Имеются следующие команды:\n
-- /admin_help - админ-команды
+- /admin_help - админ-команды (доступна админам)
 - /echo (текст) - повторяет текст
 - /id - выдает id группового чата и ваш
 - /photo (url-ссылка на картинку) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу
@@ -256,19 +256,21 @@ bot.onText(/\/help/, (msg) => {
 - /search_more - получить другую картинку по прошлому запросу (можно выполнять много раз)
 - /remind_me (текст) через (число) (минут/дней/часов - можно в любом склонении) - напомнит вам в личку через заданное время то что вы написали в (тексте), при условии, что вы прописали у бота /start
 - /pass_gen (число) - генерирует пароль длиной в (число) символов
+- /download_enable  - вкл. загрузку файлов
+- /download_disable - откл. загрузку файлов
+- /convert (имя файла вместе с расширением) to (расширение без точки) - конвертирует файл из одного расширения в другое. Например: /convert example.png to jpg или /convert example2.docx to fb2
 - !бот, (текст) - поговорить с ботом`
   bot.sendMessage(msg.chat.id, response);
 });
 
 bot.onText(/\/admin_help/, (msg) => {
-  if (authCheck(msg) != true) return
+  if (adminCheck(msg) != true) return
   let response =
 `Привет, ${msg.from.first_name}. Имеются следующие команды:\n
 - /set_ero_timer (время) - установить таймер отсылки картинок, время в часах
 - /stop_ero_timer - остановить таймер отсылки картинок
 - /ero_replacer - из savefrom списка в список таймера
-- /bot_settings - настройки и флаги бота
-- /download_enable /download_disable - вкл./откл. загрузку файлов`
+- /bot_settings - настройки и флаги бота`
   bot.sendMessage(msg.chat.id, response);
 });
 
@@ -342,7 +344,7 @@ bot.onText(/\/stop_ero_timer/, (msg) => {
 bot.onText(/\/ero_replacer/, (msg) => {
   if (adminCheck(msg) != true) return
 
-  replacer('./list/savefrom.txt', './list/ero.txt', msg.chat.id)
+  replacer('./download/savefrom.txt', './list/ero.txt', msg.chat.id)
 })
 
 bot.onText(/\/how_much_ero/, (msg) => {
@@ -457,6 +459,7 @@ bot.onText(/\/pass_gen ([0-9]+)/, (msg, match) => {
   bot.sendMessage(msg.chat.id, 'Сгенерирован пароль: '+pass)
 });
 
+// конвертер
 bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
   
