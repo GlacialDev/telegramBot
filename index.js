@@ -265,11 +265,13 @@ bot.on('document', (msg) => {
   // )
 
   let readableStream = bot.getFileStream(msg.document.file_id)
+  let dest = './download'+name
   let file = fs.createWriteStream(dest);
   readableStream.pipe(file)
   file.on('finish', function() {
     file.close();  // close() is async, call cb after close completes.
   });
+  
 
 
   // let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
