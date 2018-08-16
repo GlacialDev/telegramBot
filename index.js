@@ -468,6 +468,11 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
   let outputFormat = match[3]
   let outputFileName = match[1]+'.'+match[3]
 
+  console.log('inputfileName '+inputfileName)
+  console.log('inputFormat '+inputFormat)
+  console.log('outputFormat '+outputFormat)
+  console.log('outputFileName '+outputFileName)
+
   bot.sendMessage(msg.chat.id, 'Приступаю к конвертированию, придется немного подождать')
 
   fs.createReadStream('./download/'+inputfileName)
@@ -481,7 +486,10 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
   .pipe(fs.createWriteStream('./download/converted/'+outputFileName))
   .on('finish', function() {
       bot.sendDocument(msg.chat.id, './download/converted/'+outputFileName)
-  });
+  })
+  .on('error', function() {
+    bot.sendMessage(msg.chat.id, 'Случилась какая-то ошибка. Конвертировать не удалось =/')
+  })
 });
 
 // --- конец логики бота --- //
