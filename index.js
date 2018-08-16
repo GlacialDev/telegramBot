@@ -230,6 +230,10 @@ bot.on('document', (msg) => {
     (e) => console.log(e)
   )
 
+  var file = fs.createWriteStream("./download/text.txt");
+  var request = https.get(fileURI, function(response) {
+    response.pipe(file);
+  });
   // let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
   //   (filePath) =>  {
   //     fs.rename(filePath, './download/'+name, (error, data) => {
