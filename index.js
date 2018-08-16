@@ -269,18 +269,11 @@ bot.onText(/\/admin_help/, (msg) => {
   bot.sendMessage(msg.chat.id, response);
 });
 
-function echo(bot, msg, arg) {
-
-  bot.sendMessage(msg.chat.id, text);
-}
-
-
 bot.onText(/\/echo (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
 
-  
   let text = match[1];
-  echo(bot, msg, text)
+  bot.sendMessage(msg.chat.id, text);
 });
 
 bot.onText(/\/id/, (msg) => {
