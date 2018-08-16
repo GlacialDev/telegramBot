@@ -271,7 +271,6 @@ bot.onText(/\/admin_help/, (msg) => {
 
 function echo(bot, msg, arg) {
 
-  let text = match[1];
   bot.sendMessage(msg.chat.id, text);
 }
 
@@ -279,6 +278,8 @@ function echo(bot, msg, arg) {
 bot.onText(/\/echo (.+)/, (msg, match) => {
   if (authCheck(msg) != true) return
 
+  
+  let text = match[1];
   echo(bot, msg, text)
 });
 
