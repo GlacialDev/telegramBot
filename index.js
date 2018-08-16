@@ -230,12 +230,12 @@ bot.on('document', (msg) => {
       fs.rename(filePath, './download/'+name, (error, data) => {
         if (error) throw error; // если возникла ошибка
       })
-      bot.sendMessage(id, 'Файл успешно загружен')
       downloadEnabledFlag = 0
+      bot.sendMessage(id, 'Файл успешно загружен. Можно загрузить еще '+downloadEnabledFlag+' файлов.')
     }, 
     (e) => { 
-      bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка')
       downloadEnabledFlag = 0
+      bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка. Можно загрузить еще '+downloadEnabledFlag+' файлов.')
       console.log(e) 
   })
 })
