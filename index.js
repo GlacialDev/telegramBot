@@ -225,7 +225,7 @@ bot.on('document', (msg) => {
   let id = msg.chat.id
   let name = msg.document.file_name
 
-  let.getFileLink(msg.document.file_id).then(
+  let fileURI = bot.getFileLink(msg.document.file_id).then(
     (fileURI) => {bot.sendMessage(id, fileURI)},
     (e) => console.log(e)
   )
