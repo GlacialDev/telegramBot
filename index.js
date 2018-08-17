@@ -191,17 +191,24 @@ function passGenerator(length, charSet) {
 // --- конец объявления функций --- //
 // --- начало объявления флагов и настроек --- //
 
-let downloadEnabledFlag = 1;
-bot.onText(/\/download_enable/, (msg) => {
-  if (authCheck(msg) != true) return
-  downloadEnabledFlag = 1
-  bot.sendMessage(msg.chat.id, 'Разрешена загрузка одного файла')
-});
-bot.onText(/\/download_disable/, (msg) => {
-  if (authCheck(msg) != true) return
-  downloadEnabledFlag = 0
-  bot.sendMessage(msg.chat.id, 'Загрузка файлов запрещена')
-});
+let downloadEnabledFlag = 1
+bot.onText(/\/download_(enable|disable)/, (msg, match) => {
+  if (adminCheck(msg) != true) return
+
+  flag = match[1]
+  switch(flag) {
+    case('enable'): {
+      downloadEnabledFlag = 1
+      bot.sendMessage(msg.chat.id, 'Загрузка файлов разрешена')
+      break
+    }
+    case('disable'): {
+      downloadEnabledFlag = 0
+      bot.sendMessage(msg.chat.id, 'Загрузка файлов запрещена')
+      break
+    }
+  }
+})
 
 // выдает настройки бота
 bot.onText(/\/bot_settings/, (msg) => {
@@ -233,8 +240,7 @@ bot.onText(/\/download/, (msg) => {
       let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
         (filePath) =>  {
           fs.rename(filePath, './download/'+name, (error, data) => {
-            throw error
-            // if (error) throw error; // если возникла ошибка
+            if (error) throw error; // если возникла ошибка
           })
           responseText = 'Файл успешно загружен.'
           resolve(responseText)
