@@ -196,20 +196,23 @@ bot.onText(/\/download_(enable|disable)/, (msg, match) => {
   if (adminCheck(msg) != true) return
   
   let id = msg.chat.id
+  let result = ''
   flag = match[1]
-  
+
   switch(flag) {
     case('enable'): {
       downloadEnabledFlag = 1
-      bot.sendMessage(id, 'Загрузка файлов разрешена')
+      result = 'Загрузка файлов разрешена'
       break
     }
     case('disable'): {
       downloadEnabledFlag = 0
-      bot.sendMessage(id, 'Загрузка файлов запрещена')
+      result = 'Загрузка файлов запрещена'
       break
     }
   }
+  
+  bot.sendMessage(id, result)
 })
 
 // выдает настройки бота
