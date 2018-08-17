@@ -194,17 +194,19 @@ function passGenerator(length, charSet) {
 let downloadEnabledFlag = 1
 bot.onText(/\/download_(enable|disable)/, (msg, match) => {
   if (adminCheck(msg) != true) return
-
+  
+  let id = msg.chat.id
   flag = match[1]
+  
   switch(flag) {
     case('enable'): {
       downloadEnabledFlag = 1
-      bot.sendMessage(msg.chat.id, 'Загрузка файлов разрешена')
+      bot.sendMessage(id, 'Загрузка файлов разрешена')
       break
     }
     case('disable'): {
       downloadEnabledFlag = 0
-      bot.sendMessage(msg.chat.id, 'Загрузка файлов запрещена')
+      bot.sendMessage(id, 'Загрузка файлов запрещена')
       break
     }
   }
