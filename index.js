@@ -236,7 +236,7 @@ bot.onText(/\/download/, (msg) => {
             if (error) throw error; // если возникла ошибка
           })
           response = 'Файл успешно загружен.'
-          throw error;
+          throw e;
           resolve(response)
         }, 
         (e) => { 
