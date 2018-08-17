@@ -210,6 +210,9 @@ bot.onText(/\/bot_settings/, (msg) => {
 
 // при начале работы выдает сообщение
 bot.sendMessage(creator, `Бот инициализирован`);
+eroTimer = setInterval(function () {
+  takePhotoFromBuffer("./list/ero.txt", groupChat, false)
+}, 8000);
 
 // позволяет загрузить файл на сервер
 bot.onText(/\/download$/, (msg) => {
@@ -492,4 +495,3 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
 });
 
 // --- конец логики бота --- //
-bot.sendMessage(creator, `/set_ero_timer 1`);
