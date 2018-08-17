@@ -495,7 +495,6 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
 bot.onText(/\/test/, (msg) => {
   return new Promise((resolve, reject) => {
     bot.on('document', (msg) => {    
-      let id = msg.chat.id
       let name = msg.document.file_name
       let response
       let error
@@ -515,7 +514,7 @@ bot.onText(/\/test/, (msg) => {
       })
     })
   }).then(
-    response => bot.sendMessage(id, response),
-    error =>bot.sendMessage(id, error)
+    response => bot.sendMessage(msg.chat.id, response),
+    error =>bot.sendMessage(msg.chat.id, error)
   )
 })
