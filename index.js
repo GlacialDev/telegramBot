@@ -1,15 +1,11 @@
 import config from './secret/config';
-import { resolve } from 'url';
 
-// const crypto = require('crypto')
-// const format = require('biguint-format')
 const https = require('https')
 const fs = require('fs');
-const request = require('request');
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(config.token, { polling: true });
 const apiai = require('apiai');
-const botIsClever_HeCanTalk = apiai(config.dialogFlowClientAccessToken);
+const dialogflow = apiai(config.dialogFlowClientAccessToken);
 const cloudconvert = new (require('cloudconvert'))(config.cloudConvertApiKey);
 const groupChat = -307924393
 const creator = 353140575
@@ -40,13 +36,11 @@ function adminCheck(message) {
     }
   }
 }
-
 // остановка таймера
 function stopTimer(timerName) {
   clearInterval(timerName)
   timerName = null
 }
-
 // достать ссылку из .txt файла (path), отослать по id (where) 
 // и сообщать об оставшемся кол-ве картинок в буфере (howMuchLeft)
 function takePhotoFromBuffer(path, sendTo, howMuchLeftFlag) {
@@ -72,7 +66,6 @@ function takePhotoFromBuffer(path, sendTo, howMuchLeftFlag) {
     });
   });
 }
-
 // функция поиска изображений через api поисковика Bing
 // все как в тамошней документации кроме пары вещей где комментарии
 function search(requestMes) {
@@ -129,27 +122,25 @@ function search(requestMes) {
     console.log('Please paste yours into the source code.');
   }
 }
-
 // dialogflow и гугл нейросети, которые говорят с тобой!
 function talk(text, id) {
-  let talkRequest = botIsClever_HeCanTalk.textRequest(text, {
+  let talkRequest = dialogflow.textRequest(text, {
     sessionId: 'Canadian_bot_talk_to_you'
   });
 
   talkRequest.on('response', function (response) {
-    let botTalk = response.result.fulfillment.speech
-    if (botTalk == '') bot.sendMessage(id, 'Я хз что ответить, сори. Возможно позже я пойму, что нужно было сказать в ответ на это...');
-    bot.sendMessage(id, botTalk);
+    let answer = response.result.fulfillment.speech
+    if (answer == '') bot.sendMessage(id, 'Я не знаю, что тебе на это ответить.');
+    bot.sendMessage(id, answer);
   });
 
   talkRequest.on('error', function (error) {
-    if (error) bot.sendMessage(id, 'Там, где расположены мои мозги, какие то проблемы. В общем, я не могу ответить :(');
+    if (error) bot.sendMessage(id, 'Я не могу тебе ответить по техническим причинам.');
     console.log(error);
   });
 
   talkRequest.end();
 }
-
 // заменяет несимвольные разделители или много пробелов одним пробелом 
 // и передает полученную строку в другой файл, о чем затем оповещает
 function replacer(path1, path2, id) {
@@ -177,7 +168,7 @@ function replacer(path1, path2, id) {
     })
   })
 }
-
+// генерирует пароль
 function passGenerator(length, charSet) {
   charSet = charSet || 'abcdefghijklmnopqrstuvwxyz0123456789';
   let randomString = '';
@@ -218,8 +209,8 @@ bot.onText(/\/bot_settings/, (msg) => {
 // --- начало логики бота --- //
 
 // при начале работы выдает сообщение
-bot.sendMessage(creator,
-`Бот инициализирован`);
+bot.sendMessage(creator, `Бот инициализирован`);
+bot.sendMessage(creator, `/set_ero_timer 1`);
 
 // позволяет загрузить файл на сервер
 bot.onText(/\/download$/, (msg) => {
@@ -269,8 +260,6 @@ bot.onText(/\/help/, (msg) => {
 - /search_more - получить другую картинку по прошлому запросу (можно выполнять много раз)
 - /remind_me (текст) через (число) (минут/дней/часов - можно в любом склонении) - напомнит вам в личку через заданное время то что вы написали в (тексте), при условии, что вы прописали у бота /start
 - /pass_gen (число) - генерирует пароль длиной в (число) символов
-- /download_enable  - вкл. загрузку файлов
-- /download_disable - откл. загрузку файлов
 - /convert (имя файла вместе с расширением) to (расширение без точки) - конвертирует файл из одного расширения в другое. Например: /convert example.png to jpg или /convert example2.docx to fb2
 - !бот, (текст) - поговорить с ботом`
   bot.sendMessage(msg.chat.id, response);
@@ -283,6 +272,7 @@ bot.onText(/\/admin_help/, (msg) => {
 - /set_ero_timer (время) - установить таймер отсылки картинок, время в часах
 - /stop_ero_timer - остановить таймер отсылки картинок
 - /ero_replacer - из savefrom списка в список таймера
+- /download_(enabled/disabled)  - вкл./откл. возможность загрузки файлов на сервер
 - /bot_settings - настройки и флаги бота`
   bot.sendMessage(msg.chat.id, response);
 });

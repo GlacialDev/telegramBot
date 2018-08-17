@@ -1,3 +1,6 @@
+const crypto = require('crypto')
+const format = require('biguint-format')
+
 // функции для генерации случайных чисел
 function randomC(qty) {
     let x = crypto.randomBytes(qty);
