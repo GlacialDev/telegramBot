@@ -198,23 +198,18 @@ bot.onText(/\/download_(enable|disable)/, (msg, match) => {
   let id = msg.chat.id
   let result = ''
   let flag = match[1]
-  console.log(flag)
 
   switch(flag) {
-    case 'enable':       
-      console.log('enable')
+    case 'enable':
       downloadEnabledFlag = 1
       result = 'Загрузка файлов разрешена'
       break
-    case 'disable': 
-      console.log('disable')
+    case 'disable':
       downloadEnabledFlag = 0
       result = 'Загрузка файлов запрещена'
       break
   }
-  
-  
-  console.log(result)
+
   bot.sendMessage(id, result)
 })
 
@@ -234,7 +229,7 @@ bot.sendMessage(creator,
 `Бот инициализирован`);
 
 // позволяет загрузить файл на сервер
-bot.onText(/\/download/, (msg) => {
+bot.onText(/\/download$/, (msg) => {
   if (authCheck(msg) != true && downloadEnabledFlag == 1) return
 
   bot.sendMessage(msg.chat.id, 'Готов загрузить файл на сервер')
