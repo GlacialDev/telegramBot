@@ -249,7 +249,7 @@ bot.onText(/\/download/, (msg) => {
     response => bot.sendMessage(msg.chat.id, response),
     error =>bot.sendMessage(msg.chat.id, error+' then')
   ).catch(
-    e => bot.sendMessage(msg.chat.id, error+' catch')
+    error => bot.sendMessage(msg.chat.id, error+' catch')
   )
 })
 
