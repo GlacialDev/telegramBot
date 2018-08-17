@@ -197,7 +197,7 @@ bot.onText(/\/download_(enable|disable)/, (msg, match) => {
   
   let id = msg.chat.id
   let result = ''
-  flag = match[1]
+  let flag = match[1]
   console.log(flag)
 
   switch(flag) {
