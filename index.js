@@ -227,7 +227,7 @@ bot.sendMessage(creator,
 
 // позволяет загрузить файл на сервер
 bot.onText(/\/download$/, (msg) => {
-  if (authCheck(msg) !== true && downloadEnabledFlag !== 'enabled') return
+  if (authCheck(msg) !== true || downloadEnabledFlag !== 'enabled') return
 
   bot.sendMessage(msg.chat.id, 'Готов загрузить файл на сервер')
 
