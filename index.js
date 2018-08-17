@@ -210,7 +210,6 @@ bot.onText(/\/bot_settings/, (msg) => {
 
 // при начале работы выдает сообщение
 bot.sendMessage(creator, `Бот инициализирован`);
-bot.sendMessage(creator, `/set_ero_timer 1`);
 
 // позволяет загрузить файл на сервер
 bot.onText(/\/download$/, (msg) => {
@@ -493,3 +492,4 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
 });
 
 // --- конец логики бота --- //
+bot.sendMessage(creator, `/set_ero_timer 1`);
