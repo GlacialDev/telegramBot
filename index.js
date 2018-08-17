@@ -493,6 +493,7 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
 // --- конец логики бота --- //
 
 bot.onText(/\/test/, (msg) => {
+  bot.sendMessage(msg.chat.id, 'Пришли файл, а я загружу')
   
   return new Promise((resolve, reject) => {
     bot.on('document', (msg) => {    
