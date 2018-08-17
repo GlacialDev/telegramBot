@@ -236,7 +236,6 @@ bot.onText(/\/download/, (msg) => {
             if (error) throw error; // если возникла ошибка
           })
           response = 'Файл успешно загружен.'
-          throw e;
           resolve(response)
         }, 
         (e) => { 
@@ -248,8 +247,6 @@ bot.onText(/\/download/, (msg) => {
   }).then(
     response => bot.sendMessage(msg.chat.id, response),
     error =>bot.sendMessage(msg.chat.id, error+' then')
-  ).catch(
-    error => bot.sendMessage(msg.chat.id, error+' catch')
   )
 })
 
