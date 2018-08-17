@@ -199,7 +199,7 @@ bot.onText(/\/download_(enabled|disabled)/, (msg, match) => {
   let response = ''
   let downloadEnabledFlag = match[1]
 
-  switch(flag) {
+  switch(downloadEnabledFlag) {
     case 'enabled':
       response = 'Загрузка файлов разрешена'
       break
