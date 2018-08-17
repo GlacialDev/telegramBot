@@ -182,30 +182,18 @@ function passGenerator(length, charSet) {
 // --- конец объявления функций --- //
 // --- начало объявления флагов и настроек --- //
 
-let eroInterval = 3600000
+let eroInterval = 3600000*1
 let eroTimerStateFlag = 'enabled'
 
 let downloadEnabledFlag = 'enabled'
-bot.onText(/\/download_(enabled|disabled)/, (msg, match) => {
-  if (adminCheck(msg) != true) return
-
-  let response = ''
-  downloadEnabledFlag = match[1]
-
-  switch(downloadEnabledFlag) {
-    case 'enabled': response = 'Загрузка файлов разрешена'; break
-    case 'disabled': response = 'Загрузка файлов запрещена'; break
-  }
-  bot.sendMessage(msg.chat.id, response)
-})
 
 // выдает настройки бота
-bot.onText(/\/bot_settings/, (msg) => {
-  if (adminCheck(msg) != true) return
+bot.onText(/\/settings/, (msg) => {
+  if (authCheck(msg) != true) return
 
   bot.sendMessage(msg.chat.id, 
 `Настройки:
-- eroInterval: ${eroInterval/3600000} час(а/ов) - (${eroTimerStateFlag})
+- eroInterval: ${eroInterval/3600000} ч. - ${eroTimerStateFlag}
 - download: ${downloadEnabledFlag}`)
 });
 
@@ -250,11 +238,29 @@ bot.onText(/\/download$/, (msg) => {
   )
 })
 
+// включение и отключение возможности загрузки файлов
+bot.onText(/\/download_(enabled|disabled)/, (msg, match) => {
+  if (adminCheck(msg) != true) {
+    bot.sendMessage(msg.chat.id, 'Только для посвященных')
+    return
+  }
+
+  let response = ''
+  downloadEnabledFlag = match[1]
+
+  switch(downloadEnabledFlag) {
+    case 'enabled': response = 'Загрузка файлов разрешена'; break
+    case 'disabled': response = 'Загрузка файлов запрещена'; break
+  }
+  bot.sendMessage(msg.chat.id, response)
+})
+
 bot.onText(/\/help/, (msg) => {
   if (authCheck(msg) != true) return
   let response =
 `Привет, ${msg.from.first_name}. Имеются следующие команды:\n
 - /admin_help - админ-команды (доступна админам)
+- /settings - настройки и флаги бота
 - /echo (текст) - повторяет текст
 - /id - выдает id группового чата и ваш
 - /photo (url-ссылка на картинку) - пишете команду боту в лс, он шлет фото, размещенное по ссылке, в группу
@@ -278,8 +284,7 @@ bot.onText(/\/admin_help/, (msg) => {
 - /set_ero_timer (время) - установить таймер отсылки картинок, время в часах
 - /stop_ero_timer - остановить таймер отсылки картинок
 - /ero_replacer - из savefrom списка в список таймера
-- /download_(enabled/disabled)  - вкл./откл. возможность загрузки файлов на сервер
-- /bot_settings - настройки и флаги бота`
+- /download_(enabled/disabled)  - вкл./откл. возможность загрузки файлов на сервер`
   bot.sendMessage(msg.chat.id, response);
 });
 
@@ -352,7 +357,10 @@ bot.onText(/\/stop_ero_timer/, (msg) => {
 
 // из saveform.txt в ero.txt в нужном формате
 bot.onText(/\/ero_replacer/, (msg) => {
-  if (adminCheck(msg) != true) return
+  if (adminCheck(msg) != true) {
+    bot.sendMessage(msg.chat.id, 'Только для посвященных')
+    return
+  }
 
   replacer('./download/savefrom.txt', './list/ero.txt', msg.chat.id)
 })
@@ -376,20 +384,24 @@ bot.onText(/\/how_much_ero/, (msg) => {
 // выкинуть случайное число от 0 до 100
 bot.onText(/(\/roll$)/, (msg) => {
   if (authCheck(msg) != true) return
+
   let min = 0
   let max = 100
   let roll = Math.random() * (max - min) + min
   let roundRoll = Math.round(roll)
+
   bot.sendMessage(msg.chat.id, msg.from.first_name + ' выбросил ' + roundRoll)
 });
 
 // выкинуть случайное число в заданном интервале
 bot.onText(/\/roll ([0-9]+) ([0-9]+)/, (msg, match) => {
   if (authCheck(msg) != true) return
+  
   let min = +match[1]
   let max = +match[2]
   let roll = Math.random() * (max - min) + min
   let roundRoll = Math.round(roll)
+
   bot.sendMessage(msg.chat.id, msg.from.first_name + ' выбросил ' + roundRoll)
 });
 
@@ -432,11 +444,9 @@ bot.onText(/\/remind_me (.+) через (\d+) (минут|час|день|дня
 
   let id = msg.from.id
   let name = msg.from.first_name
-
   let note = match[1]
   let time = match[2]
   let timeMeasure = match[3]
-
   let timeToRemind;
 
   if (time < 1) {
@@ -478,13 +488,7 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
   let outputFormat = match[3]
   let outputFileName = match[1]+'.'+match[3]
 
-  console.log('inputfileName '+inputfileName)
-  console.log('inputFormat '+inputFormat)
-  console.log('outputFormat '+outputFormat)
-  console.log('outputFileName '+outputFileName)
-
   bot.sendMessage(msg.chat.id, 'Приступаю к конвертированию, придется немного подождать')
-
   fs.createReadStream('./download/'+inputfileName)
   .pipe(cloudconvert.convert({
       inputformat: inputFormat,
