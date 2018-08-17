@@ -492,9 +492,11 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
 
 // --- конец логики бота --- //
 
-bot.onText(/\/test/, (msg) => {
+bot.onText(/\/download_file/, (msg) => {
+  if (authCheck(msg) != true) return
+
   bot.sendMessage(msg.chat.id, 'Пришли файл, а я загружу')
-  
+
   return new Promise((resolve, reject) => {
     bot.on('document', (msg) => {    
       let name = msg.document.file_name
@@ -506,11 +508,11 @@ bot.onText(/\/test/, (msg) => {
           fs.rename(filePath, './download/'+name, (error, data) => {
             if (error) throw error; // если возникла ошибка
           })
-          response = 'Файл успешно загружен. Можно загрузить еще '+downloadEnabledFlag+' файлов.'
+          response = 'Файл успешно загружен.'
           resolve(response)
         }, 
         (e) => { 
-          error = 'Файл не загрузился, какая-то ошибка. Можно загрузить еще '+downloadEnabledFlag+' файлов.'
+          error = 'Файл не загрузился, какая-то ошибка.'
           console.log(e) 
           reject(error)
       })
