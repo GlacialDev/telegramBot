@@ -197,7 +197,7 @@ bot.onText(/\/download_(enabled|disabled)/, (msg, match) => {
   
   let id = msg.chat.id
   let response = ''
-  let downloadEnabledFlag = match[1]
+  downloadEnabledFlag = match[1]
 
   switch(downloadEnabledFlag) {
     case 'enabled':
