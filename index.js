@@ -183,6 +183,7 @@ function passGenerator(length, charSet) {
 // --- начало объявления флагов и настроек --- //
 
 let eroInterval = 3600000
+let eroTimerStateFlag = 'enabled'
 
 let downloadEnabledFlag = 'enabled'
 bot.onText(/\/download_(enabled|disabled)/, (msg, match) => {
@@ -204,7 +205,7 @@ bot.onText(/\/bot_settings/, (msg) => {
 
   bot.sendMessage(msg.chat.id, 
 `Настройки:
-- eroInterval: ${eroInterval/3600000} час
+- eroInterval: ${eroInterval/3600000} час(а/ов) - (${eroTimerStateFlag})
 - download: ${downloadEnabledFlag}`)
 });
 
@@ -328,6 +329,7 @@ bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
   stopTimer(eroTimer)
   // значение интервала для таймера
   eroInterval = 1000 * 60 * 60 * hours
+  eroTimerStateFlag = 'enabled'
   // инициализация таймера
   eroTimer = setInterval(function () {
     takePhotoFromBuffer("./list/ero.txt", groupChat, false)
@@ -343,6 +345,7 @@ bot.onText(/\/stop_ero_timer/, (msg) => {
   }
 
   stopTimer(eroTimer)
+  eroTimerStateFlag = 'disabled'
   // при остановке таймера группа об этом оповещается
   bot.sendMessage(groupChat, 'Таймер картинок остановлен')
 });
