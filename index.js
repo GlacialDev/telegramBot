@@ -227,26 +227,27 @@ bot.onText(/\/download/, (msg) => {
   return new Promise((resolve, reject) => {
     bot.on('document', (msg) => {    
       let name = msg.document.file_name
-      let response
-      let error
+      let responseText
+      let errorText
 
       let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
         (filePath) =>  {
           fs.rename(filePath, './download/'+name, (error, data) => {
-            if (error) throw error; // если возникла ошибка
+            throw error
+            // if (error) throw error; // если возникла ошибка
           })
-          response = 'Файл успешно загружен.'
-          resolve(response)
+          responseText = 'Файл успешно загружен.'
+          resolve(responseText)
         }, 
         (e) => { 
-          error = 'Файл не загрузился, какая-то ошибка. filepath'
+          errorText = 'Файл не загрузился, какая-то ошибка.'
           console.log(e) 
-          reject(error)
+          reject(errorText)
       })
     })
   }).then(
-    response => bot.sendMessage(msg.chat.id, response),
-    error =>bot.sendMessage(msg.chat.id, error+' then')
+    (responseText) => bot.sendMessage(msg.chat.id, responseText),
+    (errorText) =>bot.sendMessage(msg.chat.id, errorText)
   )
 })
 
