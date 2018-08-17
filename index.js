@@ -493,6 +493,7 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
 // --- конец логики бота --- //
 
 bot.onText(/\/test/, (msg) => {
+  
   return new Promise((resolve, reject) => {
     bot.on('document', (msg) => {    
       let name = msg.document.file_name
