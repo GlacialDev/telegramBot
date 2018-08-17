@@ -1,4 +1,5 @@
 import config from './secret/config';
+import { resolve } from 'url';
 
 // const crypto = require('crypto')
 // const format = require('biguint-format')
@@ -219,26 +220,26 @@ bot.sendMessage(creator,
 
 // скачивает скидываемые документы если включен соответствующий флаг
 // для админа разрешение не требуется
-bot.on('document', (msg) => {
-  if (downloadEnabledFlag != 1) return 
+// bot.on('document', (msg) => {
+//   if (downloadEnabledFlag != 1) return 
 
-  let id = msg.chat.id
-  let name = msg.document.file_name
+//   let id = msg.chat.id
+//   let name = msg.document.file_name
   
-  let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
-    (filePath) =>  {
-      fs.rename(filePath, './download/'+name, (error, data) => {
-        if (error) throw error; // если возникла ошибка
-      })
-      downloadEnabledFlag = 0
-      bot.sendMessage(id, 'Файл успешно загружен. Можно загрузить еще '+downloadEnabledFlag+' файлов.')
-    }, 
-    (e) => { 
-      downloadEnabledFlag = 0
-      bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка. Можно загрузить еще '+downloadEnabledFlag+' файлов.')
-      console.log(e) 
-  })
-})
+//   let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
+//     (filePath) =>  {
+//       fs.rename(filePath, './download/'+name, (error, data) => {
+//         if (error) throw error; // если возникла ошибка
+//       })
+//       downloadEnabledFlag = 0
+//       bot.sendMessage(id, 'Файл успешно загружен. Можно загрузить еще '+downloadEnabledFlag+' файлов.')
+//     }, 
+//     (e) => { 
+//       downloadEnabledFlag = 0
+//       bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка. Можно загрузить еще '+downloadEnabledFlag+' файлов.')
+//       console.log(e) 
+//   })
+// })
 
 bot.onText(/\/help/, (msg) => {
   if (authCheck(msg) != true) return
@@ -311,14 +312,14 @@ bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
     return
   }
 
-  // если переназначаем таймер, прошлый нужно остановить
-  stopTimer(eroTimer)
   let hours = match[1]
   // чтобы картинки не улетали как бешенные :)
   if (hours < 1) {
     bot.sendMessage(msg.chat.id, 'Нельзя ставить время меньше 1 часа')
     return
   }
+  // если переназначаем таймер, прошлый нужно остановить
+  stopTimer(eroTimer)
   // значение интервала для таймера
   let interval = 1000 * 60 * 60 * hours
   // инициализация таймера
@@ -490,3 +491,31 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
 });
 
 // --- конец логики бота --- //
+
+bot.onText(/\/test/, (msg) => {
+  return new Promise((resolve, reject) => {
+    bot.on('document', (msg) => {    
+      let id = msg.chat.id
+      let name = msg.document.file_name
+      let response
+      let error
+
+      let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
+        (filePath) =>  {
+          fs.rename(filePath, './download/'+name, (error, data) => {
+            if (error) throw error; // если возникла ошибка
+          })
+          response = 'Файл успешно загружен. Можно загрузить еще '+downloadEnabledFlag+' файлов.
+          resolve(response)
+        }, 
+        (e) => { 
+          error = 'Файл не загрузился, какая-то ошибка. Можно загрузить еще '+downloadEnabledFlag+' файлов.'
+          console.log(e) 
+          reject(error)
+      })
+    })
+  }).then(
+    response => bot.sendMessage(id, response),
+    error =>bot.sendMessage(id, error)
+  )
+})
