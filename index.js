@@ -191,7 +191,7 @@ function passGenerator(length, charSet) {
 // --- конец объявления функций --- //
 // --- начало объявления флагов и настроек --- //
 
-let downloadEnabledFlag = 0;
+let downloadEnabledFlag = 1;
 bot.onText(/\/download_enable/, (msg) => {
   if (authCheck(msg) != true) return
   downloadEnabledFlag = 1
@@ -218,28 +218,37 @@ bot.onText(/\/bot_settings/, (msg) => {
 bot.sendMessage(creator,
 `Бот инициализирован`);
 
-// скачивает скидываемые документы если включен соответствующий флаг
-// для админа разрешение не требуется
-// bot.on('document', (msg) => {
-//   if (downloadEnabledFlag != 1) return 
+// позволяет загрузить файл на сервер
+bot.onText(/\/download/, (msg) => {
+  if (authCheck(msg) != true && downloadEnabledFlag == 1) return
 
-//   let id = msg.chat.id
-//   let name = msg.document.file_name
-  
-//   let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
-//     (filePath) =>  {
-//       fs.rename(filePath, './download/'+name, (error, data) => {
-//         if (error) throw error; // если возникла ошибка
-//       })
-//       downloadEnabledFlag = 0
-//       bot.sendMessage(id, 'Файл успешно загружен. Можно загрузить еще '+downloadEnabledFlag+' файлов.')
-//     }, 
-//     (e) => { 
-//       downloadEnabledFlag = 0
-//       bot.sendMessage(id, 'Файл не загрузился, какая-то ошибка. Можно загрузить еще '+downloadEnabledFlag+' файлов.')
-//       console.log(e) 
-//   })
-// })
+  bot.sendMessage(msg.chat.id, 'Пришли файл, а я загружу')
+
+  return new Promise((resolve, reject) => {
+    bot.on('document', (msg) => {    
+      let name = msg.document.file_name
+      let response
+      let error
+
+      let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
+        (filePath) =>  {
+          fs.rename(filePath, './download/'+name, (error, data) => {
+            if (error) throw error; // если возникла ошибка
+          })
+          response = 'Файл успешно загружен.'
+          resolve(response)
+        }, 
+        (e) => { 
+          error = 'Файл не загрузился, какая-то ошибка.'
+          console.log(e) 
+          reject(error)
+      })
+    })
+  }).then(
+    response => bot.sendMessage(msg.chat.id, response),
+    error =>bot.sendMessage(msg.chat.id, error)
+  )
+})
 
 bot.onText(/\/help/, (msg) => {
   if (authCheck(msg) != true) return
@@ -491,34 +500,3 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
 });
 
 // --- конец логики бота --- //
-
-bot.onText(/\/download_file/, (msg) => {
-  if (authCheck(msg) != true) return
-
-  bot.sendMessage(msg.chat.id, 'Пришли файл, а я загружу')
-
-  return new Promise((resolve, reject) => {
-    bot.on('document', (msg) => {    
-      let name = msg.document.file_name
-      let response
-      let error
-
-      let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
-        (filePath) =>  {
-          fs.rename(filePath, './download/'+name, (error, data) => {
-            if (error) throw error; // если возникла ошибка
-          })
-          response = 'Файл успешно загружен.'
-          resolve(response)
-        }, 
-        (e) => { 
-          error = 'Файл не загрузился, какая-то ошибка.'
-          console.log(e) 
-          reject(error)
-      })
-    })
-  }).then(
-    response => bot.sendMessage(msg.chat.id, response),
-    error =>bot.sendMessage(msg.chat.id, error)
-  )
-})
