@@ -240,16 +240,16 @@ bot.onText(/\/download/, (msg) => {
           resolve(response)
         }, 
         (e) => { 
-          error = 'Файл не загрузился, какая-то ошибка.'
+          error = 'Файл не загрузился, какая-то ошибка. filepath'
           console.log(e) 
           reject(error)
       })
     })
   }).then(
     response => bot.sendMessage(msg.chat.id, response),
-    error =>bot.sendMessage(msg.chat.id, error)
+    error =>bot.sendMessage(msg.chat.id, error+' then')
   ).catch(
-    e => bot.sendMessage(msg.chat.id, error)
+    e => bot.sendMessage(msg.chat.id, error+' catch')
   )
 })
 
