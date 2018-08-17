@@ -222,7 +222,7 @@ bot.sendMessage(creator,
 bot.onText(/\/download/, (msg) => {
   if (authCheck(msg) != true && downloadEnabledFlag == 1) return
 
-  bot.sendMessage(msg.chat.id, 'Пришли файл, а я загружу')
+  bot.sendMessage(msg.chat.id, 'Готов загрузить файл на сервер')
 
   return new Promise((resolve, reject) => {
     bot.on('document', (msg) => {    
@@ -247,7 +247,7 @@ bot.onText(/\/download/, (msg) => {
   }).then(
     response => bot.sendMessage(msg.chat.id, response),
     error =>bot.sendMessage(msg.chat.id, error)
-  )
+  ).catch()
 })
 
 bot.onText(/\/help/, (msg) => {
