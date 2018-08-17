@@ -248,7 +248,9 @@ bot.onText(/\/download/, (msg) => {
   }).then(
     response => bot.sendMessage(msg.chat.id, response),
     error =>bot.sendMessage(msg.chat.id, error)
-  ).catch()
+  ).catch(
+    e => bot.sendMessage(msg.chat.id, error)
+  )
 })
 
 bot.onText(/\/help/, (msg) => {
