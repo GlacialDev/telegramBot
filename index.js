@@ -201,20 +201,16 @@ bot.onText(/\/download_(enable|disable)/, (msg, match) => {
   console.log(flag)
 
   switch(flag) {
-    case('enable'): {
-      
+    case 'enable':       
       console.log('enable')
       downloadEnabledFlag = 1
       result = 'Загрузка файлов разрешена'
       break
-    }
-    case('disable'): {
-      
+    case 'disable': 
       console.log('disable')
       downloadEnabledFlag = 0
       result = 'Загрузка файлов запрещена'
       break
-    }
   }
   
   
