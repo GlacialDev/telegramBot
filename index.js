@@ -182,6 +182,8 @@ function passGenerator(length, charSet) {
 // --- конец объявления функций --- //
 // --- начало объявления флагов и настроек --- //
 
+let eroInterval = 3600000
+
 let downloadEnabledFlag = 'enabled'
 bot.onText(/\/download_(enabled|disabled)/, (msg, match) => {
   if (adminCheck(msg) != true) return
@@ -202,17 +204,18 @@ bot.onText(/\/bot_settings/, (msg) => {
 
   bot.sendMessage(msg.chat.id, 
 `Настройки:
+- eroInterval: ${eroInterval/3600000} час
 - download: ${downloadEnabledFlag}`)
 });
 
 // --- конец объявления флагов и настроек --- //
 // --- начало логики бота --- //
 
-// при начале работы выдает сообщение
+// при начале работы выдает сообщение и стартует eroTimer с интервалом в 1 час
 bot.sendMessage(creator, `Бот инициализирован`);
-eroTimer = setInterval(function () {
+let eroTimer = setInterval(function () {
   takePhotoFromBuffer("./list/ero.txt", groupChat, false)
-}, 8000);
+}, eroInterval);
 
 // позволяет загрузить файл на сервер
 bot.onText(/\/download$/, (msg) => {
@@ -309,7 +312,6 @@ bot.onText(/\/sendto (\-[0-9]+|[0-9]+) (\S+.*)/, (msg, match) => {
 })
 
 // таймер на выдачу картинок
-let eroTimer = null
 bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
   if (adminCheck(msg) != true) {
     bot.sendMessage(msg.chat.id, 'Только для посвященных')
@@ -325,11 +327,11 @@ bot.onText(/\/set_ero_timer ([0-9]+)/, (msg, match) => {
   // если переназначаем таймер, прошлый нужно остановить
   stopTimer(eroTimer)
   // значение интервала для таймера
-  let interval = 1000 * 60 * 60 * hours
+  eroInterval = 1000 * 60 * 60 * hours
   // инициализация таймера
   eroTimer = setInterval(function () {
     takePhotoFromBuffer("./list/ero.txt", groupChat, false)
-  }, interval);
+  }, eroInterval);
   // если всё прошло успешно и без ошибок, далее следует сообщение в группу
   bot.sendMessage(groupChat, 'Буду присылать картинки каждые ' + hours + ' часов')
 });
