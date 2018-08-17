@@ -505,7 +505,7 @@ bot.onText(/\/test/, (msg) => {
           fs.rename(filePath, './download/'+name, (error, data) => {
             if (error) throw error; // если возникла ошибка
           })
-          response = 'Файл успешно загружен. Можно загрузить еще '+downloadEnabledFlag+' файлов.
+          response = 'Файл успешно загружен. Можно загрузить еще '+downloadEnabledFlag+' файлов.'
           resolve(response)
         }, 
         (e) => { 
