@@ -191,7 +191,7 @@ function passGenerator(length, charSet) {
 // --- конец объявления функций --- //
 // --- начало объявления флагов и настроек --- //
 
-let downloadEnabledFlag = 1
+let downloadEnabledFlag = 'enable'
 bot.onText(/\/download_(enable|disable)/, (msg, match) => {
   if (adminCheck(msg) != true) return
   
@@ -201,11 +201,11 @@ bot.onText(/\/download_(enable|disable)/, (msg, match) => {
 
   switch(flag) {
     case 'enable':
-      downloadEnabledFlag = 1
+      downloadEnabledFlag = flag
       result = 'Загрузка файлов разрешена'
       break
     case 'disable':
-      downloadEnabledFlag = 0
+      downloadEnabledFlag = flag
       result = 'Загрузка файлов запрещена'
       break
   }
@@ -230,7 +230,7 @@ bot.sendMessage(creator,
 
 // позволяет загрузить файл на сервер
 bot.onText(/\/download$/, (msg) => {
-  if (authCheck(msg) != true && downloadEnabledFlag == 1) return
+  if (authCheck(msg) != true && downloadEnabledFlag == 'enable') return
 
   bot.sendMessage(msg.chat.id, 'Готов загрузить файл на сервер')
 
