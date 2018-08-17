@@ -193,9 +193,8 @@ function passGenerator(length, charSet) {
 
 let downloadEnabledFlag = 'enabled'
 bot.onText(/\/download_(enabled|disabled)/, (msg, match) => {
-  if (adminCheck(msg) != true) return
-  
-  let id = msg.chat.id
+  if (adminCheck(msg) !== true) return
+
   let response = ''
   downloadEnabledFlag = match[1]
 
@@ -208,12 +207,12 @@ bot.onText(/\/download_(enabled|disabled)/, (msg, match) => {
       break
   }
 
-  bot.sendMessage(id, response)
+  bot.sendMessage(msg.chat.id, response)
 })
 
 // выдает настройки бота
 bot.onText(/\/bot_settings/, (msg) => {
-  if (adminCheck(msg) != true) return
+  if (adminCheck(msg) !== true) return
   bot.sendMessage(msg.chat.id, 
 `Настройки:
 - download: ${downloadEnabledFlag}`)
@@ -228,7 +227,7 @@ bot.sendMessage(creator,
 
 // позволяет загрузить файл на сервер
 bot.onText(/\/download$/, (msg) => {
-  if (authCheck(msg) != true && downloadEnabledFlag != 'enabled') return
+  if (authCheck(msg) !== true && downloadEnabledFlag !== 'enabled') return
 
   bot.sendMessage(msg.chat.id, 'Готов загрузить файл на сервер')
 
