@@ -1,6 +1,6 @@
 // // импорт и инициализация команд бота
-import help from './modules/commands/help'
-help()
+// import help from './modules/commands/help'
+// help()
 // import echo from './modules/commands/echo'
 // echo()
 // import id from './modules/commands/id'
@@ -35,7 +35,3 @@ help()
 // bot.sendMessage(creator, `Бот инициализирован`)
 // import eroInit from './modules/functions/eroInit'
 // eroInit()
-
-
-import { bot, creator } from './variables'
-console.log( bot, creator )
