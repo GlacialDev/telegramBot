@@ -1,3 +1,5 @@
+import config from '../secret/config'
+
 export default function authCheck(message) {
     let id = message.from.id
     let array = config.authorizedUsers
