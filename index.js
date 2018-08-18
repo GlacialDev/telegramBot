@@ -2,7 +2,7 @@ import config from './secret/config';
 
 const https = require('https')
 const fs = require('fs');
-const TelegramBot = require('C:/Users/Glacial/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/node-telegram-bot-api');
+const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(config.token, { polling: true });
 const apiai = require('apiai');
 const dialogflow = apiai(config.dialogFlowClientAccessToken);
