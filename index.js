@@ -514,7 +514,7 @@ bot.onText(/\/test/, (msg) => {
   let minutes = date.getMinutes()
   // let seconds = date.getSeconds()
   // date.setHours(hour+1)
-  date.setMinutes(minutes+2)
+  date.setMinutes(minutes+1)
   date.setSeconds(0)
 
   let dateNum2 = +date
@@ -523,6 +523,6 @@ bot.onText(/\/test/, (msg) => {
   setTimeout(() => {
     eroTimer = setInterval(function () {
       takePhotoFromBuffer("./list/ero.txt", groupChat, false)
-    }, eroInterval);
+    }, 60*1000);
   }, dateDifference)
 })
