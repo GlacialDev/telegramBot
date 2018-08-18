@@ -508,11 +508,11 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
 bot.onText(/\/test/, (msg) => {
   
   let date = new Date;
-  
-  bot.sendMessage(msg.chat.id, date+' после объявления date')
   let hour = date.getHours
   
+  bot.sendMessage(msg.chat.id, date+' после объявления date')  
   bot.sendMessage(msg.chat.id, hour+' после getHours')
+  
   date.setHours(hour+1)
   date.setMinutes(0)
   date.setSeconds(0)
