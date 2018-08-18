@@ -1,5 +1,4 @@
-import { bot, fs } from '../variables/variables'
-import downloadEnabledFlag from '../variables/variables'
+import { bot, fs, downloadEnabledFlag } from '../variables/variables'
 import adminCheck from '../functions/adminCheck'
 import authCheck from '../functions/authCheck'
 
