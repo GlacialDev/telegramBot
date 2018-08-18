@@ -1,4 +1,4 @@
-import authCheck from '../functions'
+import authCheck from '../functions/authCheck'
 
 export default function id(telegramBot) {
     telegramBot.onText(/\/id/, (msg) => {

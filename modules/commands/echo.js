@@ -1,4 +1,4 @@
-import authCheck from '../functions'
+import authCheck from '../functions/authCheck'
 
 export default function echo(telegramBot) {
     telegramBot.onText(/\/echo (.+)/, (msg, match) => {
