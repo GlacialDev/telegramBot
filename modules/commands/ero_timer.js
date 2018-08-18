@@ -3,7 +3,7 @@ import authCheck from '../functions/authCheck'
 import takePhotoFromBuffer from '../functions/takePhotoFromBuffer'
 import stopTimer from '../functions/stopTimer'
 import replacer from '../functions/replacer'
-import { bot, fs, eroTimer, eroInterval, eroTimerStateFlag, groupChat, setEroTimerFlag } from '../variables/variables'
+import { bot, fs, eroTimer, eroInterval, eroTimerStateFlag, groupChat, setEroTimerFlag, setEroInterval, setTimer} from '../variables/variables'
 
 
 export default function ero_timer() {
@@ -23,12 +23,10 @@ export default function ero_timer() {
         // если переназначаем таймер, прошлый нужно остановить
         stopTimer(eroTimer)
         // значение интервала для таймера
-        eroInterval = 1000 * 60 * 60 * hours
-        eroTimerStateFlag = 'enabled'
+        setEroInterval(1000 * 60 * 60 * hours)
+        setEroTimerFlag('enabled')
         // инициализация таймера
-        eroTimer = setInterval(function () {
-            takePhotoFromBuffer("./list/ero.txt", groupChat, false)
-        }, eroInterval);
+        setTimer(eroTimer, eroInterval)
         // если всё прошло успешно и без ошибок, далее следует сообщение в группу
         bot.sendMessage(groupChat, 'Буду присылать картинки каждые ' + hours + ' часов')
     });

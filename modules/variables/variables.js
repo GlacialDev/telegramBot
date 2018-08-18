@@ -18,7 +18,14 @@ export let eroTimer
 export function setDownloadFlag(state) {
     downloadEnabledFlag = state
 }
-
+export function setEroInterval(number) {
+    eroInterval = number
+}
 export function setEroTimerFlag(state) {
     eroTimerStateFlag = state
+}
+export function setTimer(timer, interval) {
+    timer = setInterval(function () {
+        takePhotoFromBuffer("./list/ero.txt", groupChat, false)
+    }, interval);
 }
