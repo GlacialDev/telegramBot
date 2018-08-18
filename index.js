@@ -1,4 +1,4 @@
-import { bot, creator } from './modules/variables/variables'
+// import { bot, creator } from './modules/variables/variables'
 
 // импорт и инициализация команд бота
 import help from './modules/commands/help'
@@ -33,6 +33,6 @@ talk_with_bot()
 
 
 // включение бота с запуском эро-таймера
-bot.sendMessage(creator, `Бот инициализирован`)
-import eroInit from './modules/functions/eroInit'
-eroInit()
+// bot.sendMessage(creator, `Бот инициализирован`)
+// import eroInit from './modules/functions/eroInit'
+// eroInit()
