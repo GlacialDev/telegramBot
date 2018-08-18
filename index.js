@@ -31,7 +31,7 @@ talk_with_bot()
 
 
 // включение бота с запуском эро-таймера
-import { bot, creator } from './modules/variables/variables'
-bot.sendMessage(creator, `Бот инициализирован`)
-import eroInit from './modules/functions/eroInit'
-eroInit()
+// import { bot, creator } from './modules/variables/variables'
+// bot.sendMessage(creator, `Бот инициализирован`)
+// import eroInit from './modules/functions/eroInit'
+// eroInit()
