@@ -480,5 +480,5 @@ import authCheck from './modules/functions/authCheck'
 bot.onText(/\/give_ero/, (msg) => {
   if (authCheck(msg) != true) return
   
-  takePhotoFromBuffer("./list/ero.txt", msg.chat.id, true)
+  takePhotoFromBuffer(bot, "./list/ero.txt", msg.chat.id, true)
 });
