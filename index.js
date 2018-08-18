@@ -1,6 +1,6 @@
 // // импорт и инициализация команд бота
-// import help from './modules/commands/help'
-// help()
+import help from './modules/commands/help'
+help()
 // import echo from './modules/commands/echo'
 // echo()
 // import id from './modules/commands/id'
