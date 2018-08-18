@@ -1,4 +1,4 @@
-import { bot, fs, downloadEnabledFlag } from '../variables/variables'
+import { bot, fs, downloadEnabledFlag, setDownloadFlag } from '../variables/variables'
 import adminCheck from '../functions/adminCheck'
 import authCheck from '../functions/authCheck'
 
@@ -43,7 +43,7 @@ export default function download() {
         }
 
         let response = ''
-        downloadEnabledFlag = match[1]
+        setDownloadFlag(match[1])
 
         switch (downloadEnabledFlag) {
             case 'enabled': response = 'Загрузка файлов разрешена'; break

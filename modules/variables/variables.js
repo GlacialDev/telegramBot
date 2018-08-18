@@ -12,5 +12,9 @@ export const bot = new TelegramBot(config.token, { polling: true });
 
 export let eroInterval = 3600000*3
 export let eroTimerStateFlag = 'enabled'
-export var downloadEnabledFlag = 'enabled'
+export let downloadEnabledFlag = 'enabled'
 export let eroTimer
+
+export function setDownloadFlag(state) {
+    downloadEnabledFlag = state
+}
