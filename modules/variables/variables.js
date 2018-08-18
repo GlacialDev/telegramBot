@@ -4,6 +4,7 @@ import * as apiai from 'apiai'
 export const creator = 353140575
 export const groupChat = -307924393
 export const https = require('https')
+const apiai = require('apiai');
 export const dialogflow = apiai(config.dialogFlowClientAccessToken);
 export const cloudconvert = new (require('cloudconvert'))(config.cloudConvertApiKey);
 export const fs = require('fs');
