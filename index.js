@@ -207,7 +207,7 @@ function eroInit() {
 // --- конец объявления функций --- //
 // --- начало объявления флагов и настроек --- //
 
-let eroInterval = 3600000*1
+let eroInterval = 3600000*3
 let eroTimerStateFlag = 'enabled'
 let downloadEnabledFlag = 'enabled'
 
@@ -311,12 +311,15 @@ bot.onText(/\/admin_help/, (msg) => {
   bot.sendMessage(msg.chat.id, response);
 });
 
-bot.onText(/\/echo (.+)/, (msg, match) => {
-  if (authCheck(msg) != true) return
+import echo from './module/echo'
+echo(bot)
 
-  let text = match[1];
-  bot.sendMessage(msg.chat.id, text);
-});
+// bot.onText(/\/echo (.+)/, (msg, match) => {
+//   if (authCheck(msg) != true) return
+
+//   let text = match[1];
+//   bot.sendMessage(msg.chat.id, text);
+// });
 
 bot.onText(/\/id/, (msg) => {
   if (authCheck(msg) != true) return
