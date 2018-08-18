@@ -311,7 +311,7 @@ bot.onText(/\/admin_help/, (msg) => {
   bot.sendMessage(msg.chat.id, response);
 });
 
-import echo from './module/echo'
+import echo from './module/test'
 echo(bot)
 
 // bot.onText(/\/echo (.+)/, (msg, match) => {
