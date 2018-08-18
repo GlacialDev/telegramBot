@@ -1,8 +1,8 @@
-export default function echo(telegramBot) {
-    telegramBot.onText(/\/echo (.+)/, (msg, match) => {
+export default function echo(bot) {
+    bot.onText(/\/echo (.+)/, (msg, match) => {
         if (authCheck(msg) != true) return
         console.log(msg)
         let text = match[1];
-        telegramBot.sendMessage(msg.chat.id, text);
+        bot.sendMessage(msg.chat.id, text);
       });
 } 
