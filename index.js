@@ -509,18 +509,18 @@ bot.onText(/\/test/, (msg) => {
   
   let date = new Date;
   let hour = date.getHours()
+  let minutes = date.getMinutes()
+  let seconds = date.getSeconds()
   let dateNum1 = +date
   
-  bot.sendMessage(msg.chat.id, 'Время сейчас '+dateNum1)
-  bot.sendMessage(msg.chat.id, 'Час сейчас '+hour)
-  
-  date.setHours(hour+1)
-  date.setMinutes(0)
-  date.setSeconds(0)
+  // date.setHours(hour)
+  date.setMinutes(minutes+1)
+  // date.setSeconds(0)
 
   let dateNum2 = +date
   let dateDifference = dateNum2 - dateNum1
 
-  bot.sendMessage(msg.chat.id, 'Прислать надо будет по таймингу '+dateNum2)
-  bot.sendMessage(msg.chat.id, 'dateDifference '+dateDifference)
+  setTimeout(() => {
+    bot.sendMessage(msg.chat.id, 'meow meow meow')
+  }, dateDifference)
 })
