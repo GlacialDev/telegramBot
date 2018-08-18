@@ -179,10 +179,34 @@ function passGenerator(length, charSet) {
   return randomString;
 }
 
+function eroInit() {
+  let date = new Date;
+  let dateNum1 = +date
+
+  let hour = date.getHours()
+  // let minutes = date.getMinutes()
+  // let seconds = date.getSeconds()
+  date.setHours(hour+1)
+  date.setMinutes(0)
+  date.setSeconds(0)
+
+  let dateNum2 = +date
+  let dateDifference = dateNum2 - dateNum1
+
+  bot.sendMessage(groupChat, `Картинки будут присланы в ${date.getHours}:${date.getMinutes}, далее с интервалом в ${eroInterval/3600000} ч.`, )
+
+  setTimeout(() => {
+    takePhotoFromBuffer("./list/ero.txt", groupChat, false)
+    eroTimer = setInterval(function () {
+      takePhotoFromBuffer("./list/ero.txt", groupChat, false)
+    }, eroInterval);
+  }, dateDifference)
+}
+
 // --- конец объявления функций --- //
 // --- начало объявления флагов и настроек --- //
 
-let eroInterval = 3600000*3
+let eroInterval = 3600000*1
 let eroTimerStateFlag = 'enabled'
 
 let downloadEnabledFlag = 'enabled'
@@ -200,12 +224,10 @@ bot.onText(/\/settings/, (msg) => {
 // --- конец объявления флагов и настроек --- //
 // --- начало логики бота --- //
 
-// при начале работы выдает сообщение и стартует eroTimer с интервалом в 1 час
-bot.sendMessage(creator, `Бот инициализирован`);
-let eroTimer;
-// let eroTimer = setInterval(function () {
-//   takePhotoFromBuffer("./list/ero.txt", groupChat, false)
-// }, eroInterval);
+// при начале работы выдает сообщение и стартует eroTimer
+bot.sendMessage(creator, `Бот инициализирован`)
+let eroTimer
+eroInit()
 
 // позволяет загрузить файл на сервер
 bot.onText(/\/download$/, (msg) => {
@@ -510,19 +532,20 @@ bot.onText(/\/test/, (msg) => {
   let date = new Date;
   let dateNum1 = +date
 
-  // let hour = date.getHours()
-  let minutes = date.getMinutes()
+  let hour = date.getHours()
+  // let minutes = date.getMinutes()
   // let seconds = date.getSeconds()
-  // date.setHours(hour+1)
-  date.setMinutes(minutes+1)
+  date.setHours(hour+1)
+  date.setMinutes(0)
   date.setSeconds(0)
 
   let dateNum2 = +date
   let dateDifference = dateNum2 - dateNum1
 
   setTimeout(() => {
+    takePhotoFromBuffer("./list/ero.txt", groupChat, false)
     eroTimer = setInterval(function () {
       takePhotoFromBuffer("./list/ero.txt", groupChat, false)
-    }, 60*1000);
+    }, eroInterval);
   }, dateDifference)
 })
