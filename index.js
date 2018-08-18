@@ -12,60 +12,12 @@ const creator = 353140575
 
 // --- начало объявления функций --- //
 
-// проверка, внесен ли запрашивающий в список авторизованных лиц
-// function authCheck(message) {
-//   let id = message.from.id
-//   let array = config.authorizedUsers
-//   let ok = false;
-//   for (let i = 0; i < array.length; i++) {
-//     if (id === array[i]) {
-//       ok = true
-//       return ok
-//     }
-//   }
-// }
-// проверка, является ли запрашивающий админом 
-function adminCheck(message) {
-  let id = message.from.id
-  let array = config.adminUsers
-  let ok = false;
-  for (let i = 0; i < array.length; i++) {
-    if (id === array[i]) {
-      ok = true
-      return ok
-    }
-  }
-}
 // остановка таймера
 function stopTimer(timerName) {
   clearInterval(timerName)
   timerName = null
 }
-// достать ссылку из .txt файла (path), отослать по id (where) 
-// и сообщать об оставшемся кол-ве картинок в буфере (howMuchLeft)
-function takePhotoFromBuffer(path, sendTo, howMuchLeftFlag) {
-  // открываем файл-буфер со ссылками
-  fs.readFile(path, "utf8", function (error, data) {
-    if (error) throw error; // если возникла ошибка
-    // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
-    let array = data.split(' ');
-    let item = array.shift();
-    // если ссылки кончились говорим что всё хана заправляйте новыми
-    if (item == '') item = 'Картинки кончились :('
-    bot.sendPhoto(sendTo, item)
-    // если требуется сообщить оставшееся количество картинок в буфере
-    if (howMuchLeftFlag) {
-      let number = array.length;
-      bot.sendMessage(sendTo, `У меня в запасе осталось ${number} картинок`)
-    }
-    // массив без элемента который мы достали shift-ом преобразуем в строку
-    let string = array.join(' ')
-    // и грузим обратно в файл-буфер
-    fs.writeFile(path, string, function (error) {
-      if (error) throw error; // если возникла ошибка)
-    });
-  });
-}
+
 // функция поиска изображений через api поисковика Bing
 // все как в тамошней документации кроме пары вещей где комментарии
 function search(requestMes) {
@@ -519,3 +471,14 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
 });
 
 // --- конец логики бота --- //
+
+
+
+import takePhotoFromBuffer from './modules/functions/takePhotoFromBuffer'
+import authCheck from './modules/functions/authCheck'
+// то же самое, что в таймере, но вручную по команде /give_ero
+bot.onText(/\/give_ero/, (msg) => {
+  if (authCheck(msg) != true) return
+  
+  takePhotoFromBuffer("./list/ero.txt", msg.chat.id, true)
+});

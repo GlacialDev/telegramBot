@@ -1,10 +1,10 @@
 import config from '../../secret/config'
 
-// проверка, внесен ли запрашивающий в список авторизованных лиц
+// проверка, является ли запрашивающий админом 
 
-export default function authCheck(message) {
+export default function adminCheck(message) {
     let id = message.from.id
-    let array = config.authorizedUsers
+    let array = config.adminUsers
     let ok = false;
     for (let i = 0; i < array.length; i++) {
       if (id === array[i]) {
