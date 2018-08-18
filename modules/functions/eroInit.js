@@ -22,8 +22,6 @@ export default function eroInit() {
 
     setTimeout(() => {
         takePhotoFromBuffer("./list/ero.txt", groupChat, false)
-        eroTimer = setInterval(function () {
-            takePhotoFromBuffer("./list/ero.txt", groupChat, false)
-        }, eroInterval);
+        setTimer(eroTimer, eroInterval)
     }, dateDifference)
 }
