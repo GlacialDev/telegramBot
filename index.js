@@ -510,12 +510,13 @@ bot.onText(/\/test/, (msg) => {
   let date = new Date;
   let hour = date.getHours()
   
-  console.log(date)
-  console.log(hour)
+  
+  bot.sendMessage(msg.chat.id, 'Время сейчас '+date)
+  bot.sendMessage(msg.chat.id, 'Час сейчас '+date)
   
   date.setHours(hour+1)
   date.setMinutes(0)
   date.setSeconds(0)
   
-  console.log( date+' после setHours, Minutes, Seconds')
+  bot.sendMessage(msg.chat.id, 'Прислать надо будет по таймингу '+date)
 })
