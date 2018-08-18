@@ -1,5 +1,5 @@
 import authCheck from '../functions/authCheck'
-import bot from '../variables/variables'
+import bot from '../../variables'
 
 export default function id() {
     bot.onText(/\/id/, (msg) => {

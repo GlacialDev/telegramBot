@@ -3,7 +3,7 @@ import authCheck from '../functions/authCheck'
 import takePhotoFromBuffer from '../functions/takePhotoFromBuffer'
 import stopTimer from '../functions/stopTimer'
 import replacer from '../functions/replacer'
-import { bot, fs, eroTimer, eroInterval, eroTimerStateFlag, groupChat, setEroTimerFlag, setEroInterval, setTimer} from '../variables/variables'
+import { bot, fs, eroTimer, eroInterval, eroTimerStateFlag, groupChat, setEroTimerFlag, setEroInterval, setTimer} from '../../variables'
 
 
 export default function ero_timer() {

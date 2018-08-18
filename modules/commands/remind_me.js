@@ -1,5 +1,5 @@
 import authCheck from '../functions/authCheck'
-import bot from '../variables/variables'
+import bot from '../../variables'
 
 // функция-напоминалка
 

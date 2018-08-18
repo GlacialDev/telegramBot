@@ -1,4 +1,4 @@
-import { bot, fs } from '../variables/variables'
+import { bot, fs } from '../../variables'
 
 // достать ссылку из .txt файла (path), отослать по id (where) 
 // и сообщать об оставшемся кол-ве картинок в буфере (howMuchLeft)

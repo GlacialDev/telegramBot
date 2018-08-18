@@ -1,4 +1,4 @@
-import bot from '../variables/variables'
+import bot from '../../variables'
 import authCheck from '../functions/authCheck'
 
 export default function photo() {

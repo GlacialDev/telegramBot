@@ -1,7 +1,7 @@
 import authCheck from '../functions/authCheck'
 import botSearch from '../functions/botSearch'
 import takePhotoFromBuffer from '../functions/takePhotoFromBuffer'
-import { bot, fs } from '../variables/variables'
+import { bot, fs } from '../../variables'
 
 export default function search() {
     // поиск картинки по запросу с выдачей первого результата

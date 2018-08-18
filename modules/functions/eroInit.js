@@ -1,5 +1,5 @@
 import takePhotoFromBuffer from './takePhotoFromBuffer'
-import { bot, creator, groupChat, eroTimer, eroInterval } from '../variables/variables'
+import { bot, creator, groupChat, eroTimer, eroInterval } from '../../variables'
 
 // выставляет эро-таймер ровно на начало следующего часа
 

@@ -1,5 +1,5 @@
 import authCheck from '../functions/authCheck'
-import { bot, fs, cloudconvert } from '../variables/variables'
+import { bot, fs, cloudconvert } from '../../variables'
 
 // конвертер файлов из одного расширения в другое
 

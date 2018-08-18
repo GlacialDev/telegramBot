@@ -1,5 +1,5 @@
 import config from '../../secret/config'
-import { fs, https } from '../variables/variables'
+import { fs, https } from '../../variables'
 
 // функция поиска изображений через api поисковика Bing
 // все как в тамошней документации кроме пары вещей где комментарии

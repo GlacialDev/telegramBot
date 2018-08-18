@@ -1,4 +1,4 @@
-import { bot, dialogflow } from '../variables/variables'
+import { bot, dialogflow } from '../../variables'
 
 // dialogflow и гугл нейросети, которые говорят с тобой!
 
