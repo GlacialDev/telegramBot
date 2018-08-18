@@ -508,7 +508,7 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
 bot.onText(/\/test/, (msg) => {
   
   let date = new Date;
-  let hour = date.getHours
+  let hour = date.getHours()
   
   console.log(date)
   console.log(hour)
