@@ -1,8 +1,8 @@
 import authCheck from '../functions/authCheck'
-
-export default function help() {
-    import bot from '../variables/variables'
-    bot.onText(/\/help/, (msg) => {
+import bot from '../variables/variables'
+let telega = bot
+export default function help(telega) {
+    telega.onText(/\/help/, (msg) => {
         if (authCheck(msg) != true) return
         let response =
 `Привет, ${msg.from.first_name}. Имеются следующие команды:\n
