@@ -202,9 +202,10 @@ bot.onText(/\/settings/, (msg) => {
 
 // при начале работы выдает сообщение и стартует eroTimer с интервалом в 1 час
 bot.sendMessage(creator, `Бот инициализирован`);
-let eroTimer = setInterval(function () {
-  takePhotoFromBuffer("./list/ero.txt", groupChat, false)
-}, eroInterval);
+let eroTimer;
+// let eroTimer = setInterval(function () {
+//   takePhotoFromBuffer("./list/ero.txt", groupChat, false)
+// }, eroInterval);
 
 // позволяет загрузить файл на сервер
 bot.onText(/\/download$/, (msg) => {
@@ -506,21 +507,22 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
 // --- конец логики бота --- //
 
 bot.onText(/\/test/, (msg) => {
-  
   let date = new Date;
-  let hour = date.getHours()
-  let minutes = date.getMinutes()
-  let seconds = date.getSeconds()
   let dateNum1 = +date
-  
-  // date.setHours(hour)
-  date.setMinutes(minutes+1)
-  // date.setSeconds(0)
+
+  // let hour = date.getHours()
+  let minutes = date.getMinutes()
+  // let seconds = date.getSeconds()
+  // date.setHours(hour+1)
+  date.setMinutes(minutes+2)
+  date.setSeconds(0)
 
   let dateNum2 = +date
   let dateDifference = dateNum2 - dateNum1
 
   setTimeout(() => {
-    bot.sendMessage(msg.chat.id, 'meow meow meow')
+    eroTimer = setInterval(function () {
+      takePhotoFromBuffer("./list/ero.txt", groupChat, false)
+    }, eroInterval);
   }, dateDifference)
 })
