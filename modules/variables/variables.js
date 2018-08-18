@@ -1,0 +1,16 @@
+import config from '../../secret/config'
+import * as apiai from 'apiai'
+
+export const creator = 353140575
+export const groupChat = -307924393
+export const https = require('https')
+export const dialogflow = apiai(config.dialogFlowClientAccessToken);
+export const cloudconvert = new (require('cloudconvert'))(config.cloudConvertApiKey);
+export const fs = require('fs');
+export const TelegramBot = require('node-telegram-bot-api');
+export const bot = new TelegramBot(config.token, { polling: true });
+
+export let eroInterval = 3600000*3
+export let eroTimerStateFlag = 'enabled'
+export let downloadEnabledFlag = 'enabled'
+export let eroTimer
