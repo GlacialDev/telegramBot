@@ -1,5 +1,5 @@
 import authCheck from '../functions/authCheck'
-import search from '../functions/search'
+import botSearch from '../functions/botSearch'
 import takePhotoFromBuffer from '../functions/takePhotoFromBuffer'
 import { bot, fs } from '../variables/variables'
 
@@ -13,7 +13,7 @@ export default function search() {
         fs.writeFileSync("./list/search.txt", '', function (error) {
             if (error) throw error; // если возникла ошибка
         });
-        search(text)
+        botSearch(text)
 
         bot.sendMessage(msg.chat.id, 'Ищу ' + text + '. Результат ждите через 3 секунды');
         setTimeout(function () {

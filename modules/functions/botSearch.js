@@ -4,7 +4,7 @@ import { fs, https } from '../variables/variables'
 // функция поиска изображений через api поисковика Bing
 // все как в тамошней документации кроме пары вещей где комментарии
 
-export default function search(requestMes) {
+export default function botSearch(requestMes) {
     let subscriptionKey = config.azureKey;
     let host = 'api.cognitive.microsoft.com';
     let path = '/bing/v7.0/images/search';
