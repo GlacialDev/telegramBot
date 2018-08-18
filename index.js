@@ -510,12 +510,12 @@ bot.onText(/\/test/, (msg) => {
   let date = new Date;
   let hour = date.getHours
   
-  bot.sendMessage(msg.chat.id, date+' после объявления date')  
-  bot.sendMessage(msg.chat.id, hour+' после getHours')
+  console.log(date)
+  console.log(hour)
   
   date.setHours(hour+1)
   date.setMinutes(0)
   date.setSeconds(0)
   
-  bot.sendMessage(msg.chat.id, date+' после setHours, Minutes, Seconds')
+  console.log( date+' после setHours, Minutes, Seconds')
 })
