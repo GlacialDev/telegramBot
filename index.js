@@ -187,8 +187,8 @@ function eroInit() {
   // let minutes = date.getMinutes()
   // let seconds = date.getSeconds()
   date.setHours(hour+1)
-  date.setMinutes(0)
-  date.setSeconds(0)
+  date.setMinutes(00)
+  date.setSeconds(00)
 
   let dateNum2 = +date
   let dateDifference = dateNum2 - dateNum1
