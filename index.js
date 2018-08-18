@@ -187,7 +187,7 @@ function eroInit() {
   // let minutes = date.getMinutes()
   // let seconds = date.getSeconds()
   date.setHours(hour+1)
-  date.setMinutes(0)
+  date.setMinutes(15)
   date.setSeconds(0)
 
   let dateNum2 = +date
