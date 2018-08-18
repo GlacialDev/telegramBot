@@ -1,7 +1,7 @@
 import config from './secret/config';
 
 const https = require('https')
-const fs = require('fs');
+// const fs = require('fs');
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(config.token, { polling: true });
 const apiai = require('apiai');
