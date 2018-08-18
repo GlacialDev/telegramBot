@@ -2,7 +2,7 @@ import config from './secret/config';
 
 const https = require('https')
 const fs = require('fs');
-const TelegramBot = require('node-telegram-bot-api');
+const TelegramBot = require('C:/Users/Glacial/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/node-telegram-bot-api');
 const bot = new TelegramBot(config.token, { polling: true });
 const apiai = require('apiai');
 const dialogflow = apiai(config.dialogFlowClientAccessToken);
@@ -312,22 +312,11 @@ bot.onText(/\/admin_help/, (msg) => {
   bot.sendMessage(msg.chat.id, response);
 });
 
-import echo from './module/test'
+import echo from './modules/commands'
 echo(bot)
 
-// bot.onText(/\/echo (.+)/, (msg, match) => {
-//   if (authCheck(msg) != true) return
-
-//   let text = match[1];
-//   bot.sendMessage(msg.chat.id, text);
-// });
-
-bot.onText(/\/id/, (msg) => {
-  if (authCheck(msg) != true) return
-
-  bot.sendMessage(msg.chat.id, msg.chat.id + ' - id этого чата');
-  bot.sendMessage(msg.chat.id, msg.from.id + ' - а это ваш id');
-})
+import id from './modules/commands'
+id(bot)
 
 bot.onText(/\/photo (https?:\/\/\S+)/, (msg, match) => {
   if (authCheck(msg) != true) return

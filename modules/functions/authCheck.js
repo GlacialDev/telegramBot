@@ -1,4 +1,4 @@
-import config from '../secret/config'
+import config from '../../secret/config'
 
 export default function authCheck(message) {
     let id = message.from.id
