@@ -1,5 +1,4 @@
 import config from '../../secret/config'
-import * as apiai from 'apiai'
 
 export const creator = 353140575
 export const groupChat = -307924393
