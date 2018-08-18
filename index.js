@@ -311,10 +311,10 @@ bot.onText(/\/admin_help/, (msg) => {
   bot.sendMessage(msg.chat.id, response);
 });
 
-import echo from './modules/commands'
+import echo from './modules/commands/echo'
 echo(bot)
 
-import id from './modules/commands'
+import id from './modules/commands/id'
 id(bot)
 
 bot.onText(/\/photo (https?:\/\/\S+)/, (msg, match) => {
