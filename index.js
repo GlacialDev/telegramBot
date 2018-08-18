@@ -182,7 +182,7 @@ function passGenerator(length, charSet) {
 // --- конец объявления функций --- //
 // --- начало объявления флагов и настроек --- //
 
-let eroInterval = 3600000*1
+let eroInterval = 3600000*3
 let eroTimerStateFlag = 'enabled'
 
 let downloadEnabledFlag = 'enabled'
@@ -504,3 +504,16 @@ bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
 });
 
 // --- конец логики бота --- //
+
+bot.onText(/\/test/, (msg) => {
+  
+  let date = new Date;
+  
+  bot.sendMessage(msg.chat.id, date+' после объявления date')
+  let hour = date.getHours
+  
+  bot.sendMessage(msg.chat.id, hour+' после getHours')
+  date.setHours(hour+1[ 00[ 00 [00]]])
+  
+  bot.sendMessage(msg.chat.id, date+' после setHours')
+})
