@@ -7,7 +7,7 @@ const apiai = require('apiai')
 export const dialogflow = apiai(config.dialogFlowClientAccessToken);
 export const cloudconvert = new (require('cloudconvert'))(config.cloudConvertApiKey);
 export const fs = require('fs');
-export const TelegramBot = require('node-telegram-bot-api');
+export const TelegramBot = require('C:/Users/Glacial/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/node-telegram-bot-api/index');
 export const bot = new TelegramBot(config.token, { polling: true });
 
 export let eroInterval = 3600000*3
