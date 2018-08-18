@@ -13,17 +13,18 @@ const creator = 353140575
 // --- начало объявления функций --- //
 
 // проверка, внесен ли запрашивающий в список авторизованных лиц
-function authCheck(message) {
-  let id = message.from.id
-  let array = config.authorizedUsers
-  let ok = false;
-  for (let i = 0; i < array.length; i++) {
-    if (id === array[i]) {
-      ok = true
-      return ok
-    }
-  }
-}
+import authCheck from './module/func'
+// function authCheck(message) {
+//   let id = message.from.id
+//   let array = config.authorizedUsers
+//   let ok = false;
+//   for (let i = 0; i < array.length; i++) {
+//     if (id === array[i]) {
+//       ok = true
+//       return ok
+//     }
+//   }
+// }
 // проверка, является ли запрашивающий админом 
 function adminCheck(message) {
   let id = message.from.id
