@@ -3,7 +3,7 @@ import authCheck from '../functions/authCheck'
 import takePhotoFromBuffer from '../functions/takePhotoFromBuffer'
 import stopTimer from '../functions/stopTimer'
 import replacer from '../functions/replacer'
-import { bot, fs, eroTimer, eroInterval, eroTimerStateFlag, groupChat } from '../variables/variables'
+import { bot, fs, eroTimer, eroInterval, eroTimerStateFlag, groupChat, setEroTimerFlag } from '../variables/variables'
 
 
 export default function ero_timer() {
@@ -40,7 +40,7 @@ export default function ero_timer() {
         }
 
         stopTimer(eroTimer)
-        eroTimerStateFlag = 'disabled'
+        setEroTimerFlag('disabled')
         // при остановке таймера группа об этом оповещается
         bot.sendMessage(groupChat, 'Таймер картинок остановлен')
     });

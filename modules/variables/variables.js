@@ -18,3 +18,7 @@ export let eroTimer
 export function setDownloadFlag(state) {
     downloadEnabledFlag = state
 }
+
+export function setEroTimerFlag(state) {
+    eroTimerStateFlag = state
+}
