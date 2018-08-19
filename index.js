@@ -35,3 +35,9 @@
 // bot.sendMessage(creator, `Бот инициализирован`)
 // import eroInit from './modules/functions/eroInit'
 // eroInit()
+
+
+import { eroInterval, setEroInterval } from './variables'
+console.log(eroInterval)
+setEroInterval(3600000)
+console.log(eroInterval)
