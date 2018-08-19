@@ -1,6 +1,8 @@
-// // импорт и инициализация команд бота
+import * as variables from './modules/variables/variables'
+
+// импорт и инициализация команд бота
 import help from './modules/commands/help'
-help()
+help(variables.bot)
 // import echo from './modules/commands/echo'
 // echo()
 // import id from './modules/commands/id'

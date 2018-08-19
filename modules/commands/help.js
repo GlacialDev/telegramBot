@@ -1,7 +1,6 @@
 import authCheck from '../functions/authCheck'
-import bot from '../../variables'
 
-export default function help() {
+export default function help(bot) {
     bot.onText(/\/help/, (msg) => {
         if (authCheck(msg) != true) return
         let response =
