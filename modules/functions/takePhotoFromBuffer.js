@@ -3,7 +3,7 @@ import { bot, fs } from '../../variables'
 // достать ссылку из .txt файла (path), отослать по id (where) 
 // и сообщать об оставшемся кол-ве картинок в буфере (howMuchLeft)
 
-export default function takePhotoFromBuffer(path, sendTo, howMuchLeftFlag) {
+export default function takePhotoFromBuffer(bot, fs, path, sendTo, howMuchLeftFlag) {
     // открываем файл-буфер со ссылками
     fs.readFile(path, "utf8", function (error, data) {
       if (error) throw error; // если возникла ошибка

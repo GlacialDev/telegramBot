@@ -8,11 +8,11 @@ echo(variables.bot)
 import id from './modules/commands/id'
 id(variables.bot)
 import download from './modules/commands/download'
-download(variables.bot, variables.fs, variables.downloadEnabledFlag, variables.setDownloadFlag)
+download(variables.bot, variables.fs)
 import convert from './modules/commands/convert'
 convert(variables.bot, variables.fs, variables.cloudconvert)
-// import ero_timer from './modules/commands/ero_timer'
-// ero_timer()
+import ero_timer from './modules/commands/ero_timer'
+ero_timer()
 // import pass_gen from './modules/commands/pass_gen'
 // pass_gen()
 // import photo from './modules/commands/photo'

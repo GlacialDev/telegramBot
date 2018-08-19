@@ -2,7 +2,7 @@
 import adminCheck from '../functions/adminCheck'
 import authCheck from '../functions/authCheck'
 
-export default function download(bot, fs, downloadEnabledFlag, setDownloadFlag) {
+export default function download(bot, fs) {
     // позволяет загрузить файл на сервер
     bot.onText(/\/download$/, (msg) => {
         if (authCheck(msg) != true || downloadEnabledFlag != 'enabled') return
