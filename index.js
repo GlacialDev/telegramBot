@@ -91,7 +91,7 @@ function search(requestMes) {
       // вытаскиваю ссылку на картинку в буфер
       valueArray.forEach(function (item, i, valueArray) {
         fs.appendFileSync("./list/search.txt", item.contentUrl + ' ', function (error) {
-          if (error) console.log(error); // если возникла ошибка)
+          if (error) throw error; // если возникла ошибка)
         });
       });
     });
