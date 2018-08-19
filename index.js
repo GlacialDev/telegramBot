@@ -1,6 +1,6 @@
 // // импорт и инициализация команд бота
-// import help from './modules/commands/help'
-// help()
+import help from './modules/commands/help'
+help()
 // import echo from './modules/commands/echo'
 // echo()
 // import id from './modules/commands/id'
@@ -37,7 +37,7 @@
 // eroInit()
 
 
-import { eroInterval, setEroInterval } from './variables'
-console.log(eroInterval)
-setEroInterval(3600000)
-console.log(eroInterval)
+// import { eroInterval, setEroInterval } from './variables'
+// console.log(eroInterval)
+// setEroInterval(3600000)
+// console.log(eroInterval)
