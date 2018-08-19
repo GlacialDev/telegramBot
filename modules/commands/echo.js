@@ -1,7 +1,6 @@
 import authCheck from '../functions/authCheck'
-import bot from '../../variables'
 
-export default function echo() {
+export default function echo(bot) {
     bot.onText(/\/echo (.+)/, (msg, match) => {
         if (authCheck(msg) != true) return
 
