@@ -194,7 +194,7 @@ function eroInit() {
   let dateDifference = dateNum2 - dateNum1
   let additionalZero = date.getMinutes()<10?'0':''
 
-  bot.sendMessage(creator, `Картинки будут присланы в ${date.getHours()+3}:${additionalZero}${date.getMinutes()}, далее с интервалом в ${eroInterval/3600000} ч.`, )
+  bot.sendMessage(creator, `Картинки будут присланы в ${date.getHours()}:${additionalZero}${date.getMinutes()} время по gmt+0, далее с интервалом в ${eroInterval/3600000} ч.`, )
 
   setTimeout(() => {
     takePhotoFromBuffer("./list/ero.txt", groupChat, false)
@@ -207,7 +207,7 @@ function eroInit() {
 // --- конец объявления функций --- //
 // --- начало объявления флагов и настроек --- //
 
-let eroInterval = 3600000*1
+let eroInterval = 3600000*3
 let eroTimerStateFlag = 'enabled'
 let downloadEnabledFlag = 'enabled'
 
