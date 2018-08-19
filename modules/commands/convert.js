@@ -1,9 +1,8 @@
 import authCheck from '../functions/authCheck'
-import { bot, fs, cloudconvert } from '../../variables'
 
 // конвертер файлов из одного расширения в другое
 
-export default function convert() {
+export default function convert(bot, fs, cloudconvert) {
     bot.onText(/\/convert (.+)\.(.+) to (.+)/, (msg, match) => {
         if (authCheck(msg) != true) return
 

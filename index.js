@@ -9,8 +9,8 @@ import id from './modules/commands/id'
 id(variables.bot)
 import download from './modules/commands/download'
 download(variables.bot, variables.fs, variables.downloadEnabledFlag, variables.setDownloadFlag)
-// import convert from './modules/commands/convert'
-// convert()
+import convert from './modules/commands/convert'
+convert(variables.bot, variables.fs, variables.cloudconvert)
 // import ero_timer from './modules/commands/ero_timer'
 // ero_timer()
 // import pass_gen from './modules/commands/pass_gen'
@@ -25,8 +25,8 @@ download(variables.bot, variables.fs, variables.downloadEnabledFlag, variables.s
 // search()
 // import send_to from './modules/commands/send_to'
 // send_to()
-// import settings from './modules/commands/settings'
-// settings()
+import settings from './modules/commands/settings'
+settings(variables.bot, variables.eroInterval, variables.eroTimerStateFlag, variables.downloadEnabledFlag)
 // // в отличие от других команд, которые вызываются у бота одноименно, здесь нужно писать "!бот, (текст)"
 // import talk_with_bot from './modules/commands/talk_with_bot'
 // talk_with_bot()

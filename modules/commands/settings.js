@@ -1,7 +1,6 @@
 import authCheck from '../functions/authCheck'
-import { bot, eroInterval, eroTimerStateFlag, downloadEnabledFlag } from '../../variables'
 
-export default function settings() {
+export default function settings(bot, eroInterval, eroTimerStateFlag, downloadEnabledFlag) {
     bot.onText(/\/settings/, (msg) => {
         if (authCheck(msg) != true) return
 
