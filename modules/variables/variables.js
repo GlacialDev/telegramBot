@@ -17,6 +17,7 @@ export let eroTimer
 
 export function setDownloadFlag(state) {
     downloadEnabledFlag = state
+    console.log(downloadEnabledFlag+' setter')
 }
 export function setEroInterval(number) {
     eroInterval = number

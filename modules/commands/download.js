@@ -44,6 +44,7 @@ export default function download(bot, fs, downloadEnabledFlag, setDownloadFlag) 
 
         let response = ''
         setDownloadFlag(match[1])
+        console.log(downloadEnabledFlag+' enabler-disabler')
 
         switch (downloadEnabledFlag) {
             case 'enabled': response = 'Загрузка файлов разрешена'; break
