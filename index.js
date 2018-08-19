@@ -7,8 +7,8 @@ import echo from './modules/commands/echo'
 echo(variables.bot)
 import id from './modules/commands/id'
 id(variables.bot)
-// import download from './modules/commands/download'
-// download()
+import download from './modules/commands/download'
+download(variables.bot, variables.fs, variables.downloadEnabledFlag, variables.setDownloadFlag)
 // import convert from './modules/commands/convert'
 // convert()
 // import ero_timer from './modules/commands/ero_timer'
