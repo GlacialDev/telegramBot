@@ -1,4 +1,4 @@
-import config from './secret/config'
+import config from '../../secret/config'
 
 export const creator = 353140575
 export const groupChat = -307924393
