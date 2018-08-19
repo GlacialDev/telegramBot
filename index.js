@@ -192,11 +192,12 @@ function eroInit() {
 
   let dateNum2 = +date
   let dateDifference = dateNum2 - dateNum1
-  let additionalZero = date.getMinutes()<10?'0':''
+  let additionalZero_min = date.getMinutes()<10?'0':''
   let hourGMT3 = date.getHours()+3
   let correctHour = hourGMT3>24?hourGMT3-24:hourGMT3
+  let additionalZero_hour = hourGMT3<10?'0':''
 
-  bot.sendMessage(creator, `Картинки будут присланы в ${correctHour}:${additionalZero}${date.getMinutes()} время по gmt+0, далее с интервалом в ${eroInterval/3600000} ч.`, )
+  bot.sendMessage(groupChat, `Картинки будут присланы в ${additionalZero_hour}${correctHour}:${additionalZero_min}${date.getMinutes()}, далее с интервалом в ${eroInterval/3600000} ч.`, )
 
   setTimeout(() => {
     takePhotoFromBuffer("./list/ero.txt", groupChat, false)
