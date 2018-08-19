@@ -1,7 +1,6 @@
 import authCheck from '../functions/authCheck'
-import bot from '../../variables'
 
-export default function id() {
+export default function id(bot) {
     bot.onText(/\/id/, (msg) => {
         if (authCheck(msg) != true) return
       

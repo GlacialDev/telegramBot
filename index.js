@@ -5,8 +5,8 @@ import help from './modules/commands/help'
 help(variables.bot)
 import echo from './modules/commands/echo'
 echo(variables.bot)
-// import id from './modules/commands/id'
-// id()
+import id from './modules/commands/id'
+id(variables.bot)
 // import download from './modules/commands/download'
 // download()
 // import convert from './modules/commands/convert'
