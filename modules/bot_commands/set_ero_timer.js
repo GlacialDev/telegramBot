@@ -31,7 +31,9 @@ export default function set_ero_timer() {
         eroInterval = 3600000*hours
         eroTimerStateFlag = 'enabled'
         // инициализация таймера
-        setTimer(eroTimer, eroInterval)
+        eroTimer = setTimeout(() => {
+            takePhotoFromBuffer("./list/ero.txt", groupChat, false)
+        }, eroInterval)
         // если всё прошло успешно и без ошибок, далее следует сообщение в группу
         bot.sendMessage(groupChat, 'Буду присылать картинки каждые ' + hours + ' часов')
     });
