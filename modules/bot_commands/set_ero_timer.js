@@ -29,7 +29,6 @@ export default function set_ero_timer() {
         stopTimer(eroTimer)
         // значение интервала для таймера
         setEroInterval(3600000*hours)
-        console.log(settings.eroInterval)
         eroTimerStateFlag = 'enabled'
         // инициализация таймера
         eroTimer = setTimeout(() => {
