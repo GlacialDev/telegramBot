@@ -6,10 +6,6 @@ import stopTimer from '../functions/stopTimer'
 let bot = variables.bot
 let groupChat = variables.groupChat
 let eroTimer = settings.eroTimer
-let eroInterval = settings.eroInterval
-let eroTimerStateFlag = settings.eroTimerStateFlag
-
-
 
 export default function set_ero_timer() {
     // таймер на выдачу картинок
@@ -28,8 +24,8 @@ export default function set_ero_timer() {
         // если переназначаем таймер, прошлый нужно остановить
         stopTimer(eroTimer)
         // значение интервала для таймера
-        eroInterval = 3600000*hours
-        eroTimerStateFlag = 'enabled'
+        settings.eroInterval = 3600000*hours
+        settings.eroTimerStateFlag = 'enabled'
         // инициализация таймера
         eroTimer = setTimeout(() => {
             takePhotoFromBuffer("./list/ero.txt", groupChat, false)

@@ -1,6 +1,6 @@
 let settings = {
     eroInterval : 3600000*3,
-    eroTimerStateFlag : 'enabled',
+    eroTimerStateFlag : 'disabled',
     downloadEnabledFlag : 'enabled',
     eroTimer : null
 }
