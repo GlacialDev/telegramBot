@@ -1,5 +1,5 @@
-import variables from './variables'
-import authCheck from './functions/authCheck'
+import variables from '../variables/variables'
+import authCheck from '../functions/authCheck'
 
 let bot = variables.bot
 
