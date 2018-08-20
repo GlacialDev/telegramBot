@@ -6,7 +6,7 @@ const TelegramBot = require('node-telegram-bot-api');
 let variables = {
     creator : 353140575,
     groupChat : -307924393,
-    bot : new TelegramBot(config.token, { polling: true });
+    bot : new TelegramBot(config.token, { polling: true })
 }
 
 export default variables
