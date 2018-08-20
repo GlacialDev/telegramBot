@@ -4,7 +4,7 @@ import authCheck from '../functions/authCheck'
 let bot = variables.bot
 let fs = variables.fs
 
-export default function set_ero_timer() {
+export default function how_much_ero() {
     bot.onText(/\/how_much_ero/, (msg) => {
         if (authCheck(msg) != true) return
 
