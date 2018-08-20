@@ -10,7 +10,7 @@ let variables = {
     bot : new TelegramBot(config.token, { polling: true }),
     dialogflow : apiai(config.dialogFlowClientAccessToken),
     https : require('https'),
-    fs = require('fs'),
+    fs : require('fs'),
     cloudconvert : cloudconvert
 }
 
