@@ -1,4 +1,4 @@
-
+import config from './secret/config'
 
 let variables = {
     creator : 353140575,
