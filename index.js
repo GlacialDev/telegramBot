@@ -16,3 +16,5 @@ import stop_ero_timer from './modules/bot_commands/stop_ero_timer'
 stop_ero_timer()
 import how_much_ero from './modules/bot_commands/how_much_ero'
 how_much_ero()
+import give_ero from './modules/bot_commands/give_ero'
+give_ero()

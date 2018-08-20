@@ -16,7 +16,7 @@ export default function stop_ero_timer() {
         }
 
         stopTimer(eroTimer)
-        eroTimerStateFlag = 'enabled'
+        eroTimerStateFlag = 'disabled'
         // при остановке таймера группа об этом оповещается
         bot.sendMessage(groupChat, 'Таймер картинок остановлен')
     });
