@@ -1,10 +1,12 @@
 import config from './secret/config'
 
+let telBot = new TelegramBot(config.token, { polling: true })
+
 let variables = {
     creator : 353140575,
     groupChat : -307924393,
     // TelegramBot : require('node-telegram-bot-api'),
-    bot : new TelegramBot(config.token, { polling: true })
+    bot : telBot
 }
 
 export default variables
