@@ -2,6 +2,7 @@ import variables from '../variables/variables'
 import settings from '../variables/settings'
 import adminCheck from '../functions/adminCheck'
 import stopTimer from '../functions/stopTimer'
+import setEroInterval from '../variables/setters'
 
 let bot = variables.bot
 let groupChat = variables.groupChat
@@ -27,8 +28,7 @@ export default function set_ero_timer() {
         // если переназначаем таймер, прошлый нужно остановить
         stopTimer(eroTimer)
         // значение интервала для таймера
-        eroInterval = 3600000*hours
-        console.log(eroInterval)
+        setEroInterval(3600000*hours)
         console.log(settings.eroInterval)
         eroTimerStateFlag = 'enabled'
         // инициализация таймера
