@@ -1,7 +1,9 @@
+
+
 let variables = {
     creator : 353140575,
     groupChat : -307924393,
-    TelegramBot : require('node-telegram-bot-api'),
+    // TelegramBot : require('node-telegram-bot-api'),
     bot : new TelegramBot(config.token, { polling: true })
 }
 
@@ -15,7 +17,7 @@ export default variables
 // const dialogflow = apiai(config.dialogFlowClientAccessToken);
 // const cloudconvert = new (require('cloudconvert'))(config.cloudConvertApiKey);
 // const fs = require('fs');
-// const TelegramBot = require('node-telegram-bot-api');
+const TelegramBot = require('node-telegram-bot-api');
 // const bot = new TelegramBot(config.token, { polling: true });
 
 // let eroInterval = 3600000*3
