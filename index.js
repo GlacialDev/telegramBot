@@ -14,5 +14,5 @@ import set_ero_timer from './modules/bot_commands/set_ero_timer'
 set_ero_timer()
 import stop_ero_timer from './modules/bot_commands/stop_ero_timer'
 stop_ero_timer()
-import how_much_timer from './modules/bot_commands/how_much_ero'
+import how_much_ero from './modules/bot_commands/how_much_ero'
 how_much_ero()
