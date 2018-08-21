@@ -59,12 +59,12 @@ let chatBox = {
         chatBox.personTwoAgree = null
     },
     info: () => {
-        console.log(personOneId+' personOneId')
-        console.log(personOneName+' personOneName')
-        console.log(personOneAgree+' personOneAgree')
-        console.log(personTwoId+' personTwoId')
-        console.log(personTwoName+' personTwoName')
-        console.log(personTwoAgree+' personTwoAgree')
+        console.log(chatBox.personOneId+' personOneId')
+        console.log(chatBox.personOneName+' personOneName')
+        console.log(chatBox.personOneAgree+' personOneAgree')
+        console.log(chatBox.personTwoId+' personTwoId')
+        console.log(chatBox.personTwoName+' personTwoName')
+        console.log(chatBox.personTwoAgree+' personTwoAgree')
     }
 }
 
