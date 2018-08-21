@@ -73,6 +73,33 @@ let eroTimerObj = {
                 if (error) throw error; // если возникла ошибка
             })
         })
+    },
+    eroTimerInit: () => {
+        let date = new Date;
+        let dateNum1 = +date
+
+        let hour = date.getHours()
+        // let minutes = date.getMinutes()
+        // let seconds = date.getSeconds()
+        date.setHours(hour + 1)
+        date.setMinutes(0)
+        date.setSeconds(0)
+
+        let dateNum2 = +date
+        let dateDifference = dateNum2 - dateNum1
+        let additionalZero_min = date.getMinutes() < 10 ? '0' : ''
+        let hourGMT3 = date.getHours() + 3
+        let correctHour = hourGMT3 > 24 ? hourGMT3 - 24 : hourGMT3
+        let additionalZero_hour = correctHour < 10 ? '0' : ''
+
+        bot.sendMessage(groupChat, `Картинки будут присланы в ${additionalZero_hour}${correctHour}:${additionalZero_min}${date.getMinutes()}, далее с интервалом в ${eroInterval / 3600000} ч.`)
+
+        setTimeout(() => {
+            takePhotoFromBuffer("./list/ero.txt", groupChat, false)
+            eroTimerObj.eroTimer = setInterval(function () {
+                takePhotoFromBuffer("./list/ero.txt", groupChat, false)
+            }, eroTimerObj.eroInterval);
+        }, dateDifference)
     }
 }
 

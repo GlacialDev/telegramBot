@@ -18,3 +18,9 @@ import give_ero from './modules/bot_commands/give_ero'
 give_ero()
 import bot_settings from './modules/bot_commands/settings'
 bot_settings()
+
+import variables from './modules/variables/variables'
+bot = variables.bot
+bot.sendMessage(variables.creator)
+import eroTimerObj from './modules/objects/eroTimer'
+eroTimerObj.eroTimerInit()
