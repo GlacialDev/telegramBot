@@ -16,7 +16,7 @@ export default function stop_ero_timer() {
             return
         }
 
-        eroTimerObj.stop_ero_timer()
+        eroTimerObj.stop_ero_timer(msg)
         // stopTimer(eroTimer)
         // settings.eroTimerStateFlag = 'disabled'
         // // при остановке таймера группа об этом оповещается

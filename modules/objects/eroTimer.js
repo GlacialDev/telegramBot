@@ -23,7 +23,8 @@ let eroTimerObj = {
             bot.sendMessage(msg.chat.id, `У меня в запасе осталось ${number} картинок`)
         });
     },
-    set_ero_timer : (hours) => {
+    set_ero_timer : (msg, match) => {
+        let hours = match[1]
         // чтобы картинки не улетали как бешенные :)
         if (hours < 1) {
             bot.sendMessage(msg.chat.id, 'Нельзя ставить время меньше 1 часа')
@@ -41,7 +42,7 @@ let eroTimerObj = {
         // если всё прошло успешно и без ошибок, далее следует сообщение в группу
         bot.sendMessage(groupChat, 'Буду присылать картинки каждые ' + hours + ' часов')
     },
-    stop_ero_timer : () => {
+    stop_ero_timer : (msg) => {
         stopTimer(eroTimer)
         eroTimerStateFlag = 'disabled'
         // при остановке таймера группа об этом оповещается
