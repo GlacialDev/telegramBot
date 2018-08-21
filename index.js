@@ -8,6 +8,8 @@ import send_photo from './modules/bot_commands/send_photo'
 send_photo()
 import remind_me from './modules/bot_commands/remind_me'
 remind_me()
+import pass_gen from './modules/bot_commands/pass_gen'
+pass_gen()
 import roll from './modules/bot_commands/roll'
 roll()
 import talk_with_bot from './modules/bot_commands/talk_with_bot'
