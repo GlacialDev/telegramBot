@@ -15,7 +15,7 @@ let eroTimerObj = {
         let array = null;
         let number = null;
         // открываем файл-буфер со ссылками
-        fs.readFile("./data/eroTimer/ero.txt", "utf8", function (error, data) {
+        fs.readFileSync("./data/eroTimer/ero.txt", "utf8", function (error, data) {
             
             console.log('how much ero fs')
             if (error) throw error; // если возникла ошибка
@@ -23,8 +23,12 @@ let eroTimerObj = {
             array = data.split(' ');
             // считаем количество элементов
             number = array.length;
-            return number;
         });
+        console.log('how much ero after fs')
+        return () => {          
+            console.log(number);
+            bot.sendMessage(msg.chat.id, number)
+        }
     },
     set_ero_timer : (hours) => {
         // чтобы картинки не улетали как бешенные :)
