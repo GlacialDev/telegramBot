@@ -48,7 +48,7 @@ let chatBox = {
         }
     },
     reset: () => {
-        if (chatBox.personOneAgree == true && chatBox.personTwoAgree != true) bot.sendMessage(personOneId, 'Второй собеседник не хочет сейчас говорить')
+        if (chatBox.personOneAgree == true && chatBox.personTwoAgree != true) bot.sendMessage(chatBox.personOneId, 'Второй собеседник не хочет сейчас говорить')
         if (chatBox.personOneAgree == true && chatBox.personTwoAgree == true) {
             bot.sendMessage(chatBox.personOneId, 'Разговор завершен')
             bot.sendMessage(chatBox.personTwoId, 'Разговор завершен')
