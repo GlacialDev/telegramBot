@@ -25,10 +25,7 @@ let eroTimerObj = {
             number = array.length;
         });
         console.log('how much ero after fs')
-        return () => {          
-            console.log(number);
-            bot.sendMessage(msg.chat.id, number)
-        }
+        return console.log(number);
     },
     set_ero_timer : (hours) => {
         // чтобы картинки не улетали как бешенные :)
