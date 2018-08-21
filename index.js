@@ -16,5 +16,5 @@ import how_much_ero from './modules/bot_commands/how_much_ero'
 how_much_ero()
 import give_ero from './modules/bot_commands/give_ero'
 give_ero()
-// import bot_settings from './modules/bot_commands/settings'
-// bot_settings()
+import bot_settings from './modules/bot_commands/settings'
+bot_settings()
