@@ -7,7 +7,7 @@ import eroTimer from '../objects/eroTimer'
 
 let bot = variables.bot
 let groupChat = variables.groupChat
-let eroTimer = settings.eroTimer
+// let eroTimer = settings.eroTimer
 let eroInterval = settings.eroInterval
 let eroTimerStateFlag = settings.eroTimerStateFlag
 
