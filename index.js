@@ -39,3 +39,10 @@ import variables from './modules/variables/variables'
 variables.bot.sendMessage(variables.creator, 'Бот инициализирован.')
 import eroTimerObj from './modules/objects/eroTimer'
 eroTimerObj.eroTimerInit()
+
+import chatbox_init from './modules/bot_commands/chatbox_init'
+chatbox_init()
+import chatbox_end from './modules/bot_commands/chatbox_end'
+chatbox_end()
+import botTransit from './modules/functions/botTransit'
+botTransit()
