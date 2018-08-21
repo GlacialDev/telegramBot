@@ -23,10 +23,8 @@ let eroTimerObj = {
             array = data.split(' ');
             // считаем количество элементов
             number = array.length;
+            return number;
         });
-        
-        console.log('how much ero after fs')
-        return number;
     },
     set_ero_timer : (hours) => {
         // чтобы картинки не улетали как бешенные :)
