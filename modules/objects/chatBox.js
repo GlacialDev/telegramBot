@@ -23,17 +23,16 @@ let chatBox = {
         return new Promise((resolve, reject) => {
             bot.onText(/\/chat_agree (.+)/, (msg, match) => {
                 if (msg.from.id == chatBox.personTwoId && match[0] == '/chat_agree') {
-                    let name = match[1]
-                    resolve(name)
+                    chatBox.personTwoName = match[1]
+                    chatBox.personTwoAgree = true
+                    resolve()
                 }
                 else if (msg.from.id == chatBox.personTwoId && match[0] != '/chat_agree') {
                     reject()
                 }
             })
         }).then(
-            (name) => {
-                chatBox.personTwoName = name
-                chatBox.personTwoAgree = true
+            () => {
                 bot.sendMessage(chatBox.personOneId, 'Собеседник '+chatBox.personTwoName+' готов к разговору.')
                 bot.sendMessage(chatBox.personTwoId, 'Собеседник '+chatBox.personOneName+' готов к разговору.')
             },
