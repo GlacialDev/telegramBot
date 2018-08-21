@@ -21,7 +21,7 @@ let eroTimer = {
             // считаем количество элементов
             number = array.length;
         });
-        return number
+        return number;
     },
     set_ero_timer : (hours) => {
         // чтобы картинки не улетали как бешенные :)

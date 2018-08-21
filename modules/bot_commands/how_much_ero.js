@@ -10,7 +10,8 @@ export default function how_much_ero() {
     bot.onText(/\/how_much_ero/, (msg) => {
         if (authCheck(msg) != true) return
 
-        bot.sendMessage(msg.chat.id, eroTimer.how_much_ero())
+        let number = eroTimer.how_much_ero()
+        bot.sendMessage(msg.chat.id, number)
         // let array = null;
         // let number = null;
         // // открываем файл-буфер со ссылками
