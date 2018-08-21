@@ -20,8 +20,8 @@ let eroTimer = {
             array = data.split(' ');
             // считаем количество элементов
             number = array.length;
-            bot.sendMessage(msg.chat.id, `У меня в запасе осталось ${number} картинок`)
         });
+        return number
     },
     set_ero_timer : (hours) => {
         // чтобы картинки не улетали как бешенные :)
