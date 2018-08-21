@@ -5,7 +5,7 @@ let bot = variables.bot
 let fs = variables.fs
 let groupChat = variables.groupChat
 
-let eroTimer = {
+let eroTimerObj = {
     eroTimer : null,
     eroInterval : 3600000*3,
     eroTimerStateFlag : 'disabled',
@@ -49,4 +49,4 @@ let eroTimer = {
     }
 }
 
-export default eroTimer
+export default eroTimerObj

@@ -3,7 +3,7 @@ import settings from '../variables/settings'
 import adminCheck from '../functions/adminCheck'
 import stopTimer from '../functions/stopTimer'
 
-import eroTimer from '../objects/eroTimer'
+import eroTimerObj from '../objects/eroTimer'
 
 let bot = variables.bot
 let groupChat = variables.groupChat
@@ -21,7 +21,7 @@ export default function set_ero_timer() {
         }
 
         let hours = match[1]
-        eroTimer.set_ero_timer(hours);
+        eroTimerObj.set_ero_timer(hours);
         // // чтобы картинки не улетали как бешенные :)
         // if (hours < 1) {
         //     bot.sendMessage(msg.chat.id, 'Нельзя ставить время меньше 1 часа')

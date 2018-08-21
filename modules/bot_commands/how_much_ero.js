@@ -1,7 +1,7 @@
 import variables from '../variables/variables'
 import authCheck from '../functions/authCheck'
 
-import eroTimer from '../objects/eroTimer'
+import eroTimerObj from '../objects/eroTimer'
 
 let bot = variables.bot
 let fs = variables.fs
@@ -10,7 +10,9 @@ export default function how_much_ero() {
     bot.onText(/\/how_much_ero/, (msg) => {
         if (authCheck(msg) != true) return
 
-        let number = eroTimer.how_much_ero()
+        bot.sendMessage(msg.chat.id, 'dsadsadsa')
+        let number = eroTimerObj.how_much_ero()
+        console.log(number);
         bot.sendMessage(msg.chat.id, number)
         // let array = null;
         // let number = null;
