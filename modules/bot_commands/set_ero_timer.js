@@ -2,7 +2,8 @@ import variables from '../variables/variables'
 import settings from '../variables/settings'
 import adminCheck from '../functions/adminCheck'
 import stopTimer from '../functions/stopTimer'
-import setEroInterval from '../variables/setters'
+
+import eroTimer from '../objects/eroTimer'
 
 let bot = variables.bot
 let groupChat = variables.groupChat
@@ -20,21 +21,22 @@ export default function set_ero_timer() {
         }
 
         let hours = match[1]
-        // чтобы картинки не улетали как бешенные :)
-        if (hours < 1) {
-            bot.sendMessage(msg.chat.id, 'Нельзя ставить время меньше 1 часа')
-            return
-        }
-        // если переназначаем таймер, прошлый нужно остановить
-        stopTimer(eroTimer)
-        // значение интервала для таймера
-        setEroInterval(3600000*hours)
-        eroTimerStateFlag = 'enabled'
-        // инициализация таймера
-        eroTimer = setTimeout(() => {
-            takePhotoFromBuffer("./list/ero.txt", groupChat, false)
-        }, eroInterval)
-        // если всё прошло успешно и без ошибок, далее следует сообщение в группу
-        bot.sendMessage(groupChat, 'Буду присылать картинки каждые ' + hours + ' часов')
+        eroTimer.set_ero_timer(hours);
+        // // чтобы картинки не улетали как бешенные :)
+        // if (hours < 1) {
+        //     bot.sendMessage(msg.chat.id, 'Нельзя ставить время меньше 1 часа')
+        //     return
+        // }
+        // // если переназначаем таймер, прошлый нужно остановить
+        // stopTimer(eroTimer)
+        // // значение интервала для таймера
+        // eroInterval = 3600000*hours
+        // eroTimerStateFlag = 'enabled'
+        // // инициализация таймера
+        // eroTimer = setTimeout(() => {
+        //     takePhotoFromBuffer("./list/ero.txt", groupChat, false)
+        // }, eroInterval)
+        // // если всё прошло успешно и без ошибок, далее следует сообщение в группу
+        // bot.sendMessage(groupChat, 'Буду присылать картинки каждые ' + hours + ' часов')
     });
 }
