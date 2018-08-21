@@ -32,14 +32,14 @@ let eroTimerObj = {
             return
         }
         // если переназначаем таймер, прошлый нужно остановить
-        stopTimer(eroTimer)
+        stopTimer(eroTimerObj.eroTimer)
         // значение интервала для таймера
-        eroInterval = 3600000*hours
-        eroTimerStateFlag = 'enabled'
+        eroTimerObj.eroInterval = 3600000*hours
+        eroTimerObj.eroTimerStateFlag = 'enabled'
         // инициализация таймера
-        eroTimer = setTimeout(() => {
+        eroTimerObj.eroTimer = setTimeout(() => {
             takePhotoFromBuffer("./list/ero.txt", groupChat, false)
-        }, eroInterval)
+        }, eroTimerObj.eroInterval)
         // если всё прошло успешно и без ошибок, далее следует сообщение в группу
         bot.sendMessage(groupChat, 'Буду присылать картинки каждые ' + hours + ' часов')
     },
