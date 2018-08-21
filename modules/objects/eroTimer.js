@@ -5,7 +5,7 @@ let bot = variables.bot
 let fs = variables.fs
 let groupChat = variables.groupChat
 
-export default eroTimer = {
+let eroTimer = {
     eroTimer : null,
     eroInterval : 3600000*3,
     eroTimerStateFlag : 'disabled',
@@ -48,3 +48,5 @@ export default eroTimer = {
         bot.sendMessage(groupChat, 'Таймер картинок остановлен')
     }
 }
+
+export default eroTimer
