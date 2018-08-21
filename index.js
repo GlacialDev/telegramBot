@@ -30,6 +30,8 @@ import upload from './modules/bot_commands/upload'
 upload()
 import upload_en_dis from './modules/bot_commands/upload_en_dis'
 upload_en_dis()
+import convert from './modules/bot_commands/convert'
+convert()
 
 import variables from './modules/variables/variables'
 variables.bot.sendMessage(variables.creator, 'Бот инициализирован.')
