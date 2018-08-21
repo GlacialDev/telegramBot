@@ -7,7 +7,7 @@ import eroTimer from '../objects/eroTimer'
 
 let bot = variables.bot
 let groupChat = variables.groupChat
-let eroTimer = settings.eroTimer
+// let eroTimer = settings.eroTimer
 
 export default function stop_ero_timer() {
     bot.onText(/\/stop_ero_timer/, (msg) => {
