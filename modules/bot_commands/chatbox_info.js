@@ -4,7 +4,7 @@ import chatBox from '../objects/chatBox'
 
 let bot = variables.bot
 
-export default function chatbox_init() {
+export default function chatbox_info() {
     bot.onText(/\/chatbox_info/, (msg) => {
         if (authCheck(msg) != true) return
 
