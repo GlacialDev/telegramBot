@@ -1,4 +1,5 @@
 import variables from '../variables/variables'
+import authCheck from '../functions/authCheck'
 
 let bot = variables.bot
 let fs = variables.fs
