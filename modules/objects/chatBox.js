@@ -42,8 +42,10 @@ let chatBox = {
         )
     },
     transitMessages: (msg) => {
-        if (msg.from.id == chatBox.personOneId) bot.sendMessage(chatBox.personTwoId, chatBox.personOneName+' написал: '+msg.text)
-        if (msg.from.id == chatBox.personTwoId) bot.sendMessage(chatBox.personOneId, chatBox.personTwoName+' написал: '+msg.text)
+        if(chatBox.personOneAgree == true && chatBox.personTwoAgree == true) {
+            if (msg.from.id == chatBox.personOneId) bot.sendMessage(chatBox.personTwoId, chatBox.personOneName+' написал: '+msg.text)
+            if (msg.from.id == chatBox.personTwoId) bot.sendMessage(chatBox.personOneId, chatBox.personTwoName+' написал: '+msg.text)
+        }
     },
     reset: () => {
         if (chatBox.personOneAgree == true && chatBox.personTwoAgree != true) bot.sendMessage(personOneId, 'Второй собеседник не хочет сейчас говорить')
