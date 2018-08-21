@@ -1,6 +1,7 @@
 import variables from '../variables/variables'
 import settings from '../variables/settings'
 import authCheck from '../functions/authCheck'
+import eroTimerObj from '../objects/eroTimer'
 
 let bot = variables.bot
 
@@ -10,7 +11,7 @@ export default function bot_settings() {
 
         bot.sendMessage(msg.chat.id,
 `Настройки:
-- eroInterval: ${settings.eroInterval / 3600000} ч. - ${settings.eroTimerStateFlag}
+- eroInterval: ${eroTimerObj.eroInterval / 3600000} ч. - ${eroTimerObj.eroTimerStateFlag}
 - download: ${settings.downloadEnabledFlag}`)
     });
 } 
