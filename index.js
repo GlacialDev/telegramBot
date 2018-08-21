@@ -20,6 +20,6 @@ import bot_settings from './modules/bot_commands/settings'
 bot_settings()
 
 import variables from './modules/variables/variables'
-variables.bot.sendMessage(variables.creator)
+variables.bot.sendMessage(variables.creator, 'Бот инициализирован.')
 import eroTimerObj from './modules/objects/eroTimer'
 eroTimerObj.eroTimerInit()
