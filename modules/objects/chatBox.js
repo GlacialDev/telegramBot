@@ -57,6 +57,14 @@ let chatBox = {
         chatBox.personTwoId = null
         chatBox.personTwoName = null
         chatBox.personTwoAgree = null
+    },
+    info: () => {
+        console.log(personOneId+' personOneId')
+        console.log(personOneName+' personOneName')
+        console.log(personOneAgree+' personOneAgree')
+        console.log(personTwoId+' personTwoId')
+        console.log(personTwoName+' personTwoName')
+        console.log(personTwoAgree+' personTwoAgree')
     }
 }
 

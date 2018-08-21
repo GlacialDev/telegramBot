@@ -44,6 +44,6 @@ import chatbox_init from './modules/bot_commands/chatbox_init'
 chatbox_init()
 import chatbox_end from './modules/bot_commands/chatbox_end'
 chatbox_end()
-import chatBox from './modules/objects/chatBox'
-import botTransit from './modules/functions/botTransit'
-if (chatBox.personOneAgree == true && chatBox.personTwoAgree == true) botTransit()
+// import chatBox from './modules/objects/chatBox'
+import botTransit from './modules/functions/botTransit' 
+botTransit()
