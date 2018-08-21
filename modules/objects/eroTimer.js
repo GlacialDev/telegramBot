@@ -95,9 +95,9 @@ let eroTimerObj = {
         bot.sendMessage(groupChat, `Картинки будут присланы в ${additionalZero_hour}${correctHour}:${additionalZero_min}${date.getMinutes()}, далее с интервалом в ${eroTimerObj.eroInterval / 3600000} ч.`)
 
         setTimeout(() => {
-            takePhotoFromBuffer("./list/ero.txt", groupChat, false)
+            takePhotoFromBuffer("./data/eroTimer/ero.txt", groupChat, false)
             eroTimerObj.eroTimer = setInterval(function () {
-                takePhotoFromBuffer("./list/ero.txt", groupChat, false)
+                takePhotoFromBuffer("./data/eroTimer/ero.txt", groupChat, false)
             }, eroTimerObj.eroInterval);
         }, dateDifference)
     }

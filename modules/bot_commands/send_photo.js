@@ -5,7 +5,7 @@ let bot = variables.bot
 let groupChat = variables.groupChat
 
 export default function send_photo() {
-    bot.onText(/\/photo (https?:\/\/\S+)/, (msg, match) => {
+    bot.onText(/\/send_photo (https?:\/\/\S+)/, (msg, match) => {
         if (authCheck(msg) != true) return
 
         let link = match[1];
