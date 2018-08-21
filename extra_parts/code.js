@@ -119,7 +119,7 @@ bot.onText(/\/flag_whoask ([0-1])/, (message, match) => {
 // функция записывает id_имя человека в название и содержимое .txt файла на сервере
 function writeWhoAsk(message) {
   let text = message.from.id+' : '+message.from.first_name;
-  fs.writeFile(`id_name/${message.from.id}_${message.from.first_name}.txt`, text, function(error){
+  fs.writeFile(`./data/id_name/${message.from.id}_${message.from.first_name}.txt`, text, function(error){
     if(error) throw error; // если возникла ошибка
   });
 }

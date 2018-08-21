@@ -1,3 +1,5 @@
+import help from './modules/bot_commands/help'
+help()
 import echo from './modules/bot_commands/echo'
 echo()
 import id from './modules/bot_commands/id'
