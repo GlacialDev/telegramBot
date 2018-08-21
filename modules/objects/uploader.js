@@ -3,21 +3,20 @@ import variables from '../variables/variables'
 let bot = variables.bot
 let fs = variables.fs
 
-let downloader = {
+let uploader = {
     flag: 'enabled',
     setFlag: (msg, match) => {
-        downloader.flag = match[1]
+        uploader.flag = match[1]
         
         let response = ''
 
-        switch (downloader.flag) {
+        switch (uploader.flag) {
             case 'enabled': response = 'Загрузка файлов разрешена'; break
             case 'disabled': response = 'Загрузка файлов запрещена'; break
         }
         bot.sendMessage(msg.chat.id, response)
     },
-    download: (msg) => {
-        console.log('meow')
+    upload: (msg) => {
         bot.sendMessage(msg.chat.id, 'Готов загрузить файл на сервер')
 
         return new Promise((resolve, reject) => {
@@ -26,9 +25,9 @@ let downloader = {
                 let responseText
                 let errorText
 
-                let filePath = bot.downloadFile(msg.document.file_id, './download/').then(
+                let filePath = bot.downloadFile(msg.document.file_id, './data/download/').then(
                     (filePath) => {
-                        fs.rename(filePath, './download/' + name, (error, data) => {
+                        fs.rename(filePath, './data/download/' + name, (error, data) => {
                             if (error) throw error; // если возникла ошибка
                         })
                         responseText = 'Файл успешно загружен.'
@@ -47,4 +46,4 @@ let downloader = {
     }
 }
 
-export default downloader
+export default uploader
