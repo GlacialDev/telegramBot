@@ -18,6 +18,10 @@ import give_ero from './modules/bot_commands/give_ero'
 give_ero()
 import bot_settings from './modules/bot_commands/settings'
 bot_settings()
+import download from './modules/bot_commands/download'
+download()
+import download_en_dis from './modules/bot_commands/download_en_dis'
+download_en_dis()
 
 import variables from './modules/variables/variables'
 variables.bot.sendMessage(variables.creator, 'Бот инициализирован.')
