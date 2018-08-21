@@ -15,7 +15,7 @@ let eroTimerObj = {
         let array = null;
         let number = null;
         // открываем файл-буфер со ссылками
-        fs.readFileSync("./data/eroTimer/ero.txt", "utf8", function (error, data) {
+        fs.readFile("./data/eroTimer/ero.txt", "utf8", function (error, data) {
             
             console.log('how much ero fs')
             if (error) throw error; // если возникла ошибка
