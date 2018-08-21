@@ -17,6 +17,7 @@ let downloader = {
         bot.sendMessage(msg.chat.id, response)
     },
     download: (msg) => {
+        console.log('meow')
         bot.sendMessage(msg.chat.id, 'Готов загрузить файл на сервер')
 
         return new Promise((resolve, reject) => {

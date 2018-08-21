@@ -9,7 +9,7 @@ let groupChat = variables.groupChat
 let eroTimerObj = {
     eroTimer: null,
     eroInterval: 3600000 * 3,
-    eroTimerStateFlag: 'disabled',
+    eroTimerStateFlag: 'enabled',
 
     how_much_ero: (msg) => {
         let array = null;
