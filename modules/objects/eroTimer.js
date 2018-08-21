@@ -44,8 +44,8 @@ let eroTimerObj = {
         bot.sendMessage(groupChat, 'Буду присылать картинки каждые ' + hours + ' часов')
     },
     stop_ero_timer : (msg) => {
-        stopTimer(eroTimer)
-        eroTimerStateFlag = 'disabled'
+        stopTimer(eroTimerObj.eroTimer)
+        eroTimerObj.eroTimerStateFlag = 'disabled'
         // при остановке таймера группа об этом оповещается
         bot.sendMessage(groupChat, 'Таймер картинок остановлен')
     }
