@@ -10,7 +10,7 @@ let eroTimerObj = {
     eroInterval : 3600000*3,
     eroTimerStateFlag : 'disabled',
 
-    how_much_ero : () => {
+    how_much_ero : (msg) => {
         console.log('how much ero start')
         let array = null;
         let number = null;
@@ -24,6 +24,7 @@ let eroTimerObj = {
             // считаем количество элементов
             number = array.length;
             console.log(number);
+            bot.sendMessage(msg.chat.id, `У меня в запасе осталось ${number} картинок`)
         });
         console.log('how much ero after fs')
     },
