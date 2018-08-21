@@ -4,6 +4,8 @@ import id from './modules/bot_commands/id'
 id()
 import send_to from './modules/bot_commands/send_to'
 send_to()
+import send_photo from './modules/bot_commands/send_photo'
+send_photo()
 import remind_me from './modules/bot_commands/remind_me'
 remind_me()
 import roll from './modules/bot_commands/roll'
