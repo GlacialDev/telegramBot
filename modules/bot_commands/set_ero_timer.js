@@ -20,8 +20,8 @@ export default function set_ero_timer() {
             return
         }
 
-        let hours = match[1]
-        eroTimerObj.set_ero_timer(hours);
+        // let hours = match[1]
+        eroTimerObj.set_ero_timer(msg, match);
         // // чтобы картинки не улетали как бешенные :)
         // if (hours < 1) {
         //     bot.sendMessage(msg.chat.id, 'Нельзя ставить время меньше 1 часа')
