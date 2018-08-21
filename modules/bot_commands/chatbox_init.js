@@ -10,5 +10,7 @@ export default function chatbox_init() {
 
         chatBox.init(msg, match)
         chatBox.ifAgreeAsk()
+
+        bot.sendMessage(msg.from.id, 'Ждем согласия')
     });
 }

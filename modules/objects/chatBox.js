@@ -18,16 +18,18 @@ let chatBox = {
         chatBox.personTwoId = match[2]
     },
     ifAgreeAsk: () => {
-        bot.sendMessage(chatBox.personTwoId, chatBox.personOneName+' предлагает поговорить. Если вы согласны, введите /chat_agree (свое имя). Если нет - введите что-то другое')
+        bot.sendMessage(chatBox.personTwoId, chatBox.personOneName+' предлагает поговорить. Если вы согласны, введите /chat_agree (свое имя). Если нет - введите /chat_disagree')
 
         return new Promise((resolve, reject) => {
             bot.onText(/\/chat_agree (.+)/, (msg, match) => {
-                if (msg.from.id == chatBox.personTwoId && match[0] == '/chat_agree') {
+                if (msg.from.id == chatBox.personTwoId) {
                     chatBox.personTwoName = match[1]
                     chatBox.personTwoAgree = true
                     resolve()
                 }
-                else if (msg.from.id == chatBox.personTwoId && match[0] != '/chat_agree') {
+            })
+            bot.onText(/\/chat_disagree/, (msg) => {
+                if (msg.from.id == chatBox.personTwoId) {
                     reject()
                 }
             })
