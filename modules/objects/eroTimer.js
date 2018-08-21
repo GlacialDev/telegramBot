@@ -1,5 +1,6 @@
 import variables from '../variables/variables'
 import stopTimer from '../functions/stopTimer'
+import takePhotoFromBuffer from '../functions/takePhotoFromBuffer'
 
 let bot = variables.bot
 let fs = variables.fs
