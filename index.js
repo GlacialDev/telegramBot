@@ -35,16 +35,17 @@ upload_en_dis()
 import convert from './modules/bot_commands/convert'
 convert()
 
+import chatbox_init from './modules/bot_commands/chatbox_init'
+import chatbox_end from './modules/bot_commands/chatbox_end'
+import chatbox_info from './modules/bot_commands/chatbox_info'
+import botTransit from './modules/functions/botTransit' 
+
 let devMode = false
 import botInit from './modules/functions/botInit'
 botInit(devMode)
 if(devMode) {
-    import chatbox_init from './modules/bot_commands/chatbox_init'
     chatbox_init()
-    import chatbox_end from './modules/bot_commands/chatbox_end'
     chatbox_end()
-    import chatbox_info from './modules/bot_commands/chatbox_info'
     chatbox_info()
-    import botTransit from './modules/functions/botTransit' 
     botTransit()
 }
