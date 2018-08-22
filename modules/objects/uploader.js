@@ -31,7 +31,7 @@ let uploader = {
                             if (error) throw error; // если возникла ошибка
                         })
                         responseText = 'Файл успешно загружен.'
-                        resolve(responseText)
+                        resolve(responseText, filename)
                     },
                     (e) => {
                         errorText = 'Файл не загрузился, какая-то ошибка.'
