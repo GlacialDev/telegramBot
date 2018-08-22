@@ -30,20 +30,22 @@ let uploader = {
                         fs.rename(filePath, './data/download/' + uploader.fileName, (error, data) => {
                             if (error) throw error; // если возникла ошибка
                         })
-                        resolve(uploader.fileName)
+                        resolve()
                     },
                     (e) => {
                         console.log(e)
-                        reject(uploader.fileName)
+                        reject()
                     })
             })
         })
     },
     convert: (msg, match) => {
-        console.log(uploader.fileName)
         let inputfileName = uploader.fileName
         let regExpList = inputfileName.split(/(.+)\.(.+)/)
+        let letIndexOf = inputfileName.indexOf(/(.+)\.(.+)/)
         console.log(regExpList)
+        console.log(' ')
+        console.log(letIndexOf)
         let inputName = regExpList[0]
         let inputFormat = regExpList[1]
         let outputFormat = match[1]
