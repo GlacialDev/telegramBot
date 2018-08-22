@@ -68,7 +68,8 @@ let uploader = {
             bot.sendDocument(msg.chat.id, './data/converted/' + outputFileName)
             inputfileName = ''
         })
-        .on('error', function () {
+        .on('error', function (error) {
+            if (error) console.log(error)
             bot.sendMessage(msg.chat.id, 'Случилась какая-то ошибка. Конвертировать не удалось =/')
         })
     }
