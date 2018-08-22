@@ -19,6 +19,10 @@ let uploader = {
         bot.sendMessage(msg.chat.id, response)
     },
     upload: (msg) => {
+        if (uploader.flag != 'enabled') {
+            bot.sendMessage(msg.chat.id, 'Загрузка файлов запрещена')
+            return
+        }
         bot.sendMessage(msg.chat.id, 'Готов загрузить файл на сервер')
 
         return new Promise((resolve, reject) => {
@@ -28,7 +32,7 @@ let uploader = {
                 let filePath = bot.downloadFile(msg.document.file_id, './data/download/').then(
                     (filePath) => {
                         fs.rename(filePath, './data/download/' + uploader.fileName, (error, data) => {
-                            if (error) console.log('mne pohren chto u tebya oshibka'); // если возникла ошибка
+                            if (error) console.log(error); // если возникла ошибка
                         })
                         resolve()
                     },
