@@ -54,9 +54,9 @@ let uploader = {
         let outputFileName = inputName + outputFormat
 
         bot.sendMessage(msg.chat.id, 'Приступаю к конвертированию, придется немного подождать')
-        fs.writeFile('./data/converted'+outputFileName, '', () => {
+        fs.writeFile('./data/converted'+outputFileName, '', (error) => {
             if (error) throw error; // если возникла ошибка
-            
+
             fs.createReadStream('./data/download/' + inputfileName)
             .pipe(cloudconvert.convert({
                 inputformat: inputFormat,
