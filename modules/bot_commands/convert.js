@@ -3,15 +3,16 @@ import authCheck from '../functions/authCheck'
 import uploader from '../objects/uploader'
 
 let bot = variables.bot
+let U = new uploader
 
 export default function convert() {
     bot.onText(/\/convert to (.+)/, (msg, match) => {
         if (authCheck(msg) != true) return
 
-        uploader.upload(msg).then(
+        U.upload(msg).then(
             () => {
                 bot.sendMessage(msg.chat.id, 'Файл успешно загружен.')
-                uploader.convert(msg, match)
+                U.convert(msg, match)
             },
             () => bot.sendMessage(msg.chat.id, 'Файл не загрузился, какая-то ошибка.')
         )
