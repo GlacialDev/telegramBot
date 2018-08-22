@@ -2,13 +2,14 @@ import variables from '../variables/variables'
 
 let bot = variables.bot
 let fs = variables.fs
+let cloudconvert = variables.cloudconvert
 
 let uploader = {
     flag: 'enabled',
     fileName: '',
     setFlag: (msg, match) => {
         uploader.flag = match[1]
-        
+
         let response = ''
 
         switch (uploader.flag) {
@@ -38,8 +39,27 @@ let uploader = {
             })
         })
     },
-    convert_to: (msg, match) => {
-        
+    convert: (msg, match) => {
+        let inputfileName = uploader.fileName
+        let regExpList = inputfileName.split(/(.+)\.(.+)/)
+        let inputName = regExpList[0]
+        let inputFormat = regExpList[1]
+        let outputFormat = match[1]
+        let outputFileName = inputName + '.' + outputFormat
+
+        bot.sendMessage(msg.chat.id, 'Приступаю к конвертированию, придется немного подождать')
+        fs.createReadStream('./data/download/' + inputfileName)
+        .pipe(cloudconvert.convert({
+            inputformat: inputFormat,
+            outputformat: outputFormat
+        }))
+        .pipe(fs.createWriteStream('./data/converted/' + outputFileName))
+        .on('finish', function () {
+            bot.sendDocument(msg.chat.id, './data/converted/' + outputFileName)
+        })
+        .on('error', function () {
+            bot.sendMessage(msg.chat.id, 'Случилась какая-то ошибка. Конвертировать не удалось =/')
+        })
     }
 }
 
