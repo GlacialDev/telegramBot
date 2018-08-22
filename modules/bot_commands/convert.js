@@ -1,9 +1,8 @@
 import variables from '../variables/variables'
 import authCheck from '../functions/authCheck'
+import uploader from '../objects/uploader'
 
 let bot = variables.bot
-let fs = variables.fs
-let cloudconvert = variables.cloudconvert
 
 export default function convert() {
     bot.onText(/\/convert to (.+)/, (msg, match) => {
