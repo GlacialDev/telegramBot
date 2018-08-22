@@ -74,7 +74,7 @@ let eroTimerObj = {
             })
         })
     },
-    eroTimerInit: () => {
+    eroTimerInit: (flag) => {
         let date = new Date;
         let dateNum1 = +date
 
@@ -92,7 +92,7 @@ let eroTimerObj = {
         let correctHour = hourGMT3 > 24 ? hourGMT3 - 24 : hourGMT3
         let additionalZero_hour = correctHour < 10 ? '0' : ''
 
-        bot.sendMessage(groupChat, `Картинки будут присланы в ${additionalZero_hour}${correctHour}:${additionalZero_min}${date.getMinutes()}, далее с интервалом в ${eroTimerObj.eroInterval / 3600000} ч.`)
+        if(flag == false) bot.sendMessage(groupChat, `Картинки будут присланы в ${additionalZero_hour}${correctHour}:${additionalZero_min}${date.getMinutes()}, далее с интервалом в ${eroTimerObj.eroInterval / 3600000} ч.`)
 
         setTimeout(() => {
             takePhotoFromBuffer("./data/eroTimer/ero.txt", groupChat, false)
