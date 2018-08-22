@@ -66,13 +66,6 @@ let uploader = {
         .pipe(fs.createWriteStream('./data/converted/' + outputFileName))
         .on('finish', function () {
             bot.sendDocument(msg.chat.id, './data/converted/' + outputFileName)
-            // и удалить эти файлы потом
-            fs.unlink('./data/converted/' + outputFileName, (error) => {
-                if (error) throw error; // если возникла ошибка
-            })
-            fs.unlink('./data/download/' + inputfileName, (error) => {
-                if (error) throw error; // если возникла ошибка
-            })
             inputfileName = ''
         })
         .on('error', function () {
