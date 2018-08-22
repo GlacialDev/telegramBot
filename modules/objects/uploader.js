@@ -54,17 +54,21 @@ let uploader = {
         let outputFileName = inputName + outputFormat
 
         bot.sendMessage(msg.chat.id, 'Приступаю к конвертированию, придется немного подождать')
-        fs.createReadStream('./data/download/' + inputfileName)
-        .pipe(cloudconvert.convert({
-            inputformat: inputFormat,
-            outputformat: outputFormat
-        }))
-        .pipe(fs.createWriteStream('./data/converted/' + outputFileName))
-        .on('finish', function () {
-            bot.sendDocument(msg.chat.id, './data/converted/' + outputFileName)
-        })
-        .on('error', function () {
-            bot.sendMessage(msg.chat.id, 'Случилась какая-то ошибка. Конвертировать не удалось =/')
+        fs.writeFile('./data/converted'+outputFileName, '', () => {
+            if (error) throw error; // если возникла ошибка
+            
+            fs.createReadStream('./data/download/' + inputfileName)
+            .pipe(cloudconvert.convert({
+                inputformat: inputFormat,
+                outputformat: outputFormat
+            }))
+            .pipe(fs.createWriteStream('./data/converted/' + outputFileName))
+            .on('finish', function () {
+                bot.sendDocument(msg.chat.id, './data/converted/' + outputFileName)
+            })
+            .on('error', function () {
+                bot.sendMessage(msg.chat.id, 'Случилась какая-то ошибка. Конвертировать не удалось =/')
+            })
         })
     }
 }
