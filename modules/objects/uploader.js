@@ -40,8 +40,10 @@ let uploader = {
         })
     },
     convert: (msg, match) => {
+        console.log(uploader.fileName)
         let inputfileName = uploader.fileName
         let regExpList = inputfileName.split(/(.+)\.(.+)/)
+        console.log(regExpList)
         let inputName = regExpList[0]
         let inputFormat = regExpList[1]
         let outputFormat = match[1]
