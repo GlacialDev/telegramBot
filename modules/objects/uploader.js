@@ -45,7 +45,7 @@ let uploader = {
         console.log(regExpList)
         let inputName = ''
         for (let i = 0; i < regExpList.length-1; i++) {
-            inputName = inputName+'.'+regExpList[i]
+            inputName = inputName+regExpList[i]+'.'
         }
         console.log(inputName)
         let inputFormat = regExpList[regExpList.length-1]
