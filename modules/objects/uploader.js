@@ -39,10 +39,10 @@ let uploader = {
                         reject(errorText)
                     })
             })
-        }).then(
-            (responseText) => bot.sendMessage(msg.chat.id, responseText),
-            (errorText) => bot.sendMessage(msg.chat.id, errorText)
-        )
+        })
+    },
+    convert_to: (msg, match) => {
+        
     }
 }
 

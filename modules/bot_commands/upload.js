@@ -9,6 +9,9 @@ export default function upload() {
     bot.onText(/\/upload$/, (msg) => {
         if (authCheck(msg) != true || uploader.flag != 'enabled') return
 
-        uploader.upload(msg)
+        uploader.upload(msg).then(
+            (responseText) => bot.sendMessage(msg.chat.id, responseText),
+            (errorText) => bot.sendMessage(msg.chat.id, errorText)
+        )
     })
 }
