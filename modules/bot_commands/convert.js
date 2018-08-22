@@ -15,5 +15,7 @@ export default function convert() {
             },
             () => bot.sendMessage(msg.chat.id, 'Файл не загрузился, какая-то ошибка.')
         )
+
+        console.log('dsadsadsaddsadsadsadsa')
     });
 }
