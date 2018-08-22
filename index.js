@@ -35,7 +35,7 @@ upload_en_dis()
 import convert from './modules/bot_commands/convert'
 convert()
 
-let devMode = true
+let devMode = false
 import botInit from './modules/functions/botInit'
 botInit(devMode)
 if(devMode) {
