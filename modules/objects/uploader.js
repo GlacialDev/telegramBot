@@ -2,6 +2,7 @@ import variables from '../variables/variables'
 
 let bot = variables.bot
 let fs = variables.fs
+let cloudconvert = variables.cloudconvert
 
 let uploader = {
     flag: 'enabled',
@@ -27,7 +28,7 @@ let uploader = {
                 let filePath = bot.downloadFile(msg.document.file_id, './data/download/').then(
                     (filePath) => {
                         fs.rename(filePath, './data/download/' + uploader.fileName, (error, data) => {
-                            if (error) throw error; // если возникла ошибка
+                            if (error) console.log('mne pohren chto u tebya oshibka'); // если возникла ошибка
                         })
                         resolve()
                     },
@@ -39,8 +40,6 @@ let uploader = {
         })
     },
     convert: (msg, match) => {
-        let cloudconvert = variables.cloudconvert
-        
         let inputfileName = uploader.fileName
         // делим по точкам имя файла (чтобы затем отсечь формат от названия)
         let regExpList = inputfileName.split(/\./)
