@@ -69,7 +69,7 @@ let uploader = {
             inputfileName = ''
         })
         .on('error', function (error) {
-            if (error) console.log(typeof error)
+            if (error) console.log(error.error)
             bot.sendMessage(msg.chat.id, 'Случилась какая-то ошибка. Конвертировать не удалось =/')
         })
     }
