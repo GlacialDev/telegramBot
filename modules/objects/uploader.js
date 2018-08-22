@@ -41,19 +41,17 @@ let uploader = {
     },
     convert: (msg, match) => {
         let inputfileName = uploader.fileName
+        // делим по точкам имя файла (чтобы затем отсечь формат от названия)
         let regExpList = inputfileName.split(/\./)
-        console.log(regExpList)
         let inputName = ''
+        // вся эта штука с циклом нужна для того чтобы корректно обработать имя файла с несколькими точками
+        // one.two.three.txt будет корректно переименовываться скажем в one.two.three.pdf
         for (let i = 0; i < regExpList.length-1; i++) {
             inputName = inputName+regExpList[i]+'.'
         }
-        console.log(inputName)
         let inputFormat = regExpList[regExpList.length-1]
-        console.log(inputFormat)
         let outputFormat = match[1]
-        console.log(outputFormat)
         let outputFileName = inputName + outputFormat
-        console.log(outputFileName)
 
         bot.sendMessage(msg.chat.id, 'Приступаю к конвертированию, придется немного подождать')
         fs.createReadStream('./data/download/' + inputfileName)
