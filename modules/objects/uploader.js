@@ -5,6 +5,7 @@ let fs = variables.fs
 
 let uploader = {
     flag: 'enabled',
+    fileName: '',
     setFlag: (msg, match) => {
         uploader.flag = match[1]
         
@@ -21,22 +22,18 @@ let uploader = {
 
         return new Promise((resolve, reject) => {
             bot.on('document', (msg) => {
-                let filename = msg.document.file_name
-                let responseText
-                let errorText
+                uploader.fileName = msg.document.file_name
 
                 let filePath = bot.downloadFile(msg.document.file_id, './data/download/').then(
                     (filePath) => {
-                        fs.rename(filePath, './data/download/' + filename, (error, data) => {
+                        fs.rename(filePath, './data/download/' + uploader.fileName, (error, data) => {
                             if (error) throw error; // если возникла ошибка
                         })
-                        responseText = 'Файл успешно загружен.'
-                        resolve(responseText, filename)
+                        resolve(uploader.fileName)
                     },
                     (e) => {
-                        errorText = 'Файл не загрузился, какая-то ошибка.'
                         console.log(e)
-                        reject(errorText)
+                        reject(uploader.fileName)
                     })
             })
         })

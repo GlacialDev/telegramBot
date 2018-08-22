@@ -10,8 +10,8 @@ export default function upload() {
         if (authCheck(msg) != true || uploader.flag != 'enabled') return
 
         uploader.upload(msg).then(
-            (responseText, filename) => bot.sendMessage(msg.chat.id, responseText+' '+filename),
-            (errorText) => bot.sendMessage(msg.chat.id, errorText)
+            () => bot.sendMessage(msg.chat.id, 'Файл успешно загружен.'),
+            () => bot.sendMessage(msg.chat.id, 'Файл не загрузился, какая-то ошибка.')
         )
     })
 }
