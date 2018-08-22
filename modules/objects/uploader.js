@@ -44,7 +44,7 @@ let uploader = {
         let regExpList = inputfileName.split(/\./)
         console.log(regExpList)
         let inputName = ''
-        for (i = 0; i < regExpList.length-1; i++) {
+        for (let i = 0; i < regExpList.length-1; i++) {
             inputName = inputName+regExpList[i]
         }
         console.log(inputName)
