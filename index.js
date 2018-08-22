@@ -36,11 +36,8 @@ import convert from './modules/bot_commands/convert'
 convert()
 
 let devMode = true
-
-import variables from './modules/variables/variables'
-variables.bot.sendMessage(variables.creator, 'Бот инициализирован.')
-import eroTimerObj from './modules/objects/eroTimer'
-eroTimerObj.eroTimerInit(devMode)
+import botInit from './modules/functions/botInit'
+botInit(devMode)
 
 import chatbox_init from './modules/bot_commands/chatbox_init'
 chatbox_init()
