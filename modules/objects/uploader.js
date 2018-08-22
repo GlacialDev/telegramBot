@@ -21,13 +21,13 @@ let uploader = {
 
         return new Promise((resolve, reject) => {
             bot.on('document', (msg) => {
-                let name = msg.document.file_name
+                let filename = msg.document.file_name
                 let responseText
                 let errorText
 
                 let filePath = bot.downloadFile(msg.document.file_id, './data/download/').then(
                     (filePath) => {
-                        fs.rename(filePath, './data/download/' + name, (error, data) => {
+                        fs.rename(filePath, './data/download/' + filename, (error, data) => {
                             if (error) throw error; // если возникла ошибка
                         })
                         responseText = 'Файл успешно загружен.'
