@@ -43,10 +43,17 @@ let uploader = {
         let inputfileName = uploader.fileName
         let regExpList = inputfileName.split(/\./)
         console.log(regExpList)
-        let inputName = regExpList[0]
-        let inputFormat = regExpList[1]
+        let inputName = ''
+        for (i = 0; i < regExpList.length-1; i++) {
+            inputName = inputName+regExpList[i]
+        }
+        console.log(inputName)
+        let inputFormat = regExpList[regExpList.length-1]
+        console.log(inputFormat)
         let outputFormat = match[1]
+        console.log(outputFormat)
         let outputFileName = inputName + '.' + outputFormat
+        console.log(outputFileName)
 
         bot.sendMessage(msg.chat.id, 'Приступаю к конвертированию, придется немного подождать')
         fs.createReadStream('./data/download/' + inputfileName)
