@@ -68,6 +68,7 @@ let uploader = {
             fs.unlink('./data/download/' + inputfileName, (error) => {
                 if (error) throw error; // если возникла ошибка
             })
+            uploader.fileName = ''
         })
         .on('error', function () {
             bot.sendMessage(msg.chat.id, 'Случилась какая-то ошибка. Конвертировать не удалось =/')
