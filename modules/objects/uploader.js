@@ -32,7 +32,10 @@ let uploader = {
                 let filePath = bot.downloadFile(msg.document.file_id, './data/download/').then(
                     (filePath) => {
                         fs.rename(filePath, './data/download/' + uploader.fileName, (error, data) => {
-                            if (error && error.code != 'ENOENT') throw error; // если возникла ошибка
+                            if (error && error.code != 'ENOENT') {
+                                console.log(error)
+                                reject()
+                            }; // если возникла ошибка
                         })
                         resolve()
                     },

@@ -5,7 +5,7 @@ import uploader from '../objects/uploader'
 let bot = variables.bot
 
 export default function convert() {
-    bot.onText(/\/convert to (.+)/, (msg, match) => {
+    bot.onText(/\/convert_to (.+)/, (msg, match) => {
         if (authCheck(msg) != true) return
 
         uploader.upload(msg).then(
