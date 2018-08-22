@@ -2,7 +2,6 @@ import variables from '../variables/variables'
 
 let bot = variables.bot
 let fs = variables.fs
-let cloudconvert = variables.cloudconvert
 
 let uploader = {
     flag: 'enabled',
@@ -40,6 +39,8 @@ let uploader = {
         })
     },
     convert: (msg, match) => {
+        let cloudconvert = variables.cloudconvert
+        
         let inputfileName = uploader.fileName
         // делим по точкам имя файла (чтобы затем отсечь формат от названия)
         let regExpList = inputfileName.split(/\./)
