@@ -90,7 +90,22 @@ export default function make_poll() {
             console.log(poll.votes[i]+' posle')
 
             console.log(poll)
-            // bot.editMessageReplyMarkup(options.reply_markup)
+
+            for (let i = 0; i < answers.length; i++) {
+                let objectBlanc = {
+                    text : `${answers[i]} - ${poll.votes[i]}`,
+                    callback_data : i
+                }
+                poll.buttons[i] = [objectBlanc]
+            }
+            let options = {
+                reply_markup: JSON.stringify({
+                    inline_keyboard: poll.buttons,
+                    parse_mode: 'Markdown'
+                })
+            };
+
+            bot.editMessageReplyMarkup(options.reply_markup)
           });
     })
 }
