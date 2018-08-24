@@ -63,7 +63,8 @@ export default function make_poll() {
             buttons: []
         }
         for (let i = 0; i < answers.length; i++) {
-            pollBlank.buttons[i] = answers[i]
+            let array = [pollBlank.buttons[i]]
+            pollBlank.buttons[i] = array
         }
         let options = {
             reply_markup: JSON.stringify({
