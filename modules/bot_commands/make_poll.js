@@ -56,6 +56,7 @@ export default function make_poll() {
     bot.onText(/\/make_poll (.+) answers (.+)/, (msg, match) => {
         if (authCheck(msg) != true) return
 
+        let chat = msg.chat.id
         let question = match[1]
         let answers = match[2].split('/')
         let poll = {
@@ -78,7 +79,7 @@ export default function make_poll() {
             })
         };
 
-        bot.sendMessage(msg.chat.id, poll.title, options)
+        bot.sendMessage(chat, poll.title, options)
 
         bot.on('callback_query', function (msg) {
             let answer = msg.data
@@ -87,7 +88,7 @@ export default function make_poll() {
             poll.votes[answer] = poll.votes[answer]+1
             console.log(poll.votes[answer]+' posle')
 
-            // bot.sendMessage(msg.chat.id, poll.votes[answer])
+            bot.sendMessage(chat, poll.votes[answer])
           });
     })
 }
