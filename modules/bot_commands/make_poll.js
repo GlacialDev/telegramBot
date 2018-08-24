@@ -57,6 +57,7 @@ export default function make_poll() {
         if (authCheck(msg) != true) return
 
         let chat = msg.chat.id
+        let messageId = msg.id+1
         let question = match[1]
         let answers = match[2].split('/')
         let poll = {
@@ -65,12 +66,12 @@ export default function make_poll() {
             votes: []
         }
         for (let i = 0; i < answers.length; i++) {
+            poll.votes[i] = 0
             let objectBlanc = {
-                text : answers[i],
+                text : `${answers[i]} - ${poll.votes[i]}`,
                 callback_data : i
             }
             poll.buttons[i] = [objectBlanc]
-            poll.votes[i] = 0
         }
         let options = {
             reply_markup: JSON.stringify({
@@ -88,7 +89,7 @@ export default function make_poll() {
             poll.votes[answer] = poll.votes[answer]+1
             console.log(poll.votes[answer]+' posle')
 
-            bot.sendMessage(chat, poll.votes[answer])
+            bot.editMessageReplyMarkup(options.reply_markup.inline_keyboard.poll.buttons.text = `${answers[i]} - ${poll.votes[i]}`)
           });
     })
 }
