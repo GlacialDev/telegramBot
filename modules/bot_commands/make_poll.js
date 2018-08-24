@@ -60,15 +60,16 @@ export default function make_poll() {
         let answers = match[2].split('/')
         let poll = {
             title: question,
-            buttons: []
+            buttons: [],
+            votes: []
         }
         for (let i = 0; i < answers.length; i++) {
             let objectBlanc = {
-                votes : 0,
-                text : answers[i]+' '+objectBlanc.votes,
+                text : answers[i],
                 callback_data : i
             }
             poll.buttons[i] = [objectBlanc]
+            poll.votes[i] = 0
         }
         let options = {
             reply_markup: JSON.stringify({
@@ -82,8 +83,8 @@ export default function make_poll() {
         bot.on('callback_query', function (msg) {
             let answer = msg.data
             
-            poll.buttons[answer].votes++
-            bot.sendMessage(msg.chat.id, poll.buttons[answer].votes)
+            poll.votes[answer] = ++poll.votes[answer]
+            bot.sendMessage(msg.chat.id, poll.votes[answer])
           });
     })
 }
