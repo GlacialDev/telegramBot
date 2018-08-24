@@ -58,21 +58,23 @@ export default function make_poll() {
 
         let question = match[1]
         let answers = match[2].split('/')
-        let pollBlank = {
+        let poll = {
             title: question,
             buttons: []
         }
         for (let i = 0; i < answers.length; i++) {
-            let array = [{ text :pollBlank.buttons[i]}]
-            pollBlank.buttons[i] = array
+            let objectBlanc = {
+                text : answers[i]
+            }
+            poll.buttons[i] = [objectBlanc]
         }
         let options = {
             reply_markup: JSON.stringify({
-                inline_keyboard: pollBlank.buttons,
+                inline_keyboard: poll.buttons,
                 parse_mode: 'Markdown'
             })
         };
 
-        bot.sendMessage(msg.chat.id, pollBlank.title, options)
+        bot.sendMessage(msg.chat.id, poll.title, options)
     })
 }
