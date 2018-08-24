@@ -64,15 +64,15 @@ export default function make_poll() {
         }
         for (let i = 0; i < answers.length; i++) {
             let objectBlanc = {
-                text : answers[i],
-                callback_data : i,
-                votes : 0
+                votes : 0,
+                text : answers[i]+' '+votes,
+                callback_data : i
             }
             poll.buttons[i] = [objectBlanc]
         }
         let options = {
             reply_markup: JSON.stringify({
-                inline_keyboard: poll.buttons+' '+poll.buttons.votes,
+                inline_keyboard: poll.buttons,
                 parse_mode: 'Markdown'
             })
         };
