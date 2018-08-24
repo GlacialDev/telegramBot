@@ -98,14 +98,8 @@ export default function make_poll() {
                 }
                 poll.buttons[i] = [objectBlanc]
             }
-            let options = {
-                reply_markup: JSON.stringify({
-                    inline_keyboard: poll.buttons,
-                    parse_mode: 'Markdown'
-                })
-            };
 
-            bot.editMessageReplyMarkup(pollMsgId, options.reply_markup)
+            bot.editMessageReplyMarkup(options.reply_markup, {message_id : pollMsgId})
           });
     })
 }
