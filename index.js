@@ -35,6 +35,9 @@ upload_en_dis()
 import convert from './modules/bot_commands/convert'
 convert()
 
+import make_poll from './modules/bot_commands/make_poll'
+make_poll()
+
 import chatbox_init from './modules/bot_commands/chatbox_init'
 import chatbox_end from './modules/bot_commands/chatbox_end'
 import chatbox_info from './modules/bot_commands/chatbox_info'
