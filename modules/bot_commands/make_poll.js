@@ -65,7 +65,7 @@ export default function make_poll() {
         for (let i = 0; i < answers.length; i++) {
             let objectBlanc = {
                 votes : 0,
-                text : answers[i]+' '+votes,
+                text : answers[i]+' '+objectBlanc.votes,
                 callback_data : i
             }
             poll.buttons[i] = [objectBlanc]
