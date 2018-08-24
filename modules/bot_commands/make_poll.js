@@ -9,6 +9,7 @@ export default function make_poll() {
 
         let messageId = msg.message_id
         let chatId = msg.chat.id
+
         let question = match[1]
         let answers = match[2].split('/')
         let poll = {
@@ -44,21 +45,21 @@ export default function make_poll() {
 
             console.log(poll)
 
-            for (let i = 0; i < answers.length; i++) {
-                let objectBlanc = {
-                    text : `${answers[i]} - ${poll.votes[i]}`,
-                    callback_data : i
-                }
-                poll.buttons[i] = [objectBlanc]
-            }
-            options = {
-                reply_markup: JSON.stringify({
-                    inline_keyboard: poll.buttons,
-                    parse_mode: 'Markdown'
-                })
-            };
+            // for (let i = 0; i < answers.length; i++) {
+            //     let objectBlanc = {
+            //         text : `${answers[i]} - ${poll.votes[i]}`,
+            //         callback_data : i
+            //     }
+            //     poll.buttons[i] = [objectBlanc]
+            // }
+            // options = {
+            //     reply_markup: JSON.stringify({
+            //         inline_keyboard: poll.buttons,
+            //         parse_mode: 'Markdown'
+            //     })
+            // };
 
-            bot.editMessageReplyMarkup(chatId, messageId, options.reply_markup)
+            // bot.editMessageReplyMarkup(chatId, messageId, options.reply_markup)
           });
     })
 }
