@@ -77,5 +77,11 @@ export default function make_poll() {
         };
 
         bot.sendMessage(msg.chat.id, poll.title, options)
+
+        bot.on('callback_query', function (msg) {
+            let answer = msg.data
+        
+            bot.answerCallbackQuery(msg.id, 'Вы выбрали: '+ msg.data, true);
+          });
     })
 }
