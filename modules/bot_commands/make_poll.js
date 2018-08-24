@@ -83,13 +83,12 @@ export default function make_poll() {
         bot.sendMessage(chat, poll.title, options)
 
         bot.on('callback_query', function (msg) {
-            let answer = msg.data
+            let i = msg.data
             
-            console.log(poll.votes[answer]+' do')
-            poll.votes[answer] = poll.votes[answer]+1
-            console.log(poll.votes[answer]+' posle')
+            poll.votes[answer] = poll.votes[answer]++
+            let num = poll.votes[answer]
 
-            bot.editMessageReplyMarkup(options.reply_markup.inline_keyboard.poll.buttons[answer].text = `${answers[answer]} - ${poll.votes[i]}`)
+            bot.editMessageReplyMarkup(options.reply_markup = options.reply_markup)
           });
     })
 }
