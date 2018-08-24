@@ -5,26 +5,6 @@ let bot = variables.bot
 
 // var questions = [
 //     {
-//       title:'Сколько параметров можно передать функции ?',
-//       buttons: [
-//           [{ text: 'Ровно столько, сколько указано в определении функции.', callback_data: '0_1' }],
-//           [{ text: 'Сколько указано в определении функции или меньше.', callback_data: '0_2' }],
-//           [{ text: 'Сколько указано в определении функции или больше.', callback_data: '0_3' }],
-//           [{ text: 'Любое количество.', callback_data: '0_4' }]
-//         ],
-//       right_answer: 4
-//     },
-//     {
-//       title:'Чему равна переменная name?\nvar name = "пупкин".replace("п", "д")',
-//       buttons: [
-//           [{ text: 'дудкин', callback_data: '1_1' }],
-//           [{ text: 'дупкин', callback_data: '1_2' }],
-//           [{ text: 'пупкин', callback_data: '1_3' }],
-//           [{ text: 'ляпкин-тяпкин', callback_data: '1_4' }]
-//         ],
-//       right_answer: 2
-//     },
-//     {
 //       title:'Чему равно 0 || "" || 2 || true ?',
 //       buttons: [
 //           [{ text: '0', callback_data: '2_1' }],
@@ -35,11 +15,11 @@ let bot = variables.bot
 //       right_answer: 3
 //     },
 //   ];
-  
+
 //   function getRandomQuestion(){
 //     return questions[Math.floor(Math.random()*questions.length)];
 //   }
-  
+
 //   function newQuestion(msg){
 //     var arr = getRandomQuestion();
 //     var text = arr.title;
@@ -52,33 +32,46 @@ let bot = variables.bot
 //     chat = msg.hasOwnProperty('chat') ? msg.chat.id : msg.from.id;
 //     bot.sendMessage(chat, text, options);
 //   }
-  
+
 //   bot.onText(/\/start_test/, function (msg, match) {
 //     newQuestion(msg);
 //   });
-  
+
 //   bot.on('callback_query', function (msg) {
 //     var answer = msg.data.split('_');
 //     var index = answer[0];
 //     var button = answer[1];
-  
+
 //     if (questions[index].right_answer==button) {
 //       bot.sendMessage(msg.from.id, 'Ответ верный ✅');
 //     } else {
 //       bot.sendMessage(msg.from.id, 'Ответ неверный ❌');
 //     }
-  
+
 //     bot.answerCallbackQuery(msg.id, 'Вы выбрали: '+ msg.data, true);
 //     newQuestion(msg);
 //   });
 
 export default function make_poll() {
-  bot.onText(/\/make_poll (.+) answers (.+)/, (msg, match) => {
-    if (authCheck(msg) != true) return
+    bot.onText(/\/make_poll (.+) answers (.+)/, (msg, match) => {
+        if (authCheck(msg) != true) return
 
-    let question = match[1]
-    let answers = match[2].split('/')
+        let question = match[1]
+        let answers = match[2].split('/')
+        let pollBlank = {
+            title: question,
+            buttons: []
+        }
+        for (let i = 0; i < answers.length; i++) {
+            pollBlank.buttons[i] = answers[i]
+        }
+        let options = {
+            reply_markup: JSON.stringify({
+                inline_keyboard: pollBlank.buttons,
+                parse_mode: 'Markdown'
+            })
+        };
 
-    console.log(question+' '+answers[0])
-  })
+        bot.sendMessage(msg.chat.id, pollBlank.title, options)
+    })
 }
