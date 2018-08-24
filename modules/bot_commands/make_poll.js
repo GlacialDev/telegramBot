@@ -67,7 +67,7 @@ export default function make_poll() {
                 text : answers[i],
                 callback_data : i+1
             }
-            poll.buttons[i] = [objectBlanc]
+            poll.buttons[0][i] = [objectBlanc]
         }
         let options = {
             reply_markup: JSON.stringify({
