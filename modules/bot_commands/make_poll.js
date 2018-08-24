@@ -34,10 +34,9 @@ export default function make_poll() {
 
         bot.on('callback_query', function (msg) {
             let i = msg.data
-            let id = msg.data.message_id
             
             console.log(poll.votes[i]+' do')
-            poll.votes[i] = poll.votes[i]+1
+            poll.votes[i] = poll.votes[i]++
             console.log(poll.votes[i]+' posle')
 
             console.log(poll)
@@ -50,7 +49,7 @@ export default function make_poll() {
                 poll.buttons[i] = [objectBlanc]
             }
 
-            bot.editMessageReplyMarkup(options.reply_markup, {message_id : id})
+            bot.editMessageReplyMarkup({inline_keyboard: poll.buttons})
           });
     })
 }
