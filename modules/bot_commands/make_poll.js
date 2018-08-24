@@ -89,7 +89,7 @@ export default function make_poll() {
             poll.votes[answer] = poll.votes[answer]+1
             console.log(poll.votes[answer]+' posle')
 
-            bot.editMessageReplyMarkup(options.reply_markup.inline_keyboard.poll.buttons.text = `${answers[i]} - ${poll.votes[i]}`)
+            bot.editMessageReplyMarkup(options.reply_markup.inline_keyboard.poll.buttons[answer].text = `${answers[answer]} - ${poll.votes[i]}`)
           });
     })
 }
