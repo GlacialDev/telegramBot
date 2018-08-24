@@ -83,8 +83,11 @@ export default function make_poll() {
         bot.on('callback_query', function (msg) {
             let answer = msg.data
             
-            poll.votes[answer] = ++poll.votes[answer]
-            bot.sendMessage(msg.chat.id, poll.votes[answer])
+            console.log(poll.votes[answer]+' do')
+            poll.votes[answer] = poll.votes[answer]+1
+            console.log(poll.votes[answer]+' posle')
+
+            // bot.sendMessage(msg.chat.id, poll.votes[answer])
           });
     })
 }
