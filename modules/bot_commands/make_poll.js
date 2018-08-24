@@ -65,13 +65,14 @@ export default function make_poll() {
         for (let i = 0; i < answers.length; i++) {
             let objectBlanc = {
                 text : answers[i],
-                callback_data : i+1
+                callback_data : i,
+                votes : 0
             }
-            poll.buttons[0][i] = [objectBlanc]
+            poll.buttons[i] = [objectBlanc]
         }
         let options = {
             reply_markup: JSON.stringify({
-                inline_keyboard: poll.buttons,
+                inline_keyboard: poll.buttons+' '+poll.buttons.votes,
                 parse_mode: 'Markdown'
             })
         };
@@ -80,8 +81,9 @@ export default function make_poll() {
 
         bot.on('callback_query', function (msg) {
             let answer = msg.data
-        
-            bot.answerCallbackQuery(msg.id, 'Вы выбрали: '+ msg.data, true);
+            
+            poll.buttons[answer].votes++
+            bot.sendMessage(msg.chat.id, poll.buttons[answer].votes)
           });
     })
 }
