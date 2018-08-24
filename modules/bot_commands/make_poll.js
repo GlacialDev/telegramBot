@@ -79,7 +79,6 @@ export default function make_poll() {
     let question = match[1]
     let answers = match[2].split('/')
 
-    console.log(question+' '+answers)
-    console.log(typeof answers)
+    console.log(question+' '+answers[0])
   })
 }
