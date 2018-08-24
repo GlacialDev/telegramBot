@@ -63,7 +63,7 @@ export default function make_poll() {
             buttons: []
         }
         for (let i = 0; i < answers.length; i++) {
-            let array = [pollBlank.buttons[i]]
+            let array = [{ text :pollBlank.buttons[i]}]
             pollBlank.buttons[i] = array
         }
         let options = {
