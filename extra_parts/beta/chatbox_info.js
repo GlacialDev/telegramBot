@@ -1,6 +1,6 @@
-import variables from '../variables/variables'
-import authCheck from '../functions/authCheck'
-import chatBox from '../objects/chatBox'
+import variables from '../../modules/variables/variables'
+import authCheck from '../../modules/functions/authCheck'
+import chatBox from './chatBox'
 
 let bot = variables.bot
 

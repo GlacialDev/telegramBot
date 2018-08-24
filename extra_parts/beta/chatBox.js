@@ -1,4 +1,4 @@
-import variables from '../variables/variables'
+import variables from '../../modules/variables/variables'
 
 let bot = variables.bot
 
