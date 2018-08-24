@@ -57,7 +57,7 @@ export default function make_poll() {
         if (authCheck(msg) != true) return
 
         let chat = msg.chat.id
-        let messageId = msg.id+1
+        let pollMsgId = msg.id+1
         let question = match[1]
         let answers = match[2].split('/')
         let poll = {
@@ -105,7 +105,7 @@ export default function make_poll() {
                 })
             };
 
-            bot.editMessageReplyMarkup(options.reply_markup)
+            bot.editMessageReplyMarkup(pollMsgId, options.reply_markup)
           });
     })
 }
