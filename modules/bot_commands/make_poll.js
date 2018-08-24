@@ -85,10 +85,11 @@ export default function make_poll() {
         bot.on('callback_query', function (msg) {
             let i = msg.data
             
-            poll.votes[answer] = poll.votes[answer]++
+            console.log(poll.votes[i]+' do')
+            poll.votes[i] = poll.votes[i]+1
+            console.log(poll.votes[i]+' posle')
 
             console.log(poll)
-
             // bot.editMessageReplyMarkup(options.reply_markup)
           });
     })
