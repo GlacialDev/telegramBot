@@ -38,17 +38,7 @@ convert()
 import make_poll from './modules/bot_commands/make_poll'
 make_poll()
 
-import chatbox_init from './modules/bot_commands/chatbox_init'
-import chatbox_end from './modules/bot_commands/chatbox_end'
-import chatbox_info from './modules/bot_commands/chatbox_info'
-import botTransit from './modules/functions/botTransit' 
 
-let devMode = false
+let devMode = true
 import botInit from './modules/functions/botInit'
 botInit(devMode)
-if(devMode) {
-    chatbox_init()
-    chatbox_end()
-    chatbox_info()
-    botTransit()
-}
