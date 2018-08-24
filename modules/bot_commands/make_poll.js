@@ -77,7 +77,7 @@ export default function make_poll() {
     if (authCheck(msg) != true) return
 
     let question = match[1]
-    let answers = match[2].split(' ')
+    let answers = match[2].split('/')
 
     console.log(question+' '+answers)
   })
