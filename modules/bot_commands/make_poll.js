@@ -86,9 +86,10 @@ export default function make_poll() {
             let i = msg.data
             
             poll.votes[answer] = poll.votes[answer]++
-            let num = poll.votes[answer]
 
-            bot.editMessageReplyMarkup(options.reply_markup = options.reply_markup)
+            console.log(poll)
+
+            // bot.editMessageReplyMarkup(options.reply_markup)
           });
     })
 }
