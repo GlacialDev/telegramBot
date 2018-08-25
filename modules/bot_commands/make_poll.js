@@ -32,6 +32,8 @@ export default function make_poll() {
         bot.sendMessage(msg.chat.id, poll.title, options)
 
         bot.on('callback_query', function (msg) {
+            let fuckubitch = bot.getUpdates()
+            console.log(fuckubitch)
             let i = msg.data
             let messageId = msg.message.message_id
             let chatId = msg.message.chat.id
@@ -50,6 +52,11 @@ export default function make_poll() {
                     inline_keyboard: poll.buttons
                 })
             };
+
+            console.log('dsadsadsadsadsadsadsa')
+            console.log('dsadsadsadsadsadsadsa')
+            console.log('dsadsadsadsadsadsadsa')
+            console.log('dsadsadsadsadsadsadsa')
 
             bot.editMessageText(poll.title, {
                 chat_id: chatId,
