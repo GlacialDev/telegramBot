@@ -6,7 +6,7 @@ let poll = {
     question: '',
     answers: [],
     poll: {
-        title: poll.question,
+        title: poll.poll.question,
         buttons: [],
         votes: []
     },
