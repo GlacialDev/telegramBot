@@ -32,8 +32,6 @@ export default function make_poll() {
         bot.sendMessage(msg.chat.id, poll.title, options)
 
         bot.on('callback_query', function (msg) {
-            let fuckubitch = bot.getUpdates()
-            console.log(fuckubitch)
             let i = msg.data
             let messageId = msg.message.message_id
             let chatId = msg.message.chat.id
@@ -59,6 +57,7 @@ export default function make_poll() {
             console.log('dsadsadsadsadsadsadsa')
 
             bot.editMessageText(poll.title, {
+                message_id: messageId,
                 chat_id: chatId,
                 parse_mode: 'Markdown',
                 reply_markup: options.reply_markup
