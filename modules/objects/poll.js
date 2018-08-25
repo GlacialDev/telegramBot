@@ -3,9 +3,9 @@ import variables from '../variables/variables'
 let bot = variables.bot
 
 class poll {
-    title
-    answers
-    id
+    title = ''
+    answers = []
+    id = ''
     buttons = []
     votes = []
 
