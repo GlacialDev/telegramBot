@@ -34,18 +34,19 @@ let pollManager = {
         }
 
         if(userVotes[0].includes(userId)) {
-            let i = userVotes[0].indexOf(userId)
+            let userPos = userVotes[0].indexOf(userId)
             let lastAnswerNumber = userVotes[1][i]
+            let answerPos = lastAnswerNumber.indexof(lastAnswerNumber)
 
             if(lastAnswerNumber == answerNumber) {
-                userVotes[0].splice(i, 1)
-                userVotes[1].splice(lastAnswerNumber, 1)
+                userVotes[0].splice(userPos, 1)
+                userVotes[1].splice(answerPos, 1)
                 clickedPoll.votes[lastAnswerNumber]--
                 console.log('клик туда же где и был голос = убрать')
                 console.log(userVotes)
             } else {
-                userVotes[0].splice(i, 1)
-                userVotes[1].splice(lastAnswerNumber, 1)
+                userVotes[0].splice(userPos, 1)
+                userVotes[1].splice(answerPos, 1)
                 clickedPoll.votes[lastAnswerNumber]--
                 userVotes[0].push(userId)
                 userVotes[1].push(answerNumber)
@@ -62,6 +63,10 @@ let pollManager = {
         }
         
         clickedPoll.update_poll(msg)
+    },
+
+    addVote: () => {
+        
     }
 }
 
