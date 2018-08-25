@@ -27,16 +27,15 @@ class poll {
                 inline_keyboard: [[
                     {
                         text: "A",
-                        callback_data: "A1"            
-                    }, 
+                        callback_data: "A1"
+                    },
                     {
                         text: "B",
-                        callback_data: "C1"            
+                        callback_data: "C1"
                     }]
                 ]
             }
-    }
-        };
+        }
 
         bot.sendMessage(msg.chat.id, title, options)
     }
