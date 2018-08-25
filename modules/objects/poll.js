@@ -40,32 +40,32 @@ class poll {
         bot.sendMessage(msg.chat.id, title, options)
     }
 
-    update_poll(msg) {
-        let messageId = msg.message.message_id
-        let chatId = msg.message.chat.id
+    // update_poll(msg) {
+    //     let messageId = msg.message.message_id
+    //     let chatId = msg.message.chat.id
 
-        votes[i] = votes[i] + 1
+    //     votes[i] = votes[i] + 1
 
-        for (let i = 0; i < answers.length; i++) {
-            let objectBlanc = {
-                text: `${answers[i]} - ${votes[i]}`,
-                callback_data: pollId+'_'+i
-            }
-            buttons[i] = [objectBlanc]
-        }
-        options = {
-            reply_markup: JSON.stringify({
-                inline_keyboard: buttons
-            })
-        };
+    //     for (let i = 0; i < answers.length; i++) {
+    //         let objectBlanc = {
+    //             text: `${answers[i]} - ${votes[i]}`,
+    //             callback_data: pollId+'_'+i
+    //         }
+    //         buttons[i] = [objectBlanc]
+    //     }
+    //     options = {
+    //         reply_markup: JSON.stringify({
+    //             inline_keyboard: buttons
+    //         })
+    //     };
 
-        bot.editMessageText(title, {
-            message_id: messageId,
-            chat_id: chatId,
-            parse_mode: 'Markdown',
-            reply_markup: options.reply_markup
-        })
-    }
+    //     bot.editMessageText(title, {
+    //         message_id: messageId,
+    //         chat_id: chatId,
+    //         parse_mode: 'Markdown',
+    //         reply_markup: options.reply_markup
+    //     })
+    // }
 }
 
 export default poll

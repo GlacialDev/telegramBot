@@ -11,12 +11,14 @@ export default function make_poll() {
     bot.onText(/\/make_poll (.+) - ответы - (.+)/, (msg, match) => {
         if (authCheck(msg) != true) return
 
-        let question = match[1]
+        let title = match[1]
         let answers = match[2].split('/')
         let id = symbolStringGenerator(15)
-        let pollObject = new poll(question, answers, id)
+        let pollObject = new poll(title, answers, id)
+        console.log(pollObject)
 
         pollStore.push([id, pollObject])
+        console.log(pollStore)
 
         pollObject.make_poll(msg)
     })
