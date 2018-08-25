@@ -51,8 +51,8 @@ export default function make_poll() {
                 })
             };
 
-            bot.editMessageReplyMarkup({
-                message_id: messageId,
+            bot.editMessageText(poll.title, {
+                chat_id: chatId,
                 parse_mode: 'Markdown',
                 reply_markup: options.reply_markup
             })
