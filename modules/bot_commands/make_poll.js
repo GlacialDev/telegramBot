@@ -38,7 +38,7 @@ export default function make_poll() {
             })
         }
 
-        bot.sendMessage(msg.chat.id, poll.title, options)
+        bot.sendMessage(msg.chat.id, title, options)
 
         // let pollObject = new poll(title, answers, id, votes, buttons)
         // console.log(pollObject)
