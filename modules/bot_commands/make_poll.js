@@ -14,11 +14,11 @@ export default function make_poll() {
         let question = match[1]
         let answers = match[2].split('/')
         let id = symbolStringGenerator(15)
-        let poll = new poll(question, answers, id)
+        let pollObject = new poll(question, answers, id)
 
-        pollStore.push([id, poll])
+        pollStore.push([id, pollObject])
 
-        poll.make_poll(msg)
+        pollObject.make_poll(msg)
     })
 
     bot.on('callback_query', function (msg) {
