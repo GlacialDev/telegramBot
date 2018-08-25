@@ -31,7 +31,7 @@ export default function make_poll() {
             buttons[i] = buttonObjBlank
         }
 
-        let pollObject = new poll(title, answers, id, votes, buttons)
+        let pollObject = new poll(title, answers, id, votes, [buttons])
         console.log(pollObject)
 
         pollStore.push([id, pollObject])
