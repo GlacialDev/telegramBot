@@ -35,7 +35,7 @@ let pollManager = {
 
         if(userVotes[0].includes(userId)) {
             let userPos = userVotes[0].indexOf(userId)
-            let lastAnswerNumber = userVotes[1][i]
+            let lastAnswerNumber = userVotes[1][userPos]
             let answerPos = lastAnswerNumber.indexof(lastAnswerNumber)
 
             if(lastAnswerNumber == answerNumber) {
