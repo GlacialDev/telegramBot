@@ -1,5 +1,6 @@
 import variables from '../variables/variables'
 import authCheck from '../functions/authCheck'
+import poll from '../objects/poll'
 
 let bot = variables.bot
 
@@ -10,7 +11,6 @@ export default function make_poll() {
         let question = match[1]
         let answers = match[2].split('/')
 
-        let poll = new poll(question, answers)
-        poll.make_poll()
+        new poll(question, answers).make_poll()
     })
 }
