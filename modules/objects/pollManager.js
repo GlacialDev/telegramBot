@@ -3,8 +3,8 @@ import poll from './poll'
 
 let bot = variables.bot
 
-class pollManager {
-    store = []
+let pollManager = {
+    store = [],
     
     createPoll(title, answers, id, msg) {
         let pollObject = new poll(title, answers, id)
@@ -13,3 +13,5 @@ class pollManager {
         pollObject.make_poll(msg)
     }
 }
+
+export default pollManager
