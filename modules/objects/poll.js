@@ -3,6 +3,9 @@ import variables from '../variables/variables'
 let bot = variables.bot
 
 class poll {
+    title
+    answers
+
     constructor(title, answers) {
         this.title = title
         this.answers = answers
