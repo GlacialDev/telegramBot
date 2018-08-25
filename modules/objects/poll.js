@@ -14,7 +14,7 @@ class poll {
         this.answers = answers
         this.id = id
         this.votes = votes
-        this.buttons = [buttons]
+        this.buttons = buttons
     }
 
     make_poll(msg) {

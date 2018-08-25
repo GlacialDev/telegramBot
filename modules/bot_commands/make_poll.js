@@ -26,6 +26,8 @@ export default function make_poll() {
             buttons[i] = buttonObjBlank
         }
 
+        console.log(buttons)
+
         let pollObject = new poll(title, answers, id, votes, buttons)
         console.log(pollObject)
 
