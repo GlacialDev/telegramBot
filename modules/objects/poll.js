@@ -9,15 +9,23 @@ class poll {
     votes = []
     buttons = []
 
-    constructor(title, answers, id, votes, buttons) {
+    constructor(title, answers, id) {
         this.title = title
         this.answers = answers
         this.id = id
-        this.votes = votes
-        this.buttons = buttons
     }
 
     make_poll(msg) {
+
+        for (let i = 0; i < answers.length; i++) {
+            this.votes[i] = 0
+            let buttonObjBlank = {
+                text: `${this.answers[i]} - ${this.votes[i]}`,
+                callback_data: this.id+'_'+i
+            }
+            this.buttons[i] = [buttonObjBlank]
+        }
+
         let options = {
             reply_markup: JSON.stringify({
                 inline_keyboard: this.buttons,
