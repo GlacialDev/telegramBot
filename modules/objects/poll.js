@@ -11,14 +11,18 @@ class poll {
         poll.title = title
         poll.answers = answers
         poll.pollId = pollId
+
+        console.log(pollId+' pollId inside constructor')
     }
 
     make_poll(msg) {
         let title = poll.title
         let answers = poll.answers
-        let pollId = poll.pollID
+        let pollId = poll.pollId
         let buttons = []
         let votes = []
+
+        console.log(pollId+' pollId inside make_poll')
         
         for (let i = 0; i < answers.length; i++) {
             votes[i] = 0
