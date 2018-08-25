@@ -34,7 +34,10 @@ export default function make_poll() {
         bot.on('callback_query', function (msg) {
             let i = msg.data
             console.log(msg)
-            
+            console.log(msg.message.message_id)
+            console.log(msg.chat.id)
+            // let messageId =
+            // let chatId = 
             console.log(poll.votes[i]+' do')
             poll.votes[i] = poll.votes[i]+1
             console.log(poll.votes[i]+' posle')
