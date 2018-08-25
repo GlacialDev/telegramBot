@@ -31,7 +31,7 @@ export default function make_poll() {
         console.log(pollStore.length+' dlina pollstore')
         let clickedPoll
         for (let i = 0; i < pollStore.length; i++) {
-            console.log(pollStore[i])
+            console.log(pollStore[i][0])
         }
         
     })
