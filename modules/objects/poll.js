@@ -16,6 +16,7 @@ class poll {
     make_poll(msg) {
         let title = poll.title
         let answers = poll.answers
+        let pollId = poll.pollID
         let buttons = []
         let votes = []
         
