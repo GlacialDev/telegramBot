@@ -15,7 +15,7 @@ let poll = {
         let answers = poll.answers
         let buttons = []
         let votes = []
-
+        console.log('makepoll after let')
         for (let i = 0; i < answers.length; i++) {
             votes[i] = 0
             let objectBlanc = {
@@ -31,8 +31,10 @@ let poll = {
             })
         };
 
+        console.log('makepoll after options')
         bot.sendMessage(msg.chat.id, title, options)
 
+        console.log('makepoll after sendmessage')
         bot.on('callback_query', function (msg) {
             let i = msg.data
             let messageId = msg.message.message_id
