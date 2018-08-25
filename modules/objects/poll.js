@@ -10,9 +10,9 @@ class poll {
     votes = []
 
     constructor(title, answers, id) {
-        poll.title = title
-        poll.answers = answers
-        poll.id = id
+        this.title = title
+        this.answers = answers
+        this.id = id
     }
 
     make_poll(msg) {
