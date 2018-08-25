@@ -37,7 +37,7 @@ export default function make_poll() {
 
             
             console.log(poll.votes[i]+' do')
-            poll.votes[i] = poll.votes[i]++
+            poll.votes[i] = poll.votes[i]+1
             console.log(poll.votes[i]+' posle')
 
             console.log(poll)
