@@ -3,32 +3,28 @@ import variables from '../variables/variables'
 let bot = variables.bot
 
 let poll = {
-    question: '',
+    title: '',
     answers: [],
-    poll: {
-        title: poll.poll.question,
-        buttons: [],
-        votes: []
-    },
-    constructor(question, answers) {
-        this.question = question
+    constructor(title, answers) {
+        this.title = title
         this.answers = answers
     }, 
-    make_poll() {
-        let poll = poll.poll
-        let answers = poll.answers
+
+    make_poll(msg) {
+        let buttons = []
+        let votes = []
 
         for (let i = 0; i < answers.length; i++) {
-            poll.votes[i] = 0
+            votes[i] = 0
             let objectBlanc = {
-                text: `${answers[i]} - ${poll.votes[i]}`,
+                text: `${answers[i]} - ${votes[i]}`,
                 callback_data: i
             }
-            poll.buttons[i] = [objectBlanc]
+            buttons[i] = [objectBlanc]
         }
         let options = {
             reply_markup: JSON.stringify({
-                inline_keyboard: poll.buttons,
+                inline_keyboard: buttons,
                 parse_mode: 'Markdown'
             })
         };
@@ -40,18 +36,18 @@ let poll = {
             let messageId = msg.message.message_id
             let chatId = msg.message.chat.id
 
-            poll.votes[i] = poll.votes[i] + 1
+            votes[i] = votes[i] + 1
 
             for (let i = 0; i < answers.length; i++) {
                 let objectBlanc = {
-                    text: `${answers[i]} - ${poll.votes[i]}`,
+                    text: `${answers[i]} - ${votes[i]}`,
                     callback_data: i
                 }
-                poll.buttons[i] = [objectBlanc]
+                buttons[i] = [objectBlanc]
             }
             options = {
                 reply_markup: JSON.stringify({
-                    inline_keyboard: poll.buttons
+                    inline_keyboard: buttons
                 })
             };
 
