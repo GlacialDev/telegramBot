@@ -11,10 +11,10 @@ let pollManager = {
         let title = match[1]
         let answers = match[2].split('/')
         let id = symbolStringGenerator(15)
-        let userIdList = []
+        let userVotes = [[],[]]
 
         let pollObject = new poll(title, answers, id)
-        pollManager.store.push([id, pollObject, userIdList])
+        pollManager.store.push([id, pollObject, userVotes])
 
         pollObject.make_poll(msg)
     },
@@ -23,7 +23,7 @@ let pollManager = {
         let answerNumber = data[2]
         let userId = msg.from.id
         let clickedPoll
-        let userVotes = [[],[]]
+        let userVotes
 
         for (let i = 0; i < pollManager.store.length; i++) {
             if (pollManager.store[i][0] == id) {
