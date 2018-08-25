@@ -9,7 +9,6 @@ class poll {
     constructor(title, answers) {
         poll.title = title
         poll.answers = answers
-        console.log('constructor')
     }
 
     make_poll(msg) {
@@ -17,9 +16,7 @@ class poll {
         let answers = poll.answers
         let buttons = []
         let votes = []
-        console.log('makepoll after let')
         
-        console.log(title, answers, buttons, votes)
         for (let i = 0; i < answers.length; i++) {
             votes[i] = 0
             let objectBlanc = {
@@ -35,10 +32,8 @@ class poll {
             })
         };
 
-        console.log('makepoll after options')
         bot.sendMessage(msg.chat.id, title, options)
-
-        console.log('makepoll after sendmessage')
+        
         bot.on('callback_query', function (msg) {
             let i = msg.data
             let messageId = msg.message.message_id

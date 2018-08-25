@@ -10,10 +10,7 @@ export default function make_poll() {
 
         let question = match[1]
         let answers = match[2].split('/')
-        console.log(question + ' makepoll() after command')
-        console.log(answers + ' makepoll() after command')
 
-        let pollObj = new poll(question, answers)
-        pollObj.make_poll(msg)
+        new poll(question, answers).make_poll(msg)
     })
 }
