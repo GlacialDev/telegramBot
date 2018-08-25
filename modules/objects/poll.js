@@ -11,6 +11,8 @@ let poll = {
     }, 
 
     make_poll(msg) {
+        let title = poll.title
+        let answers = poll.answers
         let buttons = []
         let votes = []
 
@@ -29,7 +31,7 @@ let poll = {
             })
         };
 
-        bot.sendMessage(msg.chat.id, poll.title, options)
+        bot.sendMessage(msg.chat.id, title, options)
 
         bot.on('callback_query', function (msg) {
             let i = msg.data
@@ -51,7 +53,7 @@ let poll = {
                 })
             };
 
-            bot.editMessageText(poll.title, {
+            bot.editMessageText(title, {
                 message_id: messageId,
                 chat_id: chatId,
                 parse_mode: 'Markdown',
