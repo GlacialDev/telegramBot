@@ -65,7 +65,6 @@ class poll {
             parse_mode: 'Markdown',
             reply_markup: options.reply_markup
         })
-    });
     }
 }
 

@@ -25,5 +25,6 @@ export default function make_poll() {
         let data = msg.data.split('_')
         let id = data[0]
         let answerNumber = data[1]
+        console.log(data)
     })
 }
