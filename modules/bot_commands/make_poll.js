@@ -29,11 +29,10 @@ export default function make_poll() {
         console.log(data)
 
         console.log(pollStore.length+' dlina pollstore')
-
-        // let clickedPoll
-        // for (let i = 0; i < pollStore.length; i++) {
-        //     console.log(pollStore)
-        // }
+        let clickedPoll
+        for (let i = 0; i < pollStore.length; i++) {
+            console.log(pollStore[i])
+        }
         
     })
 }
