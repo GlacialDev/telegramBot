@@ -15,18 +15,22 @@ export default function make_poll() {
         let answers = match[2].split('/')
         let id = symbolStringGenerator(15)
         let votes = []
-        let buttons = []
+        let buttons = [
+            [{ text: 'да - 0', callback_data: 'dasdpph9brtj4ul_0' }],
+            [{ text: 'нет - 0', callback_data: 'dasdpph9brtj4ul_1' }],
+            [{ text: 'не знаю - 0', callback_data: 'dasdpph9brtj4ul_2' }]
+            [{ text: 'а может пошел ты - 0', callback_data: 'dasdpph9brtj4ul_3' }]
+        ]
 
-        for (let i = 0; i < answers.length; i++) {
-            votes[i] = 0
-            let buttonObjBlank = {
-                text: `${answers[i]} - ${votes[i]}`,
-                callback_data: id+'_'+i
-            }
-            buttons[i] = buttonObjBlank
-        }
+        // for (let i = 0; i < answers.length; i++) {
+        //     votes[i] = 0
+        //     let buttonObjBlank = {
+        //         text: `${answers[i]} - ${votes[i]}`,
+        //         callback_data: id+'_'+i
+        //     }
+        //     buttons[i] = buttonObjBlank
+        // }
 
-        console.log(buttons)
 
         let pollObject = new poll(title, answers, id, votes, buttons)
         console.log(pollObject)
