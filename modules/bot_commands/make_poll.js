@@ -7,8 +7,6 @@ export default function make_poll() {
     bot.onText(/\/make_poll (.+) answers (.+)/, (msg, match) => {
         if (authCheck(msg) != true) return
 
-        let chatId = msg.chat.id
-
         let question = match[1]
         let answers = match[2].split('/')
         let poll = {
@@ -35,7 +33,6 @@ export default function make_poll() {
 
         bot.on('callback_query', function (msg) {
             let i = msg.data
-            // let chatId = msg.chat.id
             
             console.log(poll.votes[i]+' do')
             poll.votes[i] = poll.votes[i]+1
@@ -55,7 +52,7 @@ export default function make_poll() {
                 })
             };
 
-            bot.editMessageReplyMarkup(options.reply_markup)
+            msg.editMessageReplyMarkup(options.reply_markup)
           });
     })
 }
