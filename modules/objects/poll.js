@@ -2,14 +2,12 @@ import variables from '../variables/variables'
 
 let bot = variables.bot
 
-let poll = {
-    title: '',
-    answers: [],
+class poll {
     constructor(title, answers) {
         this.title = title
         this.answers = answers
         console.log('constructor')
-    }, 
+    }
 
     make_poll(msg) {
         let title = poll.title
