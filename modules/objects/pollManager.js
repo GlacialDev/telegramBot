@@ -8,7 +8,7 @@ let pollManager = {
     
     createPoll: (title, answers, id, msg) => {
         let pollObject = new poll(title, answers, id)
-        this.store.push([id, pollObject])
+        pollManager.store.push([id, pollObject])
 
         pollObject.make_poll(msg)
     }
