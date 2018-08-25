@@ -2,7 +2,7 @@ import variables from '../variables/variables';
 import poll from './poll'
 import symbolStringGenerator from '../functions/symbolStringGenerator'
 
-let bot = variables.bot
+// let bot = variables.bot
 
 let pollManager = {
     store: [],
@@ -11,13 +11,15 @@ let pollManager = {
         let title = match[1]
         let answers = match[2].split('/')
         let id = symbolStringGenerator(15)
+        let userIdList = []
 
         let pollObject = new poll(title, answers, id)
-        pollManager.store.push([id, pollObject])
+        pollManager.store.push([id, pollObject, userIdList])
 
         pollObject.make_poll(msg)
     },
     updatePoll: (msg, data) => {
+        console.log(msg)
         let id = data[1]
         let answerNumber = data[2]
         let clickedPoll
