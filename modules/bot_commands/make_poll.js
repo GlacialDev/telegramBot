@@ -7,8 +7,7 @@ export default function make_poll() {
     bot.onText(/\/make_poll (.+) answers (.+)/, (msg, match) => {
         if (authCheck(msg) != true) return
 
-        let messageId = msg.message_id
-        let chatId = msg.chat.id
+        let messageId = msg.message_id+1
 
         let question = match[1]
         let answers = match[2].split('/')
@@ -32,11 +31,11 @@ export default function make_poll() {
             })
         };
 
-        bot.sendMessage(chatId, poll.title, options)
+        bot.sendMessage(msg.chat.id, poll.title, options)
 
         bot.on('callback_query', function (msg) {
             let i = msg.data
-            let chatId2 = msg.chat.id
+            let chatId = msg.chat.id
 
             
             console.log(poll.votes[i]+' do')
@@ -59,7 +58,7 @@ export default function make_poll() {
                 })
             };
 
-            bot.editMessageReplyMarkup(chatId2, messageId, options.reply_markup)
+            bot.editMessageReplyMarkup(chatId, messageId, options.reply_markup)
           });
     })
 }
