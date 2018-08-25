@@ -33,7 +33,7 @@ let pollManager = {
             }
         }
 
-        if(pollUserList.includes(userId)) {console.log('uje est'); return}
+        if(pollUserList.includes(userId)) return
         else pollUserList.push(userId)
         
         clickedPoll.votes[answerNumber]++
