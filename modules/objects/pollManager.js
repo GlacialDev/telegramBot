@@ -28,7 +28,7 @@ let pollManager = {
         for (let i = 0; i < pollManager.store.length; i++) {
             if (pollManager.store[i][0] == id) {
                 clickedPoll = pollManager.store[i][1]
-                pollUserList = pollManager.store[i][2]
+                userVotes = pollManager.store[i][2]
                 break
             }
         }
@@ -36,6 +36,7 @@ let pollManager = {
         if(userVotes[0].includes(userId)) {
             let i = userVotes[0].indexOf(userId)
             let lastAnswerNumber = userVotes[1][i]
+
             if(lastAnswerNumber == answerNumber) {
                 userVotes[0].splice(i, 1)
                 userVotes[1].splice(lastAnswerNumber, 1)
