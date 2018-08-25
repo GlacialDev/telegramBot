@@ -16,7 +16,6 @@ export default function make_poll() {
         let id = symbolStringGenerator(15)
 
         let pollObject = new poll(title, answers, id)
-
         pollStore.push([id, pollObject])
 
         pollObject.make_poll(msg)
@@ -24,18 +23,20 @@ export default function make_poll() {
 
     bot.on('callback_query', function (msg) {
         let data = msg.data.split('_')
-        let id = data[0]
-        let answerNumber = data[1]
-        let clickedPoll
-
-        for (let i = 0; i < pollStore.length; i++) {
-            if (pollStore[i][0] == id) {
-                clickedPoll = pollStore[i][1]
-                break
+        if(data[0] == 'poll') {
+            let id = data[1]
+            let answerNumber = data[2]
+            let clickedPoll
+    
+            for (let i = 0; i < pollStore.length; i++) {
+                if (pollStore[i][0] == id) {
+                    clickedPoll = pollStore[i][1]
+                    break
+                }
             }
+            
+            clickedPoll.votes[answerNumber]++
+            clickedPoll.update_poll(msg)
         }
-        
-        clickedPoll.votes[answerNumber]++
-        clickedPoll.update_poll(msg)
     })
 }

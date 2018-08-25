@@ -20,7 +20,7 @@ class poll {
             this.votes[i] = 0
             let buttonObjBlank = {
                 text: `${this.answers[i]} - ${this.votes[i]}`,
-                callback_data: this.id+'_'+i
+                callback_data: 'poll_'+this.id+'_'+i
             }
             this.buttons[i] = [buttonObjBlank]
         }
@@ -42,7 +42,7 @@ class poll {
         for (let i = 0; i < this.answers.length; i++) {
             let buttonObjBlank = {
                 text: `${this.answers[i]} - ${this.votes[i]}`,
-                callback_data: this.id+'_'+i
+                callback_data: 'poll_'+this.id+'_'+i
             }
             this.buttons[i] = [buttonObjBlank]
         }
