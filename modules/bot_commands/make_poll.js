@@ -30,7 +30,7 @@ export default function make_poll() {
 
         let clickedPoll
         for (let i = 0; i < pollStore.length; i++) {
-            console.log(pollstore)
+            console.log(pollStore)
         }
         
     })
