@@ -33,30 +33,30 @@ export default function make_poll() {
 
         bot.on('callback_query', function (msg) {
             let i = msg.data
-            console.log(msg)
-            console.log(msg.message.message_id)
-            console.log(msg.message.chat.id)
-            // let messageId =
-            // let chatId = 
-            console.log(poll.votes[i]+' do')
+            let messageId = msg.message.message_id
+            let chatId = msg.message.chat.id
+            
             poll.votes[i] = poll.votes[i]+1
-            console.log(poll.votes[i]+' posle')
 
-            // for (let i = 0; i < answers.length; i++) {
-            //     let objectBlanc = {
-            //         text : `${answers[i]} - ${poll.votes[i]}`,
-            //         callback_data : i
-            //     }
-            //     poll.buttons[i] = [objectBlanc]
-            // }
-            // options = {
-            //     reply_markup: JSON.stringify({
-            //         inline_keyboard: poll.buttons,
-            //         parse_mode: 'Markdown'
-            //     })
-            // };
+            for (let i = 0; i < answers.length; i++) {
+                let objectBlanc = {
+                    text : `${answers[i]} - ${poll.votes[i]}`,
+                    callback_data : i
+                }
+                poll.buttons[i] = [objectBlanc]
+            }
+            options = {
+                reply_markup: JSON.stringify({
+                    inline_keyboard: poll.buttons
+                })
+            };
 
-            // bot.editMessageReplyMarkup()
+            bot.editMessageReplyMarkup({
+                chat_id: chatId,
+                message_id: messageId,
+                parse_mode: 'Markdown',
+                reply_markup: options.reply_markup
+            })
           });
     })
 }
