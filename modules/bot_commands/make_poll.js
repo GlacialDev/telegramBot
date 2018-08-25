@@ -29,7 +29,7 @@ export default function make_poll() {
 
         for (let i = 0; i < pollStore.length; i++) {
             if (pollStore[i][0] == id) {
-                pollStore[i][1].votes[answerNumber]++
+                pollStore[i][1].poll.votes[answerNumber]++
             }
         }
 
