@@ -33,6 +33,6 @@ export default function make_poll() {
             }
         }
 
-        console.log(pollStore[i][1].votes[answerNumber])
+        console.log(pollStore[i][1].poll.votes[answerNumber])
     })
 }
