@@ -40,7 +40,6 @@ class poll {
         let chatId = msg.message.chat.id
 
         for (let i = 0; i < this.answers.length; i++) {
-            this.votes[i] = 0
             let buttonObjBlank = {
                 text: `${this.answers[i]} - ${this.votes[i]}`,
                 callback_data: this.id+'_'+i
