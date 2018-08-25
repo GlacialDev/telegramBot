@@ -19,10 +19,23 @@ class poll {
 
     make_poll(msg) {
         let options = {
-            reply_markup: JSON.stringify({
-                inline_keyboard: buttons,
-                parse_mode: 'Markdown'
-            })
+            // reply_markup: JSON.stringify({
+            //     inline_keyboard: buttons,
+            //     parse_mode: 'Markdown'
+            // })
+            reply_markup: {
+                inline_keyboard: [[
+                    {
+                        text: "A",
+                        callback_data: "A1"            
+                    }, 
+                    {
+                        text: "B",
+                        callback_data: "C1"            
+                    }]
+                ]
+            }
+    }
         };
 
         bot.sendMessage(msg.chat.id, title, options)
