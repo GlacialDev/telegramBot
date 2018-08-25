@@ -25,7 +25,7 @@ class poll {
             })
         }
 
-        bot.sendMessage(msg.chat.id, poll.title, options)
+        bot.sendMessage(msg.chat.id, this.title, options)
     }
 
     // update_poll(msg) {
