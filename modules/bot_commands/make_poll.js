@@ -31,14 +31,22 @@ export default function make_poll() {
         //     buttons[i] = buttonObjBlank
         // }
 
+        let options = {
+            reply_markup: JSON.stringify({
+                inline_keyboard: buttons,
+                parse_mode: 'Markdown'
+            })
+        }
 
-        let pollObject = new poll(title, answers, id, votes, buttons)
-        console.log(pollObject)
+        bot.sendMessage(msg.chat.id, poll.title, options)
 
-        pollStore.push([id, pollObject])
-        console.log(pollStore)
+        // let pollObject = new poll(title, answers, id, votes, buttons)
+        // console.log(pollObject)
 
-        pollObject.make_poll(msg)
+        // pollStore.push([id, pollObject])
+        // console.log(pollStore)
+
+        // pollObject.make_poll(msg)
     })
 
     bot.on('callback_query', function (msg) {
