@@ -14,7 +14,19 @@ export default function make_poll() {
         let title = match[1]
         let answers = match[2].split('/')
         let id = symbolStringGenerator(15)
-        let pollObject = new poll(title, answers, id)
+        let votes = []
+        let buttons = []
+
+        for (let i = 0; i < answers.length; i++) {
+            votes[i] = 0
+            let buttonObjBlank = {
+                text: `${answers[i]} - ${votes[i]}`,
+                callback_data: id+'_'+i
+            }
+            buttons[i] = [buttonObjBlank]
+        }
+
+        let pollObject = new poll(title, answers, id, votes, buttons)
         console.log(pollObject)
 
         pollStore.push([id, pollObject])

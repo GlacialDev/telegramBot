@@ -6,30 +6,18 @@ class poll {
     title = ''
     answers = []
     id = ''
-    buttons = []
     votes = []
+    buttons = []
 
-    constructor(title, answers, id) {
+    constructor(title, answers, id, votes, buttons) {
         this.title = title
         this.answers = answers
         this.id = id
+        this.votes = votes
+        this.buttons = buttons
     }
 
     make_poll(msg) {
-        let title = poll.title
-        let answers = poll.answers
-        let id = poll.id
-        let buttons = poll.buttons
-        let votes = poll.votes
-
-        for (let i = 0; i < answers.length; i++) {
-            votes[i] = 0
-            let objectBlanc = {
-                text: `${answers[i]} - ${votes[i]}`,
-                callback_data: id+'_'+i
-            }
-            buttons[i] = [objectBlanc]
-        }
         let options = {
             reply_markup: JSON.stringify({
                 inline_keyboard: buttons,
