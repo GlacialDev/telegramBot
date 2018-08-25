@@ -35,7 +35,7 @@ export default function make_poll() {
             let i = msg.data
             console.log(msg)
             console.log(msg.message.message_id)
-            console.log(msg.chat.id)
+            console.log(msg.message.chat.id)
             // let messageId =
             // let chatId = 
             console.log(poll.votes[i]+' do')
