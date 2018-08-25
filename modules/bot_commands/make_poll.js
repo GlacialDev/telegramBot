@@ -18,7 +18,7 @@ export default function make_poll() {
         let buttons = [
             [{ text: 'да - 0', callback_data: 'dasdpph9brtj4ul_0' }],
             [{ text: 'нет - 0', callback_data: 'dasdpph9brtj4ul_1' }],
-            [{ text: 'не знаю - 0', callback_data: 'dasdpph9brtj4ul_2' }]
+            [{ text: 'не знаю - 0', callback_data: 'dasdpph9brtj4ul_2' }],
             [{ text: 'а может пошел ты - 0', callback_data: 'dasdpph9brtj4ul_3' }]
         ]
 
