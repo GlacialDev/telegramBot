@@ -8,6 +8,7 @@ let poll = {
     constructor(title, answers) {
         this.title = title
         this.answers = answers
+        console.log('constructor')
     }, 
 
     make_poll(msg) {
@@ -16,6 +17,8 @@ let poll = {
         let buttons = []
         let votes = []
         console.log('makepoll after let')
+        
+        console.log(title, answers, buttons, votes)
         // for (let i = 0; i < answers.length; i++) {
         //     votes[i] = 0
         //     let objectBlanc = {
