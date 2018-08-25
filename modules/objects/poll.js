@@ -16,8 +16,7 @@ class poll {
     }
 
     make_poll(msg) {
-
-        for (let i = 0; i < answers.length; i++) {
+        for (let i = 0; i < this.answers.length; i++) {
             this.votes[i] = 0
             let buttonObjBlank = {
                 text: `${this.answers[i]} - ${this.votes[i]}`,
