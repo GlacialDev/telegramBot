@@ -19,17 +19,22 @@ let pollManager = {
         pollObject.make_poll(msg)
     },
     updatePoll: (msg, data) => {
-        console.log(msg)
         let id = data[1]
         let answerNumber = data[2]
+        let userId = msg.from.id
         let clickedPoll
+        let pollUserList
 
         for (let i = 0; i < pollManager.store.length; i++) {
             if (pollManager.store[i][0] == id) {
                 clickedPoll = pollManager.store[i][1]
+                pollUserList = pollManager.store[i][2]
                 break
             }
         }
+
+        if(pollUserList.includes(userId)) {console.log('uje est'); break}
+        else pollUserList.push(userId)
         
         clickedPoll.votes[answerNumber]++
         clickedPoll.update_poll(msg)
