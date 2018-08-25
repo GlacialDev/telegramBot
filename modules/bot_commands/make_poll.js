@@ -7,8 +7,6 @@ export default function make_poll() {
     bot.onText(/\/make_poll (.+) answers (.+)/, (msg, match) => {
         if (authCheck(msg) != true) return
 
-        let messageId = msg.message_id+1
-
         let question = match[1]
         let answers = match[2].split('/')
         let poll = {
@@ -35,7 +33,7 @@ export default function make_poll() {
 
         bot.on('callback_query', function (msg) {
             let i = msg.data
-            let chatId = msg.chat.id
+            // let chatId = msg.chat.id
 
             
             console.log(poll.votes[i]+' do')
@@ -44,21 +42,21 @@ export default function make_poll() {
 
             console.log(poll)
 
-            for (let i = 0; i < answers.length; i++) {
-                let objectBlanc = {
-                    text : `${answers[i]} - ${poll.votes[i]}`,
-                    callback_data : i
-                }
-                poll.buttons[i] = [objectBlanc]
-            }
-            options = {
-                reply_markup: JSON.stringify({
-                    inline_keyboard: poll.buttons,
-                    parse_mode: 'Markdown'
-                })
-            };
+            // for (let i = 0; i < answers.length; i++) {
+            //     let objectBlanc = {
+            //         text : `${answers[i]} - ${poll.votes[i]}`,
+            //         callback_data : i
+            //     }
+            //     poll.buttons[i] = [objectBlanc]
+            // }
+            // options = {
+            //     reply_markup: JSON.stringify({
+            //         inline_keyboard: poll.buttons,
+            //         parse_mode: 'Markdown'
+            //     })
+            // };
 
-            bot.editMessageReplyMarkup(chatId, messageId, options.reply_markup)
+            // bot.editMessageReplyMarkup(chatId, messageId, options.reply_markup)
           });
     })
 }
