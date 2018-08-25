@@ -20,7 +20,7 @@ class poll {
     make_poll(msg) {
         let options = {
             reply_markup: JSON.stringify({
-                inline_keyboard: {buttons},
+                inline_keyboard: buttons,
                 parse_mode: 'Markdown'
             })
         };
