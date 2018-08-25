@@ -35,8 +35,9 @@ export default function make_poll() {
             }
         }
         
+        console.log(clickedPoll)
         clickedPoll.votes[answerNumber]++
-
-        clickedPoll.update_poll(msg)
+        console.log(clickedPoll)
+        // clickedPoll.update_poll(msg)
     })
 }
