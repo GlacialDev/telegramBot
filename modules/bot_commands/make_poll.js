@@ -11,7 +11,9 @@ export default function make_poll() {
 
         let question = match[1]
         let answers = match[2].split('/')
+        let id = symbolStringGenerator(15)
+        console.log(id)
 
-        new poll(question, answers, symbolStringGenerator(15)).make_poll(msg)
+        new poll(question, answers, id).make_poll(msg)
     })
 }
