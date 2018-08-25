@@ -35,32 +35,33 @@ class poll {
         bot.sendMessage(msg.chat.id, this.title, options)
     }
 
-    // update_poll(msg) {
-    //     let messageId = msg.message.message_id
-    //     let chatId = msg.message.chat.id
+    update_poll(msg) {
+        let messageId = msg.message.message_id
+        let chatId = msg.message.chat.id
 
-    //     votes[i] = votes[i] + 1
+        for (let i = 0; i < this.answers.length; i++) {
+            this.votes[i] = 0
+            let buttonObjBlank = {
+                text: `${this.answers[i]} - ${this.votes[i]}`,
+                callback_data: this.id+'_'+i
+            }
+            this.buttons[i] = [buttonObjBlank]
+        }
 
-    //     for (let i = 0; i < answers.length; i++) {
-    //         let objectBlanc = {
-    //             text: `${answers[i]} - ${votes[i]}`,
-    //             callback_data: pollId+'_'+i
-    //         }
-    //         buttons[i] = [objectBlanc]
-    //     }
-    //     options = {
-    //         reply_markup: JSON.stringify({
-    //             inline_keyboard: buttons
-    //         })
-    //     };
+        let options = {
+            reply_markup: JSON.stringify({
+                inline_keyboard: this.buttons,
+                parse_mode: 'Markdown'
+            })
+        }
 
-    //     bot.editMessageText(title, {
-    //         message_id: messageId,
-    //         chat_id: chatId,
-    //         parse_mode: 'Markdown',
-    //         reply_markup: options.reply_markup
-    //     })
-    // }
+        bot.editMessageText(this.title, {
+            message_id: messageId,
+            chat_id: chatId,
+            parse_mode: 'Markdown',
+            reply_markup: options.reply_markup
+        })
+    }
 }
 
 export default poll
