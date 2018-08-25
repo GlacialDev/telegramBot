@@ -28,10 +28,10 @@ export default function make_poll() {
                 text: `${answers[i]} - ${votes[i]}`,
                 callback_data: id+'_'+i
             }
-            buttons[i] = buttonObjBlank
+            buttons[i] = [buttonObjBlank]
         }
 
-        let pollObject = new poll(title, answers, id, votes, [buttons])
+        let pollObject = new poll(title, answers, id, votes, buttons)
         console.log(pollObject)
 
         pollStore.push([id, pollObject])
