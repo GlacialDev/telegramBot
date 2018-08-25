@@ -14,7 +14,7 @@ class poll {
         this.answers = answers
         this.id = id
         this.votes = votes
-        this.buttons = buttons
+        this.buttons = [buttons]
     }
 
     make_poll(msg) {
@@ -24,7 +24,7 @@ class poll {
                 parse_mode: 'Markdown'
             })
         }
-         
+
         bot.sendMessage(msg.chat.id, poll.title, options)
     }
 
