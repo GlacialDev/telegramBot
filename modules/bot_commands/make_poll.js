@@ -8,6 +8,8 @@ let bot = variables.bot
 
 export default function make_poll() {
     // let pollStore = []
+    
+    let pollManager = new pollManager
 
     bot.onText(/\/make_poll (.+) - ответы - (.+)/, (msg, match) => {
         if (authCheck(msg) != true) return
