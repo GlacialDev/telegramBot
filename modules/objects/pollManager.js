@@ -3,10 +3,10 @@ import poll from './poll'
 
 let bot = variables.bot
 
-let pollManager = {
-    store = [],
+class pollManager {
+    store = []
     
-    createPoll: (title, answers, id, msg) => {
+    createPoll(title, answers, id, msg) {
         let pollObject = new poll(title, answers, id)
         this.store.push([id, pollObject])
 
