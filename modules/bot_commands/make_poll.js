@@ -27,5 +27,11 @@ export default function make_poll() {
         let id = data[0]
         let answerNumber = data[1]
         console.log(data)
+
+        let clickedPoll
+        for (let i = 0; i < pollStore.length; i++) {
+            console.log(pollstore[i][0])
+        }
+        
     })
 }
