@@ -33,26 +33,27 @@ export default function make_poll() {
 
         bot.on('callback_query', function (msg) {
             let i = msg.data
+            console.log(msg)
             
             console.log(poll.votes[i]+' do')
             poll.votes[i] = poll.votes[i]+1
             console.log(poll.votes[i]+' posle')
 
-            for (let i = 0; i < answers.length; i++) {
-                let objectBlanc = {
-                    text : `${answers[i]} - ${poll.votes[i]}`,
-                    callback_data : i
-                }
-                poll.buttons[i] = [objectBlanc]
-            }
-            options = {
-                reply_markup: JSON.stringify({
-                    inline_keyboard: poll.buttons,
-                    parse_mode: 'Markdown'
-                })
-            };
+            // for (let i = 0; i < answers.length; i++) {
+            //     let objectBlanc = {
+            //         text : `${answers[i]} - ${poll.votes[i]}`,
+            //         callback_data : i
+            //     }
+            //     poll.buttons[i] = [objectBlanc]
+            // }
+            // options = {
+            //     reply_markup: JSON.stringify({
+            //         inline_keyboard: poll.buttons,
+            //         parse_mode: 'Markdown'
+            //     })
+            // };
 
-            msg.editMessageReplyMarkup(options.reply_markup)
+            // bot.editMessageReplyMarkup()
           });
     })
 }
