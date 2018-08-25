@@ -16,7 +16,6 @@ let poll = {
     }, 
     make_poll() {
         let poll = poll.poll
-        let question = poll.question
         let answers = poll.answers
 
         for (let i = 0; i < answers.length; i++) {

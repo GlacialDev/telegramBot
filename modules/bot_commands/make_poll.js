@@ -10,7 +10,7 @@ export default function make_poll() {
         let question = match[1]
         let answers = match[2].split('/')
 
-
-        new poll(question, answers).make_poll()
+        let poll = new poll(question, answers)
+        poll.make_poll()
     })
 }
