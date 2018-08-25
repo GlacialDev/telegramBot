@@ -34,9 +34,6 @@ export default function make_poll() {
         bot.on('callback_query', function (msg) {
             let i = msg.data
             // let chatId = msg.chat.id
-            if(msg.message_id)console.log(msg.message_id+' msg.message_id')
-            if(msg.chat.id)console.log(msg.chat.id+' msg.chat.id')
-            if(msg.inline_keyboard.id)console.log(msg.inline_keyboard.id+' msg.inline_keyboard.id')
             
             console.log(poll.votes[i]+' do')
             poll.votes[i] = poll.votes[i]+1
