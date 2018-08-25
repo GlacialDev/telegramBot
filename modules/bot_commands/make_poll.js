@@ -26,15 +26,13 @@ export default function make_poll() {
         let data = msg.data.split('_')
         let id = data[0]
         let answerNumber = data[1]
-        let clickedPollPos
-        
+
         for (let i = 0; i < pollStore.length; i++) {
             if (pollStore[i][0] == id) {
-                clickedPollPos = i
-                break
+                pollStore[i][1].votes[answerNumber]++
             }
         }
 
-        console.log(pollStore[clickedPollPos][1])
+        console.log(pollStore[i][1].votes[answerNumber])
     })
 }
