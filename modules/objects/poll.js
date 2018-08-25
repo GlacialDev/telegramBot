@@ -39,7 +39,9 @@ class poll {
         
         bot.on('callback_query', function (msg) {
             let data = msg.data.split('_')
+            console.log(data)
             let pollId = data[0]
+            console.log(pollId)
 
             if (pollId != poll.pollId) return
             let i = data[1]
