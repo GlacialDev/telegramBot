@@ -4,8 +4,8 @@ import pollManager from '../objects/pollManager'
 
 let bot = variables.bot
 
-export default function make_poll() {
-    bot.onText(/\/make_poll (.+) - ответы - (.+)/, (msg, match) => {
+export default function poll() {
+    bot.onText(/\/poll (.+) - (.+)/, (msg, match) => {
         if (authCheck(msg) != true) return
 
         pollManager.createPoll(msg, match)

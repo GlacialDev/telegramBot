@@ -34,8 +34,8 @@ import upload_en_dis from './modules/bot_commands/upload_en_dis'
 upload_en_dis()
 import convert from './modules/bot_commands/convert'
 convert()
-import make_poll from './modules/bot_commands/make_poll'
-make_poll()
+import poll from './modules/bot_commands/poll'
+poll()
 
 
 let devMode = false
