@@ -32,17 +32,16 @@ let pollManager = {
                 break
             }
         }
-
+        // если в списке проголосовавших человек уже есть
         if(userVotes[0].includes(userId)) {
             let userPos = userVotes[0].indexOf(userId) // на той же позиции всегда находится и номер ответа
             let lastAnswerNumber = userVotes[1][userPos]
-
+            // если он кликнул туда же, куда и в прошлый раз, убрать его голос
             if(lastAnswerNumber == answerNumber) {
                 userVotes[0].splice(userPos, 1)
                 userVotes[1].splice(userPos, 1)
                 clickedPoll.votes[lastAnswerNumber]--
-                console.log('клик туда же где и был голос = убрать')
-                console.log(userVotes)
+            // если он кликнул в другой вариант, перезаписать результат голосования
             } else {
                 userVotes[0].splice(userPos, 1)
                 userVotes[1].splice(userPos, 1)
@@ -50,22 +49,15 @@ let pollManager = {
                 userVotes[0].push(userId)
                 userVotes[1].push(answerNumber)
                 clickedPoll.votes[answerNumber]++
-                console.log('клик в другое место = поменять мнение')
-                console.log(userVotes)
             }
+        // если в списке голосовавших его не было, добавить
         } else {
             userVotes[0].push(userId)
             userVotes[1].push(answerNumber)
             clickedPoll.votes[answerNumber]++
-            console.log('новый клик')
-            console.log(userVotes)
         }
         
         clickedPoll.update_poll(msg)
-    },
-
-    addVote: () => {
-        
     }
 }
 
