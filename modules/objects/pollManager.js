@@ -5,8 +5,9 @@ import symbolStringGenerator from '../functions/symbolStringGenerator'
 // let bot = variables.bot
 
 let pollManager = {
-    store: [],
-    
+    // хранилище опросов
+    pollStore: [],
+    // создать новый опрос
     createPoll: (msg, match) => {
         let title = match[1]
         let answers = match[2].split('/')
@@ -14,10 +15,11 @@ let pollManager = {
         let userVotes = [[],[]]
 
         let pollObject = new poll(title, answers, id)
-        pollManager.store.push([id, pollObject, userVotes])
+        pollManager.pollStore.push([id, pollObject, userVotes])
 
         pollObject.make_poll(msg)
     },
+    // обновить опрос
     updatePoll: (msg, data) => {
         let id = data[1]
         let answerNumber = data[2]
@@ -25,10 +27,12 @@ let pollManager = {
         let clickedPoll
         let userVotes
 
-        for (let i = 0; i < pollManager.store.length; i++) {
-            if (pollManager.store[i][0] == id) {
-                clickedPoll = pollManager.store[i][1]
-                userVotes = pollManager.store[i][2]
+        // ищем нужный опрос (потому что их может работать одновременно несколько) по id опроса
+        // и запоминаем его, а также кто за что в нем голосовал (userVotes)
+        for (let i = 0; i < pollManager.pollStore.length; i++) {
+            if (pollManager.pollStore[i][0] == id) {
+                clickedPoll = pollManager.pollStore[i][1]
+                userVotes = pollManager.pollStore[i][2]
                 break
             }
         }
