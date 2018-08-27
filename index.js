@@ -41,3 +41,6 @@ poll()
 let devMode = true
 import botInit from './modules/functions/botInit'
 botInit(devMode)
+
+import test from './modules/bot_commands/test'
+test()
