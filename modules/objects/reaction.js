@@ -16,11 +16,21 @@ class reaction {
             [
                 {
                     text: 'good',
-                    callback_data: 'id_'+this.id+'_'+0
+                    callback_data: 'reaction_'+this.id+'_'+0
                 },
                 {
                     text: 'bad',
-                    callback_data: 'id_'+this.id+'_'+1
+                    callback_data: 'reaction_'+this.id+'_'+1
+                }
+            ],
+            [
+                {
+                    text: 'good',
+                    callback_data: 'reaction_'+this.id+'_'+2
+                },
+                {
+                    text: 'bad',
+                    callback_data: 'reaction_'+this.id+'_'+3
                 }
             ]
         ]
