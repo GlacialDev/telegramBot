@@ -38,9 +38,9 @@ import poll from './modules/bot_commands/poll'
 poll()
 
 
-let devMode = true
+let devMode = false
 import botInit from './modules/functions/botInit'
 botInit(devMode)
 
-import test from './modules/bot_commands/test'
-test()
+// import test from './modules/bot_commands/test'
+// test()
