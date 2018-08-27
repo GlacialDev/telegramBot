@@ -38,6 +38,6 @@ import poll from './modules/bot_commands/poll'
 poll()
 
 
-let devMode = false
+let devMode = true
 import botInit from './modules/functions/botInit'
 botInit(devMode)
