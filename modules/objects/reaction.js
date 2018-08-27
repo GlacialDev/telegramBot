@@ -2,7 +2,6 @@ import variables from '../variables/variables'
 import emoji from 'node-emoji'
 
 let bot = variables.bot
-let emoji = require('node-emoji')
 
 let goodEmoji = emoji.get(':+1:')
 let badEmoji = emoji.get(':-1:')
