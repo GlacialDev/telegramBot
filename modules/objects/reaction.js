@@ -2,9 +2,8 @@ import variables from '../variables/variables'
 import emoji from 'node-emoji'
 
 let bot = variables.bot
-
-let goodEmoji = emoji.get(':+1:')
-let badEmoji = emoji.get(':-1:')
+let E_thumbsup = emoji.get(':+1:')
+let E_thumbsdown = emoji.get(':-1:')
 
 class reaction {
     id = ''
@@ -19,11 +18,11 @@ class reaction {
         this.buttons = [
             [
                 {
-                    text: 'good',
+                    text: E_thumbsup,
                     callback_data: 'reaction_'+this.id+'_'+0
                 },
                 {
-                    text: 'bad',
+                    text: E_thumbsdown,
                     callback_data: 'reaction_'+this.id+'_'+1
                 }
             ]
@@ -34,8 +33,7 @@ class reaction {
                 parse_mode: 'Markdown'
             })
         }
-        console.log('make_reaction')
-        console.log(goodEmoji+' '+badEmoji)
+        
         bot.sendMessage(msg.chat.id, 'Оцените', options)
     }
 }
