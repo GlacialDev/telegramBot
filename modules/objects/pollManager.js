@@ -1,12 +1,14 @@
 // import variables from '../variables/variables';
 import poll from './poll'
+import reaction from './reaction'
 import symbolStringGenerator from '../functions/symbolStringGenerator'
 
 // let bot = variables.bot
 
 let pollManager = {
-    // хранилище опросов
+    // хранилища опросов
     pollStore: [],
+    reactionStore: [],
     // создать новый опрос
     createPoll: (msg, match) => {
         let title = match[1]
@@ -62,6 +64,12 @@ let pollManager = {
         }
         
         clickedPoll.update_poll(msg)
+    },
+    createReaction: (msg) => {
+        let id = symbolStringGenerator(15)
+
+        let reactionObject = new reaction(id)
+        reactionObject.make_reaction(msg)
     }
 }
 
