@@ -1,6 +1,11 @@
 import variables from '../variables/variables'
+import emoji from 'node-emoji'
 
 let bot = variables.bot
+let emoji = require('node-emoji')
+
+let goodEmoji = emoji.get(':+1:')
+let badEmoji = emoji.get(':-1:')
 
 class reaction {
     id = ''
@@ -22,16 +27,6 @@ class reaction {
                     text: 'bad',
                     callback_data: 'reaction_'+this.id+'_'+1
                 }
-            ],
-            [
-                {
-                    text: 'good',
-                    callback_data: 'reaction_'+this.id+'_'+2
-                },
-                {
-                    text: 'bad',
-                    callback_data: 'reaction_'+this.id+'_'+3
-                }
             ]
         ]
         let options = {
@@ -41,6 +36,7 @@ class reaction {
             })
         }
         console.log('make_reaction')
+        console.log(goodEmoji+' '+badEmoji)
         bot.sendMessage(msg.chat.id, 'Оцените', options)
     }
 }
