@@ -40,7 +40,9 @@ class reaction {
                 parse_mode: 'Markdown'
             })
         }
-        
+        console.log('make_reaction')
         bot.sendMessage(msg.chat.id, 'Оцените', options)
     }
 }
+
+export default reaction
