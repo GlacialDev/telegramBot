@@ -5,7 +5,6 @@ import adminCheck from '../../functions/adminCheck';
 
 import pollManager from '../../objects/pollManager'
 import config from '../../secret/config'
-import getEroPhotoLink from '../../functions/getEroPhotoLink';
 
 let bot = variables.bot
 
