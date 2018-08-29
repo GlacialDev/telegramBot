@@ -16,8 +16,9 @@ class reaction {
     }
 
     make_reaction(msg) {
+        let buttonArray = []
+        
         for (let i = 0; i < this.answers.length; i++) {
-            let buttonArray = []
             this.votes[i] = 0
             let buttonObjBlank = {
                 text: `${this.answers[i]} - ${this.votes[i]}`,
