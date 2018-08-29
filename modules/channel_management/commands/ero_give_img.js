@@ -11,10 +11,12 @@ let bot = variables.bot
 export default function ero_give_img() {
     bot.onText(/\/ero_give_img/, (msg) => {
         if (adminCheck(msg) != true) return
+        let link
 
         takePhotoFromBuffer("./data/eroTimer/ero.txt", config.canadianEroId, true)
         .then(
-            (item) => pollManager.createReaction(msg, `Оцените <a href=${item}>девочку</a>`, config.canadianEroId)
+            (item) => link = item
         )
+        pollManager.createReaction(msg, `Оцените <a href=${link}>девочку</a>`, config.canadianEroId)
     });
 } 
