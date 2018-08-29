@@ -13,6 +13,7 @@ export default function ero_give_img() {
         if (adminCheck(msg) != true) return
 
         let link = takePhotoFromBuffer("./data/eroTimer/ero.txt", config.canadianEroId, true)
+        console.log('link '+link)
         pollManager.createReaction(msg, `Оцените <a href=${link}>девочку</a>`, config.canadianEroId)
     });
 } 
