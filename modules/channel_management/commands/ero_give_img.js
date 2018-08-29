@@ -15,7 +15,6 @@ export default function ero_give_img() {
 
         takePhotoFromBuffer("./data/eroTimer/ero.txt", config.canadianEroId, true).then(
             (item) => {
-                link = item 
                 console.log(item+' in then')
             }
         )
