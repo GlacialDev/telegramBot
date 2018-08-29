@@ -17,7 +17,6 @@ export default function getEroPhotoLink(path) {
             fs.writeFile(path, string, function (error) {
                 if (error) throw error; // если возникла ошибка)
             });
-            console.log(link)
             resolve(link)
         })
     })
