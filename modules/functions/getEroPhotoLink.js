@@ -7,7 +7,7 @@ export default function getEroPhotoLink(path) {
     let link
     let string
     // открываем файл-буфер со ссылками
-    fs.readFileSync(path, "utf8", function (error, data) {
+    fs.readFile(path, "utf8", function (error, data) {
       if (error) throw error; // если возникла ошибка
       // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
       array = data.split(' ');
@@ -18,14 +18,16 @@ export default function getEroPhotoLink(path) {
       fs.writeFile(path, string, function (error) {
         if (error) throw error; // если возникла ошибка)
       });
-    });
-    return new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         if (link == '') {
             console.log('in reject')
-            reject()
+            reject('reject')
         } else {
             console.log(link+' in resolve')
             resolve(link)
         }
       })
+    }).then(
+        (link) => { return link }
+    )
   }
