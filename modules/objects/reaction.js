@@ -19,7 +19,7 @@ class reaction {
 
     make_reaction(msg, chatId) {
         let sendTo = chatId || msg.chat.id
-        
+
         let buttonArray = []
         for (let i = 0; i < this.answers.length; i++) {
             this.votes[i] = 0
@@ -33,6 +33,7 @@ class reaction {
 
 
         let options = {
+            parse_mode: 'HTML',
             reply_markup: JSON.stringify({
                 inline_keyboard: this.buttons,
                 parse_mode: 'Markdown'
