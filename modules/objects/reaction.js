@@ -17,7 +17,7 @@ class reaction {
 
     make_reaction(msg) {
         let buttonArray = []
-        
+
         for (let i = 0; i < this.answers.length; i++) {
             this.votes[i] = 0
             let buttonObjBlank = {
@@ -26,7 +26,7 @@ class reaction {
             }
             buttonArray.push(buttonObjBlank)
         }
-        this.buttons[i] = [buttonObjBlank]
+        this.buttons.push[buttonObjBlank]
 
 
         let options = {
