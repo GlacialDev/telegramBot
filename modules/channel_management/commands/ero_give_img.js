@@ -14,7 +14,7 @@ export default function ero_give_img() {
         
         getEroPhotoLink("./data/eroTimer/ero.txt").then(
             (link) => pollManager.createReaction(msg, `Оцените <a href=${link}>девочку</a>`, config.canadianEroId),
-            () => bot.sendMessage(variables.creator, 'Эро-картинки кончились!')
+            (text) => bot.sendMessage(variables.creator, text)
         )
     });
 } 
