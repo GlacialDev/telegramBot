@@ -12,7 +12,7 @@ export default function ero_give_img() {
     bot.onText(/\/ero_give_img/, (msg) => {
         if (adminCheck(msg) != true) return
 
-        let link = takePhotoFromBuffer("./data/eroTimer/ero.txt", config.canadianEroId, false)
+        let link = takePhotoFromBuffer("./data/eroTimer/ero.txt", config.canadianEroId, true)
         pollManager.createReaction(msg, `Оцените <a href=${link}>девочку</a>`, config.canadianEroId)
     });
 } 
