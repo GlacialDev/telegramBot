@@ -33,7 +33,6 @@ class reaction {
 
 
         let options = {
-            parse_mode: 'HTML',
             reply_markup: JSON.stringify({
                 inline_keyboard: this.buttons,
                 parse_mode: 'Markdown'
@@ -68,7 +67,6 @@ class reaction {
         bot.editMessageText(this.title, {
             message_id: messageId,
             chat_id: chatId,
-            parse_mode: 'HTML',
             reply_markup: options.reply_markup
         })
     }
