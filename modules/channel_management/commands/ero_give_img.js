@@ -13,14 +13,12 @@ export default function ero_give_img() {
         if (adminCheck(msg) != true) return
         let link
 
-        takePhotoFromBuffer("./data/eroTimer/ero.txt", config.canadianEroId, true)
-        .then(
+        takePhotoFromBuffer("./data/eroTimer/ero.txt", config.canadianEroId, true).then(
             (item) => {
                 link = item 
                 console.log(item+' in then')
             }
         )
-        console.log(link+' after then')
         // pollManager.createReaction(msg, `Оцените <a href=${link}>девочку</a>`, config.canadianEroId)
     });
 } 
