@@ -18,6 +18,6 @@ export default function ero_give_img() {
             },
             (text) => bot.sendMessage(variables.creator, text)
         )
-        pollManager.createReaction(msg, 'Оцените [девочку](https://pp.userapi.com/c841625/v841625163/7a9d5/dQiujUQZSco.jpg)', config.canadianEroId)
+        pollManager.createReaction(msg, '[\n](https://pp.userapi.com/c841625/v841625163/7a9d5/dQiujUQZSco.jpg)', config.canadianEroId)
     });
 } 
