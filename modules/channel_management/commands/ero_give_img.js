@@ -16,7 +16,7 @@ export default function ero_give_img() {
             (link) => {
                 let item = link
                 console.log(link)
-                pollManager.createReaction(msg, `Оцените <a href=${item}>девочку</a>`, config.canadianEroId)
+                pollManager.createReaction(msg, 'Оцените <a href='+item+'>девочку</a>', config.canadianEroId)
             },
             (text) => bot.sendMessage(variables.creator, text)
         )
