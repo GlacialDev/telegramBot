@@ -64,8 +64,8 @@ class reaction {
         }
 
         bot.editMessageReplyMarkup({
-            message_id: messageId,
             chat_id: chatId,
+            message_id: messageId,
             reply_markup: options.reply_markup,
             parse_mode: 'Markdown'
         })
