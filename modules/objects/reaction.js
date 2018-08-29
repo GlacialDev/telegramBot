@@ -26,7 +26,7 @@ class reaction {
             }
             buttonArray.push(buttonObjBlank)
         }
-        this.buttons.push[buttonObjBlank]
+        this.buttons.push(buttonArray)
 
 
         let options = {
