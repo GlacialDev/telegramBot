@@ -63,7 +63,7 @@ class reaction {
             })
         }
 
-        bot.editMessageText(this.link, {
+        bot.editMessageReplyMarkup({
             message_id: messageId,
             chat_id: chatId,
             reply_markup: options.reply_markup,
