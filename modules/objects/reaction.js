@@ -6,14 +6,14 @@ let E_thumbsup = emoji.get(':+1:')
 let E_thumbsdown = emoji.get(':-1:')
 
 class reaction {
-    title = ''
+    link = ''
     id = ''
     votes = []
     answers = [E_thumbsup, E_thumbsdown]
     buttons = []
 
-    constructor(title, id) {
-        this.title = title
+    constructor(link, id) {
+        this.link = link
         this.id = id
     }
 
@@ -39,7 +39,7 @@ class reaction {
             parse_mode: 'Markdown'
         }
         
-        bot.sendMessage(sendTo, this.title, options)
+        bot.sendPhoto(sendTo, this.link, options)
     }
 
     update_reaction(msg) {
@@ -63,7 +63,7 @@ class reaction {
             })
         }
 
-        bot.editMessageText(this.title, {
+        bot.editMessageText(this.link, {
             message_id: messageId,
             chat_id: chatId,
             reply_markup: options.reply_markup,
