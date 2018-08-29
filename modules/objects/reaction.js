@@ -46,7 +46,7 @@ class reaction {
         console.log(msg)
         let messageId = msg.message.message_id
         let chatId = msg.message.chat.id
-        let inlineId = msg.message.inline_message_id
+        let inlineId = msg.id
         console.log(inlineId)
 
         this.buttons = []
@@ -69,6 +69,7 @@ class reaction {
         bot.editMessageReplyMarkup({
             chat_id: chatId,
             message_id: messageId,
+            inline_message_id: inlineId,
             reply_markup: options.reply_markup,
             parse_mode: 'Markdown'
         })
