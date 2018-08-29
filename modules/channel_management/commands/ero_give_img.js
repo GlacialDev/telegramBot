@@ -10,6 +10,6 @@ export default function ero_give_img() {
     bot.onText(/\/ero_give_img/, (msg) => {
         if (adminCheck(msg) != true) return
 
-        takePhotoFromBuffer("./data/eroTimer/ero.txt", config.canadianEroId, true)
+        takePhotoFromBuffer("./data/eroTimer/ero.txt", config.canadianEroId, false)
     });
 } 
