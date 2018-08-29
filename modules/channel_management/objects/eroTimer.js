@@ -1,17 +1,17 @@
-import variables from '../variables/variables'
-import stopTimer from '../functions/stopTimer'
-import takePhotoFromBuffer from '../functions/takePhotoFromBuffer'
+import variables from '../../variables/variables'
+import stopTimer from '../../functions/stopTimer'
+import takePhotoFromBuffer from '../../functions/takePhotoFromBuffer'
 
 let bot = variables.bot
 let fs = variables.fs
-let groupChat = variables.groupChat
 
 let eroTimerObj = {
+    channelId: null,
     eroTimer: null,
     eroInterval: 3600000 * 3,
     eroTimerStateFlag: 'enabled',
 
-    how_much_ero: (msg) => {
+    ero_how_much: (msg) => {
         let array = null;
         let number = null;
         // открываем файл-буфер со ссылками
@@ -24,7 +24,7 @@ let eroTimerObj = {
             bot.sendMessage(msg.chat.id, `У меня в запасе осталось ${number} картинок`)
         });
     },
-    set_ero_timer: (msg, match) => {
+    ero_set_timer: (msg, match) => {
         let hours = match[1]
         // чтобы картинки не улетали как бешенные :)
         if (hours < 1) {
@@ -38,18 +38,18 @@ let eroTimerObj = {
         eroTimerObj.eroTimerStateFlag = 'enabled'
         // инициализация таймера
         eroTimerObj.eroTimer = setTimeout(() => {
-            takePhotoFromBuffer("./list/ero.txt", groupChat, false)
+            takePhotoFromBuffer("./list/ero.txt", eroTimerObj.channelId, false)
         }, eroTimerObj.eroInterval)
         // если всё прошло успешно и без ошибок, далее следует сообщение в группу
-        bot.sendMessage(groupChat, 'Буду присылать картинки каждые ' + hours + ' часов')
+        bot.sendMessage(eroTimerObj.channelId, 'Буду присылать картинки каждые ' + hours + ' часов')
     },
-    stop_ero_timer: (msg) => {
+    ero_stop_timer: (msg) => {
         stopTimer(eroTimerObj.eroTimer)
         eroTimerObj.eroTimerStateFlag = 'disabled'
         // при остановке таймера группа об этом оповещается
-        bot.sendMessage(groupChat, 'Таймер картинок остановлен')
+        bot.sendMessage(eroTimerObj.channelId, 'Таймер картинок остановлен')
     },
-    add_more_ero: (msg) => {
+    ero_add_more: (msg) => {
         // достать данные из './data/download/savefrom.txt'
         fs.readFile('./data/download/savefrom.txt', "utf8", function (error, data) {
             if (error) throw error; // если возникла ошибка
@@ -74,7 +74,9 @@ let eroTimerObj = {
             })
         })
     },
-    eroTimerInit: (flag) => {
+    eroTimerInit: (id, flag) => {
+        eroTimerObj.channelId = id
+
         let date = new Date;
         let dateNum1 = +date
 
@@ -92,12 +94,12 @@ let eroTimerObj = {
         let correctHour = hourGMT3 > 24 ? hourGMT3 - 24 : hourGMT3
         let additionalZero_hour = correctHour < 10 ? '0' : ''
 
-        if(flag == false) bot.sendMessage(groupChat, `Картинки будут присланы в ${additionalZero_hour}${correctHour}:${additionalZero_min}${date.getMinutes()}, далее с интервалом в ${eroTimerObj.eroInterval / 3600000} ч.`)
+        if(flag == false) bot.sendMessage(eroTimerObj.channelId, `Картинки будут присланы в ${additionalZero_hour}${correctHour}:${additionalZero_min}${date.getMinutes()}, далее с интервалом в ${eroTimerObj.eroInterval / 3600000} ч.`)
 
         setTimeout(() => {
-            takePhotoFromBuffer("./data/eroTimer/ero.txt", groupChat, false)
+            takePhotoFromBuffer("./data/eroTimer/ero.txt", eroTimerObj.channelId, false)
             eroTimerObj.eroTimer = setInterval(function () {
-                takePhotoFromBuffer("./data/eroTimer/ero.txt", groupChat, false)
+                takePhotoFromBuffer("./data/eroTimer/ero.txt", eroTimerObj.channelId, false)
             }, eroTimerObj.eroInterval);
         }, dateDifference)
     }
