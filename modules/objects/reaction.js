@@ -32,45 +32,45 @@ class reaction {
         this.buttons = [
             [
                 {
-                    text: '1 балл (0)',
+                    text: '1 (0)',
                     callback_data: 'reaction_'+this.id+'_'+0
                 },
                 {
-                    text: '2 балла (0)',
+                    text: '2 (0)',
                     callback_data: 'reaction_'+this.id+'_'+0
                 },
                 {
-                    text: '3 балла (0)',
+                    text: '3 (0)',
                     callback_data: 'reaction_'+this.id+'_'+0
                 },
                 {
-                    text: '4 балла (0)',
+                    text: '4 (0)',
                     callback_data: 'reaction_'+this.id+'_'+0
                 },
                 {
-                    text: '5 баллов (0)',
+                    text: '5 (0)',
                     callback_data: 'reaction_'+this.id+'_'+0
                 },
             ],
             [
                 {
-                    text: '6 баллов (0)',
+                    text: '6 (0)',
                     callback_data: 'reaction_'+this.id+'_'+0
                 },
                 {
-                    text: '7 баллов (0)',
+                    text: '7 (0)',
                     callback_data: 'reaction_'+this.id+'_'+0
                 },
                 {
-                    text: '8 баллов (0)',
+                    text: '8 (0)',
                     callback_data: 'reaction_'+this.id+'_'+0
                 },
                 {
-                    text: '9 баллов (0)',
+                    text: '9 (0)',
                     callback_data: 'reaction_'+this.id+'_'+0
                 },
                 {
-                    text: '10 баллов (0)',
+                    text: '10 (0)',
                     callback_data: 'reaction_'+this.id+'_'+0
                 },
             ]
