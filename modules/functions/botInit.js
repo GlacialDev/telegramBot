@@ -11,5 +11,6 @@ export default function botInit(flag) {
     bot.on('callback_query', function (msg) {
         let data = msg.data.split('_')
         if(data[0] == 'poll') pollManager.updatePoll(msg, data)
+        if(data[0] == 'reaction') pollManager.updateReaction(msg, data)
     })
 }
