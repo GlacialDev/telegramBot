@@ -37,7 +37,7 @@ class reaction {
             })
         }
         
-        bot.sendMessage(msg.chat.id, title, options)
+        bot.sendMessage(msg.chat.id, this.title, options)
     }
     update_reaction(msg) {
         let messageId = msg.message.message_id
