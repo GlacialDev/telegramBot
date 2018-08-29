@@ -16,17 +16,65 @@ class reaction {
     }
 
     make_reaction(msg) {
-        let buttonArray = []
+        // let buttonArray = []
 
-        for (let i = 0; i < this.answers.length; i++) {
-            this.votes[i] = 0
-            let buttonObjBlank = {
-                text: `${this.answers[i]} - ${this.votes[i]}`,
-                callback_data: 'reaction_'+this.id+'_'+i
-            }
-            buttonArray.push(buttonObjBlank)
-        }
-        this.buttons.push(buttonArray)
+        // for (let i = 0; i < this.answers.length; i++) {
+        //     this.votes[i] = 0
+        //     let buttonObjBlank = {
+        //         text: `${this.answers[i]} - ${this.votes[i]}`,
+        //         callback_data: 'reaction_'+this.id+'_'+i
+        //     }
+        //     buttonArray.push(buttonObjBlank)
+        // }
+        // this.buttons.push(buttonArray)
+
+
+        this.buttons = [
+            [
+                {
+                    text: '1 балл (0)',
+                    callback_data: 'reaction_'+this.id+'_'+0
+                },
+                {
+                    text: '2 балла (0)',
+                    callback_data: 'reaction_'+this.id+'_'+0
+                },
+                {
+                    text: '3 балла (0)',
+                    callback_data: 'reaction_'+this.id+'_'+0
+                },
+                {
+                    text: '4 балла (0)',
+                    callback_data: 'reaction_'+this.id+'_'+0
+                },
+                {
+                    text: '5 баллов (0)',
+                    callback_data: 'reaction_'+this.id+'_'+0
+                },
+            ],
+            [
+                {
+                    text: '6 баллов (0)',
+                    callback_data: 'reaction_'+this.id+'_'+0
+                },
+                {
+                    text: '7 баллов (0)',
+                    callback_data: 'reaction_'+this.id+'_'+0
+                },
+                {
+                    text: '8 баллов (0)',
+                    callback_data: 'reaction_'+this.id+'_'+0
+                },
+                {
+                    text: '9 баллов (0)',
+                    callback_data: 'reaction_'+this.id+'_'+0
+                },
+                {
+                    text: '10 баллов (0)',
+                    callback_data: 'reaction_'+this.id+'_'+0
+                },
+            ]
+        ]
 
 
         let options = {
