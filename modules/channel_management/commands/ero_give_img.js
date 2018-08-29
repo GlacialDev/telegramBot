@@ -13,7 +13,10 @@ export default function ero_give_img() {
         if (adminCheck(msg) != true) return
         
         getEroPhotoLink("./data/eroTimer/ero.txt").then(
-            (link) => pollManager.createReaction(msg, `Оцените <a href=${link}>девочку</a>`, config.canadianEroId),
+            (link) => {
+                console.log(link)
+                // pollManager.createReaction(msg, `Оцените <a href=${link}>девочку</a>`, config.canadianEroId)
+            },
             (text) => bot.sendMessage(variables.creator, text)
         )
     });
