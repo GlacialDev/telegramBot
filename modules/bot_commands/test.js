@@ -1,7 +1,7 @@
 import variables from '../variables/variables'
 import authCheck from '../functions/authCheck'
 import pollManager from '../objects/pollManager'
-import config from '../../secret/config'
+import config from '../secret/config'
 
 let bot = variables.bot
 
