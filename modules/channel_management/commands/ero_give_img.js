@@ -9,6 +9,6 @@ export default function ero_give_img() {
     bot.onText(/\/ero_give_img/, (msg) => {
         if (adminCheck(msg) != true) return
 
-        takePhotoFromBuffer("./list/ero.txt", msg.chat.id, true)
+        takePhotoFromBuffer("./data/eroTimer/ero.txt", msg.chat.id, true)
     });
 } 
