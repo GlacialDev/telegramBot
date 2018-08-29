@@ -1,6 +1,7 @@
 import variables from '../../variables/variables'
 import stopTimer from '../../functions/stopTimer'
 import takePhotoFromBuffer from '../../functions/takePhotoFromBuffer'
+import pollManager from '../../objects/pollManager'
 
 let bot = variables.bot
 let fs = variables.fs
@@ -98,8 +99,10 @@ let eroTimerObj = {
 
         setTimeout(() => {
             takePhotoFromBuffer("./data/eroTimer/ero.txt", eroTimerObj.channelId, false)
+            pollManager.createReaction(msg, 'Оцените девочку')
             eroTimerObj.eroTimer = setInterval(function () {
                 takePhotoFromBuffer("./data/eroTimer/ero.txt", eroTimerObj.channelId, false)
+                pollManager.createReaction(msg, 'Оцените девочку')
             }, eroTimerObj.eroInterval);
         }, dateDifference)
     }
