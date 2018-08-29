@@ -68,7 +68,7 @@ class reaction {
         bot.editMessageText(this.title, {
             message_id: messageId,
             chat_id: chatId,
-            parse_mode: 'Markdown',
+            parse_mode: 'HTML',
             reply_markup: options.reply_markup
         })
     }

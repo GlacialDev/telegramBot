@@ -12,7 +12,7 @@ export default function ero_give_img() {
     bot.onText(/\/ero_give_img/, (msg) => {
         if (adminCheck(msg) != true) return
 
-        // takePhotoFromBuffer("./data/eroTimer/ero.txt", config.canadianEroId, false)
-        pollManager.createReaction(msg, 'Оцените [девочку]() <a href="https://www.highreshdwallpapers.com/wp-content/uploads/2013/12/Snow-Tiger.jpg">девочку</a>', config.canadianEroId)
+        let link = takePhotoFromBuffer("./data/eroTimer/ero.txt", config.canadianEroId, false)
+        pollManager.createReaction(msg, `Оцените <a href=${link}>девочку</a>`, config.canadianEroId)
     });
 } 
