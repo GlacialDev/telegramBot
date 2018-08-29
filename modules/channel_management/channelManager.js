@@ -1,11 +1,11 @@
 import config from '../secret/config'
-import eroTimer from './objects/eroTimer'
+import eroTimerObj from './objects/eroTimer'
 
 let channelManager = {
     canadianEroId: config.canadianEroId,
 
     initEroTimer: (flag) => {
-        eroTimer.eroTimerInit(channelManager.canadianEroId, flag)
+        eroTimerObj.eroTimerInit(channelManager.canadianEroId, flag)
     }
 }
 
