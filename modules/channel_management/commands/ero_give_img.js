@@ -13,6 +13,6 @@ export default function ero_give_img() {
         if (adminCheck(msg) != true) return
 
         // takePhotoFromBuffer("./data/eroTimer/ero.txt", config.canadianEroId, false)
-        pollManager.createReaction(msg, 'Оцените девочку[https://www.highreshdwallpapers.com/wp-content/uploads/2013/12/Snow-Tiger.jpg]', config.canadianEroId)
+        pollManager.createReaction(msg, 'Оцените девочку[](https://www.highreshdwallpapers.com/wp-content/uploads/2013/12/Snow-Tiger.jpg)', config.canadianEroId)
     });
 } 
