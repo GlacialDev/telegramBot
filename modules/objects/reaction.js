@@ -8,6 +8,7 @@ let E_thumbsdown = emoji.get(':-1:')
 class reaction {
     id = ''
     votes = []
+    answers = [E_thumbsup, E_thumbsdown]
     buttons = []
 
     constructor(id) {
@@ -15,18 +16,18 @@ class reaction {
     }
 
     make_reaction(msg) {
-        this.buttons = [
-            [
-                {
-                    text: E_thumbsup,
-                    callback_data: 'reaction_'+this.id+'_'+0
-                },
-                {
-                    text: E_thumbsdown,
-                    callback_data: 'reaction_'+this.id+'_'+1
-                }
-            ]
-        ]
+        for (let i = 0; i < this.answers.length; i++) {
+            let buttonArray = []
+            this.votes[i] = 0
+            let buttonObjBlank = {
+                text: `${this.answers[i]} - ${this.votes[i]}`,
+                callback_data: 'reaction_'+this.id+'_'+i
+            }
+            buttonArray.push(buttonObjBlank)
+        }
+        this.buttons[i] = [buttonObjBlank]
+
+
         let options = {
             reply_markup: JSON.stringify({
                 inline_keyboard: this.buttons,

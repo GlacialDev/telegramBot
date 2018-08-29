@@ -66,7 +66,7 @@ let pollManager = {
         clickedPoll.update_poll(msg)
     },
     createReaction: (msg) => {
-        let id = symbolStringGenerator(15)
+        let id = symbolStringGenerator(16)
         
         let reactionObject = new reaction(id)
         reactionObject.make_reaction(msg)
