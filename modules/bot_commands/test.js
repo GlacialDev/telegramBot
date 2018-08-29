@@ -8,6 +8,6 @@ export default function test() {
     bot.onText(/\/test/, (msg, match) => {
         if (authCheck(msg) != true) return
         
-        pollManager.createReaction(msg, ' ')
+        pollManager.createReaction(msg, 'Оцените девочку')
     });
 } 
