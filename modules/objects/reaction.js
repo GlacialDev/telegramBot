@@ -39,10 +39,12 @@ class reaction {
         
         bot.sendMessage(msg.chat.id, this.title, options)
     }
+
     update_reaction(msg) {
         let messageId = msg.message.message_id
         let chatId = msg.message.chat.id
 
+        this.buttons = []
         let buttonArray = []
         for (let i = 0; i < this.answers.length; i++) {
             let buttonObjBlank = {
