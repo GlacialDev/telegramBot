@@ -33,10 +33,10 @@ class reaction {
 
 
         let options = {
-            parse_mode = 'Markdown',
             reply_markup: JSON.stringify({
                 inline_keyboard: this.buttons
-            })
+            }),
+            parse_mode = 'Markdown'
         }
         
         bot.sendMessage(sendTo, this.title, options)
@@ -59,8 +59,8 @@ class reaction {
 
         let options = {
             reply_markup: JSON.stringify({
-                parse_mode = 'Markdown',
-                inline_keyboard: this.buttons
+                inline_keyboard: this.buttons,
+                parse_mode = 'Markdown'
             })
         }
 
