@@ -65,14 +65,14 @@ let pollManager = {
         
         clickedPoll.update_poll(msg)
     },
-    createReaction: (msg, title) => {
+    createReaction: (msg, title, sendTo) => {
         let id = symbolStringGenerator(16)
         let userVotes = [[],[]]
         
         let reactionObject = new reaction(title, id)
         pollManager.reactionStore.push([id, reactionObject, userVotes])
 
-        reactionObject.make_reaction(msg)
+        reactionObject.make_reaction(msg, sendTo)
     },
     updateReaction: (msg, data) => {
         let id = data[1]

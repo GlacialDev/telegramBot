@@ -17,7 +17,9 @@ class reaction {
         this.id = id
     }
 
-    make_reaction(msg) {
+    make_reaction(msg, chatId) {
+        let sendTo = chatId || msg.chat.id
+        
         let buttonArray = []
         for (let i = 0; i < this.answers.length; i++) {
             this.votes[i] = 0
@@ -37,7 +39,7 @@ class reaction {
             })
         }
         
-        bot.sendMessage(msg.chat.id, this.title, options)
+        bot.sendMessage(sendTo, this.title, options)
     }
 
     update_reaction(msg) {
