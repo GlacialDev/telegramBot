@@ -2,6 +2,7 @@
 import variables from '../../variables/variables'
 import takePhotoFromBuffer from '../../functions/takePhotoFromBuffer'
 import adminCheck from '../../functions/adminCheck';
+import config from '../secret/config'
 
 let bot = variables.bot
 
@@ -9,6 +10,6 @@ export default function ero_give_img() {
     bot.onText(/\/ero_give_img/, (msg) => {
         if (adminCheck(msg) != true) return
 
-        takePhotoFromBuffer("./data/eroTimer/ero.txt", msg.chat.id, true)
+        takePhotoFromBuffer("./data/eroTimer/ero.txt", config.canadianEroId, true)
     });
 } 
