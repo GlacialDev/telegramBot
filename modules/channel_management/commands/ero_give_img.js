@@ -17,10 +17,10 @@ export default function ero_give_img() {
         .then(
             (item) => {
                 link = item 
-                console.log(item)
+                console.log(item+' in then')
             }
         )
-        console.log(link)
+        console.log(link+' after then')
         // pollManager.createReaction(msg, `Оцените <a href=${link}>девочку</a>`, config.canadianEroId)
     });
 } 
