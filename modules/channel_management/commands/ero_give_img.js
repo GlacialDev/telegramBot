@@ -2,6 +2,8 @@
 import variables from '../../variables/variables'
 import takePhotoFromBuffer from '../../functions/takePhotoFromBuffer'
 import adminCheck from '../../functions/adminCheck';
+
+import pollManager from '../../objects/pollManager'
 import config from '../../secret/config'
 
 let bot = variables.bot
