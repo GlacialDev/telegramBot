@@ -2,7 +2,7 @@ import variables from '../variables/variables'
 
 let fs = variables.fs
 
-export default function getEroPhotoLink() {
+export default function getEroPhotoLink(path) {
     // открываем файл-буфер со ссылками
     fs.readFile(path, "utf8", function (error, data) {
       if (error) throw error; // если возникла ошибка
@@ -17,9 +17,10 @@ export default function getEroPhotoLink() {
       });
       return new Promise((resolve, reject) => {
         if (link == '') {
+            console.log('in reject')
             reject()
         } else {
-            console.log(link)
+            console.log(link+' in resolve')
             resolve(link)
         }
       })

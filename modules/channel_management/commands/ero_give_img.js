@@ -12,7 +12,7 @@ export default function ero_give_img() {
     bot.onText(/\/ero_give_img/, (msg) => {
         if (adminCheck(msg) != true) return
         
-        getEroPhotoLink().then(
+        getEroPhotoLink("./data/eroTimer/ero.txt").then(
             (link) => pollManager.createReaction(msg, `Оцените <a href=${link}>девочку</a>`, config.canadianEroId),
             () => bot.sendMessage(variables.creator, 'Эро-картинки кончились!')
         )

@@ -39,7 +39,7 @@ let eroTimerObj = {
         eroTimerObj.eroTimerStateFlag = 'enabled'
         // инициализация таймера
         eroTimerObj.eroTimer = setTimeout(() => {
-            takePhotoFromBuffer("./list/ero.txt", eroTimerObj.channelId, false)
+            takePhotoFromBuffer("./data/eroTimer/ero.txt", eroTimerObj.channelId, false)
         }, eroTimerObj.eroInterval)
         // если всё прошло успешно и без ошибок, далее следует сообщение в группу
         bot.sendMessage(eroTimerObj.channelId, 'Буду присылать картинки каждые ' + hours + ' часов')
