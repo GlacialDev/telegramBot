@@ -16,16 +16,6 @@ import roll from './modules/bot_commands/roll'
 roll()
 import talk_with_bot from './modules/bot_commands/talk_with_bot'
 talk_with_bot()
-import set_ero_timer from './modules/bot_commands/set_ero_timer'
-set_ero_timer()
-import stop_ero_timer from './modules/bot_commands/stop_ero_timer'
-stop_ero_timer()
-import how_much_ero from './modules/bot_commands/how_much_ero'
-how_much_ero()
-import add_more_ero from './modules/bot_commands/add_more_ero'
-add_more_ero()
-// import give_ero from './modules/bot_commands/give_ero'
-// give_ero()
 import bot_settings from './modules/bot_commands/settings'
 bot_settings()
 import upload from './modules/bot_commands/upload'
@@ -36,6 +26,18 @@ import convert from './modules/bot_commands/convert'
 convert()
 import poll from './modules/bot_commands/poll'
 poll()
+// channel management 
+import ero_set_timer from './modules/channel_management/commands/ero_set_timer'
+ero_set_timer()
+import ero_stop_timer from './modules/channel_management/commands/ero_stop_timer'
+ero_stop_timer()
+import ero_how_much from './modules/channel_management/commands/ero_how_much'
+ero_how_much()
+import ero_add_more from './modules/channel_management/commands/ero_add_more'
+ero_add_more()
+import ero_give_img from './modules/channel_management/commands/ero_give_img'
+ero_give_img()
+
 
 
 let devMode = false
