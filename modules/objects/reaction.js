@@ -22,7 +22,7 @@ class reaction {
         for (let i = 0; i < this.answers.length; i++) {
             this.votes[i] = 0
             let buttonObjBlank = {
-                text: `${this.answers[i]} - ${this.votes[i]}`,
+                text: `${this.answers[i]} ${this.votes[i]}`,
                 callback_data: 'reaction_'+this.id+'_'+i
             }
             buttonArray.push(buttonObjBlank)
@@ -48,7 +48,7 @@ class reaction {
         let buttonArray = []
         for (let i = 0; i < this.answers.length; i++) {
             let buttonObjBlank = {
-                text: `${this.answers[i]} - ${this.votes[i]}`,
+                text: `${this.answers[i]} ${this.votes[i]}`,
                 callback_data: 'reaction_'+this.id+'_'+i
             }
             buttonArray.push(buttonObjBlank)
