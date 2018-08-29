@@ -13,16 +13,9 @@ export default function takePhotoFromBuffer(path, sendTo, returnLinkBoolean) {
     // разбиваем содержимое файла на массив и достаем оттуда одну ссылку
     let array = data.split(' ');
     let item = array.shift();
-    if (returnLinkBoolean) {
-      return new Promise((resolve, reject) => {
-        console.log(item+' in promise')
-        resolve(item)
-      })
-    } else {
-      // если ссылки кончились говорим что всё хана заправляйте новыми
-      if (item == '') item = 'Картинки кончились :('
-      bot.sendPhoto(sendTo, item)
-    }
+    // если ссылки кончились говорим что всё хана заправляйте новыми
+    if (item == '') item = 'Картинки кончились :('
+    bot.sendPhoto(sendTo, item)
     // массив без элемента который мы достали shift-ом преобразуем в строку
     let string = array.join(' ')
     // и грузим обратно в файл-буфер
