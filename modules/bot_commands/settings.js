@@ -1,6 +1,6 @@
 import variables from '../variables/variables'
 import authCheck from '../functions/authCheck'
-import eroTimerObj from '../objects/eroTimer'
+import eroTimerObj from '../channel_management/objects/eroTimer'
 import uploader from '../objects/uploader';
 
 let bot = variables.bot
