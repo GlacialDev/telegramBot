@@ -34,12 +34,11 @@ class reaction {
 
         let options = {
             reply_markup: JSON.stringify({
-                inline_keyboard: this.buttons,
-                parse_mode: 'Markdown'
+                inline_keyboard: this.buttons
             })
         }
         
-        bot.sendMessage(sendTo, this.title, options)
+        bot.sendMessage(sendTo, this.title, parse_mode = 'Markdown', options)
     }
 
     update_reaction(msg) {
@@ -59,14 +58,14 @@ class reaction {
 
         let options = {
             reply_markup: JSON.stringify({
-                inline_keyboard: this.buttons,
-                parse_mode: 'Markdown'
+                inline_keyboard: this.buttons
             })
         }
 
         bot.editMessageText(this.title, {
             message_id: messageId,
             chat_id: chatId,
+            parse_mode: 'Markdown',
             reply_markup: options.reply_markup
         })
     }
