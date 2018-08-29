@@ -15,8 +15,12 @@ export default function ero_give_img() {
 
         takePhotoFromBuffer("./data/eroTimer/ero.txt", config.canadianEroId, true)
         .then(
-            (item) => link = item
+            (item) => {
+                link = item 
+                console.log(item)
+            }
         )
-        pollManager.createReaction(msg, `Оцените <a href=${link}>девочку</a>`, config.canadianEroId)
+        console.log(link)
+        // pollManager.createReaction(msg, `Оцените <a href=${link}>девочку</a>`, config.canadianEroId)
     });
 } 

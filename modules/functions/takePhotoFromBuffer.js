@@ -15,6 +15,7 @@ export default function takePhotoFromBuffer(path, sendTo, returnLinkBoolean) {
     let item = array.shift();
     if (returnLinkBoolean) {
       return new Promise((resolve, reject) => {
+        console.log(item)
         resolve(item)
       })
     } else {
