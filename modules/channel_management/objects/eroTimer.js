@@ -93,7 +93,7 @@ let eroTimerObj = {
         let dateNum2 = +date
         let dateDifference = dateNum2 - dateNum1
         let additionalZero_min = date.getMinutes() < 10 ? '0' : ''
-        let hourGMT3 = date.getHours() + 3
+        let hourGMT3 = date.getHours() + 2
         let correctHour = hourGMT3 > 24 ? hourGMT3 - 24 : hourGMT3
         let additionalZero_hour = correctHour < 10 ? '0' : ''
 
