@@ -51,7 +51,7 @@ let eroTimerObj = {
         stopTimer(eroTimerObj.eroTimer)
         eroTimerObj.eroTimerStateFlag = 'disabled'
         // при остановке таймера группа об этом оповещается
-        bot.sendMessage(eroTimerObj.channelId, 'Таймер картинок остановлен')
+        bot.sendMessage(variables.creator, 'Таймер картинок остановлен')
     },
     ero_add_more: (msg) => {
         // достать данные из './data/download/savefrom.txt'
