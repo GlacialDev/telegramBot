@@ -6,7 +6,7 @@ let bot = variables.bot
 
 export default function botInit(flag) {
     bot.sendMessage(variables.creator, `Бот инициализирован. dev-mode: ${flag}`)
-    channelManager.initEroTimer(flag)
+    channelManager.initEroTimer()
 
     bot.on('callback_query', function (msg) {
         let data = msg.data.split('_')

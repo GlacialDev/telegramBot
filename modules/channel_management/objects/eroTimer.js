@@ -1,6 +1,6 @@
 import variables from '../../variables/variables'
 import stopTimer from '../../functions/stopTimer'
-import takePhotoFromBuffer from '../../functions/takePhotoFromBuffer'
+import getEroPhotoLink from '../../functions/getEroPhotoLink'
 import pollManager from '../../objects/pollManager'
 
 let bot = variables.bot
@@ -39,10 +39,13 @@ let eroTimerObj = {
         eroTimerObj.eroTimerStateFlag = 'enabled'
         // инициализация таймера
         eroTimerObj.eroTimer = setTimeout(() => {
-            takePhotoFromBuffer("./data/eroTimer/ero.txt", eroTimerObj.channelId, false)
+            getEroPhotoLink("./data/eroTimer/ero.txt").then(
+                (link) => pollManager.createReaction(msg, link, config.canadianEroId),
+                (text) => bot.sendMessage(variables.creator, text)
+            )
         }, eroTimerObj.eroInterval)
         // если всё прошло успешно и без ошибок, далее следует сообщение в группу
-        bot.sendMessage(eroTimerObj.channelId, 'Буду присылать картинки каждые ' + hours + ' часов')
+        bot.sendMessage(variables.creator, 'Буду присылать картинки каждые ' + hours + ' часов')
     },
     ero_stop_timer: (msg) => {
         stopTimer(eroTimerObj.eroTimer)
@@ -75,7 +78,7 @@ let eroTimerObj = {
             })
         })
     },
-    eroTimerInit: (id, flag) => {
+    eroTimerInit: (id) => {
         eroTimerObj.channelId = id
 
         let date = new Date;
@@ -95,14 +98,18 @@ let eroTimerObj = {
         let correctHour = hourGMT3 > 24 ? hourGMT3 - 24 : hourGMT3
         let additionalZero_hour = correctHour < 10 ? '0' : ''
 
-        // if(flag == false) bot.sendMessage(eroTimerObj.channelId, `Картинки будут присланы в ${additionalZero_hour}${correctHour}:${additionalZero_min}${date.getMinutes()}, далее с интервалом в ${eroTimerObj.eroInterval / 3600000} ч.`)
+        bot.sendMessage(variables.creator, `Картинки будут присланы в ${additionalZero_hour}${correctHour}:${additionalZero_min}${date.getMinutes()}, далее с интервалом в ${eroTimerObj.eroInterval / 3600000} ч.`)
 
         setTimeout(() => {
-            takePhotoFromBuffer("./data/eroTimer/ero.txt", eroTimerObj.channelId, false)
-            pollManager.createReaction(msg, 'Оцените девочку')
+            getEroPhotoLink("./data/eroTimer/ero.txt").then(
+                (link) => pollManager.createReaction(msg, link, config.canadianEroId),
+                (text) => bot.sendMessage(variables.creator, text)
+            )
             eroTimerObj.eroTimer = setInterval(function () {
-                takePhotoFromBuffer("./data/eroTimer/ero.txt", eroTimerObj.channelId, false)
-                pollManager.createReaction(msg, 'Оцените девочку')
+                getEroPhotoLink("./data/eroTimer/ero.txt").then(
+                    (link) => pollManager.createReaction(msg, link, config.canadianEroId),
+                    (text) => bot.sendMessage(variables.creator, text)
+                )
             }, eroTimerObj.eroInterval);
         }, dateDifference)
     }

@@ -43,11 +43,8 @@ class reaction {
     }
 
     update_reaction(msg) {
-        console.log(msg)
         let messageId = msg.message.message_id
         let chatId = msg.message.chat.id
-        let inlineId = msg.id
-        console.log(inlineId)
 
         this.buttons = []
         let buttonArray = []
