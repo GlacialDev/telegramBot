@@ -22,7 +22,7 @@ let eroTimerObj = {
             array = data.split(' ');
             // считаем количество элементов
             number = array.length;
-            bot.sendMessage(msg.chat.id, `У меня в запасе осталось ${number} картинок`)
+            bot.sendMessage(variables.creator, `У меня в запасе осталось ${number} картинок`)
         });
     },
     ero_set_timer: (msg, match) => {
@@ -40,7 +40,7 @@ let eroTimerObj = {
         // инициализация таймера
         eroTimerObj.eroTimer = setTimeout(() => {
             getEroPhotoLink("./data/eroTimer/ero.txt").then(
-                (link) => pollManager.createReaction(msg, link, config.canadianEroId),
+                (link) => pollManager.createReaction(link, config.canadianEroId),
                 (text) => bot.sendMessage(variables.creator, text)
             )
         }, eroTimerObj.eroInterval)
@@ -68,7 +68,7 @@ let eroTimerObj = {
                     // отформатированное записать обратно
                     fs.writeFile('./data/eroTimer/ero.txt', string2, function (error) {
                         if (error) throw error; // если возникла ошибка
-                        bot.sendMessage(msg.chat.id, `Перемещение закончено`)
+                        bot.sendMessage(variables.creator, `Перемещение закончено`)
                     })
                 })
             })
@@ -78,9 +78,7 @@ let eroTimerObj = {
             })
         })
     },
-    eroTimerInit: (id) => {
-        eroTimerObj.channelId = id
-
+    eroTimerInit: () => {
         let date = new Date;
         let dateNum1 = +date
 
@@ -102,12 +100,12 @@ let eroTimerObj = {
 
         setTimeout(() => {
             getEroPhotoLink("./data/eroTimer/ero.txt").then(
-                (link) => pollManager.createReaction(msg, link, config.canadianEroId),
+                (link) => pollManager.createReaction(link, config.canadianEroId),
                 (text) => bot.sendMessage(variables.creator, text)
             )
             eroTimerObj.eroTimer = setInterval(function () {
                 getEroPhotoLink("./data/eroTimer/ero.txt").then(
-                    (link) => pollManager.createReaction(msg, link, config.canadianEroId),
+                    (link) => pollManager.createReaction(link, config.canadianEroId),
                     (text) => bot.sendMessage(variables.creator, text)
                 )
             }, eroTimerObj.eroInterval);

@@ -5,7 +5,7 @@ let channelManager = {
     canadianEroId: config.canadianEroId,
 
     initEroTimer: () => {
-        eroTimerObj.eroTimerInit(channelManager.canadianEroId)
+        eroTimerObj.eroTimerInit()
     }
 }
 

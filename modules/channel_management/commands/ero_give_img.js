@@ -12,9 +12,7 @@ export default function ero_give_img() {
         if (adminCheck(msg) != true) return
         
         getEroPhotoLink("./data/eroTimer/ero.txt").then(
-            (link) => {
-                pollManager.createReaction(msg, link, config.canadianEroId)
-            },
+            (link) => pollManager.createReaction(link, config.canadianEroId),
             (text) => bot.sendMessage(variables.creator, text)
         )
     });

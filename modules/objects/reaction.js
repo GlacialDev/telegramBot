@@ -17,8 +17,8 @@ class reaction {
         this.id = id
     }
 
-    make_reaction(msg, chatId) {
-        let sendTo = chatId || msg.chat.id
+    make_reaction(chatId) {
+        let sendTo = chatId
 
         let buttonArray = []
         for (let i = 0; i < this.answers.length; i++) {
