@@ -84,10 +84,10 @@ let eroTimerObj = {
         let dateNum1 = +date
 
         let hour = date.getHours()
-        let minutes = date.getMinutes()
+        // let minutes = date.getMinutes()
         // let seconds = date.getSeconds()
-        date.setHours(hour)
-        date.setMinutes(minutes+1)
+        date.setHours(hour + 1)
+        date.setMinutes(0)
         date.setSeconds(0)
 
         let dateNum2 = +date
