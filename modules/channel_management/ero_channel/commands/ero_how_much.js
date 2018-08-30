@@ -1,6 +1,6 @@
-import variables from '../../variables/variables'
+import variables from '../../../variables/variables'
 import eroTimerObj from '../objects/eroTimer'
-import adminCheck from '../../functions/adminCheck';
+import adminCheck from '../../../functions/adminCheck';
 
 let bot = variables.bot
 

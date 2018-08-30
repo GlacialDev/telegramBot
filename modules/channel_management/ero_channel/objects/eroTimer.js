@@ -1,8 +1,8 @@
-import variables from '../../variables/variables'
-import stopTimer from '../../functions/stopTimer'
+import variables from '../../../variables/variables'
+import stopTimer from '../../../functions/stopTimer'
 import getEroPhotoLink from '../functions/getEroPhotoLink'
-import pollManager from '../../objects/pollManager'
-import config from '../../secret/config'
+import pollManager from '../../../objects/pollManager'
+import config from '../../../secret/config'
 
 let bot = variables.bot
 let fs = variables.fs

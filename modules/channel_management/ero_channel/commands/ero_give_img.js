@@ -1,9 +1,9 @@
-// то же самое, что в таймере, но вручную по команде /give_ero
-import variables from '../../variables/variables'
+// то же самое, что в таймере, но вручную по команде /ero_give_img
+import variables from '../../../variables/variables'
 import getEroPhotoLink from '../functions/getEroPhotoLink'
-import adminCheck from '../../functions/adminCheck'
-import pollManager from '../../objects/pollManager'
-import config from '../../secret/config'
+import adminCheck from '../../../functions/adminCheck'
+import pollManager from '../../../objects/pollManager'
+import config from '../../../secret/config'
 
 let bot = variables.bot
 

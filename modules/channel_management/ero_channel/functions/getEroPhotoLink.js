@@ -1,4 +1,4 @@
-import variables from '../../variables/variables'
+import variables from '../../../variables/variables'
 
 let fs = variables.fs
 
