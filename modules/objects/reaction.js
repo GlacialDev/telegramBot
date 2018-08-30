@@ -18,8 +18,6 @@ class reaction {
     }
 
     make_reaction(chatId) {
-        let sendTo = chatId
-
         let buttonArray = []
         for (let i = 0; i < this.answers.length; i++) {
             this.votes[i] = 0
@@ -39,7 +37,7 @@ class reaction {
             parse_mode: 'Markdown'
         }
         
-        bot.sendPhoto(sendTo, this.link, options)
+        bot.sendPhoto(chatId, this.link, options)
     }
 
     update_reaction(msg) {

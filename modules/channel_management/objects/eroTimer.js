@@ -8,7 +8,7 @@ let bot = variables.bot
 let fs = variables.fs
 
 let eroTimerObj = {
-    channelId: null,
+    channelId: config.canadianEroId,
     eroTimer: null,
     eroInterval: 3600000 * 3,
     eroTimerStateFlag: 'enabled',
@@ -41,7 +41,7 @@ let eroTimerObj = {
         // инициализация таймера
         eroTimerObj.eroTimer = setTimeout(() => {
             getEroPhotoLink("./data/eroTimer/ero.txt").then(
-                (link) => pollManager.createReaction(link, config.canadianEroId),
+                (link) => pollManager.createReaction(link, eroTimerObj.channelId),
                 (text) => bot.sendMessage(variables.creator, text)
             )
         }, eroTimerObj.eroInterval)
@@ -101,12 +101,12 @@ let eroTimerObj = {
 
         setTimeout(() => {
             getEroPhotoLink("./data/eroTimer/ero.txt").then(
-                (link) => pollManager.createReaction(link, config.canadianEroId),
+                (link) => pollManager.createReaction(link, eroTimerObj.channelId),
                 (text) => bot.sendMessage(variables.creator, text)
             )
             eroTimerObj.eroTimer = setInterval(function () {
                 getEroPhotoLink("./data/eroTimer/ero.txt").then(
-                    (link) => pollManager.createReaction(link, config.canadianEroId),
+                    (link) => pollManager.createReaction(link, eroTimerObj.channelId),
                     (text) => bot.sendMessage(variables.creator, text)
                 )
             }, eroTimerObj.eroInterval);
