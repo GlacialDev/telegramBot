@@ -1,6 +1,6 @@
 import variables from '../../variables/variables'
 import stopTimer from '../../functions/stopTimer'
-import getEroPhotoLink from '../../functions/getEroPhotoLink'
+import getEroPhotoLink from '../functions/getEroPhotoLink'
 import pollManager from '../../objects/pollManager'
 
 let bot = variables.bot
