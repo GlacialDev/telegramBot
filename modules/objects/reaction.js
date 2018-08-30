@@ -66,10 +66,9 @@ class reaction {
             })
         }
 
-        bot.editMessageReplyMarkup({
+        bot.editMessageReplyMarkup(options.reply_markup, {
             chat_id: chatId,
-            message_id: messageId,
-            reply_markup: options.reply_markup
+            message_id: messageId
         })
     }
 }
