@@ -27,15 +27,15 @@ convert()
 import poll from './modules/bot_commands/poll'
 poll()
 // channel management 
-import ero_set_timer from './modules/channel_management/commands/ero_set_timer'
+import ero_set_timer from './modules/channel_management/ero_channel/commands/ero_set_timer'
 ero_set_timer()
-import ero_stop_timer from './modules/channel_management/commands/ero_stop_timer'
+import ero_stop_timer from './modules/channel_management/ero_channel/commands/ero_stop_timer'
 ero_stop_timer()
-import ero_how_much from './modules/channel_management/commands/ero_how_much'
+import ero_how_much from './modules/channel_management/ero_channel/commands/ero_how_much'
 ero_how_much()
-import ero_add_more from './modules/channel_management/commands/ero_add_more'
+import ero_add_more from './modules/channel_management/ero_channel/commands/ero_add_more'
 ero_add_more()
-import ero_give_img from './modules/channel_management/commands/ero_give_img'
+import ero_give_img from './modules/channel_management/ero_channel/commands/ero_give_img'
 ero_give_img()
 
 
