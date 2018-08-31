@@ -73,7 +73,6 @@ let pollManager = {
 
         requestP.get('http://localhost:3012/pollstore/' + id).then((pollObject) => {
             pollObject = JSON.parse(pollObject)
-            console.log(pollObject)
             let votes = pollObject.votes
             let votedUsers = votes.votedUsers
             let votedUsersAnswer = votes.votedUsersAnswer
