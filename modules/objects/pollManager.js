@@ -31,6 +31,7 @@ let pollManager = {
             inline_keyboard: buttons,
             parse_mode: 'Markdown'
         })
+        console.log(reply_markup)
 
         let pollObject = {
             id : id,
@@ -38,6 +39,7 @@ let pollManager = {
             answers : answers,
             votes : { votesAmount, votedUsers }
         }
+        console.log(pollObject)
 
         // let options_post = {
         //     headers: {
@@ -48,7 +50,7 @@ let pollManager = {
 
         // request.post('http://localhost:3012/pollstore', options_post);
 
-        return { pollObject : pollObject, reply_markup : reply_markup }
+        // return { pollObject : pollObject, reply_markup : reply_markup }
     },
     // обновить опрос
     updatePoll: (msg, data) => {
