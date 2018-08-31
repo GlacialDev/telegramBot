@@ -47,7 +47,7 @@ let pollManager = {
             result = JSON.parse(poll)
             console.log(result)
             console.log(typeof result)
-            console.log(typeof new poll)
+            console.log(typeof new poll('meow', ['raz', 'dva'], 321321))
 
             clickedPoll = result.poll
             userVotes = result.userVotes
