@@ -18,6 +18,6 @@ export default function poll() {
 
         // let pollBlank = pollManager.createPoll(id, title, answers)
         // console.log(pollBlank)
-        // bot.sendMessage(msg.chat.id, pollBlank.pollObject.title, pollBlank.reply_markup)
+        bot.sendMessage(msg.chat.id, pollBlank.pollObject.title, pollBlank.reply_markup)
     })
 }
