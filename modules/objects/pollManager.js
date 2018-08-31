@@ -46,9 +46,10 @@ let pollManager = {
         requestP.get('http://localhost:3012/pollstore/' + id).then((poll) => {
             result = JSON.parse(poll)
             console.log(result)
+            console.log(typeof result)
+            console.log(typeof new poll)
 
             clickedPoll = result.poll
-            clickedPoll.prototype = new poll(clickedPoll.title, clickedPoll.answers, clickedPoll.id)
             userVotes = result.userVotes
 
             // for (let i = 0; i < pollManager.pollStore.length; i++) {
