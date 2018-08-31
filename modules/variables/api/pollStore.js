@@ -11,7 +11,7 @@ export default function pollStore() {
             answers: req.body.answers,
             votes: req.body.votes
         };
-        console.log('v post metode')
+        // console.log('v post metode')
         db.get().collection('pollstore').insertOne(pollObject, (err, result) => {
             if (err) {
                 console.log(err)

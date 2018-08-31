@@ -5,7 +5,7 @@ import requestP from 'request-promise'
 import emoji from 'node-emoji'
 import pollStore from '../variables/api/pollStore'
 pollStore();
-import reactionStore from '../variables/api/pollStore'
+import reactionStore from '../variables/api/reactionStore'
 reactionStore();
 
 let bot = variables.bot

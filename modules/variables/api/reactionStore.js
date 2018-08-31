@@ -5,6 +5,7 @@ let db = variables.db
 
 export default function reactionStore() {
     server.post('/reactionstore', (req, res) => {
+        console.log('v samom nachale v post metode')
         let reactionObject = {
             id: req.body.id,
             answers: req.body.answers,
@@ -36,7 +37,6 @@ export default function reactionStore() {
         db.get().collection('reactionstore').updateOne( 
             { id: req.params.id },
             { $set: { 
-                title: req.body.title,
                 answers: req.body.answers,
                 votes: req.body.votes
             } },
