@@ -23,6 +23,7 @@ export default function server_api() {
     })
 
     server.get('/pollstore/:id', (req, res) => {
+        id = req.params.id
         db.get().collection('pollstore').findOne({ id: id }, (err, poll) => {
             if (err) {
                 console.log(err)
