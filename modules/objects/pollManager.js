@@ -135,7 +135,7 @@ let pollManager = {
                 body: JSON.stringify({
                     title: title,
                     answers: answers,
-                    votes: votes
+                    votes: { votedUsers: votedUsers, votedUsersAnswer: votedUsersAnswer, votesAmount: votesAmount }
                 })
             }
         })
