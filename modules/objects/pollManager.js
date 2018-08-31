@@ -187,8 +187,9 @@ let pollManager = {
             body: JSON.stringify(reactionObject)
         }
         // и отправляем пост-запрос в БД
-        /console.log('pered post zaprosom')
+        console.log('pered post zaprosom')
         request.post('http://localhost:3012/reactionstore', options_post);
+        console.log('posle post zaprosa')
         // возвращаем из метода все что нужно для того чтобы отослать реакцию в телегу
         let reactionProperties = {
             reactionObject: reactionObject,
