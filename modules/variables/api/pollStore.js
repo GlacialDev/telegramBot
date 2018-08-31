@@ -31,7 +31,6 @@ export default function pollStore() {
     })
 
     server.put('/pollstore/:id', (req, res) => {
-        console.log('v zaprose put')
         db.get().collection('pollstore').updateOne( 
             { id: req.params.id },
             { $set: { 
@@ -40,12 +39,10 @@ export default function pollStore() {
                 votes: req.body.votes
             } },
             (err, result) => {
-                console.log('v collection k db')
                 if (err) {
                     console.log(err)
                     return res.sendStatus(500)
                 }
-                console.log('zapros put vipolnen')
                 res.sendStatus(200)
             }
         )

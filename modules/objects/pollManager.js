@@ -3,6 +3,7 @@ import reaction from './reaction'
 import symbolStringGenerator from '../functions/symbolStringGenerator'
 import request from 'request'
 import requestP from 'request-promise'
+import emoji from 'node-emoji'
 import pollStore from '../variables/api/pollStore'
 pollStore();
 
@@ -10,11 +11,11 @@ let bot = variables.bot
 
 let pollManager = {
     // хранилища опросов
-    pollStore: [],
     reactionStore: [],
 
     // создать новый опрос
-    createPoll: (id, title, answers) => {
+    createPoll: (title, answers) => {
+        let id = symbolStringGenerator(15)
         // массив, содержащий массивы id голосовавших за каждый вариант
         let votedUsers = []
         // и массив, содержащий номер ответа голосовавшего
@@ -82,7 +83,6 @@ let pollManager = {
             if (votedUsers.includes(userId)) {
                 let userPos = votedUsers.indexOf(userId) // на той же позиции всегда находится и номер ответа
                 let userLastAnswer = votedUsersAnswer[userPos]
-                console.log(userLastAnswer+' userLastAnswer + userAnswer '+userAnswer)
                 // если он кликнул туда же, куда и в прошлый раз, убрать его голос
                 if (userLastAnswer == userAnswer) {
                     votedUsers.splice(userPos, 1)
@@ -136,18 +136,62 @@ let pollManager = {
                     answers: answers,
                     votes: { votedUsers: votedUsers, votedUsersAnswer: votedUsersAnswer, votesAmount: votesAmount }
                 })
-            }      
-            request.put('http://localhost:3012/pollstore/'+id, options_put);
+            }
+            request.put('http://localhost:3012/pollstore/' + id, options_put);
         })
     },
-    createReaction: (link, sendTo) => {
+    createReaction: () => {
         let id = symbolStringGenerator(16)
-        let userVotes = [[], []]
-
-        let reactionObject = new reaction(link, id)
-        pollManager.reactionStore.push([id, reactionObject, userVotes])
-
-        reactionObject.make_reaction(sendTo)
+        // массив, содержащий массивы id голосовавших за каждый вариант
+        let votedUsers = []
+        // и массив, содержащий номер ответа голосовавшего
+        let votedUsersAnswer = []
+        // массив с кол-вом голосов за каждый вариант
+        let votesAmount = []
+        // кнопки опроса
+        let E_thumbsup = emoji.get(':+1:')
+        let E_thumbsdown = emoji.get(':-1:')
+        let answers = [E_thumbsup, E_thumbsdown]
+        let buttons = []
+        // строим инлайн-клаву
+        let buttonArray = []
+        for (let i = 0; i < answers.length; i++) {
+            votesAmount[i] = 0
+            let buttonBlank = {
+                text: `${answers[i]} ${votesAmount[i]}`,
+                callback_data: 'reaction_' + id + '_' + i
+            }
+            buttonArray.push(buttonBlank)
+        }
+        buttons.push(buttonArray)
+        // формируем объект настроек для создания реакции в телеграме
+        let options_reaction = {
+            reply_markup: JSON.stringify({
+                inline_keyboard: buttons
+            }),
+            parse_mode: 'Markdown'
+        }
+        // формируем объект реакции для записи в БД
+        let reactionObject = {
+            id: id,
+            answers: answers,
+            votes: { votedUsers: votedUsers, votedUsersAnswer: votedUsersAnswer, votesAmount: votesAmount }
+        }
+        // формируем настройки пост-запроса для добавления опроса в БД
+        let options_post = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(reactionObject)
+        }
+        // и отправляем пост-запрос в БД
+        request.post('http://localhost:3012/reactionstore', options_post);
+        // возвращаем из метода все что нужно для того чтобы отослать реакцию в телегу
+        let reactionProperties = {
+            reactionObject: reactionObject,
+            options: options_reaction
+        }
+        return reactionProperties
     },
     updateReaction: (msg, data) => {
         let id = data[1]
