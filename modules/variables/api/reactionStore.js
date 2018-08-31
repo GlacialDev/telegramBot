@@ -24,20 +24,20 @@ export default function reactionStore() {
     })
 
     server.get('/reactionstore/:id', (req, res) => {
-        console.log('v samom nachale v get metode')
+        // console.log('v samom nachale v get metode')
         db.get().collection('reactionstore').findOne({ id: req.params.id }, (err, reactionObject) => {
-            console.log('v db collection')
+            // console.log('v db collection')
             if (err) {
                 console.log(err)
                 return res.sendStatus(500)
             }
-            console.log(reactionObject)
+            // console.log(reactionObject)
             res.send(reactionObject)
         })
     })
 
     server.put('/reactionstore/:id', (req, res) => {
-        console.log('v samom nachale v put metode')
+        // console.log('v samom nachale v put metode')
         db.get().collection('reactionstore').updateOne( 
             { id: req.params.id },
             { $set: { 
@@ -49,7 +49,7 @@ export default function reactionStore() {
                     console.log(err)
                     return res.sendStatus(500)
                 }
-                console.log('v konce put metoda')
+                // console.log('v konce put metoda')
                 res.sendStatus(200)
             }
         )
