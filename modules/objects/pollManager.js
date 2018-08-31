@@ -1,13 +1,10 @@
-import variables from '../variables/variables';
 import poll from './poll'
 import reaction from './reaction'
 import symbolStringGenerator from '../functions/symbolStringGenerator'
+import api_server from '../variables/api_server'
+api_server();
 
-// import request from 'request'
-let server = variables.server
-let db = variables.db
-
-// let bot = variables.bot
+import request from 'request'
 
 let pollManager = {
     // хранилища опросов
@@ -22,25 +19,19 @@ let pollManager = {
 
         let pollObject = new poll(title, answers, id)
         pollObject.make_poll(msg)
-
-        server.post('/pollstore', (req, res) => {
-            console.log('v zaprose post')
-            let poll = {
+        
+        let options_post = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
                 id: id,
                 poll: pollObject,
                 userVotes : userVotes
-            };
-            db.get().collection('pollstore').insertOne(poll, (err, result) => {
-                console.log('v collection k db')
-                if (err) {
-                    console.log(err)
-                    return res.sendStatus(500)
-                }
-                // res.send(poll)
-                console.log(poll)
             })
-        })
+        }
 
+        request.post('http://localhost:3012/pollstore', options_post);
     },
     // обновить опрос
     updatePoll: (msg, data) => {
@@ -51,17 +42,7 @@ let pollManager = {
         let userVotes
         let getReqResult
 
-        server.get('/pollstore/:id', (req, res) => {
-            db.get().collection('pollstore').findOne({ id: id }, (err, poll) => {
-                if (err) {
-                    console.log(err)
-                    return res.sendStatus(500)
-                }
-                getReqResult = poll
-            })
-        })
-
-        console.log(getReqResult)
+        request('http://localhost:3012/second'+id);
 
     //     // ищем нужный опрос (потому что их может работать одновременно несколько) по id опроса
     //     // и запоминаем его, а также кто за что в нем голосовал (userVotes)
