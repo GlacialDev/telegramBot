@@ -67,7 +67,7 @@ let pollManager = {
         let userId = msg.from.id
         // let clickedPoll
         // let userVotes
-        // let result
+        let result
         
         console.log('v update')
         requestP.get('http://localhost:3012/pollstore/' + id).then((pollObject) => {
