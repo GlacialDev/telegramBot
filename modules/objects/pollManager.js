@@ -54,6 +54,8 @@ let pollManager = {
         console.log(clickedPoll)
         console.log(userVotes)
         
+        break;
+        
         // for (let i = 0; i < pollManager.pollStore.length; i++) {
         //     if (pollManager.pollStore[i][0] == id) {
         //         clickedPoll = pollManager.pollStore[i][1]
