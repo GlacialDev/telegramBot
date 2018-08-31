@@ -15,26 +15,6 @@ class poll {
         this.id = id
     }
 
-    make_poll(msg) {
-        for (let i = 0; i < this.answers.length; i++) {
-            this.votes[i] = 0
-            let buttonObjBlank = {
-                text: `${this.answers[i]} - ${this.votes[i]}`,
-                callback_data: 'poll_'+this.id+'_'+i
-            }
-            this.buttons[i] = [buttonObjBlank]
-        }
-
-        let options = {
-            reply_markup: JSON.stringify({
-                inline_keyboard: this.buttons,
-                parse_mode: 'Markdown'
-            })
-        }
-
-        bot.sendMessage(msg.chat.id, this.title, options)
-    }
-
     update_poll(msg) {
         let messageId = msg.message.message_id
         let chatId = msg.message.chat.id
