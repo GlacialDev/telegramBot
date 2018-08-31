@@ -202,11 +202,11 @@ let pollManager = {
 
         requestP.get('http://localhost:3012/reactionstore/' + id).then((reactionObject) => {
             reactionObject = JSON.parse(reactionObject)
-            let votes = pollObject.votes
+            let votes = reactionObject.votes
             let votedUsers = votes.votedUsers
             let votedUsersAnswer = votes.votedUsersAnswer
             let votesAmount = votes.votesAmount
-            let answers = pollObject.answers
+            let answers = reactionObject.answers
             // если в списке проголосовавших человек уже есть
             if (votedUsers.includes(userId)) {
                 let userPos = votedUsers.indexOf(userId) // на той же позиции всегда находится и номер ответа
