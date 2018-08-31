@@ -14,7 +14,7 @@ export default function poll() {
         let answers = match[2].split('/')
 
         let pollBlank = pollManager.createPoll(id, title, answers)
-
-        bot.sendMessage(msg.chat.id, pollBlank.pollObject.title, pollBlank.reply_markup)
+        console.log(pollBlank)
+        // bot.sendMessage(msg.chat.id, pollBlank.pollObject.title, pollBlank.reply_markup)
     })
 }
