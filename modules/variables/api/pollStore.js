@@ -1,18 +1,15 @@
 import variables from '../variables';
-import poll from '../../objects/poll'
 
 let server = variables.server
 let db = variables.db
-let pollObj
 
 export default function pollStore() {
     server.post('/pollstore', (req, res) => {
-        pollObj = new poll(req.body.id, req.body.poll, req.body.userVotes) 
-        // {
-        //     id: req.body.id,
-        //     poll: req.body.poll,
-        //     userVotes: req.body.userVotes
-        // }
+        let pollObj = {
+            id: req.body.id,
+            poll: req.body.poll,
+            userVotes: req.body.userVotes
+        };
         db.get().collection('pollstore').insertOne(pollObj, (err, result) => {
             if (err) {
                 console.log(err)
@@ -23,12 +20,12 @@ export default function pollStore() {
     })
 
     server.get('/pollstore/:id', (req, res) => {
-        db.get().collection('pollstore').findOne({ id: req.params.id }, (err, poll) => {
+        db.get().collection('pollstore').findOne({ id: req.params.id }, (err, pollObj) => {
             if (err) {
                 console.log(err)
                 return res.sendStatus(500)
             }
-            res.send(poll)
+            res.send(pollObj)
         })
     })
 
