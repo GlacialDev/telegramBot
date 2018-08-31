@@ -1,8 +1,8 @@
 import poll from './poll'
 import reaction from './reaction'
 import symbolStringGenerator from '../functions/symbolStringGenerator'
-import api_server from '../variables/api_server'
-api_server();
+import server_api from '../variables/server_api'
+server_api();
 
 import request from 'request'
 

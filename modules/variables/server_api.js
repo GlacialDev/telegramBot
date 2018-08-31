@@ -1,4 +1,4 @@
-import variables from '../variables/variables';
+import variables from './variables';
 
 let server = variables.server
 let db = variables.db
