@@ -24,12 +24,14 @@ let pollManager = {
         pollObject.make_poll(msg)
 
         server.post('/pollstore', (req, res) => {
+            console.log('v zaprose post')
             let poll = {
                 id: id,
                 poll: pollObject,
                 userVotes : userVotes
             };
             db.get().collection('pollstore').insertOne(poll, (err, result) => {
+                console.log('v collection k db')
                 if (err) {
                     console.log(err)
                     return res.sendStatus(500)
