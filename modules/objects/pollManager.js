@@ -48,7 +48,7 @@ let pollManager = {
 
         // request.post('http://localhost:3012/pollstore', options_post);
 
-        return {pollObject, reply_markup}
+        return { pollObject : pollObject, reply_markup : reply_markup }
     },
     // обновить опрос
     updatePoll: (msg, data) => {
