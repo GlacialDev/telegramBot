@@ -18,8 +18,7 @@ let pollManager = {
         let userVotes = [[], []]
 
         let pollObject = new poll(title, answers, id)
-        
-        console.log(typeof pollObject)
+        console.log(pollObject)
         pollObject.make_poll(msg)
 
         let options_post = {
@@ -43,7 +42,7 @@ let pollManager = {
         let clickedPoll
         let userVotes
         let result
-
+        
         console.log('v update')
         requestP.get('http://localhost:3012/pollstore/' + id).then((poll) => {
             result = JSON.parse(poll)
