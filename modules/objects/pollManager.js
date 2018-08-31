@@ -31,14 +31,14 @@ let pollManager = {
             inline_keyboard: buttons,
             parse_mode: 'Markdown'
         })
-        console.log(reply_markup)
 
-        // let pollObject = {
-        //     id : id,
-        //     title : title,
-        //     answers : answers,
-        //     votes : { votesAmount : votesAmount, votedUsers : votedUsers }
-        // }
+        let pollObject = {
+            id : id,
+            title : title,
+            answers : answers,
+            votes : { votesAmount : votesAmount, votedUsers : votedUsers }
+        }
+        console.log(pollObject)
 
         // let options_post = {
         //     headers: {
