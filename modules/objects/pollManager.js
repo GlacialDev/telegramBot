@@ -26,7 +26,7 @@ let pollManager = {
             },
             body: JSON.stringify({
                 id: id,
-                poll: pollObject,
+                poll: toString(pollObject),
                 userVotes : userVotes
             })
         }
