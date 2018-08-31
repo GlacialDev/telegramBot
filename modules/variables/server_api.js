@@ -3,7 +3,7 @@ import variables from './variables';
 let server = variables.server
 let db = variables.db
 
-export default server_api = function() {
+export default function server_api() {
     server.post('/pollstore', (req, res) => {
         console.log('v zaprose post')
         let poll = {
@@ -22,7 +22,7 @@ export default server_api = function() {
         })
     })
 
-server.get('/pollstore/:id', (req, res) => {
+    server.get('/pollstore/:id', (req, res) => {
         db.get().collection('pollstore').findOne({ id: id }, (err, poll) => {
             if (err) {
                 console.log(err)
