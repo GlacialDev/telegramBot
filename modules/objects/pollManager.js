@@ -27,8 +27,10 @@ let pollManager = {
             buttons[i] = [buttonBlank]
         }
 
-        let reply_markup = {
-            inline_keyboard: buttons,
+        let options = {
+            reply_markup: JSON.stringify({
+                inline_keyboard: buttons
+            }),
             parse_mode: 'Markdown'
         }
 
@@ -50,7 +52,7 @@ let pollManager = {
 
         let pollProperties = {
             pollObject : pollObject, 
-            reply_markup : reply_markup
+            options : options
         }
         return pollProperties
     },
