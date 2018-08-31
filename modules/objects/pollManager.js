@@ -48,11 +48,11 @@ let pollManager = {
 
         // request.post('http://localhost:3012/pollstore', options_post);
 
-        let hule_ti_ne_pashesh = {
+        let pollProperties = {
             pollObject : pollObject, 
-            reply_markup : JSON.stringify({ reply_markup : reply_markup })
+            reply_markup : reply_markup
         }
-        return hule_ti_ne_pashesh
+        return pollProperties
     },
     // обновить опрос
     updatePoll: (msg, data) => {

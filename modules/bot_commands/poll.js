@@ -13,14 +13,11 @@ export default function poll() {
         let title = match[1]
         let answers = match[2].split('/')
 
-        let pollBlank = pollManager.createPoll(id, title, answers)
-        
-        let HULE_TI = pollBlank.pollObject.title
-        console.log(HULE_TI)
-        let reply_markup = pollBlank.reply_markup
+        let pollProperties = pollManager.createPoll(id, title, answers)
+        console.log(pollProperties)
 
         // let pollBlank = pollManager.createPoll(id, title, answers)
         // console.log(pollBlank)
-        bot.sendMessage(msg.chat.id, HULE_TI, reply_markup)
+        // bot.sendMessage(msg.chat.id, HULE_TI, reply_markup)
     })
 }
