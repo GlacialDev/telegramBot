@@ -31,7 +31,6 @@ let pollManager = {
             inline_keyboard: buttons,
             parse_mode: 'Markdown'
         })
-        console.log(reply_markup)
 
         let pollObject = {
             id : id,
@@ -39,7 +38,6 @@ let pollManager = {
             answers : answers,
             votes : { votesAmount, votedUsers }
         }
-        console.log(pollObject)
 
         // let options_post = {
         //     headers: {
