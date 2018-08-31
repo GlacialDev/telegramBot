@@ -84,6 +84,7 @@ let pollManager = {
             if (votedUsers.includes(userId)) {
                 let userPos = votedUsers.indexOf(userId) // на той же позиции всегда находится и номер ответа
                 let userLastAnswer = votedUsersAnswer[userPos]
+                console.log(userLastAnswer+' userLastAnswer + userAnswer '+userAnswer)
                 // если он кликнул туда же, куда и в прошлый раз, убрать его голос
                 if (userLastAnswer == userAnswer) {
                     votedUsers.splice(userPos, 1)
