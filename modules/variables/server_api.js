@@ -23,8 +23,10 @@ export default function server_api() {
     })
 
     server.get('/pollstore/:id', (req, res) => {
+        console.log('v zaprose get')
         id = req.params.id
         db.get().collection('pollstore').findOne({ id: id }, (err, poll) => {
+            console.log('v collection k db')
             if (err) {
                 console.log(err)
                 return res.sendStatus(500)

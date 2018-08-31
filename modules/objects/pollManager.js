@@ -44,7 +44,8 @@ let pollManager = {
         let clickedPoll
         let userVotes
         let getReqResult
-
+        
+        console.log('v update')
         request.get('http://localhost:3012/second'+id);
 
     //     // ищем нужный опрос (потому что их может работать одновременно несколько) по id опроса
