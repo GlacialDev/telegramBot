@@ -96,7 +96,7 @@ let pollManager = {
     //     }
         
     //     clickedPoll.update_poll(msg)
-    // },
+    },
     createReaction: (link, sendTo) => {
         let id = symbolStringGenerator(16)
         let userVotes = [[],[]]
