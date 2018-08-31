@@ -68,18 +68,17 @@ let pollManager = {
         let id = data[1]
         let userAnswer = data[2]
         let userId = msg.from.id
-        let clickedPoll
         let buttons = []
 
-        console.log('v update')
         requestP.get('http://localhost:3012/pollstore/' + id).then((pollObject) => {
-            clickedPoll = JSON.parse(pollObject)
-            let votes = clickedPoll.votes
+            let pollObject = JSON.parse(pollObject)
+            console.log(pollObject)
+            let votes = pollObject.votes
             let votedUsers = votes.votedUsers
             let votedUsersAnswer = votes.votedUsersAnswer
             let votesAmount = votes.votesAmount
-            let answers = clickedPoll.answers
-            let title = clickedPoll.title
+            let answers = pollObject.answers
+            let title = pollObject.title
             // если в списке проголосовавших человек уже есть
             if (votedUsers.includes(userId)) {
                 let userPos = votedUsers.indexOf(userId) // на той же позиции всегда находится и номер ответа
