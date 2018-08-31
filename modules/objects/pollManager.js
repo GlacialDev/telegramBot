@@ -1,8 +1,8 @@
-import poll from './poll'
 import reaction from './reaction'
 import symbolStringGenerator from '../functions/symbolStringGenerator'
 import request from 'request'
 import requestP from 'request-promise'
+
 import pollStore from '../variables/api/pollStore'
 pollStore();
 
@@ -10,32 +10,45 @@ let pollManager = {
     // хранилища опросов
     pollStore: [],
     reactionStore: [],
-    // создать новый опрос
-    createPoll: (msg, match) => {
-        let title = match[1]
-        let answers = match[2].split('/')
-        let id = symbolStringGenerator(15)
-        let userVotes = [[], []]
 
-        let pollObject = new poll(title, answers, id)
-        console.log(pollObject)
-        console.log(typeof pollObject)
-        console.log(toString(pollObject))
-        console.log(JSON.stringify(pollObject))
-        // pollObject.make_poll(msg)
+    // создать новый опрос
+    createPoll: (id, title, answers) => {
+        let votesAmount = []
+        let votedUsers = []
+        let buttons = []
+
+        for (let i = 0; i < answers.length; i++) {
+            votesAmount[i] = 0
+            votedUsers[i].push([])
+            let buttonBlank = {
+                text: `${answers[i]} - ${votes[i]}`,
+                callback_data: 'poll_'+id+'_'+i
+            }
+            buttons[i] = [buttonBlank]
+        }
+
+        let reply_markup = JSON.stringify({
+            inline_keyboard: buttons,
+            parse_mode: 'Markdown'
+        })
+
+        let pollObject = {
+            id : id,
+            title : title,
+            answers : answers,
+            votes : { votesAmount, votedUsers }
+        }
 
         // let options_post = {
         //     headers: {
         //         'Content-Type': 'application/json',
         //     },
-        //     body: JSON.stringify({
-        //         id: id,
-        //         poll: pollObject,
-        //         userVotes: userVotes
-        //     })
+        //     body: JSON.stringify(pollObject)
         // }
 
         // request.post('http://localhost:3012/pollstore', options_post);
+
+        return {pollObject, reply_markup}
     },
     // обновить опрос
     updatePoll: (msg, data) => {
