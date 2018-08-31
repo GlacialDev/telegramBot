@@ -69,7 +69,6 @@ let pollManager = {
         let userAnswer = data[2]
         let userId = msg.from.id
         let buttons = []
-        let options_put
 
         requestP.get('http://localhost:3012/pollstore/' + id).then((pollObject) => {
             pollObject = JSON.parse(pollObject)
@@ -128,7 +127,7 @@ let pollManager = {
                 reply_markup: options_poll.reply_markup
             })
 
-            options_put = {
+            let options_put = {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -137,10 +136,9 @@ let pollManager = {
                     answers: answers,
                     votes: { votedUsers: votedUsers, votedUsersAnswer: votedUsersAnswer, votesAmount: votesAmount }
                 })
-            }
+            }      
+            request.put('http://localhost:3012/pollstore/'+id, options_put);
         })
-        
-        request.put('http://localhost:3012/pollstore/'+id, options_put);
     },
     createReaction: (link, sendTo) => {
         let id = symbolStringGenerator(16)
