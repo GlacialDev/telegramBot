@@ -45,6 +45,8 @@ let pollManager = {
         console.log('v update')
         requestP.get('http://localhost:3012/pollstore/'+id).then((poll) => {
             result = JSON.parse(poll)
+            console.log(result)
+
             clickedPoll = result.poll
             userVotes = result.userVotes
         })
