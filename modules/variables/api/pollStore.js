@@ -30,6 +30,7 @@ export default function pollStore() {
                 console.log(err)
                 return res.sendStatus(500)
             }
+            res.send(poll)
         })
     })
 }
