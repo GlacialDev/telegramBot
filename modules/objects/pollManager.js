@@ -21,7 +21,7 @@ let pollManager = {
             votesAmount[i] = 0
             votedUsers[i].push([])
             let buttonBlank = {
-                text: `${answers[i]} - ${votes[i]}`,
+                text: `${answers[i]} - ${votesAmount[i]}`,
                 callback_data: 'poll_'+id+'_'+i
             }
             buttons[i] = [buttonBlank]
@@ -50,7 +50,7 @@ let pollManager = {
 
         // request.post('http://localhost:3012/pollstore', options_post);
 
-        // return { pollObject : pollObject, reply_markup : reply_markup }
+        return { pollObject : pollObject, reply_markup : reply_markup }
     },
     // обновить опрос
     updatePoll: (msg, data) => {
