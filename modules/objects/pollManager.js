@@ -18,6 +18,8 @@ let pollManager = {
         let userVotes = [[], []]
 
         let pollObject = new poll(title, answers, id)
+        
+        console.log(typeof pollObject)
         pollObject.make_poll(msg)
 
         let options_post = {
@@ -46,9 +48,6 @@ let pollManager = {
         requestP.get('http://localhost:3012/pollstore/' + id).then((poll) => {
             result = JSON.parse(poll)
             console.log(result)
-            console.log(typeof result)
-            let fdsadsadsa = new poll('meow', ['raz', 'dva'], 321321)
-            console.log(typeof fdsadsadsa)
 
             clickedPoll = result.poll
             userVotes = result.userVotes
