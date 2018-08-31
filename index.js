@@ -49,23 +49,6 @@ test()
 
 
 
-import db from './modules/variables/db'
-import request from 'request'
-import express from 'express'
-import bodyParser from 'body-parser'
-
-const server = express()
-server.use(bodyParser.json())
-server.use(bodyParser.urlencoded({ extended: true }))
-
-db.connect('mongodb://localhost:27017', 'second', (err) => {
-    if (err) {
-        return console.log(err)
-    }
-    server.listen(3012, () => {
-        console.log('API listen started')
-    })
-})
 
 server.post('/second', (req, res) => {
     let newMeowObj = {

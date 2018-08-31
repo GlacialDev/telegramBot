@@ -1,8 +1,14 @@
 import config from '../secret/config'
+import express from 'express'
+import bodyParser from 'body-parser'
+import db from './db'
 
 const TelegramBot = require('node-telegram-bot-api')
 const apiai = require('apiai')
 const cloudconvert = new (require('cloudconvert'))(config.cloudConvertApiKey);
+const server = express()
+server.use(bodyParser.json())
+server.use(bodyParser.urlencoded({ extended: true }))
 
 let variables = {
     creator : 353140575,
@@ -11,7 +17,9 @@ let variables = {
     dialogflow : apiai(config.dialogFlowClientAccessToken),
     https : require('https'),
     fs : require('fs'),
-    cloudconvert : cloudconvert
+    cloudconvert : cloudconvert,
+    server : server,
+    db : db
 }
 
 export default variables
