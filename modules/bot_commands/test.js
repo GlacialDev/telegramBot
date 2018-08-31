@@ -2,6 +2,9 @@ import variables from '../variables/variables'
 import authCheck from '../functions/authCheck'
 
 import db from '../variables/db'
+import request from 'request'
+import express from 'express'
+import bodyParser from 'body-parser'
 
 let bot = variables.bot
 
@@ -9,7 +12,10 @@ export default function test() {
     bot.onText(/\/test/, (msg, match) => {
         if (authCheck(msg) != true) return
 
-        let request = require('request');
+
+        const server = express()
+        server.use(bodyParser.json())
+        server.use(bodyParser.urlencoded({ extended: true }))
 
         server.post('/second', (req, res) => {
             let newMeowObj = {
