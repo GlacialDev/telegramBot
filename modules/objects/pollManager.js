@@ -20,21 +20,16 @@ let pollManager = {
         let votedUsers = []
         let buttons = []
         
-        console.log(id)
-        
-        console.log(title)
-        
-        console.log(answers)
-
-        // for (let i = 0; i < answers.length; i++) {
-        //     votesAmount[i] = 0
-        //     votedUsers[i].push([])
-        //     let buttonBlank = {
-        //         text: `${answers[i]} - ${votesAmount[i]}`,
-        //         callback_data: 'poll_'+id+'_'+i
-        //     }
-        //     buttons[i] = [buttonBlank]
-        // }
+        for (let i = 0; i < answers.length; i++) {
+            votesAmount[i] = 0
+            votedUsers[i].push([])
+            let buttonBlank = {
+                text: `${answers[i]} - ${votesAmount[i]}`,
+                callback_data: 'poll_'+id+'_'+i
+            }
+            buttons[i] = [buttonBlank]
+        }
+        console.log(buttons)
 
         // let reply_markup = JSON.stringify({
         //     inline_keyboard: buttons,
