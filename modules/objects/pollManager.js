@@ -1,11 +1,12 @@
 import variables from '../variables/variables'
-import reaction from './reaction'
 import symbolStringGenerator from '../functions/symbolStringGenerator'
 import request from 'request'
 import requestP from 'request-promise'
 import emoji from 'node-emoji'
 import pollStore from '../variables/api/pollStore'
 pollStore();
+import reactionStore from '../variables/api/pollStore'
+reactionStore();
 
 let bot = variables.bot
 
