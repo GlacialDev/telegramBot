@@ -31,13 +31,14 @@ let pollManager = {
             inline_keyboard: buttons,
             parse_mode: 'Markdown'
         })
+        console.log(reply_markup)
 
-        let pollObject = {
-            id : id,
-            title : title,
-            answers : answers,
-            votes : { votesAmount : votesAmount, votedUsers : votedUsers }
-        }
+        // let pollObject = {
+        //     id : id,
+        //     title : title,
+        //     answers : answers,
+        //     votes : { votesAmount : votesAmount, votedUsers : votedUsers }
+        // }
 
         // let options_post = {
         //     headers: {
@@ -48,7 +49,7 @@ let pollManager = {
 
         // request.post('http://localhost:3012/pollstore', options_post);
 
-        return { pollObject : pollObject, reply_markup : reply_markup }
+        // return { pollObject : pollObject, reply_markup : reply_markup }
     },
     // обновить опрос
     updatePoll: (msg, data) => {
