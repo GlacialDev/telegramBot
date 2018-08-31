@@ -94,7 +94,7 @@ let pollManager = {
                 } else {
                     votedUsers.splice(userPos, 1)
                     votedUsersAnswer.splice(userPos, 1)
-                    votesAmount[userAnswer]--
+                    votesAmount[userLastAnswer]--
                     votedUsers.push(userId)
                     votedUsersAnswer.push(userAnswer)
                     votesAmount[userAnswer]++
