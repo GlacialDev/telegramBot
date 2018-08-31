@@ -141,6 +141,7 @@ let pollManager = {
             request.put('http://localhost:3012/pollstore/' + id, options_put);
         })
     },
+    // создать новую реакцию
     createReaction: () => {
         let id = symbolStringGenerator(16)
         // массив, содержащий массивы id голосовавших за каждый вариант
@@ -186,6 +187,7 @@ let pollManager = {
             body: JSON.stringify(reactionObject)
         }
         // и отправляем пост-запрос в БД
+        /console.log('pered post zaprosom')
         request.post('http://localhost:3012/reactionstore', options_post);
         // возвращаем из метода все что нужно для того чтобы отослать реакцию в телегу
         let reactionProperties = {

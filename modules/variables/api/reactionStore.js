@@ -10,7 +10,9 @@ export default function reactionStore() {
             answers: req.body.answers,
             votes: req.body.votes
         };
+        console.log('v post metode')
         db.get().collection('reactionstore').insertOne(reactionObject, (err, result) => {
+            console.log('v db collection')
             if (err) {
                 console.log(err)
                 return res.sendStatus(500)
