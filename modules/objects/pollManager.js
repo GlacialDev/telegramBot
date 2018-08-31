@@ -140,7 +140,7 @@ let pollManager = {
             }
         })
         
-        request.put('http://localhost:3012/pollstore'+id, options_put);
+        request.put('http://localhost:3012/pollstore/'+id, options_put);
     },
     createReaction: (link, sendTo) => {
         let id = symbolStringGenerator(16)
