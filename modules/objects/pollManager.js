@@ -43,7 +43,7 @@ let pollManager = {
         let getReqResult
         
         console.log('v update')
-        requestP.get('http://localhost:3012/pollstore/'+id).then((poll) => {console.log(typeof poll)})
+        requestP.get('http://localhost:3012/pollstore/'+id).then((poll) => {console.log(toObject(poll))})
 
     //     // ищем нужный опрос (потому что их может работать одновременно несколько) по id опроса
     //     // и запоминаем его, а также кто за что в нем голосовал (userVotes)
