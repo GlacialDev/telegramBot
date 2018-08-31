@@ -89,7 +89,7 @@ let pollManager = {
                 if (userLastAnswer == userAnswer) {
                     votedUsers.splice(userPos, 1)
                     votedUsersAnswer.splice(userPos, 1)
-                    votesAmount[userAnswer]--
+                    votesAmount[userLastAnswer]--
                     // если он кликнул в другой вариант, перезаписать результат голосования
                 } else {
                     votedUsers.splice(userPos, 1)
