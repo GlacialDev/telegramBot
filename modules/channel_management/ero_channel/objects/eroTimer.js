@@ -41,7 +41,10 @@ let eroTimerObj = {
         // инициализация таймера
         eroTimerObj.eroTimer = setTimeout(() => {
             getEroPhotoLink("./data/eroTimer/ero.txt").then(
-                (link) => pollManager.createReaction(link, eroTimerObj.channelId),
+                (link) => {
+                    let reactionProps = pollManager.createReaction()
+                    bot.sendPhoto(config.canadianEroId, link, reactionProps.options)
+                },
                 (text) => bot.sendMessage(variables.creator, text)
             )
         }, eroTimerObj.eroInterval)
@@ -101,12 +104,18 @@ let eroTimerObj = {
 
         setTimeout(() => {
             getEroPhotoLink("./data/eroTimer/ero.txt").then(
-                (link) => pollManager.createReaction(link, eroTimerObj.channelId),
+                (link) => {
+                    let reactionProps = pollManager.createReaction()
+                    bot.sendPhoto(config.canadianEroId, link, reactionProps.options)
+                },
                 (text) => bot.sendMessage(variables.creator, text)
             )
             eroTimerObj.eroTimer = setInterval(function () {
                 getEroPhotoLink("./data/eroTimer/ero.txt").then(
-                    (link) => pollManager.createReaction(link, eroTimerObj.channelId),
+                    (link) => {
+                        let reactionProps = pollManager.createReaction()
+                        bot.sendPhoto(config.canadianEroId, link, reactionProps.options)
+                    },
                     (text) => bot.sendMessage(variables.creator, text)
                 )
             }, eroTimerObj.eroInterval);

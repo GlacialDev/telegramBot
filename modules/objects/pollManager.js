@@ -249,7 +249,7 @@ let pollManager = {
             }
             let messageId = msg.message.message_id
             let chatId = msg.message.chat.id
-    
+
             bot.editMessageReplyMarkup(options_reaction.reply_markup, {
                 chat_id: chatId,
                 message_id: messageId
