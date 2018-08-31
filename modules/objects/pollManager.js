@@ -18,7 +18,6 @@ let pollManager = {
         let userVotes = [[], []]
 
         let pollObject = new poll(title, answers, id)
-        console.log(pollObject.prototype)
         pollObject.make_poll(msg)
 
         let options_post = {
