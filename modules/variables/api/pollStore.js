@@ -35,8 +35,9 @@ export default function pollStore() {
         db.get().collection('pollstore').updateOne( 
             { id: req.params.id },
             { $set: { 
-                poll: req.body.clickedPoll,
-                userVotes : req.body.userVotes
+                title: req.body.title,
+                answers: req.body.answers,
+                votes: req.body.votes
             } },
             (err, result) => {
                 console.log('v collection k db')
