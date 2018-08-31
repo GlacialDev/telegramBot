@@ -45,18 +45,20 @@ let pollManager = {
         console.log('v update')
         requestP.get('http://localhost:3012/pollstore/'+id).then((poll) => {
             result = JSON.parse(poll)
+            clickedPoll = result.poll
+            userVotes = result.userVotes
         })
 
-        clickedPoll = result.poll
-        userVotes = result.userVotes
+        console.log(clickedPoll)
+        console.log(userVotes)
         
-        for (let i = 0; i < pollManager.pollStore.length; i++) {
-            if (pollManager.pollStore[i][0] == id) {
-                clickedPoll = pollManager.pollStore[i][1]
-                userVotes = pollManager.pollStore[i][2]
-                break
-            }
-        }
+        // for (let i = 0; i < pollManager.pollStore.length; i++) {
+        //     if (pollManager.pollStore[i][0] == id) {
+        //         clickedPoll = pollManager.pollStore[i][1]
+        //         userVotes = pollManager.pollStore[i][2]
+        //         break
+        //     }
+        // }
         // если в списке проголосовавших человек уже есть
         if(userVotes[0].includes(userId)) {
             let userPos = userVotes[0].indexOf(userId) // на той же позиции всегда находится и номер ответа
