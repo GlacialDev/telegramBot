@@ -124,7 +124,7 @@ let pollManager = {
                 parse_mode: 'Markdown',
                 reply_markup: options_poll.reply_markup
             })
-
+            // запрос в БД для редактирования записи по id
             let options_put = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ let pollManager = {
         let E_thumbsdown = emoji.get(':-1:')
         let answers = [E_thumbsup, E_thumbsdown]
         let buttons = []
-        // строим инлайн-клаву
+        // выстраиваем кнопки реакции
         let buttonArray = []
         for (let i = 0; i < answers.length; i++) {
             votesAmount[i] = 0
@@ -196,46 +196,76 @@ let pollManager = {
     },
     updateReaction: (msg, data) => {
         let id = data[1]
-        let answerNumber = data[2]
+        let userAnswer = data[2]
         let userId = msg.from.id
-        let clickedReaction
-        let userVotes
+        let buttons = []
 
-        // ищем нужный опрос (потому что их может работать одновременно несколько) по id опроса
-        // и запоминаем его, а также кто за что в нем голосовал (userVotes)
-        for (let i = 0; i < pollManager.reactionStore.length; i++) {
-            if (pollManager.reactionStore[i][0] == id) {
-                clickedReaction = pollManager.reactionStore[i][1]
-                userVotes = pollManager.reactionStore[i][2]
-                break
-            }
-        }
-        // если в списке проголосовавших человек уже есть
-        if (userVotes[0].includes(userId)) {
-            let userPos = userVotes[0].indexOf(userId) // на той же позиции всегда находится и номер ответа
-            let lastAnswerNumber = userVotes[1][userPos]
-            // если он кликнул туда же, куда и в прошлый раз, убрать его голос
-            if (lastAnswerNumber == answerNumber) {
-                userVotes[0].splice(userPos, 1)
-                userVotes[1].splice(userPos, 1)
-                clickedReaction.votes[lastAnswerNumber]--
-                // если он кликнул в другой вариант, перезаписать результат голосования
+        requestP.get('http://localhost:3012/reactionstore/' + id).then((reactionObject) => {
+            reactionObject = JSON.parse(reactionObject)
+            let votes = pollObject.votes
+            let votedUsers = votes.votedUsers
+            let votedUsersAnswer = votes.votedUsersAnswer
+            let votesAmount = votes.votesAmount
+            let answers = pollObject.answers
+            // если в списке проголосовавших человек уже есть
+            if (votedUsers.includes(userId)) {
+                let userPos = votedUsers.indexOf(userId) // на той же позиции всегда находится и номер ответа
+                let userLastAnswer = votedUsersAnswer[userPos]
+                // если он кликнул туда же, куда и в прошлый раз, убрать его голос
+                if (userLastAnswer == userAnswer) {
+                    votedUsers.splice(userPos, 1)
+                    votedUsersAnswer.splice(userPos, 1)
+                    votesAmount[userLastAnswer]--
+                    // если он кликнул в другой вариант, перезаписать результат голосования
+                } else {
+                    votedUsers.splice(userPos, 1)
+                    votedUsersAnswer.splice(userPos, 1)
+                    votesAmount[userLastAnswer]--
+                    votedUsers.push(userId)
+                    votedUsersAnswer.push(userAnswer)
+                    votesAmount[userAnswer]++
+                }
+                // если в списке голосовавших его не было, добавить
             } else {
-                userVotes[0].splice(userPos, 1)
-                userVotes[1].splice(userPos, 1)
-                clickedReaction.votes[lastAnswerNumber]--
-                userVotes[0].push(userId)
-                userVotes[1].push(answerNumber)
-                clickedReaction.votes[answerNumber]++
+                votedUsers.push(userId)
+                votedUsersAnswer.push(userAnswer)
+                votesAmount[userAnswer]++
             }
-            // если в списке голосовавших его не было, добавить
-        } else {
-            userVotes[0].push(userId)
-            userVotes[1].push(answerNumber)
-            clickedReaction.votes[answerNumber]++
-        }
+            // выстраиваем кнопки реакции
+            let buttonArray = []
+            for (let i = 0; i < answers.length; i++) {
+                let buttonBlank = {
+                    text: `${answers[i]} ${votesAmount[i]}`,
+                    callback_data: 'reaction_' + id + '_' + i
+                }
+                buttonArray.push(buttonBlank)
+            }
+            buttons.push(buttonArray)
 
-        clickedReaction.update_reaction(msg)
+            let options_reaction = {
+                reply_markup: JSON.stringify({
+                    inline_keyboard: buttons
+                })
+            }
+            let messageId = msg.message.message_id
+            let chatId = msg.message.chat.id
+    
+            bot.editMessageReplyMarkup(options_reaction.reply_markup, {
+                chat_id: chatId,
+                message_id: messageId
+            })
+            // запрос в БД для редактирования записи по id
+            let options_put = {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    answers: answers,
+                    votes: { votedUsers: votedUsers, votedUsersAnswer: votedUsersAnswer, votesAmount: votesAmount }
+                })
+            }
+            request.put('http://localhost:3012/reactionstore/' + id, options_put);
+        })
     },
 }
 
