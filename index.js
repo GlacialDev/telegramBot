@@ -48,7 +48,10 @@ import test from './modules/bot_commands/test'
 test()
 
 
-
+import request from 'request'
+import variables from './modules/variables/variables';
+let server = variables.server
+let db = variables.db
 
 server.post('/second', (req, res) => {
     let newMeowObj = {
