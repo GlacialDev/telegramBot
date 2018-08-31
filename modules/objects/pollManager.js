@@ -20,13 +20,15 @@ let pollManager = {
         let pollObject = new poll(title, answers, id)
         pollObject.make_poll(msg)
         
+        console.log(pollObject)
+        
         let options_post = {
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 id: id,
-                poll: toString(pollObject),
+                poll: pollObject,
                 userVotes : userVotes
             })
         }
@@ -42,7 +44,7 @@ let pollManager = {
         let userVotes
         let getReqResult
 
-        request('http://localhost:3012/second'+id);
+        request.get('http://localhost:3012/second'+id);
 
     //     // ищем нужный опрос (потому что их может работать одновременно несколько) по id опроса
     //     // и запоминаем его, а также кто за что в нем голосовал (userVotes)
