@@ -8,7 +8,7 @@ export default function server_api() {
         console.log('v zaprose post')
         let poll = {
             id: req.body.id,
-            poll: req.body.pollObject,
+            poll: req.body.poll,
             userVotes: req.body.userVotes
         };
         db.get().collection('pollstore').insertOne(poll, (err, result) => {
