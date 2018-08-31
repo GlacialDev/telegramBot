@@ -3,7 +3,7 @@ import variables from '../variables/variables';
 let server = variables.server
 let db = variables.db
 
-export default serverAPI = function() {
+export default server_api = function() {
     server.post('/pollstore', (req, res) => {
         console.log('v zaprose post')
         let poll = {
