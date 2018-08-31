@@ -28,7 +28,7 @@ let pollManager = {
         }
 
         let reply_markup = {
-            inline_keyboard: this.buttons,
+            inline_keyboard: buttons,
             parse_mode: 'Markdown'
         }
 
