@@ -19,8 +19,15 @@ export default function poll() {
         console.log(HULE_TI)
         let NE_PASHESH = pollBlank.reply_markup
         console.log(NE_PASHESH)
+
+        let options = {
+            reply_markup: JSON.stringify(NE_PASHESH)
+        }
+
+
+
         // let pollBlank = pollManager.createPoll(id, title, answers)
         // console.log(pollBlank)
-        bot.sendMessage(msg.chat.id, HULE_TI, JSON.stringify({NE_PASHESH}))
+        bot.sendMessage(msg.chat.id, HULE_TI, options)
     })
 }
