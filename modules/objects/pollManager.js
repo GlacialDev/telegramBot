@@ -12,7 +12,10 @@ let pollManager = {
     reactionStore: [],
 
     // создать новый опрос
-    createPoll: (id, title, answers) => {
+    createPoll: (inc_id, inc_title, inc_answers) => {
+        let id = inc_id
+        let title = inc_title
+        let answers = inc_answers
         let votesAmount = []
         let votedUsers = []
         let buttons = []
