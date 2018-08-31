@@ -26,22 +26,18 @@ let pollManager = {
             }
             buttons[i] = [buttonBlank]
         }
-        console.log('votesAmount '+ votesAmount)
-        console.log('votedUsers '+ votedUsers)
-        console.log('buttons '+ buttons)
 
+        let reply_markup = JSON.stringify({
+            inline_keyboard: buttons,
+            parse_mode: 'Markdown'
+        })
 
-        // let reply_markup = JSON.stringify({
-        //     inline_keyboard: buttons,
-        //     parse_mode: 'Markdown'
-        // })
-
-        // let pollObject = {
-        //     id : id,
-        //     title : title,
-        //     answers : answers,
-        //     votes : { votesAmount, votedUsers }
-        // }
+        let pollObject = {
+            id : id,
+            title : title,
+            answers : answers,
+            votes : { votesAmount : votesAmount, votedUsers : votedUsers }
+        }
 
         // let options_post = {
         //     headers: {
@@ -52,7 +48,7 @@ let pollManager = {
 
         // request.post('http://localhost:3012/pollstore', options_post);
 
-        // return { pollObject : pollObject, reply_markup : reply_markup }
+        return { pollObject : pollObject, reply_markup : reply_markup }
     },
     // обновить опрос
     updatePoll: (msg, data) => {
