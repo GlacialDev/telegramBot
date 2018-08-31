@@ -46,3 +46,59 @@ botInit(devMode)
 
 import test from './modules/bot_commands/test'
 test()
+
+
+
+import db from './modules/variables/db'
+import request from 'request'
+import express from 'express'
+import bodyParser from 'body-parser'
+
+const server = express()
+server.use(bodyParser.json())
+server.use(bodyParser.urlencoded({ extended: true }))
+
+server.post('/second', (req, res) => {
+    let newMeowObj = {
+        id: req.body.id,
+        name: req.body.name
+    };
+    db.get().collection('second').insertOne(newMeowObj, (err, result) => {
+        if (err) {
+            console.log(err)
+            return res.sendStatus(500)
+        }
+        // res.send(newMeowObj)
+        console.log(newMeowObj)
+    })
+})
+
+server.get('/second', (req, res) => {
+    db.get().collection('second').find().toArray((err, docs) => {
+        if (err) {
+            console.log(err)
+            return res.sendStatus(500)
+        }
+        // res.send(docs)
+        console.log(docs)
+    })
+})
+
+
+let options_post = {
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        id: Date.now(),
+        name: 'memememe'
+    })
+}
+// --- post
+setTimeout(() => {
+    request.post('http://localhost:3012/second', options_post);
+}, 3000)
+// --- get-all
+setTimeout(() => {
+    request('http://localhost:3012/second');
+}, 4000)
