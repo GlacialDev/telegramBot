@@ -5,12 +5,13 @@ let db = variables.db
 
 export default function pollStore() {
     server.post('/pollstore', (req, res) => {
-        let pollObj = {
+        let pollObject = {
             id: req.body.id,
-            poll: req.body.poll,
-            userVotes: req.body.userVotes
+            title: req.body.title,
+            answers: req.body.answers,
+            votes: req.body.votes
         };
-        db.get().collection('pollstore').insertOne(pollObj, (err, result) => {
+        db.get().collection('pollstore').insertOne(pollObject, (err, result) => {
             if (err) {
                 console.log(err)
                 return res.sendStatus(500)
@@ -20,12 +21,12 @@ export default function pollStore() {
     })
 
     server.get('/pollstore/:id', (req, res) => {
-        db.get().collection('pollstore').findOne({ id: req.params.id }, (err, pollObj) => {
+        db.get().collection('pollstore').findOne({ id: req.params.id }, (err, pollObject) => {
             if (err) {
                 console.log(err)
                 return res.sendStatus(500)
             }
-            res.send(pollObj)
+            res.send(pollObject)
         })
     })
 
