@@ -17,14 +17,8 @@ export default function poll() {
         
         let HULE_TI = pollBlank.pollObject.title
         console.log(HULE_TI)
-        let NE_PASHESH = pollBlank.reply_markup
-        console.log(NE_PASHESH)
-
-        let options = {
-            reply_markup: JSON.stringify(NE_PASHESH)
-        }
-
-
+        let options = pollBlank.options
+        console.log(options)
 
         // let pollBlank = pollManager.createPoll(id, title, answers)
         // console.log(pollBlank)
