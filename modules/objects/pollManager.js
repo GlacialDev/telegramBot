@@ -86,12 +86,12 @@ let pollManager = {
                 let userLastAnswer = votedUsersAnswer[userPos]
                 // если он кликнул туда же, куда и в прошлый раз, убрать его голос
                 if (userLastAnswer == userAnswer) {
-                    userVotes.splice(userPos, 1)
+                    votedUsers.splice(userPos, 1)
                     votedUsersAnswer.splice(userPos, 1)
                     votesAmount[userAnswer]--
                     // если он кликнул в другой вариант, перезаписать результат голосования
                 } else {
-                    userVotes.splice(userPos, 1)
+                    votedUsers.splice(userPos, 1)
                     votedUsersAnswer.splice(userPos, 1)
                     votesAmount[userAnswer]--
                     votedUsers.push(userId)
