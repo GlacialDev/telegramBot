@@ -27,7 +27,7 @@ let pollManager = {
             buttons[i] = [buttonBlank]
         }
 
-        let reply_markup: JSON.stringify({
+        let reply_markup = JSON.stringify({
             inline_keyboard: this.buttons,
             parse_mode: 'Markdown'
         })
