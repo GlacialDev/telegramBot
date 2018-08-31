@@ -1,9 +1,9 @@
-// import variables from '../variables/variables';
+import variables from '../variables/variables';
 import poll from './poll'
 import reaction from './reaction'
 import symbolStringGenerator from '../functions/symbolStringGenerator'
 
-import request from 'request'
+// import request from 'request'
 let server = variables.server
 let db = variables.db
 
