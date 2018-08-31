@@ -14,10 +14,12 @@ export default function poll() {
         let answers = match[2].split('/')
 
         let pollProperties = pollManager.createPoll(id, title, answers)
-        console.log(pollProperties)
+        // console.log(pollProperties)
+        console.log(pollProperties.pollObject.title)
+        console.log(pollProperties.options)
 
         // let pollBlank = pollManager.createPoll(id, title, answers)
         // console.log(pollBlank)
-        // bot.sendMessage(msg.chat.id, HULE_TI, reply_markup)
+        bot.sendMessage(msg.chat.id, pollProperties.pollObject.title, pollProperties.options)
     })
 }
