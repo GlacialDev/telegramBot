@@ -12,38 +12,32 @@ let pollManager = {
     reactionStore: [],
 
     // создать новый опрос
-    createPoll: (inc_id, inc_title, inc_answers) => {
-        let id = inc_id
-        let title = inc_title
-        let answers = inc_answers
+    createPoll: (id, title, answers) => {
         let votesAmount = []
         let votedUsers = []
         let buttons = []
         
         for (let i = 0; i < answers.length; i++) {
             votesAmount[i] = 0
-            votedUsers[i].push([])
+            votedUsers[i] = []
             let buttonBlank = {
                 text: `${answers[i]} - ${votesAmount[i]}`,
                 callback_data: 'poll_'+id+'_'+i
             }
             buttons[i] = [buttonBlank]
         }
-        console.log(buttons)
 
-        // let reply_markup = JSON.stringify({
-        //     inline_keyboard: buttons,
-        //     parse_mode: 'Markdown'
-        // })
-        // console.log(reply_markup)
+        let reply_markup = JSON.stringify({
+            inline_keyboard: buttons,
+            parse_mode: 'Markdown'
+        })
 
-        // let pollObject = {
-        //     id : id,
-        //     title : title,
-        //     answers : answers,
-        //     votes : { votesAmount, votedUsers }
-        // }
-        // console.log(pollObject)
+        let pollObject = {
+            id : id,
+            title : title,
+            answers : answers,
+            votes : { votesAmount, votedUsers }
+        }
 
         // let options_post = {
         //     headers: {
@@ -54,7 +48,7 @@ let pollManager = {
 
         // request.post('http://localhost:3012/pollstore', options_post);
 
-        // return { pollObject : pollObject, reply_markup : reply_markup }
+        return { pollObject : pollObject, reply_markup : reply_markup }
     },
     // обновить опрос
     updatePoll: (msg, data) => {
