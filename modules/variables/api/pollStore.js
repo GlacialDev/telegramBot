@@ -1,9 +1,9 @@
-import variables from './variables';
+import variables from '../variables';
 
 let server = variables.server
 let db = variables.db
 
-export default function server_api() {
+export default function pollStore() {
     server.post('/pollstore', (req, res) => {
         console.log('v zaprose post')
         let poll = {
@@ -30,7 +30,7 @@ export default function server_api() {
                 console.log(err)
                 return res.sendStatus(500)
             }
-            console.log(poll)
+            return poll
         })
     })
 }

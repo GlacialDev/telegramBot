@@ -1,10 +1,10 @@
 import poll from './poll'
 import reaction from './reaction'
 import symbolStringGenerator from '../functions/symbolStringGenerator'
-import server_api from '../variables/server_api'
-server_api();
-
 import request from 'request'
+import requestP from 'request-promise'
+import pollStore from '../variables/api/pollStore'
+pollStore();
 
 let pollManager = {
     // хранилища опросов
@@ -20,9 +20,6 @@ let pollManager = {
         let pollObject = new poll(title, answers, id)
         pollObject.make_poll(msg)
         
-        console.log(pollObject)
-
-
         let options_post = {
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +43,7 @@ let pollManager = {
         let getReqResult
         
         console.log('v update')
-        request.get('http://localhost:3012/pollstore/'+id);
+        requestP.get('http://localhost:3012/pollstore/'+id).then(console.log(poll))
 
     //     // ищем нужный опрос (потому что их может работать одновременно несколько) по id опроса
     //     // и запоминаем его, а также кто за что в нем голосовал (userVotes)
