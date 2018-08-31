@@ -48,6 +48,7 @@ let pollManager = {
             console.log(result)
 
             clickedPoll = result.poll
+            clickedPoll.prototype = new poll(clickedPoll.title, clickedPoll.answers, clickedPoll.id)
             userVotes = result.userVotes
 
             // for (let i = 0; i < pollManager.pollStore.length; i++) {
