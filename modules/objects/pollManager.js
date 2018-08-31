@@ -27,12 +27,10 @@ let pollManager = {
             buttons[i] = [buttonBlank]
         }
 
-        let options = {
-            reply_markup: JSON.stringify({
-                inline_keyboard: this.buttons,
-                parse_mode: 'Markdown'
-            })
-        }
+        let reply_markup: JSON.stringify({
+            inline_keyboard: this.buttons,
+            parse_mode: 'Markdown'
+        })
 
         let pollObject = {
             id : id,
@@ -52,7 +50,7 @@ let pollManager = {
 
         let hule_ti_ne_pashesh = {
             pollObject : pollObject, 
-            options : options
+            reply_markup : { reply_markup : reply_markup }
         }
         return hule_ti_ne_pashesh
     },

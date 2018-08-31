@@ -17,11 +17,10 @@ export default function poll() {
         
         let HULE_TI = pollBlank.pollObject.title
         console.log(HULE_TI)
-        let options = pollBlank.options
-        console.log(options)
+        let reply_markup = pollBlank.reply_markup
 
         // let pollBlank = pollManager.createPoll(id, title, answers)
         // console.log(pollBlank)
-        bot.sendMessage(msg.chat.id, HULE_TI, options)
+        bot.sendMessage(msg.chat.id, HULE_TI, reply_markup)
     })
 }
