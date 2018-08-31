@@ -11,9 +11,6 @@ reactionStore();
 let bot = variables.bot
 
 let pollManager = {
-    // хранилища опросов
-    reactionStore: [],
-
     // создать новый опрос
     createPoll: (title, answers) => {
         let id = symbolStringGenerator(15)
