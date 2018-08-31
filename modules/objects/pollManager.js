@@ -38,7 +38,6 @@ let pollManager = {
             answers : answers,
             votes : { votesAmount : votesAmount, votedUsers : votedUsers }
         }
-        console.log(pollObject)
 
         // let options_post = {
         //     headers: {
@@ -49,7 +48,11 @@ let pollManager = {
 
         // request.post('http://localhost:3012/pollstore', options_post);
 
-        // return { pollObject : pollObject, reply_markup : reply_markup }
+        let hule_ti_ne_pashesh = {
+            pollObject : pollObject, 
+            reply_markup : reply_markup
+        }
+        return hule_ti_ne_pashesh
     },
     // обновить опрос
     updatePoll: (msg, data) => {
