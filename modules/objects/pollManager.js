@@ -21,14 +21,15 @@ let pollManager = {
         pollObject.make_poll(msg)
         
         console.log(pollObject)
-        
+
+
         let options_post = {
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 id: id,
-                poll: pollObject,
+                poll: toString(pollObject),
                 userVotes : userVotes
             })
         }
