@@ -11,6 +11,8 @@ export default function test() {
 
         if(config.azureKey !== undefined) {
             bot.sendMessage(msg.chat.id, 'azurekey est')
+        } else {
+            bot.sendMessage(msg.chat.id, 'azurekey netu')
         }
     });
 } 
