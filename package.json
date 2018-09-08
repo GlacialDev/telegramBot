@@ -4,7 +4,8 @@
   "description": "telegrambot",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node index.js --presets es2015,stage-2"
+    "start": "babel-node index.js --presets es2015,stage-2",
+    "wp": "webpack -p"
   },
   "author": "glacial",
   "license": "ISC",
@@ -22,5 +23,11 @@
     "node-telegram-bot-api": "^0.30.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.5",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-node-externals": "^1.7.2"
   }
 }
