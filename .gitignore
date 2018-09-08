@@ -1,4 +1,4 @@
 /node_modules/
-/modules/secret/
+/modules/secret/config.js
 /ssh/
 bundle.js
