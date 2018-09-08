@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node index.js --presets es2015,stage-2",
-    "wp": "webpack -p && node bundle.js"
+    "wp": "webpack -p && node ./dist/bundle.js"
   },
   "author": "glacial",
   "license": "ISC",
