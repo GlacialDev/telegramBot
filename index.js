@@ -39,10 +39,8 @@ import ero_give_img from './modules/channel_management/ero_channel/commands/ero_
 ero_give_img()
 
 
-
-let devMode = false
 import botInit from './modules/functions/botInit'
-botInit(devMode)
+botInit()
 
 import test from './modules/bot_commands/test'
 test()

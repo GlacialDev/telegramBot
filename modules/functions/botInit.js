@@ -6,8 +6,8 @@ let bot = variables.bot
 let server = variables.server
 let db = variables.db
 
-export default function botInit(flag) {
-    bot.sendMessage(variables.creator, `Бот инициализирован. dev-mode: ${flag}`)
+export default function botInit() {
+    bot.sendMessage(variables.creator, `Бот инициализирован.`)
     channelManager.initEroTimer()
 
     db.connect('mongodb://localhost:27017', 'second', (err) => {
