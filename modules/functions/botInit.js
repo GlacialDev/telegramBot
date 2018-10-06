@@ -24,4 +24,8 @@ export default function botInit() {
         if (data[0] == 'poll') pollManager.updatePoll(msg, data)
         if (data[0] == 'reaction') pollManager.updateReaction(msg, data)
     })
+
+    bot.on('message', (msg) => {
+        console.log(msg)
+    })
 }
