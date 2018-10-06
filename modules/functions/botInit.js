@@ -27,7 +27,9 @@ export default function botInit() {
     })
 
     bot.on('message', (msg) => {
+        console.log('in message')
         if(msg.voise) {
+            console.log('in if msg.voice')
             uploader.voice(msg).then(() => {
                 bot.sendMessage(msg.chat.id, 'zagruzil')
             })
