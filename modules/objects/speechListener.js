@@ -19,7 +19,7 @@ let speechListener = {
                     let req = https.request(options, function (res) {
                         console.log(res.statusCode);
                         res.on('data', function (d) {
-                            fs.createReadStream('./data/download/voice/yandexSpeech.oga')
+                            fs.createWriteStream('./data/download/voice/yandexSpeech.oga')
                                 .on('finish', function () {
                                     console.log(res)
                                 })
