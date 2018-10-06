@@ -18,10 +18,10 @@ let speechListener = {
                     };
 
                     fs.createReadStream('./data/download/voice/yandexSpeech.oga')
-                        .pipe(fs.createWriteStream(options.data, {encoding: 'base64'}))
+                        .pipe(fs.createWriteStream('./data/download/voice/yandexSpeech.txt', {encoding: 'base64'}))
                         .on('finish', () => {
-                            console.log(options.data)
-                            resolve(options)
+                            // console.log(options.data)
+                            resolve()
                         })
                         .on('error', (error) => {
                             if (error) console.log(error)
