@@ -9,24 +9,27 @@ let speechListener = {
         return new Promise((resolve, reject) => {
             let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
                 (filePath) => {
+                    
+
                     let options = {
                         method: 'POST',
                         host: 'asr.yandex.net',
                         contentType: msg.voice.mime_type,
                         transferEncoding: 'chunked',
+                        data: fs.readFile(filePath)
                     };
 
                     let req = https.request(options, function (res) {
                         console.log(res.statusCode);
-                        res.on('data', function (d) {
-                            fs.createWriteStream('./data/download/voice/yandexSpeech.oga')
-                                .on('finish', function () {
-                                    console.log(res)
-                                })
-                                .on('error', function (error) {
-                                    if (error) console.log(error)
-                                })
-                        });
+                        // res.on('data', function (d) {
+                        //     fs.createWriteStream('./data/download/voice/yandexSpeech.oga')
+                        //         .on('finish', function () {
+                        //             console.log(res)
+                        //         })
+                        //         .on('error', function (error) {
+                        //             if (error) console.log(error)
+                        //         })
+                        // });
                     });
                     req.end();
 
