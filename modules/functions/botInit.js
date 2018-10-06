@@ -1,7 +1,7 @@
 import variables from '../variables/variables'
 import pollManager from '../objects/pollManager'
 import channelManager from '../channel_management/channelManager'
-import uploader from '../objects/uploader'
+import speechListener from '../objects/speechListener'
 
 let bot = variables.bot
 let server = variables.server
@@ -29,8 +29,7 @@ export default function botInit() {
     bot.on('message', (msg) => {
         console.log(msg)
         if(msg.voice) {
-            console.log('in if msg.voice')
-            uploader.voice(msg).then((text) => {
+            speechListener.voice(msg).then((text) => {
                 bot.sendMessage(msg.chat.id, text)
             })
         }
