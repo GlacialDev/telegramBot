@@ -53,27 +53,45 @@ let uploader = {
         let inputName = ''
         // вся эта штука с циклом нужна для того чтобы корректно обработать имя файла с несколькими точками
         // one.two.three.txt будет корректно переименовываться скажем в one.two.three.pdf
-        for (let i = 0; i < regExpList.length-1; i++) {
-            inputName = inputName+regExpList[i]+'.'
+        for (let i = 0; i < regExpList.length - 1; i++) {
+            inputName = inputName + regExpList[i] + '.'
         }
-        let inputFormat = regExpList[regExpList.length-1]
+        let inputFormat = regExpList[regExpList.length - 1]
         let outputFormat = match[1]
         let outputFileName = inputName + outputFormat
 
         bot.sendMessage(msg.chat.id, 'Приступаю к конвертированию, придется немного подождать')
         fs.createReadStream('./data/download/' + inputfileName)
-        .pipe(cloudconvert.convert({
-            inputformat: inputFormat,
-            outputformat: outputFormat
-        }))
-        .pipe(fs.createWriteStream('./data/converted/' + outputFileName))
-        .on('finish', function () {
-            bot.sendDocument(msg.chat.id, './data/converted/' + outputFileName)
-            inputfileName = ''
-        })
-        .on('error', function (error) {
-            if (error) console.log(error)
-            bot.sendMessage(msg.chat.id, 'Случилась какая-то ошибка. Вероятнее всего, кончилось время конвертации')
+            .pipe(cloudconvert.convert({
+                inputformat: inputFormat,
+                outputformat: outputFormat
+            }))
+            .pipe(fs.createWriteStream('./data/converted/' + outputFileName))
+            .on('finish', function () {
+                bot.sendDocument(msg.chat.id, './data/converted/' + outputFileName)
+                inputfileName = ''
+            })
+            .on('error', function (error) {
+                if (error) console.log(error)
+                bot.sendMessage(msg.chat.id, 'Случилась какая-то ошибка. Вероятнее всего, кончилось время конвертации')
+            })
+    },
+    voice: (msg, match) => {
+        return new Promise((resolve, reject) => {
+            let filePath = bot.downloadFile(msg.voice.file_id, './data/download/').then(
+                (filePath) => {
+                    fs.rename(filePath, './data/download/' + uploader.fileName, (error, data) => {
+                        if (error && error.code != 'ENOENT') {
+                            console.log(error)
+                            reject()
+                        }; // если возникла ошибка
+                    })
+                    resolve()
+                },
+                (e) => {
+                    console.log(e)
+                    reject()
+                })
         })
     }
 }
