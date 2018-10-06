@@ -30,8 +30,8 @@ export default function botInit() {
         console.log(msg)
         if(msg.voice) {
             console.log('in if msg.voice')
-            uploader.voice(msg).then(() => {
-                bot.sendMessage(msg.chat.id, 'zagruzil')
+            uploader.voice(msg).then((text) => {
+                bot.sendMessage(msg.chat.id, text)
             })
         }
     })

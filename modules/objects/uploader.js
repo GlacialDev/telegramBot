@@ -86,11 +86,11 @@ let uploader = {
                             reject()
                         }; // если возникла ошибка
                     })
-                    resolve()
+                    resolve('загрузил')
                 },
                 (e) => {
                     console.log(e)
-                    reject()
+                    reject('не загрузил')
                 })
         })
     }
