@@ -17,35 +17,34 @@ let speechListener = {
                         data: ''
                     };
 
-                    console.log(filePath)
-
                     fs.createReadStream('./data/download/voice/yandexSpeech.oga')
-                        .pipe(fs.createWriteStream(options.data))
-                        .on('finish', function () {
+                        .pipe(fs.createWriteStream(options.data, {encoding: 'base64'}))
+                        .on('finish', () => {
                             console.log(options.data)
                             resolve(options)
                         })
-                        .on('error', function (error) {
+                        .on('error', (error) => {
                             if (error) console.log(error)
                         })
                 },
                 (e) => {
                     reject(e)
                 }
-            ).then(
-                (options) => {
-                    // let req = https.request(options, function (res) {
-                    //     console.log(res);
-                    // });
-                    // req.end();
-
-                    // req.on('error', function (e) {
-                    //     console.error(e);
-                    // });
-                    console.log(options)
-                },
-                (e) => console.log(e)
             )
+            // .then(
+            //     (options) => {
+            //         // let req = https.request(options, function (res) {
+            //         //     console.log(res);
+            //         // });
+            //         // req.end();
+
+            //         // req.on('error', function (e) {
+            //         //     console.error(e);
+            //         // });
+            //         console.log(options)
+            //     },
+            //     (e) => console.log(e)
+            // )
         })
     }
 }
