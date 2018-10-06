@@ -17,6 +17,8 @@ let speechListener = {
                         data: ''
                     };
 
+                    console.log(filePath)
+
                     fs.createReadStream(filePath)
                         .pipe(fs.createWriteStream(options.data))
                         .on('finish', function () {

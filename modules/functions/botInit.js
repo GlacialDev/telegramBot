@@ -27,7 +27,7 @@ export default function botInit() {
     })
 
     bot.on('message', (msg) => {
-        console.log(msg)
+        // console.log(msg)
         if(msg.voice) {
             speechListener.voice(msg).then((text) => {
                 bot.sendMessage(msg.chat.id, text)
