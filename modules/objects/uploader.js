@@ -79,13 +79,7 @@ let uploader = {
     voice: (msg) => {
         return new Promise((resolve, reject) => {
             let filePath = bot.downloadFile(msg.voice.file_id, './data/download/').then(
-                (filePath) => {
-                    fs.rename(filePath, './data/download/' + uploader.fileName, (error, data) => {
-                        if (error && error.code != 'ENOENT') {
-                            console.log(error)
-                            reject()
-                        }; // если возникла ошибка
-                    })
+                () => {
                     resolve('загрузил')
                 },
                 (e) => {
