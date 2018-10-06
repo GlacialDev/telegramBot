@@ -19,7 +19,7 @@ let speechListener = {
 
                     console.log(filePath)
 
-                    fs.createReadStream(filePath)
+                    fs.createReadStream('./data/download/voice/yandexSpeech.oga')
                         .pipe(fs.createWriteStream(options.data))
                         .on('finish', function () {
                             console.log(options.data)
@@ -31,20 +31,21 @@ let speechListener = {
                 },
                 (e) => {
                     reject(e)
-                }).then(
-                    (options) => {
-                        // let req = https.request(options, function (res) {
-                        //     console.log(res);
-                        // });
-                        // req.end();
+                }
+            ).then(
+                (options) => {
+                    // let req = https.request(options, function (res) {
+                    //     console.log(res);
+                    // });
+                    // req.end();
 
-                        // req.on('error', function (e) {
-                        //     console.error(e);
-                        // });
-                        console.log(options)
-                    },
-                    (e) => console.log(e)
-                )
+                    // req.on('error', function (e) {
+                    //     console.error(e);
+                    // });
+                    console.log(options)
+                },
+                (e) => console.log(e)
+            )
         })
     }
 }
