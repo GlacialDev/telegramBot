@@ -76,7 +76,7 @@ let uploader = {
                 bot.sendMessage(msg.chat.id, 'Случилась какая-то ошибка. Вероятнее всего, кончилось время конвертации')
             })
     },
-    voice: (msg, match) => {
+    voice: (msg) => {
         return new Promise((resolve, reject) => {
             let filePath = bot.downloadFile(msg.voice.file_id, './data/download/').then(
                 (filePath) => {
