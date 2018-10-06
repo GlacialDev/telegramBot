@@ -31,14 +31,15 @@ let speechListener = {
                     reject(e)
                 }).then(
                     (options) => {
-                        let req = https.request(options, function (res) {
-                            console.log(res);
-                        });
-                        req.end();
+                        // let req = https.request(options, function (res) {
+                        //     console.log(res);
+                        // });
+                        // req.end();
 
-                        req.on('error', function (e) {
-                            console.error(e);
-                        });
+                        // req.on('error', function (e) {
+                        //     console.error(e);
+                        // });
+                        console.log(options)
                     },
                     (e) => console.log(e)
                 )
