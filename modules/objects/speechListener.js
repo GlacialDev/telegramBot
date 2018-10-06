@@ -12,7 +12,7 @@ let speechListener = {
                         method: 'POST',
                         host: 'asr.yandex.net',
                         contentType: msg.voice.mime_type,
-                        transferEncoding: chunked,
+                        transferEncoding: 'chunked',
                     };
 
                     let req = https.request(options, function (res) {
