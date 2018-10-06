@@ -2,6 +2,7 @@ import variables from '../variables/variables'
 
 let https = variables.https
 let bot = variables.bot
+let fs = variables.fs
 
 let speechListener = {
     voice: (msg) => {
