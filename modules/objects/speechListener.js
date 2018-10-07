@@ -29,7 +29,7 @@ let speechListener = {
                 })
             .then(
                 (fileData) => {
-                    let fileData = new Buffer(fileData, 'binary')
+                    fileData = new Buffer(fileData, 'binary')
                     resolve(fileData)
                 })
             .then(
