@@ -24,19 +24,20 @@ let speechListener = {
                 (filePath) => {
                     return new Promise((resolve, reject) => {
                         let fileData = fs.readFile(filePath)
+                        console.log(fileData)
                         resolve(fileData)
                     })
                 })
-            .then(
-                (fileData) => {
-                    fileData = new Buffer(fileData, 'binary')
-                    resolve(fileData)
-                })
-            .then(
-                (fileData) => {
-                    bot.sendMessage(msg.chat.id, `Имя файла: ${fileName};\nСодержимое файла: ${fileData}`)
-                    console.log(fileData)
-                })
+            // .then(
+            //     (fileData) => {
+            //         fileData = new Buffer(fileData, 'binary')
+            //         resolve(fileData)
+            //     })
+            // .then(
+            //     (fileData) => {
+            //         bot.sendMessage(msg.chat.id, `Имя файла: ${fileName};\nСодержимое файла: ${fileData}`)
+            //         console.log(fileData)
+            //     })
             .catch((error) => {
                 console.log(error)
             })
