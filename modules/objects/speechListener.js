@@ -23,9 +23,14 @@ let speechListener = {
             .then(
                 (filePath) => {
                     return new Promise((resolve, reject) => {
-                        let fileData = new Buffer(fs.readFile(filePath), 'binary')
+                        let fileData = fs.readFile(filePath)
                         resolve(fileData)
                     })
+                })
+            .then(
+                (fileData) => {
+                    let fileData = new Buffer(fileData, 'binary')
+                    resolve(fileData)
                 })
             .then(
                 (fileData) => {
