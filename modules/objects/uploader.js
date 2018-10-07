@@ -108,7 +108,8 @@ let uploader = {
                                 console.log(err);
                             } else {
                                 let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
-                                console.log(variantsList)
+                                let textFromSpeech = variantsList.split(/>(.+)</)
+                                bot.sendMessage(msg.chat.id, textFromSpeech[0])
                             }
                         });
                     })
