@@ -59,11 +59,11 @@ let speechListener = {
 
                     yandexSpeech.ASR({
                         developer_key: config.yandexSpeechKitKey,  //get in Yandex Developer Center
-                        file: 'audio/x-wav', //check format
+                        file: './data/download/voice/yandexSpeech.oga', //check format
                         uuid: uuid,    //UUID without hyphens
                         topic: 'queuries',  // ['queries', 'maps', 'notes', 'music']
                         lang: 'ru-RU',      // ['ru-RU', 'tr-TR'],
-                        filetype: 'audio/x-mpeg-3'  // ['audio/x-speex', 'audio/x-pcm;bit=16;rate=8000', 'audio/x-pcm;bit=16;rate=16000', 'audio/x-alaw;bit=13;rate=8000', 'audio/x-wav', 'audio/x-mpeg-3']
+                        filetype: 'audio/x-wav'  // ['audio/x-speex', 'audio/x-pcm;bit=16;rate=8000', 'audio/x-pcm;bit=16;rate=16000', 'audio/x-alaw;bit=13;rate=8000', 'audio/x-wav', 'audio/x-mpeg-3']
                     }, function (err, httpResponse, xml) {
                         if (err) {
                             console.log(err);
