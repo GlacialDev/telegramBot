@@ -39,7 +39,8 @@ let speechListener = {
                         host: 'asr.yandex.net',
                         path: `/asr_xml?uuid=${uuid}&key=${config.yandexSpeechKitKey}&topic=queries&lang=ru-RU&disableAntimat=true`,
                         headers: {
-                            'Content-Type': 'audio/x-wav'
+                            'Content-Type': 'audio/x-wav',
+                            'Transfer-Encoding' : 'chunked'
                         },
                         body : data
                     }
