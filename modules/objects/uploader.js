@@ -118,7 +118,7 @@ let uploader = {
                     })
                     .on('error', function (error) {
                         if (error) console.log(error)
-                        bot.sendMessage(msg.chat.id, 'Случилась какая-то ошибка. Вероятнее всего, кончилось время конвертации')
+                        bot.sendMessage(msg.chat.id, 'Не могу распознать. Похоже, кончилось время конвертации')
                     })
             }
         )
