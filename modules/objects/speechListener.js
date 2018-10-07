@@ -44,7 +44,7 @@ let speechListener = {
                     }
 
                     let post_req = https.request(post_options, (res) => {
-                        console.log(res);
+                        console.log(res.body);
                         console.log('statusCode:', res.statusCode);
                     });
 
