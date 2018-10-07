@@ -82,10 +82,12 @@ let uploader = {
                 // делим по точкам имя файла (чтобы затем отсечь формат от названия)
                 let regExpList = filePath.split(/\\/)
                 let inputName = regExpList[regExpList.length - 1]
-                let regExpFormat = inputName.split(/./)
+                let regExpFormat = inputName.split(/\./)
                 let inputFormat = regExpFormat[regExpFormat.length - 1]
                 let inputFileName = regExpFormat[regExpFormat.length - 2]
+                console.log(regExpList)
                 console.log(inputName)
+                console.log(regExpFormat)
                 console.log(inputFormat)
                 console.log(inputFileName)
             }
