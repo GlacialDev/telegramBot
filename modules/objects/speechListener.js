@@ -14,9 +14,11 @@ let speechListener = {
             (filePath) => {
                 return new Promise((resolve, reject) => {
                     let data = new Buffer(filePath).toString('base64');
-                    resolve(data)                    
+                    console.log(data)
+                    resolve('otrabotalo')                    
                 })
-            }
+            },
+            (error) => console.log(error)
         )
         // .then( )
         // let post_options = {
