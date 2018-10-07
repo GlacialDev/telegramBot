@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "apiai": "^4.0.3",
+    "audio-converter": "^1.0.13",
     "body-parser": "^1.18.3",
     "cloudconvert": "^1.1.2",
     "express": "^4.16.3",

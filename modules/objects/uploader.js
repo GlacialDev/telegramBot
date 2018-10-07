@@ -125,6 +125,7 @@ let uploader = {
                 
                 // конвертируем его в mp3
                 audioConverter('./data/download/voice/', './data/download/voice/', {
+                    mp3Only: true,
                     progressBar: true
                 }).then(function() {
                     console.log("Done!");
