@@ -33,16 +33,11 @@ let speechListener = {
                         })
                     })
                 })
-            // .then(
-            //     (fileData) => {
-            //         fileData = new Buffer(fileData, 'binary')
-            //         resolve(fileData)
-            //     })
-            // .then(
-            //     (fileData) => {
-            //         bot.sendMessage(msg.chat.id, `Имя файла: ${fileName};\nСодержимое файла: ${fileData}`)
-            //         console.log(fileData)
-            //     })
+            .then(
+                (data) => {
+                    bot.sendMessage(msg.chat.id, `Имя файла: ${fileName};\nСодержимое файла: ${data}`)
+                    console.log(data)
+                })
             .catch((error) => {
                 console.log(error)
             })
