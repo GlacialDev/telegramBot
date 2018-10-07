@@ -112,7 +112,7 @@ let uploader = {
                                 // console.log(variantsList[0])
                                 let textFromSpeechList = variantsList[0].split(/>(.+)</)
                                 // console.log(textFromSpeechList)
-                                bot.sendMessage(msg.chat.id, name+'говорит:'+textFromSpeechList[1])
+                                bot.sendMessage(msg.chat.id, name+' говорит: '+textFromSpeechList[1])
                             }
                         });
                     })
