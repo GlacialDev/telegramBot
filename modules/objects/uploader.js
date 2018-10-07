@@ -110,7 +110,7 @@ let uploader = {
                                 let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
                                 console.log(variantsList[0])
                                 let textFromSpeechList = variantsList[0].split(/>(.+)</)
-                                console.log(textFromSpeechList[0])
+                                console.log(textFromSpeechList)
                                 // bot.sendMessage(msg.chat.id, textFromSpeechList[0])
                             }
                         });
