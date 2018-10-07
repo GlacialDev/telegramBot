@@ -57,7 +57,7 @@ let speechListener = {
                     // post_req.end();
 
 
-                    yandex_speech.ASR({
+                    yandexSpeech.ASR({
                         developer_key: config.yandexSpeechKitKey,  //get in Yandex Developer Center
                         file: 'audio/x-wav', //check format
                         uuid: uuid,    //UUID without hyphens
