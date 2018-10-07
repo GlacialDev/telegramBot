@@ -85,11 +85,22 @@ let uploader = {
                 let regExpFormat = inputName.split(/\./)
                 let inputFormat = regExpFormat[regExpFormat.length - 1]
                 let inputFileName = regExpFormat[regExpFormat.length - 2]
-                console.log(regExpList)
-                console.log(inputName)
-                console.log(regExpFormat)
-                console.log(inputFormat)
-                console.log(inputFileName)
+                let outputFormat = 'mp3'
+                let outputFileName = 'yandexSpeech.'+outputFormat
+
+                fs.createReadStream(filePath)
+                    .pipe(cloudconvert.convert({
+                        inputformat: inputFormat,
+                        outputformat: outputFormat
+                    }))
+                    .pipe(fs.createWriteStream('./data/converted/' + outputFileName))
+                    .on('finish', function () {
+                        bot.sendDocument(msg.chat.id, './data/converted/' + outputFileName)
+                    })
+                    .on('error', function (error) {
+                        if (error) console.log(error)
+                        bot.sendMessage(msg.chat.id, 'Случилась какая-то ошибка. Вероятнее всего, кончилось время конвертации')
+                    })
             }
         )
     }
