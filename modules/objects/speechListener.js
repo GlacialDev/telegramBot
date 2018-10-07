@@ -9,31 +9,32 @@ let fs = variables.fs
 let speechListener = {
     voice: (msg) => {
         let uuid = symbolStringGenerator(32)
-        let data = ''
 
         let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
             (filePath) => {
-
-                data = new Buffer(filePath).toString('base64');
-                console.log(data)
-
-                // let post_options = {
-                //     method: 'POST',
-                //     host: 'asr.yandex.net',
-                //     path: `/asr_xml?uuid=${uuid}&key=${config.yandexSpeechKitKey}&topic=queries&lang=ru-RU&disableAntimat=true`,
-                //     headers: {
-                //         'Content-Type': 'audio/x-wav'
-                //     }
-                // }
-
-                // let post_req = https.request(post_options, function (res) {
-                //     res.setEncoding('utf8');
-                //     res.on('data', function (chunk) {
-                //         console.log('Response: ' + chunk);
-                //     });
-                // });
-            },
+                let data = new Buffer(filePath).toString('base64');
+                resolve(data)
+            }
         )
+        // .then( )
+        // let post_options = {
+        //     method: 'POST',
+        //     host: 'asr.yandex.net',
+        //     path: `/asr_xml?uuid=${uuid}&key=${config.yandexSpeechKitKey}&topic=queries&lang=ru-RU&disableAntimat=true`,
+        //     headers: {
+        //         'Content-Type': 'audio/x-wav'
+        //     }
+        // }
+
+        // let post_req = https.request(post_options, function (res) {
+        //     res.setEncoding('utf8');
+        //     res.on('data', function (chunk) {
+        //         console.log('Response: ' + chunk);
+        //     });
+        // });    
+        // })
+        // },
+        // )
         // .then(
         //     (options) => {
         //         // let req = https.request(options, function (res) {
