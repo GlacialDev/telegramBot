@@ -13,7 +13,7 @@ let speechListener = {
         let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
             (filePath) => {
                 return new Promise((resolve, reject) => {
-                    let data = new Buffer(filePath)
+                    let data = new Buffer(filePath).toString('binary')
                     console.log(data)        
                     resolve()     
                 })
