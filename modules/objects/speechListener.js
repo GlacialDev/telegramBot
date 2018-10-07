@@ -14,7 +14,7 @@ let speechListener = {
             .then(
                 (file) => {
                     fileName = file.file_path.substring(file.file_path.lastIndexOf('/') + 1)
-                    console.log(fileName)
+                    // console.log(fileName)
                 })
             .catch((error) => {
                 console.log(error)
@@ -23,13 +23,13 @@ let speechListener = {
             .then(
                 (filePath) => {
                     return new Promise((resolve, reject) => {
-                        let fileData = new Buffer(filePath, 'binary')
+                        let fileData = new Buffer(fs.readFile(filePath), 'binary')
                         resolve(fileData)
                     })
                 })
             .then(
                 (fileData) => {
-                    bot.sendMessage(msg.chat.id, `Имя файла: ${fileName}; Содержимое файла: ${fileData}`)
+                    bot.sendMessage(msg.chat.id, `Имя файла: ${fileName};\nСодержимое файла: ${fileData}`)
                     console.log(fileData)
                 })
             .catch((error) => {
