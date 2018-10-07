@@ -14,12 +14,15 @@ let speechListener = {
             (filePath) => {
                 return new Promise((resolve, reject) => {
                     let data = new Buffer(filePath).toString('base64');
-                    console.log(data)
-                    resolve('otrabotalo')                    
+                    console.log(data)        
+                    resolve()     
                 })
-            },
-            (error) => console.log(error)
-        )
+            }
+        ).then(
+            bot.sendMessage(msg.chat.id, 'otrabotalo')
+        ).catch( (error) => {
+            console.log(error)
+        })
         // .then( )
         // let post_options = {
         //     method: 'POST',
