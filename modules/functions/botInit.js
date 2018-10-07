@@ -2,6 +2,7 @@ import variables from '../variables/variables'
 import pollManager from '../objects/pollManager'
 import channelManager from '../channel_management/channelManager'
 import speechListener from '../objects/speechListener'
+import uploader from '../objects/uploader';
 
 let bot = variables.bot
 let server = variables.server
@@ -28,7 +29,7 @@ export default function botInit() {
 
     bot.on('message', (msg) => {
         if(msg.voice) {
-            speechListener.voice(msg)
+            uploader.speechConvert(msg)
         }
     })
 }

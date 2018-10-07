@@ -75,6 +75,16 @@ let uploader = {
                 if (error) console.log(error)
                 bot.sendMessage(msg.chat.id, 'Случилась какая-то ошибка. Вероятнее всего, кончилось время конвертации')
             })
+    },
+    speechConvert: (msg, match) => {
+        let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
+            (filePath) => {
+                // делим по точкам имя файла (чтобы затем отсечь формат от названия)
+                let regExpList = inputfileName.split(/\\/)
+                let inputName = regExpList[regExpList.length - 1]
+                console.log(inputName)
+            }
+        )
     }
 }
 
