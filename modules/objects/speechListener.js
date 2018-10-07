@@ -9,7 +9,7 @@ let fs = variables.fs
 let speechListener = {
     voice: (msg) => {
         let uuid = symbolStringGenerator(32)
-        let fileName = bot.getFile(msg.voice.file_id).then(console.log(fileName))
+        let fileName = bot.getFile(msg.voice.file_id).then((fileName) => console.log(fileName))
 
         let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
             (filePath) => {
