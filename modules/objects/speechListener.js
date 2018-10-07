@@ -34,10 +34,6 @@ let speechListener = {
                 })
             .then(
                 (data) => {
-                    console.log(data)
-                })
-            .then(
-                (data) => {
                     let post_options = {
                         method: 'POST',
                         host: 'asr.yandex.net',
@@ -47,13 +43,15 @@ let speechListener = {
                         }
                     }
 
-                    let post_req = https.request(post_options, function (res) {
-                        res.on('data', function (chunk) {
-                            console.log('Response: ' + chunk);
-                        });
+                    let post_req = https.request(post_options, (res) => {
+                        console.log('statusCode:', res.statusCode);
                     });
 
                     post_req.write(data);
+                    post_req.on('error', (e) => {
+                      console.error(e.message);
+                    });
+                    post_req.end();
                 },
             )
             .catch((error) => {
