@@ -9,11 +9,11 @@ let fs = variables.fs
 let speechListener = {
     voice: (msg) => {
         let uuid = symbolStringGenerator(32)
-        let fileName = bot.getFile(msg.voice.file_id)
+        let fileName = ''
+        let file = bot.getFile(msg.voice.file_id)
             .then(
-                (fileName) => {
-                    let filePath = file.file_path
-                    fileName = filePath.substring(filePath.lastIndexOf('/') + 1)
+                (file) => {
+                    fileName = file.file_path.substring(file.file_path.lastIndexOf('/') + 1)
                     console.log(fileName)
                 })
             .catch((error) => {
