@@ -12,8 +12,10 @@ let speechListener = {
 
         let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
             (filePath) => {
-                let data = new Buffer(filePath).toString('base64');
-                resolve(data)
+                return new Promise((resolve, reject) => {
+                    let data = new Buffer(filePath).toString('base64');
+                    resolve(data)                    
+                })
             }
         )
         // .then( )
