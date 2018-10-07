@@ -79,6 +79,7 @@ let uploader = {
             })
     },
     speechConvert: (msg, match) => {
+        // грузим голосовое сообщение
         let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
             (filePath) => {
                 // делим по точкам имя файла (чтобы затем отсечь формат от названия)
@@ -89,7 +90,7 @@ let uploader = {
                 let inputFileName = regExpFormat[regExpFormat.length - 2]
                 let outputFormat = 'mp3'
                 let outputFileName = inputFileName+'.'+outputFormat
-
+                // конвертируем его в mp3
                 fs.createReadStream(filePath)
                     .pipe(cloudconvert.convert({
                         inputformat: inputFormat,
@@ -97,17 +98,17 @@ let uploader = {
                     }))
                     .pipe(fs.createWriteStream('./data/download/voice/' + outputFileName))
                     .on('finish', function () {
-                        bot.sendMessage(msg.chat.id, `./data/download/voice/${outputFileName}`)
-
+                        // передаем яндексу на расшифровку
                         yandexSpeech.ASR({
-                            developer_key: config.yandexSpeechKitKey,  //get in Yandex Developer Center
-                            file: `./data/download/voice/${outputFileName}`, //check format
-                            filetype: 'audio/x-mpeg-3'  // ['audio/x-speex', 'audio/x-pcm;bit=16;rate=8000', 'audio/x-pcm;bit=16;rate=16000', 'audio/x-alaw;bit=13;rate=8000', 'audio/x-wav', 'audio/x-mpeg-3']
+                            developer_key: config.yandexSpeechKitKey,  
+                            file: `./data/download/voice/${outputFileName}`,
+                            filetype: 'audio/x-mpeg-3'  
                         }, function (err, httpResponse, xml) {
                             if (err) {
                                 console.log(err);
                             } else {
-                                console.log(httpResponse.statusCode, xml)
+                                let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
+                                console.log(variantsList)
                             }
                         });
                     })
