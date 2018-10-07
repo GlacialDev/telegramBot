@@ -108,10 +108,10 @@ let uploader = {
                                 console.log(err);
                             } else {
                                 let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
-                                console.log(variantsList[0])
+                                // console.log(variantsList[0])
                                 let textFromSpeechList = variantsList[0].split(/>(.+)</)
-                                console.log(textFromSpeechList)
-                                // bot.sendMessage(msg.chat.id, textFromSpeechList[0])
+                                // console.log(textFromSpeechList)
+                                bot.sendMessage(msg.chat.id, textFromSpeechList[1])
                             }
                         });
                     })
