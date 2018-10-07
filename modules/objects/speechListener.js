@@ -40,7 +40,8 @@ let speechListener = {
                         path: `/asr_xml?uuid=${uuid}&key=${config.yandexSpeechKitKey}&topic=queries&lang=ru-RU&disableAntimat=true`,
                         headers: {
                             'Content-Type': 'audio/x-wav'
-                        }
+                        },
+                        body : data
                     }
 
                     let post_req = https.request(post_options, (res) => {
@@ -48,7 +49,6 @@ let speechListener = {
                         console.log('statusCode:', res.statusCode);
                     });
 
-                    post_req.write(data);
                     post_req.on('error', (e) => {
                       console.error(e.message);
                     });
