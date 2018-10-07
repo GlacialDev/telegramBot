@@ -5,6 +5,7 @@ let bot = variables.bot
 let fs = variables.fs
 let cloudconvert = variables.cloudconvert
 let yandexSpeech = variables.yandexSpeech
+let audioConverter = variables.audioConverter 
 
 let uploader = {
     flag: 'enabled',
@@ -92,34 +93,42 @@ let uploader = {
                 let outputFormat = 'mp3'
                 let outputFileName = inputFileName+'.'+outputFormat
                 // конвертируем его в mp3
-                fs.createReadStream(filePath)
-                    .pipe(cloudconvert.convert({
-                        inputformat: inputFormat,
-                        outputformat: outputFormat
-                    }))
-                    .pipe(fs.createWriteStream('./data/download/voice/' + outputFileName))
-                    .on('finish', function () {
-                        // передаем яндексу на расшифровку
-                        yandexSpeech.ASR({
-                            developer_key: config.yandexSpeechKitKey,  
-                            file: `./data/download/voice/${outputFileName}`,
-                            filetype: 'audio/x-mpeg-3'  
-                        }, function (err, httpResponse, xml) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
-                                // console.log(variantsList[0])
-                                let textFromSpeechList = variantsList[0].split(/>(.+)</)
-                                // console.log(textFromSpeechList)
-                                bot.sendMessage(msg.chat.id, name+' говорит: '+textFromSpeechList[1])
-                            }
-                        });
-                    })
-                    .on('error', function (error) {
-                        if (error) console.log(error)
-                        bot.sendMessage(msg.chat.id, 'Не могу распознать. Похоже, кончилось время конвертации')
-                    })
+                // fs.createReadStream(filePath)
+                //     .pipe(cloudconvert.convert({
+                //         inputformat: inputFormat,
+                //         outputformat: outputFormat
+                //     }))
+                //     .pipe(fs.createWriteStream('./data/download/voice/' + outputFileName))
+                //     .on('finish', function () {
+                //         // передаем яндексу на расшифровку
+                //         yandexSpeech.ASR({
+                //             developer_key: config.yandexSpeechKitKey,  
+                //             file: `./data/download/voice/${outputFileName}`,
+                //             filetype: 'audio/x-mpeg-3'  
+                //         }, function (err, httpResponse, xml) {
+                //             if (err) {
+                //                 console.log(err);
+                //             } else {
+                //                 let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
+                //                 // console.log(variantsList[0])
+                //                 let textFromSpeechList = variantsList[0].split(/>(.+)</)
+                //                 // console.log(textFromSpeechList)
+                //                 bot.sendMessage(msg.chat.id, name+' говорит: '+textFromSpeechList[1])
+                //             }
+                //         });
+                //     })
+                //     .on('error', function (error) {
+                //         if (error) console.log(error)
+                //         bot.sendMessage(msg.chat.id, 'Не могу распознать. Похоже, кончилось время конвертации')
+                //     })
+
+                
+                // конвертируем его в mp3
+                audioConverter('./data/download/voice/', './data/download/voice/', {
+                    progressBar: true
+                }).then(function() {
+                    console.log("Done!");
+                });
             }
         )
     }

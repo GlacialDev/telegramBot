@@ -10,6 +10,7 @@ const server = express()
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
 const yandexSpeech = require('yandex-speech')
+const audioConverter = require("audio-converter");
 
 let variables = {
     creator : 353140575,
@@ -21,7 +22,8 @@ let variables = {
     cloudconvert : cloudconvert,
     server : server,
     db : db,
-    yandexSpeech : yandexSpeech
+    yandexSpeech : yandexSpeech,
+    audioConverter : audioConverter
 }
 
 export default variables
