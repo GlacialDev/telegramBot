@@ -36,44 +36,45 @@ let speechListener = {
                 (data) => {
                     console.log(data)
                 })
+            .then(
+                (data) => {
+                    let post_options = {
+                        method: 'POST',
+                        host: 'asr.yandex.net',
+                        path: `/asr_xml?uuid=${uuid}&key=${config.yandexSpeechKitKey}&topic=queries&lang=ru-RU&disableAntimat=true`,
+                        headers: {
+                            'Content-Type': 'audio/x-wav'
+                        }
+                    }
+
+                    let post_req = https.request(post_options, function (res) {
+                        res.on('data', function (chunk) {
+                            console.log('Response: ' + chunk);
+                        });
+                    });
+
+                    post_req.write(data);
+                },
+            )
             .catch((error) => {
                 console.log(error)
             })
-        // .then( )
-        let post_options = {
-            method: 'POST',
-            host: 'asr.yandex.net',
-            path: `/asr_xml?uuid=${uuid}&key=${config.yandexSpeechKitKey}&topic=queries&lang=ru-RU&disableAntimat=true`,
-            headers: {
-                'Content-Type': 'audio/x-wav'
-            }
-        }
+        // .then(
+        //     (options) => {
+        //         // let req = https.request(options, function (res) {
+        //         //     console.log(res);
+        //         // });
+        //         // req.end();
 
-        let post_req = https.request(post_options, function (res) {
-            res.on('data', function (chunk) {
-                console.log('Response: ' + chunk);
-            });
-        });
-
-        post_req.write(post_data);
-    },
-    // )
-    // .then(
-    //     (options) => {
-    //         // let req = https.request(options, function (res) {
-    //         //     console.log(res);
-    //         // });
-    //         // req.end();
-
-    //         // req.on('error', function (e) {
-    //         //     console.error(e);
-    //         // });
-    //         console.log(options)
-    //     },
-    //     (e) => console.log(e)
-    // )
-    // })
-    // }
-}
+        //         // req.on('error', function (e) {
+        //         //     console.error(e);
+        //         // });
+        //         console.log(options)
+        //     },
+        //     (e) => console.log(e)
+        // )
+        // })
+        // }
+    }
 
 export default speechListener
