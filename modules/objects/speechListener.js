@@ -28,8 +28,8 @@ let speechListener = {
                                 console.log(error)
                                 reject()
                             }; // если возникла ошибка
-                            console.log(fileData)
-                            resolve(fileData)
+                            console.log(data)
+                            resolve(data)
                         })
                     })
                 })
