@@ -76,5 +76,6 @@ let speechListener = {
         // })
         // }
     }
+}
 
 export default speechListener
