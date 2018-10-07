@@ -9,26 +9,29 @@ let fs = variables.fs
 let speechListener = {
     voice: (msg) => {
         let uuid = symbolStringGenerator(32)
+        let fileData = ''
+        let fileName = ''
+        let filePath = ''
         let file = bot.getFile(msg.voice.file_id).then(
-            (file) => {
-                let fileName = file.file_path.substring(file.file_path.lastIndexOf('/') + 1)
-                console.log(fileName)
-            }
-        )
-
-        let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
-            (filePath) => {
-                return new Promise((resolve, reject) => {
-                    let data = new Buffer(filePath, 'binary')
-                    console.log(data)
-                    resolve()
+                (file) => {
+                    fileName = file.file_path.substring(file.file_path.lastIndexOf('/') + 1)
                 })
-            }
-        ).then(
-            bot.sendMessage(msg.chat.id, 'otrabotalo')
-        ).catch((error) => {
-            console.log(error)
-        })
+            .then(
+                () => {
+                    filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/')
+                })
+            .then(
+                (filePath) => {
+                    return new Promise((resolve, reject) => {
+                        fileData = new Buffer(filePath, 'binary')
+                        resolve()
+                    })
+                }
+            ).then(
+                bot.sendMessage(msg.chat.id, `Имя файла: ${fileName}; Содержимое файла: ${fileData}`)
+            ).catch((error) => {
+                console.log(error)
+            })
         // .then( )
         // let post_options = {
         //     method: 'POST',
