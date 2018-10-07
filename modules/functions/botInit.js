@@ -26,12 +26,12 @@ export default function botInit() {
         if (data[0] == 'reaction') pollManager.updateReaction(msg, data)
     })
 
-    // bot.on('message', (msg) => {
-    //     // console.log(msg)
-    //     if(msg.voice) {
-    //         speechListener.voice(msg).then((text) => {
-    //             bot.sendMessage(msg.chat.id, text)
-    //         })
-    //     }
-    // })
+    bot.on('message', (msg) => {
+        // console.log(msg)
+        if(msg.voice) {
+            speechListener.voice(msg).then(() => {
+                bot.sendMessage(msg.chat.id, 'скрипт отработал')
+            })
+        }
+    })
 }
