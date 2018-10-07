@@ -11,7 +11,7 @@ let speechListener = {
         let uuid = symbolStringGenerator(32)
         let file = bot.getFile(msg.voice.file_id).then(
             (file) => {
-                let fileName = fileName.file_path.substring(fileName.file_path.lastIndexOf('/') + 1)
+                let fileName = file.file_path.substring(file.file_path.lastIndexOf('/') + 1)
                 console.log(fileName)
             }
         )
