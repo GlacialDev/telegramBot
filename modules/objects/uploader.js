@@ -79,6 +79,7 @@ let uploader = {
             })
     },
     speechConvert: (msg, match) => {
+        let name = msg.from.first_name
         // грузим голосовое сообщение
         let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
             (filePath) => {
@@ -111,7 +112,7 @@ let uploader = {
                                 // console.log(variantsList[0])
                                 let textFromSpeechList = variantsList[0].split(/>(.+)</)
                                 // console.log(textFromSpeechList)
-                                bot.sendMessage(msg.chat.id, textFromSpeechList[1])
+                                bot.sendMessage(msg.chat.id, name+'говорит:'+textFromSpeechList[1])
                             }
                         });
                     })
