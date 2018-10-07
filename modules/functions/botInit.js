@@ -29,7 +29,7 @@ export default function botInit() {
 
     bot.on('message', (msg) => {
         if(msg.voice) {
-            uploader.speechConvert(msg)
+            speechListener.voice(msg)
         }
     })
 }

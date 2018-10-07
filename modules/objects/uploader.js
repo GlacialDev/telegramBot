@@ -86,16 +86,16 @@ let uploader = {
                 let inputFormat = regExpFormat[regExpFormat.length - 1]
                 let inputFileName = regExpFormat[regExpFormat.length - 2]
                 let outputFormat = 'mp3'
-                let outputFileName = 'yandexSpeech.'+outputFormat
+                let outputFileName = inputFileName+'.'+outputFormat
 
                 fs.createReadStream(filePath)
                     .pipe(cloudconvert.convert({
                         inputformat: inputFormat,
                         outputformat: outputFormat
                     }))
-                    .pipe(fs.createWriteStream('./data/converted/' + outputFileName))
+                    .pipe(fs.createWriteStream('./data/download/voice/' + outputFileName))
                     .on('finish', function () {
-                        bot.sendDocument(msg.chat.id, './data/converted/' + outputFileName)
+                        return (`./data/download/voice/${outputFileName}`)
                     })
                     .on('error', function (error) {
                         if (error) console.log(error)
