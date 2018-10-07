@@ -23,9 +23,14 @@ let speechListener = {
             .then(
                 (filePath) => {
                     return new Promise((resolve, reject) => {
-                        let fileData = fs.readFile(filePath)
-                        console.log(fileData)
-                        resolve(fileData)
+                        fs.readFile(filePath, (error, data) => {
+                            if (error && error.code != 'ENOENT') {
+                                console.log(error)
+                                reject()
+                            }; // если возникла ошибка
+                            console.log(fileData)
+                            resolve(fileData)
+                        })
                     })
                 })
             // .then(
