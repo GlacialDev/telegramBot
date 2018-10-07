@@ -5,6 +5,7 @@ import symbolStringGenerator from '../functions/symbolStringGenerator'
 let https = variables.https
 let bot = variables.bot
 let fs = variables.fs
+let yandexSpeech = variables.yandexSpeech
 
 let speechListener = {
     voice: (msg) => {
@@ -34,47 +35,48 @@ let speechListener = {
                 })
             .then(
                 (data) => {
-                    let post_options = {
-                        method: 'POST',
-                        host: 'asr.yandex.net',
-                        path: `/asr_xml?uuid=${uuid}&key=${config.yandexSpeechKitKey}&topic=queries&lang=ru-RU&disableAntimat=true`,
-                        headers: {
-                            'Content-Type': 'audio/x-wav',
-                            'Transfer-Encoding' : 'chunked'
-                        },
-                        body : data
+                    // let post_options = {
+                    //     method: 'POST',
+                    //     host: 'asr.yandex.net',
+                    //     path: `/asr_xml?uuid=${uuid}&key=${config.yandexSpeechKitKey}&topic=queries&lang=ru-RU&disableAntimat=true`,
+                    //     headers: {
+                    //         'Content-Type': 'audio/x-wav',
+                    //         'Transfer-Encoding': 'chunked'
+                    //     },
+                    //     body: data
+                    // }
+
+                    // let post_req = https.request(post_options, (res) => {
+                    //     console.log(res.body);
+                    //     console.log('statusCode:', res.statusCode);
+                    // });
+
+                    // post_req.on('error', (e) => {
+                    //     console.error(e.message);
+                    // });
+                    // post_req.end();
+
+
+                    yandex_speech.ASR({
+                        developer_key: config.yandexSpeechKitKey,  //get in Yandex Developer Center
+                        file: 'audio/x-wav', //check format
+                        uuid: uuid,    //UUID without hyphens
+                        topic: 'queuries',  // ['queries', 'maps', 'notes', 'music']
+                        lang: 'ru-RU',      // ['ru-RU', 'tr-TR'],
+                        filetype: 'audio/x-mpeg-3'  // ['audio/x-speex', 'audio/x-pcm;bit=16;rate=8000', 'audio/x-pcm;bit=16;rate=16000', 'audio/x-alaw;bit=13;rate=8000', 'audio/x-wav', 'audio/x-mpeg-3']
+                    }, function (err, httpResponse, xml) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log(httpResponse.statusCode, xml)
+                        }
                     }
-
-                    let post_req = https.request(post_options, (res) => {
-                        console.log(res.body);
-                        console.log('statusCode:', res.statusCode);
-                    });
-
-                    post_req.on('error', (e) => {
-                      console.error(e.message);
-                    });
-                    post_req.end();
+                    );
                 },
             )
             .catch((error) => {
                 console.log(error)
             })
-        // .then(
-        //     (options) => {
-        //         // let req = https.request(options, function (res) {
-        //         //     console.log(res);
-        //         // });
-        //         // req.end();
-
-        //         // req.on('error', function (e) {
-        //         //     console.error(e);
-        //         // });
-        //         console.log(options)
-        //     },
-        //     (e) => console.log(e)
-        // )
-        // })
-        // }
     }
 }
 

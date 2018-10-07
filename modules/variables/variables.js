@@ -9,6 +9,7 @@ const cloudconvert = new (require('cloudconvert'))(config.cloudConvertApiKey);
 const server = express()
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
+const yandexSpeech = require('yandex-speech')
 
 let variables = {
     creator : 353140575,
@@ -19,7 +20,8 @@ let variables = {
     fs : require('fs'),
     cloudconvert : cloudconvert,
     server : server,
-    db : db
+    db : db,
+    yandexSpeech : yandexSpeech
 }
 
 export default variables
