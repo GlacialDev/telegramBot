@@ -80,7 +80,7 @@ let uploader = {
         let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
             (filePath) => {
                 // делим по точкам имя файла (чтобы затем отсечь формат от названия)
-                let regExpList = inputfileName.split(/\\/)
+                let regExpList = filePath.split(/\\/)
                 let inputName = regExpList[regExpList.length - 1]
                 console.log(inputName)
             }
