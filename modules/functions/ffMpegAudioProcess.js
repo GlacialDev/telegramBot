@@ -7,6 +7,8 @@ export default function ffMpegAudioProcess(inputFileName, outputFileName) {
     let command = ffmpeg()
       .input(`./data/download/voice/${inputFileName}`)
       .saveToFile(`./data/download/voice/${outputFileName}`)
-    resolve()
+      .on('end', () => {
+        resolve()
+      })
   })
 }
