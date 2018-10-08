@@ -111,6 +111,10 @@ let uploader = {
                             bot.sendMessage(msg.chat.id, name + ' говорит: ' + textFromSpeechList[1])
                         }
                     })
+                }).then(() => {
+                    fs.unlink(`./data/download/voice/${inputFileName}`)
+                    fs.unlink(`./data/download/voice/${outputFileName}`)
+                    console.log('audio deleted')
                 })
             }
         )
