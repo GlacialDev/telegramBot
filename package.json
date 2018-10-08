@@ -13,6 +13,7 @@
     "body-parser": "^1.18.3",
     "cloudconvert": "^1.1.2",
     "express": "^4.16.3",
+    "fluent-ffmpeg": "^2.1.2",
     "mongodb": "^3.1.4",
     "node-emoji": "^1.8.1",
     "node-telegram-bot-api": "^0.30.0",

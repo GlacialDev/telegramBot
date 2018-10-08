@@ -6,7 +6,7 @@ let bot = variables.bot
 let fs = variables.fs
 let cloudconvert = variables.cloudconvert
 let yandexSpeech = variables.yandexSpeech
-let audioConverter = variables.audioConverter 
+let audioConverter = variables.audioConverter
 
 let uploader = {
     flag: 'enabled',
@@ -92,29 +92,25 @@ let uploader = {
                 let inputFormat = regExpFormat[regExpFormat.length - 1]
                 let inputName = regExpFormat[regExpFormat.length - 2]
                 let outputFormat = 'mp3'
-                let outputFileName = inputName+'.'+outputFormat
+                let outputFileName = inputName + '.' + outputFormat
 
-                ffMpegAudioProcess(inputFileName, outputFileName).then(() => {
-                    // передаем яндексу на расшифровку
-                    yandexSpeech.ASR({
-                        developer_key: config.yandexSpeechKitKey,  
-                        file: `./data/download/voice/${outputFileName}`,
-                        filetype: 'audio/x-mpeg-3'  
-                    }, function (err, httpResponse, xml) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
-                            // console.log(variantsList[0])
-                            let textFromSpeechList = variantsList[0].split(/>(.+)</)
-                            // console.log(textFromSpeechList)
-                            bot.sendMessage(msg.chat.id, name+' говорит: '+textFromSpeechList[1])
-                        }
-                    });
-                }).on('error', function (error) {
-                        if (error) console.log(error)
-                        bot.sendMessage(msg.chat.id, 'Не могу распознать, что то сломалось')
-                    })
+                ffMpegAudioProcess(inputFileName, outputFileName)
+                // передаем яндексу на расшифровку
+                yandexSpeech.ASR({
+                    developer_key: config.yandexSpeechKitKey,
+                    file: `./data/download/voice/${outputFileName}`,
+                    filetype: 'audio/x-mpeg-3'
+                }, function (err, httpResponse, xml) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
+                        // console.log(variantsList[0])
+                        let textFromSpeechList = variantsList[0].split(/>(.+)</)
+                        // console.log(textFromSpeechList)
+                        bot.sendMessage(msg.chat.id, name + ' говорит: ' + textFromSpeechList[1])
+                    }
+                });
             }
         )
     }
