@@ -1,5 +1,6 @@
 import variables from '../variables/variables'
 import config from '../secret/config'
+import ffMpegAudioProcess from '../functions/ffMpegAudioProcess'
 
 let bot = variables.bot
 let fs = variables.fs
@@ -86,40 +87,33 @@ let uploader = {
             (filePath) => {
                 // делим по точкам имя файла (чтобы затем отсечь формат от названия)
                 let regExpList = filePath.split(/\\/)
-                let inputName = regExpList[regExpList.length - 1]
-                let regExpFormat = inputName.split(/\./)
+                let inputFileName = regExpList[regExpList.length - 1]
+                let regExpFormat = inputFileName.split(/\./)
                 let inputFormat = regExpFormat[regExpFormat.length - 1]
-                let inputFileName = regExpFormat[regExpFormat.length - 2]
+                let inputName = regExpFormat[regExpFormat.length - 2]
                 let outputFormat = 'mp3'
-                let outputFileName = inputFileName+'.'+outputFormat
-                // конвертируем его в mp3
-                fs.createReadStream(filePath)
-                    .pipe(cloudconvert.convert({
-                        inputformat: inputFormat,
-                        outputformat: outputFormat
-                    }))
-                    .pipe(fs.createWriteStream('./data/download/voice/' + outputFileName))
-                    .on('finish', function () {
-                        // передаем яндексу на расшифровку
-                        yandexSpeech.ASR({
-                            developer_key: config.yandexSpeechKitKey,  
-                            file: `./data/download/voice/${outputFileName}`,
-                            filetype: 'audio/x-mpeg-3'  
-                        }, function (err, httpResponse, xml) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
-                                // console.log(variantsList[0])
-                                let textFromSpeechList = variantsList[0].split(/>(.+)</)
-                                // console.log(textFromSpeechList)
-                                bot.sendMessage(msg.chat.id, name+' говорит: '+textFromSpeechList[1])
-                            }
-                        });
-                    })
-                    .on('error', function (error) {
+                let outputFileName = inputName+'.'+outputFormat
+
+                ffMpegAudioProcess(inputFileName, outputFileName).then(() => {
+                    // передаем яндексу на расшифровку
+                    yandexSpeech.ASR({
+                        developer_key: config.yandexSpeechKitKey,  
+                        file: `./data/download/voice/${outputFileName}`,
+                        filetype: 'audio/x-mpeg-3'  
+                    }, function (err, httpResponse, xml) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
+                            // console.log(variantsList[0])
+                            let textFromSpeechList = variantsList[0].split(/>(.+)</)
+                            // console.log(textFromSpeechList)
+                            bot.sendMessage(msg.chat.id, name+' говорит: '+textFromSpeechList[1])
+                        }
+                    });
+                }).on('error', function (error) {
                         if (error) console.log(error)
-                        bot.sendMessage(msg.chat.id, 'Не могу распознать. Похоже, кончилось время конвертации')
+                        bot.sendMessage(msg.chat.id, 'Не могу распознать, что то сломалось')
                     })
             }
         )

@@ -10,6 +10,9 @@ const server = express()
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
 const yandexSpeech = require('yandex-speech')
+const ffmpeg = require('fluent-ffmpeg');
+ffmpeg.setFfmpegPath('./ffmpeg/bin/ffmpeg.exe')
+ffmpeg.setFfprobePath('./ffmpeg/bin/ffprobe.exe')
 
 let variables = {
     creator : 353140575,
@@ -22,6 +25,7 @@ let variables = {
     server : server,
     db : db,
     yandexSpeech : yandexSpeech,
+    ffmpeg : ffmpeg,
 }
 
 export default variables
