@@ -94,7 +94,7 @@ let uploader = {
                 let outputFormat = 'mp3'
                 let outputFileName = inputName + '.' + outputFormat
 
-                ffMpegAudioProcess(inputFileName, outputFileName).then(
+                ffMpegAudioProcess(inputFileName, outputFileName).then(() => {
                     // передаем яндексу на расшифровку
                     yandexSpeech.ASR({
                         developer_key: config.yandexSpeechKitKey,
@@ -111,7 +111,7 @@ let uploader = {
                             bot.sendMessage(msg.chat.id, name + ' говорит: ' + textFromSpeechList[1])
                         }
                     })
-                )
+                })
             }
         )
     }
