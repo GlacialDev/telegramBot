@@ -94,23 +94,24 @@ let uploader = {
                 let outputFormat = 'mp3'
                 let outputFileName = inputName + '.' + outputFormat
 
-                ffMpegAudioProcess(inputFileName, outputFileName)
-                // передаем яндексу на расшифровку
-                yandexSpeech.ASR({
-                    developer_key: config.yandexSpeechKitKey,
-                    file: `./data/download/voice/${outputFileName}`,
-                    filetype: 'audio/x-mpeg-3'
-                }, function (err, httpResponse, xml) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
-                        // console.log(variantsList[0])
-                        let textFromSpeechList = variantsList[0].split(/>(.+)</)
-                        // console.log(textFromSpeechList)
-                        bot.sendMessage(msg.chat.id, name + ' говорит: ' + textFromSpeechList[1])
-                    }
-                });
+                ffMpegAudioProcess(inputFileName, outputFileName).then(
+                    // передаем яндексу на расшифровку
+                    yandexSpeech.ASR({
+                        developer_key: config.yandexSpeechKitKey,
+                        file: `./data/download/voice/${outputFileName}`,
+                        filetype: 'audio/x-mpeg-3'
+                    }, function (err, httpResponse, xml) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
+                            // console.log(variantsList[0])
+                            let textFromSpeechList = variantsList[0].split(/>(.+)</)
+                            // console.log(textFromSpeechList)
+                            bot.sendMessage(msg.chat.id, name + ' говорит: ' + textFromSpeechList[1])
+                        }
+                    })
+                )
             }
         )
     }
