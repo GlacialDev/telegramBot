@@ -112,9 +112,14 @@ let uploader = {
                         }
                     })
                 }).then(() => {
-                    fs.unlink(`./data/download/voice/${inputFileName}`)
-                    fs.unlink(`./data/download/voice/${outputFileName}`)
-                    console.log('audio deleted')
+                    fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
+                            if (err) throw err;
+                            console.log(inputFileName+" deleted");
+                        });
+                    fs.unlink(`./data/download/voice/${outputFileName}`, (err) => {
+                        if (err) throw err;
+                        console.log(outputFileName+" deleted");
+                    });
                 })
             }
         )
