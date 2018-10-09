@@ -9,9 +9,8 @@ export default function bot_say() {
         if (authCheck(msg) != true) return
 
         let text = match[1];
-        console.log(text+' in bot_say')     
+          
         speechFromText(text).then((path) => {
-            // bot.sendMessage(msg.chat.id, 'zapisal')
             bot.sendVoice(msg.chat.id, path)
         })
     });

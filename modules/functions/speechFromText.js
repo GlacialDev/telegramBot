@@ -9,7 +9,7 @@ export default function speechFromText(text) {
       key: config.yandexSpeechKitKey,
       text: text,
       file: './data/download/voice/botVoice.mp3'
-    }, (file) => {
+    }, () => {
       resolve(file)
     });
   })
