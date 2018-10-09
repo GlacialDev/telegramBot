@@ -12,5 +12,5 @@ export default function speechFromText(text) {
     }, () => {
       resolve('./data/download/voice/botVoice.mp3')
     })
-  })
+  }).catch((e) => {console.log(e)});
 }
