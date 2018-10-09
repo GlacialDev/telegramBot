@@ -98,7 +98,7 @@ let uploader = {
                 // указываем необходимый формат
                 let outputFormat = 'mp3'
                 // получаем имя выходного файла
-                let outputFileName = inputName + '.' + outputFormat
+                let outputFileName = 'output_'+inputName + '.' + outputFormat
 
                 ffMpegAudioProcess(inputFileName, outputFileName).then(() => {
                     // передаем яндексу на расшифровку
