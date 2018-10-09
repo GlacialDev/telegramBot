@@ -1,6 +1,5 @@
-#How to install?
+# How to install?
 
 - git clone git://github.com/Glacialix/telegramBot.git
-- download ffmpeg from this link https://ffmpeg.zeranoe.com/builds/ and rename ffmpeg-folder as "ffmpeg"; move it to root of this project
-
+- it's not all, but im lazy and gonna rework this bot later
 - will be continued later...
