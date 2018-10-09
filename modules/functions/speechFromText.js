@@ -1,4 +1,5 @@
 import variables from '../variables/variables'
+import config from '../secret/config'
 
 let yandexSpeech = variables.yandexSpeech
 
