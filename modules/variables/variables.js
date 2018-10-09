@@ -25,6 +25,7 @@ let variables = {
     server : server,
     db : db,
     yandexSpeech : yandexSpeech,
+    yandexSpeaker : 'oksana',
     ffmpeg : ffmpeg,
 }
 
