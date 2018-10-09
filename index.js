@@ -28,6 +28,8 @@ import poll from './modules/bot_commands/poll'
 poll()
 import bot_say from './modules/bot_commands/bot_say'
 bot_say()
+import bot_say_set_voice from './modules/bot_commands/bot_say_set_voice'
+bot_say_set_voice()
 // channel management 
 import ero_set_timer from './modules/channel_management/ero_channel/commands/ero_set_timer'
 ero_set_timer()

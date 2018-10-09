@@ -3,7 +3,7 @@ import adminCheck from '../functions/adminCheck'
 
 let bot = variables.bot
 
-export default function bot_say() {
+export default function bot_say_set_voice() {
   bot.onText(/set_voice (.+)/, (msg, match) => {
     if (adminCheck(msg) != true) return
 
