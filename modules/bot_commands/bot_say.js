@@ -15,8 +15,8 @@ export default function bot_say() {
         // let max = speaker.length - 1
         // let roll = Math.random() * (max - min) + min
         // let roundRoll = Math.round(roll)
-        
-        speechFromText(text, speaker[0]).then((path) => {
+
+        speechFromText(text, speaker[1]).then((path) => {
             bot.sendVoice(msg.chat.id, path)
         })
 
