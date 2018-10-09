@@ -33,6 +33,6 @@ export default function bot_say_set_voice() {
         break;
     }
 
-    bot.sendMessage(msg.chat.id, 'Буду разговаривать голосом '+speaker)
+    bot.sendMessage(msg.chat.id, 'Буду разговаривать голосом '+variables.yandexSpeaker)
   });
 } 
