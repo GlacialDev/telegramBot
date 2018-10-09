@@ -10,7 +10,7 @@ export default function speechFromText(text) {
       text: text,
       file: './data/download/voice/botVoice.mp3'
     }, () => {
-      resolve(file)
+      resolve('./data/download/voice/botVoice.mp3')
     });
   })
 }
