@@ -10,9 +10,9 @@ export default function bot_say() {
 
         let text = match[1];
         console.log(text+' in bot_say')     
-        speechFromText(text).then((   ) => {
-            bot.sendMessage(msg.chat.id, 'zapisal')
-            // bot.sendVoice(msg.chat.id, path)
+        speechFromText(text).then((path) => {
+            // bot.sendMessage(msg.chat.id, 'zapisal')
+            bot.sendVoice(msg.chat.id, path)
         })
     });
 } 
