@@ -8,7 +8,8 @@ export default function bot_say() {
     bot.onText(/!скажи (.+)/, (msg, match) => {
         if (authCheck(msg) != true) return
 
-        let text = match[1];        
+        let text = match[1];
+        console.log(text+' in bot_say')     
         speechFromText(text).then((path) => {
             bot.sendVoice(msg.chat.id, path)
         })
