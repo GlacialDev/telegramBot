@@ -7,4 +7,4 @@ export default function botTransit() {
     bot.on('message', (msg) => {
         chatBox.transitMessages(msg)
     })
-  }
+}

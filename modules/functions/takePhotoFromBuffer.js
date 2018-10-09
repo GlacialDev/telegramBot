@@ -6,7 +6,7 @@ let fs = variables.fs
 // достать ссылку из .txt файла (path), отослать по id (where) 
 // и сообщать об оставшемся кол-ве картинок в буфере (howMuchLeft)
 
-export default function takePhotoFromBuffer(path, sendTo, returnLinkBoolean) {
+export default function takePhotoFromBuffer(path, sendTo) {
   // открываем файл-буфер со ссылками
   fs.readFile(path, "utf8", function (error, data) {
     if (error) throw error; // если возникла ошибка

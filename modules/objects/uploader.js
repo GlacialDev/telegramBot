@@ -6,7 +6,6 @@ let bot = variables.bot
 let fs = variables.fs
 let cloudconvert = variables.cloudconvert
 let yandexSpeech = variables.yandexSpeech
-let audioConverter = variables.audioConverter
 
 let uploader = {
     flag: 'enabled',

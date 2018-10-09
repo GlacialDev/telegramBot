@@ -12,6 +12,7 @@ export default function bot_settings() {
         bot.sendMessage(msg.chat.id,
 `Настройки:
 - eroInterval: ${eroTimerObj.eroInterval / 3600000} ч. - ${eroTimerObj.eroTimerStateFlag}
-- upload: ${uploader.flag}`)
+- upload: ${uploader.flag}
+- botVoice: ${variables.yandexSpeaker}`)
     });
 } 
