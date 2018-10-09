@@ -9,8 +9,14 @@ export default function bot_say() {
         if (authCheck(msg) != true) return
 
         let text = match[1];
-          
-        speechFromText(text).then((path) => {
+        let speaker = ['jane', 'oksana', 'alyss', 'omazh', 'zahar', 'ermil']
+    
+        let min = 0
+        let max = speaker.length - 1
+        let roll = Math.random() * (max - min) + min
+        let roundRoll = Math.round(roll)
+
+        speechFromText(text, speaker[roundRoll]).then((path) => {
             bot.sendVoice(msg.chat.id, path)
         })
     });

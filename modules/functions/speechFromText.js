@@ -3,11 +3,12 @@ import config from '../secret/config'
 
 let yandexSpeech = variables.yandexSpeech
 
-export default function speechFromText(text) {
+export default function speechFromText(text, speaker) {
   return new Promise((resolve, reject) => {
     yandexSpeech.TTS({
       key: config.yandexSpeechKitKey,
       text: text,
+      speaker: speaker,
       file: './data/download/voice/botVoice.mp3'
     }, () => {
       resolve('./data/download/voice/botVoice.mp3')
