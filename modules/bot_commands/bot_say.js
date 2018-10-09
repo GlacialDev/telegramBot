@@ -5,7 +5,7 @@ import speechFromText from '../functions/speechFromText'
 let bot = variables.bot
 
 export default function bot_say() {
-    bot.onText(/!бот, скажи (.+)/, (msg, match) => {
+    bot.onText(/!скажи (.+)/, (msg, match) => {
         if (authCheck(msg) != true) return
 
         let text = match[1];        
