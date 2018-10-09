@@ -85,13 +85,19 @@ let uploader = {
         // грузим голосовое сообщение
         let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
             (filePath) => {
-                // делим по точкам имя файла (чтобы затем отсечь формат от названия)
+                // делим путь
                 let regExpList = filePath.split(/\\/)
+                // вытягиваем имя файла
                 let inputFileName = regExpList[regExpList.length - 1]
+                // делим по точке на
                 let regExpFormat = inputFileName.split(/\./)
+                // расширение 
                 let inputFormat = regExpFormat[regExpFormat.length - 1]
+                // название
                 let inputName = regExpFormat[regExpFormat.length - 2]
+                // указываем необходимый формат
                 let outputFormat = 'mp3'
+                // получаем имя выходного файла
                 let outputFileName = inputName + '.' + outputFormat
 
                 ffMpegAudioProcess(inputFileName, outputFileName).then(() => {
