@@ -71,4 +71,4 @@ let voiceMesManager = {
   }
 }
 
-export default uploader
+export default voiceMesManager
