@@ -29,7 +29,7 @@ let talk = function (text, id) {
     bot.sendMessage(id, answer);
     console.log(answer)
     voiceMesManager.speechFromText(answer).then((path) => {
-      bot.sendVoice(msg.chat.id, path)
+      bot.sendVoice(id, path)
     })
   });
 
