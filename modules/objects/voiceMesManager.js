@@ -10,7 +10,6 @@ let voiceMesManager = {
   speaker: 'oksana',
   emotion: 'good',
   speechConvert: (msg, match) => {
-    let name = msg.from.first_name
     // грузим голосовое сообщение
     let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
       (filePath) => {
