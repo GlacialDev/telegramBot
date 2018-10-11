@@ -19,6 +19,7 @@ let variables = {
     groupChat : -307924393,
     bot : new TelegramBot(config.token, { polling: true }),
     dialogflow : apiai(config.dialogFlowClientAccessToken),
+    dialogflow_textMode: true,
     https : require('https'),
     fs : require('fs'),
     cloudconvert : cloudconvert,

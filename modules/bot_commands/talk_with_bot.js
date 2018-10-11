@@ -26,11 +26,13 @@ let talk = function (text, id) {
     let answer = response.result.fulfillment.speech
     if (answer == '') bot.sendMessage(id, 'Я не знаю, что тебе на это ответить.');
 
-    bot.sendMessage(id, answer);
-    console.log(answer)
-    voiceMesManager.speechFromText(answer).then((path) => {
-      bot.sendVoice(id, path)
-    })
+    if (variables.dialogflow_textMode) {
+      bot.sendMessage(id, answer);
+    } else {
+      voiceMesManager.speechFromText(answer).then((path) => {
+        bot.sendVoice(id, path)
+      })
+    }
   });
 
   talkRequest.on('error', function (error) {

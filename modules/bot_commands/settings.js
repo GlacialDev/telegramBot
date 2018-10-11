@@ -15,6 +15,7 @@ export default function bot_settings() {
 - eroInterval: ${eroTimerObj.eroInterval / 3600000} ч. - ${eroTimerObj.eroTimerStateFlag}
 - upload: ${uploader.flag}
 - botSpeechVoice: ${voiceMesManager.speaker}
-- botSpeechEmotion: ${voiceMesManager.emotion}`)
+- botSpeechEmotion: ${voiceMesManager.emotion}
+- botSpeechVoiceAnswers: ${variables.dialogflow_textMode}`)
     });
 } 
