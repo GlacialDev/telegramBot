@@ -117,7 +117,7 @@ let uploader = {
                             // bot.sendMessage(msg.chat.id, name + ' говорит: ' + textFromSpeechList[1])
                         }
                     })
-                    resolve(textFromSpeechList[1])
+                    return textFromSpeechList[1]
                 }).then(() => {
                     fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
                         if (err) throw err;
