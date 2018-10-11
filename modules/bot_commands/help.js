@@ -35,7 +35,8 @@ export default function help() {
 - /stop_ero_timer - остановить таймер отсылки картинок
 - /add_more_ero - из savefrom списка в список таймера
 - /upload_(enabled/disabled)  - вкл./откл. возможность загрузки файлов на сервер
-- /set_voice (имя) - выбрать боту голос. Доступные имена: jane, oksana, alyss, omazh, zahar, ermil`
+- /speech_voice (имя) - выбрать боту голос. Доступные имена: jane, oksana, alyss, omazh, zahar, ermil
+- /speech_emotion (имя) - выбрать боту речевые эмоции. Доступные эмоции: good, evil, neutral`
         bot.sendMessage(msg.chat.id, response);
     });
 

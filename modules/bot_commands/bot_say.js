@@ -1,6 +1,5 @@
 import variables from '../variables/variables'
 import authCheck from '../functions/authCheck'
-// import speechFromText from '../functions/speechFromText'
 import voiceMesManager from '../objects/voiceMesManager'
 
 let bot = variables.bot

@@ -4,8 +4,8 @@ import voiceMesManager from '../objects/voiceMesManager'
 
 let bot = variables.bot
 
-export default function bot_say_set_voice() {
-  bot.onText(/set_voice (.+)/, (msg, match) => {
+export default function bot_speech_voice() {
+  bot.onText(/speech_voice (.+)/, (msg, match) => {
     if (adminCheck(msg) != true) return
 
     let set_speaker = match[1];

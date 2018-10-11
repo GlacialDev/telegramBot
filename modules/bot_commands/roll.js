@@ -1,5 +1,6 @@
 import variables from '../variables/variables'
 import authCheck from '../functions/authCheck'
+import getRandomNum from '../functions/getRandomNum'
 
 let bot = variables.bot
 
@@ -7,11 +8,8 @@ export default function roll() {
 // выкинуть случайное число от 0 до 100
     bot.onText(/(\/roll$)/, (msg) => {
         if (authCheck(msg) != true) return
-    
-        let min = 0
-        let max = 100
-        let roll = Math.random() * (max - min) + min
-        let roundRoll = Math.round(roll)
+
+        let roundRoll = getRandomNum(min, max)
     
         bot.sendMessage(msg.chat.id, msg.from.first_name + ' выбросил ' + roundRoll)
     });
@@ -22,8 +20,8 @@ export default function roll() {
         
         let min = +match[1]
         let max = +match[2]
-        let roll = Math.random() * (max - min) + min
-        let roundRoll = Math.round(roll)
+        
+        let roundRoll = getRandomNum(min, max)
     
         bot.sendMessage(msg.chat.id, msg.from.first_name + ' выбросил ' + roundRoll)
     });
