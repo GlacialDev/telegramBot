@@ -1,6 +1,7 @@
 import variables from '../variables/variables'
 import authCheck from '../functions/authCheck'
-import speechFromText from '../functions/speechFromText'
+// import speechFromText from '../functions/speechFromText'
+import voiceMesManager from '../objects/voiceMesManager'
 
 let bot = variables.bot
 
@@ -11,7 +12,11 @@ export default function bot_say() {
         let text = match[1];
         let speaker = variables.yandexSpeaker
 
-        speechFromText(text, speaker).then((path) => {
+        // speechFromText(text, speaker).then((path) => {
+        //     bot.sendVoice(msg.chat.id, path)
+        // })
+
+        voiceMesManager.speechFromText(text, speaker).then((path) => {
             bot.sendVoice(msg.chat.id, path)
         })
     });
