@@ -3,7 +3,7 @@ import adminCheck from '../functions/adminCheck'
 
 let bot = variables.bot
 
-export default function dialog_voice() {
+export default function dialog_text_answer() {
   // включение и отключение возможности загрузки файлов
   bot.onText(/\/dialog_text_answer (true|false)/, (msg, match) => {
     if (adminCheck(msg) != true) return

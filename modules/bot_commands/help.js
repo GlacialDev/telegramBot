@@ -37,7 +37,8 @@ export default function help() {
 - /upload_(enabled/disabled)  - вкл./откл. возможность загрузки файлов на сервер
 - /speech_voice (имя) - выбрать боту голос. Доступные имена: jane, oksana, alyss, omazh, zahar, ermil
 - /speech_emotion (имя) - выбрать боту речевые эмоции. Доступные эмоции: good, evil, neutral
-- /dialog_text_answer (true|false) - ответы на команду !бот, при true - текстом, при false - голосом`
+- /dialog_text_answer (true|false) - ответы на команду !бот, при true - текстом, при false - голосом
+- /bot_dialog_mode (true|false) - при true ведет беседу в ответ на голосовые аналогично команде !бот, (текст), при false - распознает голос в текст`
         bot.sendMessage(msg.chat.id, response);
     });
 
