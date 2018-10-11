@@ -25,7 +25,9 @@ let talk = function (text, id) {
   talkRequest.on('response', function (response) {
     let answer = response.result.fulfillment.speech
     if (answer == '') bot.sendMessage(id, 'Я не знаю, что тебе на это ответить.');
-    // bot.sendMessage(id, answer);
+
+    bot.sendMessage(id, answer);
+    console.log(answer)
     voiceMesManager.speechFromText(answer).then((path) => {
       bot.sendVoice(msg.chat.id, path)
     })
