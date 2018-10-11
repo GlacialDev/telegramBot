@@ -10,10 +10,10 @@ let voiceMesManager = {
   speaker: 'oksana',
   emotion: 'good',
   speechConvert: (msg, match) => {
-    // грузим голосовое сообщение
-    let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
-      (filePath) => {
-        return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
+      // грузим голосовое сообщение
+      let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
+        (filePath) => {
           let answer = ''
           // делим путь
           let regExpList = filePath.split(/\\/)
@@ -54,16 +54,17 @@ let voiceMesManager = {
                     if (err) throw err;
                     console.log(outputFileName + " deleted");
                   });
-                  console.log(answer+'--1')
+                  console.log(answer + '--1')
                 }
-                console.log(answer+'--2')
+                console.log(answer + '--2')
                 resolve(answer)
               })
-              console.log(answer+'--3')
+              console.log(answer + '--3')
             })
-          console.log(answer+'--4')
+          console.log(answer + '--4')
         })
-      })
+        resolve(answer)
+    })
   },
   speechFromText: (text) => {
     return new Promise((resolve, reject) => {
