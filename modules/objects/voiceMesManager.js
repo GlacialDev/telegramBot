@@ -11,10 +11,10 @@ let voiceMesManager = {
   emotion: 'good',
   speechConvert: (msg, match) => {
     return new Promise((resolve, reject) => {
+      let answer = ''
       // грузим голосовое сообщение
       let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
         (filePath) => {
-          let answer = ''
           // делим путь
           let regExpList = filePath.split(/\\/)
           // вытягиваем имя файла
