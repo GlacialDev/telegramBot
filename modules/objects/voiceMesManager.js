@@ -30,9 +30,9 @@ let voiceMesManager = {
         let outputFileName = 'output_' + inputName + '.' + outputFormat
 
         ffMpegAudioProcess(inputFileName, outputFileName).then(() => {
+          let answer
           // передаем яндексу на расшифровку
           return new Promise((resolve, reject) => {
-            let textFromSpeechList = []
             yandexSpeech.ASR({
               developer_key: config.yandexSpeechKitKey,
               file: `./data/download/voice/${outputFileName}`,
@@ -43,12 +43,11 @@ let voiceMesManager = {
               } else {
                 let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
                 // console.log(variantsList[0])
-                textFromSpeechList = variantsList[0].split(/>(.+)</)
+                let textFromSpeechList = variantsList[0].split(/>(.+)</)
                 // console.log(textFromSpeechList)
-                // bot.sendMessage(msg.chat.id, name + ' говорит: ' + textFromSpeechList[1])
+                answer = textFromSpeechList[1]
               }
             })
-            resolve(textFromSpeechList[1])
           }).then((answer) => {
             fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
               if (err) throw err;
