@@ -32,9 +32,12 @@ export default function botInit() {
             return new Promise((resolve, reject) => {
                 voiceMesManager.speechConvert(msg).then((answer) => {
                     console.log(answer+' posle resolve')
-                    // bot.sendMessage(msg.chat.id, msg.from.first_name + ' говорит: ' + answer)   
+                    resolve(answer)
                 })
             })
+            // .then((answer) => {
+            //     bot.sendMessage(msg.chat.id, msg.from.first_name + ' говорит: ' + answer)   
+            // })
         }
     })
 }
