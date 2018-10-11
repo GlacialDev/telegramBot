@@ -114,9 +114,10 @@ let uploader = {
                             let textFromSpeechList = variantsList[0].split(/>(.+)</)
                             // console.log(textFromSpeechList)
                             bot.sendMessage(msg.chat.id, name + ' говорит: ' + textFromSpeechList[1])
+                            resolve(textFromSpeechList[1])
                         }
                     })
-                }).then(() => {
+                }).then((text) => {
                     fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
                             if (err) throw err;
                             console.log(inputFileName+" deleted");
@@ -125,6 +126,7 @@ let uploader = {
                         if (err) throw err;
                         console.log(outputFileName+" deleted");
                     });
+                    resolve(text)
                 })
             }
         )

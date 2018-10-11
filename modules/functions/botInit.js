@@ -28,7 +28,7 @@ export default function botInit() {
 
     bot.on('message', (msg) => {
         if(msg.voice) {
-            uploader.speechConvert(msg)
+            uploader.speechConvert(msg).then((text) => console.log(text))
         }
     })
 }
