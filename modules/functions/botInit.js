@@ -1,7 +1,6 @@
 import variables from '../variables/variables'
 import pollManager from '../objects/pollManager'
 import channelManager from '../channel_management/channelManager'
-// import uploader from '../objects/uploader';
 import voiceMesManager from '../objects/voiceMesManager'
 
 let bot = variables.bot

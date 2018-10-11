@@ -9,9 +9,8 @@ export default function bot_say() {
         if (authCheck(msg) != true) return
 
         let text = match[1];
-        let speaker = variables.yandexSpeaker
 
-        voiceMesManager.speechFromText(text, speaker).then((path) => {
+        voiceMesManager.speechFromText(text).then((path) => {
             bot.sendVoice(msg.chat.id, path)
         })
     });
