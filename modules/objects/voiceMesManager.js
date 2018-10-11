@@ -11,7 +11,6 @@ let voiceMesManager = {
   emotion: 'good',
   speechConvert: (msg, match) => {
     return new Promise((resolve, reject) => {
-      let answer = ''
       // грузим голосовое сообщение
       let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
         (filePath) => {
@@ -32,38 +31,40 @@ let voiceMesManager = {
 
           ffMpegAudioProcess(inputFileName, outputFileName).then(
             () => {
-              yandexSpeech.ASR({
-                developer_key: config.yandexSpeechKitKey,
-                file: `./data/download/voice/${outputFileName}`,
-                filetype: 'audio/x-mpeg-3'
-              }, function (err, httpResponse, xml) {
-                if (err) {
-                  console.log(err);
-                } else {
-                  // парсим xml достаем то что в тегах variant
-                  let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
-                  // берем ответ первого варианта
-                  let textFromSpeechList = variantsList[0].split(/>(.+)</)
-                  answer = textFromSpeechList[1]
-                  // удаляем файлы ogg/mp3
-                  fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
-                    if (err) throw err;
-                    console.log(inputFileName + " deleted");
-                  });
-                  fs.unlink(`./data/download/voice/${outputFileName}`, (err) => {
-                    if (err) throw err;
-                    console.log(outputFileName + " deleted");
-                  });
-                  console.log(answer + '--1')
-                }
-                console.log(answer + '--2')
-                resolve(answer)
+              return new Promise((resolve, reject) => {
+                yandexSpeech.ASR({
+                  developer_key: config.yandexSpeechKitKey,
+                  file: `./data/download/voice/${outputFileName}`,
+                  filetype: 'audio/x-mpeg-3'
+                }, function (err, httpResponse, xml) {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    // парсим xml достаем то что в тегах variant
+                    let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
+                    // берем ответ первого варианта
+                    let textFromSpeechList = variantsList[0].split(/>(.+)</)
+                    answer = textFromSpeechList[1]
+                    // удаляем файлы ogg/mp3
+                    fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
+                      if (err) throw err;
+                      console.log(inputFileName + " deleted");
+                    });
+                    fs.unlink(`./data/download/voice/${outputFileName}`, (err) => {
+                      if (err) throw err;
+                      console.log(outputFileName + " deleted");
+                    });
+                    console.log(answer + '--1')
+                  }
+                  console.log(answer + '--2')
+                  resolve(answer)
+                })
               })
               console.log(answer + '--3')
             })
           console.log(answer + '--4')
         })
-        resolve(answer)
+      resolve(answer)
     })
   },
   speechFromText: (text) => {
