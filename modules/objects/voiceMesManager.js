@@ -14,6 +14,7 @@ let voiceMesManager = {
     let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
       (filePath) => {
         return new Promise((resolve, reject) => {
+          let answer = ''
           // делим путь
           let regExpList = filePath.split(/\\/)
           // вытягиваем имя файла
@@ -43,7 +44,7 @@ let voiceMesManager = {
                   let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
                   // берем ответ первого варианта
                   let textFromSpeechList = variantsList[0].split(/>(.+)</)
-                  let answer = textFromSpeechList[1]
+                  answer = textFromSpeechList[1]
                   // удаляем файлы ogg/mp3
                   fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
                     if (err) throw err;
@@ -58,6 +59,7 @@ let voiceMesManager = {
               })
             }
           )
+          console.log(answer)
         })
       })
   },
