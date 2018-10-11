@@ -1,8 +1,8 @@
 import variables from '../variables/variables'
 import voiceMesManager from '../objects/voiceMesManager'
 
-
 let dialogflow = variables.dialogflow
+let bot = variables.bot
 
 export default function talk(text, id) {
   let talkRequest = dialogflow.textRequest(text, {
