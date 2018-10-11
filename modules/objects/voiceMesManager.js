@@ -45,7 +45,6 @@ let voiceMesManager = {
                   // берем ответ первого варианта
                   let textFromSpeechList = variantsList[0].split(/>(.+)</)
                   answer = textFromSpeechList[1]
-                  resolve(answer)
                 }
               })
             }).then(() => {
@@ -58,6 +57,9 @@ let voiceMesManager = {
                 if (err) throw err;
                 console.log(outputFileName + " deleted");
               });
+            }).then(() => {
+              console.log('do resolve')
+              resolve(answer)
             })
         })
     })
