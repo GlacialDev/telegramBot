@@ -7,6 +7,8 @@ let fs = variables.fs
 let yandexSpeech = variables.yandexSpeech
 
 let voiceMesManager = {
+  speaker: 'oksana',
+  emotion: 'good',  
   speechConvert: (msg, match) => {
     let name = msg.from.first_name
     // грузим голосовое сообщение
@@ -57,12 +59,13 @@ let voiceMesManager = {
       }
     )
   },
-  speechFromText: (text, speaker) => {
+  speechFromText: (text) => {
     return new Promise((resolve, reject) => {
       yandexSpeech.TTS({
         developer_key: config.yandexSpeechKitKey,
         text: text,
-        speaker: speaker,
+        speaker: voiceMesManager.speaker,
+        emotion: voiceMesManager.emotion,
         file: './data/download/voice/botVoice.mp3'
       }, () => {
         resolve('./data/download/voice/botVoice.mp3')

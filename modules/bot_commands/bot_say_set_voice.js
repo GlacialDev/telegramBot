@@ -1,5 +1,6 @@
 import variables from '../variables/variables'
 import adminCheck from '../functions/adminCheck'
+import voiceMesManager from '../objects/voiceMesManager'
 
 let bot = variables.bot
 
@@ -7,32 +8,32 @@ export default function bot_say_set_voice() {
   bot.onText(/set_voice (.+)/, (msg, match) => {
     if (adminCheck(msg) != true) return
 
-    let speaker = match[1];
+    let set_speaker = match[1];
 
-    switch (speaker) {
+    switch (set_speaker) {
       case 'jane':
-        variables.yandexSpeaker = 'jane'
+        voiceMesManager.speaker = 'jane'
         break;
       case 'oksana':
-        variables.yandexSpeaker = 'oksana'
+        voiceMesManager.speaker = 'oksana'
         break;
       case 'alyss':
-        variables.yandexSpeaker = 'alyss'
+        voiceMesManager.speaker = 'alyss'
         break;
       case 'omazh':
-        variables.yandexSpeaker = 'omazh'
+        voiceMesManager.speaker = 'omazh'
         break;
       case 'zahar':
-        variables.yandexSpeaker = 'zahar'
+        voiceMesManager.speaker = 'zahar'
         break;
       case 'ermil':
-        variables.yandexSpeaker = 'ermil'
+        voiceMesManager.speaker = 'ermil'
         break;
       default:
-        variables.yandexSpeaker = 'oksana'
+        voiceMesManager.speaker = 'oksana'
         break;
     }
 
-    bot.sendMessage(msg.chat.id, 'Буду разговаривать голосом '+variables.yandexSpeaker)
+    bot.sendMessage(msg.chat.id, 'Буду разговаривать голосом ' + voiceMesManager.speaker)
   });
 } 

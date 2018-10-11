@@ -12,10 +12,6 @@ export default function bot_say() {
         let text = match[1];
         let speaker = variables.yandexSpeaker
 
-        // speechFromText(text, speaker).then((path) => {
-        //     bot.sendVoice(msg.chat.id, path)
-        // })
-
         voiceMesManager.speechFromText(text, speaker).then((path) => {
             bot.sendVoice(msg.chat.id, path)
         })
