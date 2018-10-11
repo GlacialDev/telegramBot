@@ -54,12 +54,13 @@ let voiceMesManager = {
                     if (err) throw err;
                     console.log(outputFileName + " deleted");
                   });
-                  console.log(answer)
+                  console.log(answer+'--1')
                 }
+                console.log(answer+'--2')
               })
-            }
-          )
-          console.log(answer)
+              console.log(answer+'--3')
+            })
+          console.log(answer+'--4')
         })
       })
   },
