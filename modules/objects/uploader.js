@@ -1,11 +1,8 @@
 import variables from '../variables/variables'
-import config from '../secret/config'
-import ffMpegAudioProcess from '../functions/ffMpegAudioProcess'
 
 let bot = variables.bot
 let fs = variables.fs
 let cloudconvert = variables.cloudconvert
-let yandexSpeech = variables.yandexSpeech
 
 let uploader = {
     flag: 'enabled',

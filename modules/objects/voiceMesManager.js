@@ -10,7 +10,6 @@ let voiceMesManager = {
   speaker: 'oksana',
   emotion: 'good',
   speechConvert: (msg, match) => {
-    let answer = ''
     // грузим голосовое сообщение
     let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
       (filePath) => {
@@ -32,6 +31,8 @@ let voiceMesManager = {
         ffMpegAudioProcess(inputFileName, outputFileName).then(() => {
           // передаем яндексу на расшифровку
           return new Promise((resolve, reject) => {
+            let answer = ''
+
             yandexSpeech.ASR({
               developer_key: config.yandexSpeechKitKey,
               file: `./data/download/voice/${outputFileName}`,
@@ -40,25 +41,26 @@ let voiceMesManager = {
               if (err) {
                 console.log(err);
               } else {
+                // парсим xml достаем то что в тегах variant
                 let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
-                // console.log(variantsList[0])
+                // берем ответ первого варианта
                 let textFromSpeechList = variantsList[0].split(/>(.+)</)
-                // console.log(textFromSpeechList)
                 answer = textFromSpeechList[1]
+                // удаляем файлы ogg/mp3
+                fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
+                  if (err) throw err;
+                  console.log(inputFileName + " deleted");
+                });
+                fs.unlink(`./data/download/voice/${outputFileName}`, (err) => {
+                  if (err) throw err;
+                  console.log(outputFileName + " deleted");
+                });
+
+                resolve(answer)
               }
             })
-          }).then((answer) => {
-            fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
-              if (err) throw err;
-              console.log(inputFileName + " deleted");
-            });
-            fs.unlink(`./data/download/voice/${outputFileName}`, (err) => {
-              if (err) throw err;
-              console.log(outputFileName + " deleted");
-            });
           })
         })
-        resolve(answer)
       }
     )
   },
