@@ -84,6 +84,7 @@ let uploader = {
         // грузим голосовое сообщение
         let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
             (filePath) => {
+                let textYAYA = ''
                 // делим путь
                 let regExpList = filePath.split(/\\/)
                 // вытягиваем имя файла
@@ -114,10 +115,10 @@ let uploader = {
                             let textFromSpeechList = variantsList[0].split(/>(.+)</)
                             // console.log(textFromSpeechList)
                             bot.sendMessage(msg.chat.id, name + ' говорит: ' + textFromSpeechList[1])
-                            resolve(textFromSpeechList[1])
+                            textYAYA = textFromSpeechList[1]
                         }
                     })
-                }).then((text) => {
+                }).then(() => {
                     fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
                             if (err) throw err;
                             console.log(inputFileName+" deleted");
@@ -126,8 +127,8 @@ let uploader = {
                         if (err) throw err;
                         console.log(outputFileName+" deleted");
                     });
-                    resolve(text)
                 })
+            resolve(textYAYA)
             }
         )
     }
