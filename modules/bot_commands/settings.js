@@ -17,6 +17,6 @@ export default function bot_settings() {
 - botSpeechVoice: ${voiceMesManager.speaker}
 - botSpeechEmotion: ${voiceMesManager.emotion}
 - botDialogTextAnswers: ${variables.dialogflow_textMode}
-- botDialogMode: ${dialogflow_voiceConvMode}`)
+- botDialogMode: ${variables.dialogflow_voiceConvMode}`)
     });
 } 
