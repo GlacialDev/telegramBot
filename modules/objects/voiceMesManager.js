@@ -57,6 +57,7 @@ let voiceMesManager = {
                   console.log(answer+'--1')
                 }
                 console.log(answer+'--2')
+                resolve(answer)
               })
               console.log(answer+'--3')
             })
