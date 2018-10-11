@@ -29,7 +29,7 @@ let voiceMesManager = {
         let outputFileName = 'output_' + inputName + '.' + outputFormat
 
         ffMpegAudioProcess(inputFileName, outputFileName).then(() => {
-          let answer
+          let answer = ''
           // передаем яндексу на расшифровку
           return new Promise((resolve, reject) => {
             yandexSpeech.ASR({
@@ -45,6 +45,8 @@ let voiceMesManager = {
                 let textFromSpeechList = variantsList[0].split(/>(.+)</)
                 // console.log(textFromSpeechList)
                 answer = textFromSpeechList[1]
+                console.log('do resolve 1')
+                resolve(answer)
               }
             })
           }).then((answer) => {
@@ -56,7 +58,7 @@ let voiceMesManager = {
               if (err) throw err;
               console.log(outputFileName + " deleted");
             });
-            console.log('do resolve')
+            console.log('do resolve 2')
             resolve(answer)
           })
         })
