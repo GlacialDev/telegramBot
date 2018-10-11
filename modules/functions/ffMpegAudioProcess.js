@@ -8,6 +8,7 @@ export default function ffMpegAudioProcess(inputFileName, outputFileName) {
       .input(`./data/download/voice/${inputFileName}`)
       .saveToFile(`./data/download/voice/${outputFileName}`)
       .on('end', () => {
+        console.log(inputFileName+' processed to '+outputFileName)
         resolve()
       })
   })
