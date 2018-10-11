@@ -27,7 +27,8 @@ let voiceMesManager = {
         let outputFormat = 'mp3'
         // получаем имя выходного файла
         let outputFileName = 'output_' + inputName + '.' + outputFormat
-      }).then(() => {
+        resolve(inputFileName, outputFileName)
+      }).then((inputFileName, outputFileName) => {
         ffMpegAudioProcess(inputFileName, outputFileName)
       }).then(() => {
         // передаем яндексу на расшифровку
