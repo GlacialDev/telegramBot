@@ -16,6 +16,6 @@ export default function bot_settings() {
 - upload: ${uploader.flag}
 - botSpeechVoice: ${voiceMesManager.speaker}
 - botSpeechEmotion: ${voiceMesManager.emotion}
-- botSpeechVoiceAnswers: ${variables.dialogflow_textMode}`)
+- botDialogTextAnswers: ${variables.dialogflow_textMode}`)
     });
 } 
