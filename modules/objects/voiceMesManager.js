@@ -45,21 +45,18 @@ let voiceMesManager = {
                 let textFromSpeechList = variantsList[0].split(/>(.+)</)
                 // console.log(textFromSpeechList)
                 answer = textFromSpeechList[1]
+                fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
+                  if (err) throw err;
+                  console.log(inputFileName + " deleted");
+                });
+                fs.unlink(`./data/download/voice/${outputFileName}`, (err) => {
+                  if (err) throw err;
+                  console.log(outputFileName + " deleted");
+                });
                 console.log('do resolve 1')
                 resolve(answer)
               }
             })
-          }).then((answer) => {
-            fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
-              if (err) throw err;
-              console.log(inputFileName + " deleted");
-            });
-            fs.unlink(`./data/download/voice/${outputFileName}`, (err) => {
-              if (err) throw err;
-              console.log(outputFileName + " deleted");
-            });
-            console.log('do resolve 2')
-            resolve(answer)
           })
         })
       }
