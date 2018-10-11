@@ -32,8 +32,8 @@ import bot_speech_voice from './modules/bot_commands/bot_speech_voice'
 bot_speech_voice()
 import bot_speech_emotion from './modules/bot_commands/bot_speech_emotion'
 bot_speech_emotion()
-import bot_speech_dialog from './modules/bot_commands/bot_speech_dialog'
-bot_speech_dialog()
+import dialog_text_answer from './modules/bot_commands/dialog_text_answer'
+dialog_text_answer()
 // channel management 
 import ero_set_timer from './modules/channel_management/ero_channel/commands/ero_set_timer'
 ero_set_timer()

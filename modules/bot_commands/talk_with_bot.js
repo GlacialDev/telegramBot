@@ -24,14 +24,18 @@ let talk = function (text, id) {
 
   talkRequest.on('response', function (response) {
     let answer = response.result.fulfillment.speech
-    if (answer == '') bot.sendMessage(id, 'Я не знаю, что тебе на это ответить.');
-
-    if (variables.dialogflow_textMode) {
-      bot.sendMessage(id, answer);
+    if (answer == '') {
+      // если ответа нету
+      bot.sendMessage(id, 'Я не знаю, что тебе на это ответить.');
     } else {
-      voiceMesManager.speechFromText(answer).then((path) => {
-        bot.sendVoice(id, path)
-      })
+      // если ответ есть, проверка на то, как надо ответить - голосом или текстом
+      if (variables.dialogflow_textMode) {
+        bot.sendMessage(id, answer);
+      } else {
+        voiceMesManager.speechFromText(answer).then((path) => {
+          bot.sendVoice(id, path)
+        })
+      }
     }
   });
 

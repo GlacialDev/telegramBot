@@ -3,9 +3,9 @@ import adminCheck from '../functions/adminCheck'
 
 let bot = variables.bot
 
-export default function bot_speech_dialog() {
+export default function dialog_voice() {
   // включение и отключение возможности загрузки файлов
-  bot.onText(/\/bot_speech_dialog (true|false)/, (msg, match) => {
+  bot.onText(/\/dialog_text_answer (true|false)/, (msg, match) => {
     if (adminCheck(msg) != true) return
 
     let set_mode = match[1];
