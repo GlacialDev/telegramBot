@@ -43,7 +43,7 @@ let voiceMesManager = {
                   let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
                   // берем ответ первого варианта
                   let textFromSpeechList = variantsList[0].split(/>(.+)</)
-                  answer = textFromSpeechList[1]
+                  let answer = textFromSpeechList[1]
                   // удаляем файлы ogg/mp3
                   fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
                     if (err) throw err;
@@ -53,7 +53,7 @@ let voiceMesManager = {
                     if (err) throw err;
                     console.log(outputFileName + " deleted");
                   });
-                  console.log('answer')
+                  console.log(answer)
                 }
               })
             }
