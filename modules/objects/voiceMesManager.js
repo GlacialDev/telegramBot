@@ -11,7 +11,6 @@ let voiceMesManager = {
   emotion: 'good',
   speechConvert: (msg, match) => {
     return new Promise((resolve, reject) => {
-      let answer
       // грузим голосовое сообщение
       let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
         (filePath) => {
@@ -44,8 +43,7 @@ let voiceMesManager = {
                   let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
                   // берем ответ первого варианта
                   let textFromSpeechList = variantsList[0].split(/>(.+)</)
-                  answer = textFromSpeechList[1]
-                  console.log('do resolve')
+                  let answer = textFromSpeechList[1]
                   resolve(answer)
                 }
               })

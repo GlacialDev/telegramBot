@@ -28,9 +28,8 @@ export default function botInit() {
     })
 
     bot.on('message', (msg) => {
-        if(msg.voice) {
-                voiceMesManager.speechConvert(msg).then((answer) => {
-                console.log(answer+' posle resolve')
+        if (msg.voice) {
+            voiceMesManager.speechConvert(msg).then((answer) => {
                 bot.sendMessage(msg.chat.id, msg.from.first_name + ' говорит: ' + answer)
             }).catch((e) => console.log(e))
         }
