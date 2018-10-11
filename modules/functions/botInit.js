@@ -30,7 +30,7 @@ export default function botInit() {
     bot.on('message', (msg) => {
         if(msg.voice) {
             // uploader.speechConvert(msg)
-            voiceMesManager.speechConvert(msg)
+            voiceMesManager.speechConvert(msg).then((answer) => bot.sendMessage(msg.chat.id, name + ' говорит: ' + answer))
         }
     })
 }

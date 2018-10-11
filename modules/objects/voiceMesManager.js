@@ -8,7 +8,7 @@ let yandexSpeech = variables.yandexSpeech
 
 let voiceMesManager = {
   speaker: 'oksana',
-  emotion: 'good',  
+  emotion: 'good',
   speechConvert: (msg, match) => {
     let name = msg.from.first_name
     // грузим голосовое сообщение
@@ -31,30 +31,35 @@ let voiceMesManager = {
 
         ffMpegAudioProcess(inputFileName, outputFileName).then(() => {
           // передаем яндексу на расшифровку
-          yandexSpeech.ASR({
-            developer_key: config.yandexSpeechKitKey,
-            file: `./data/download/voice/${outputFileName}`,
-            filetype: 'audio/x-mpeg-3'
-          }, function (err, httpResponse, xml) {
-            if (err) {
-              console.log(err);
-            } else {
-              let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
-              // console.log(variantsList[0])
-              let textFromSpeechList = variantsList[0].split(/>(.+)</)
-              // console.log(textFromSpeechList)
-              bot.sendMessage(msg.chat.id, name + ' говорит: ' + textFromSpeechList[1])
-            }
+          return new Promise((resolve, reject) => {
+            let textFromSpeechList = []
+            yandexSpeech.ASR({
+              developer_key: config.yandexSpeechKitKey,
+              file: `./data/download/voice/${outputFileName}`,
+              filetype: 'audio/x-mpeg-3'
+            }, function (err, httpResponse, xml) {
+              if (err) {
+                console.log(err);
+              } else {
+                let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
+                // console.log(variantsList[0])
+                textFromSpeechList = variantsList[0].split(/>(.+)</)
+                // console.log(textFromSpeechList)
+                // bot.sendMessage(msg.chat.id, name + ' говорит: ' + textFromSpeechList[1])
+              }
+            })
+            resolve(textFromSpeechList[1])
+          }).then((answer) => {
+            fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
+              if (err) throw err;
+              console.log(inputFileName + " deleted");
+            });
+            fs.unlink(`./data/download/voice/${outputFileName}`, (err) => {
+              if (err) throw err;
+              console.log(outputFileName + " deleted");
+            });
+            resolve(answer)
           })
-        }).then(() => {
-          fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
-            if (err) throw err;
-            console.log(inputFileName + " deleted");
-          });
-          fs.unlink(`./data/download/voice/${outputFileName}`, (err) => {
-            if (err) throw err;
-            console.log(outputFileName + " deleted");
-          });
         })
       }
     )
@@ -70,7 +75,7 @@ let voiceMesManager = {
       }, () => {
         resolve('./data/download/voice/botVoice.mp3')
       })
-    }).catch((e) => {console.log(e)});
+    }).catch((e) => { console.log(e) });
   }
 }
 
