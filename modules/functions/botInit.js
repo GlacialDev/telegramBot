@@ -37,6 +37,9 @@ export default function botInit() {
 }
 
 
+
+let dialogflow = variables.dialogflow
+
 let talk = function (text, id) {
     let talkRequest = dialogflow.textRequest(text, {
       sessionId: 'Canadian_bot_talk_to_you'
