@@ -57,6 +57,7 @@ let voiceMesManager = {
               if (err) throw err;
               console.log(outputFileName + " deleted");
             });
+            console.log('do resolve')
             resolve(answer)
           })
         })
