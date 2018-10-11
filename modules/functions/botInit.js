@@ -30,14 +30,12 @@ export default function botInit() {
     bot.on('message', (msg) => {
         if(msg.voice) {
             return new Promise((resolve, reject) => {
-                voiceMesManager.speechConvert(msg).then((answer) => {
-                    console.log(answer+' posle resolve')
-                    resolve(answer)
-                })
-            })
-            // .then((answer) => {
-            //     bot.sendMessage(msg.chat.id, msg.from.first_name + ' говорит: ' + answer)   
-            // })
+                voiceMesManager.speechConvert(msg)
+            }).then((answer) => {
+                console.log(answer+' posle resolve')
+                //     bot.sendMessage(msg.chat.id, msg.from.first_name + ' говорит: ' + answer)   
+                resolve()
+            }).catch((e) => console.log(e))
         }
     })
 }
