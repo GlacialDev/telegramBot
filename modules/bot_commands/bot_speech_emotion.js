@@ -8,20 +8,20 @@ export default function bot_speech_emotion() {
   bot.onText(/speech_emotion (.+)/, (msg, match) => {
     if (adminCheck(msg) != true) return
 
-    let set_speaker = match[1];
+    let set_emotion = match[1];
 
-    switch (set_speaker) {
-      case 'good':
-        voiceMesManager.speaker = 'good'
-        break;
+    switch (set_emotion) {
       case 'evil':
-        voiceMesManager.speaker = 'evil'
+        voiceMesManager.emotion = 'evil'
+        break;
+      case 'good':
+        voiceMesManager.emotion = 'good'
         break;
       case 'neutral':
-        voiceMesManager.speaker = 'neutral'
+        voiceMesManager.emotion = 'neutral'
         break;
       default:
-        voiceMesManager.speaker = 'good'
+        voiceMesManager.emotion = 'good'
         break;
     }
 

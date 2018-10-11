@@ -9,7 +9,7 @@ export default function roll() {
     bot.onText(/(\/roll$)/, (msg) => {
         if (authCheck(msg) != true) return
 
-        let roundRoll = getRandomNum(min, max)
+        let roundRoll = getRandomNum(0, 100)
     
         bot.sendMessage(msg.chat.id, msg.from.first_name + ' выбросил ' + roundRoll)
     });
