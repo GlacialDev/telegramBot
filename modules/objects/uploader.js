@@ -84,7 +84,6 @@ let uploader = {
         // грузим голосовое сообщение
         let filePath = bot.downloadFile(msg.voice.file_id, './data/download/voice/').then(
             (filePath) => {
-                let textYAYA = ''
                 // делим путь
                 let regExpList = filePath.split(/\\/)
                 // вытягиваем имя файла
@@ -98,9 +97,10 @@ let uploader = {
                 // указываем необходимый формат
                 let outputFormat = 'mp3'
                 // получаем имя выходного файла
-                let outputFileName = 'output_'+inputName + '.' + outputFormat
+                let outputFileName = 'output_' + inputName + '.' + outputFormat
 
                 ffMpegAudioProcess(inputFileName, outputFileName).then(() => {
+                    let textFromSpeechList = []
                     // передаем яндексу на расшифровку
                     yandexSpeech.ASR({
                         developer_key: config.yandexSpeechKitKey,
@@ -112,23 +112,22 @@ let uploader = {
                         } else {
                             let variantsList = xml.split(/<variant confidence="\d+.?\d+">(.+)<\/variant>/)
                             // console.log(variantsList[0])
-                            let textFromSpeechList = variantsList[0].split(/>(.+)</)
+                            textFromSpeechList = variantsList[0].split(/>(.+)</)
                             // console.log(textFromSpeechList)
-                            bot.sendMessage(msg.chat.id, name + ' говорит: ' + textFromSpeechList[1])
-                            textYAYA = textFromSpeechList[1]
+                            // bot.sendMessage(msg.chat.id, name + ' говорит: ' + textFromSpeechList[1])
                         }
                     })
+                    resolve(textFromSpeechList[1])
                 }).then(() => {
                     fs.unlink(`./data/download/voice/${inputFileName}`, (err) => {
-                            if (err) throw err;
-                            console.log(inputFileName+" deleted");
-                        });
+                        if (err) throw err;
+                        console.log(inputFileName + " deleted");
+                    });
                     fs.unlink(`./data/download/voice/${outputFileName}`, (err) => {
                         if (err) throw err;
-                        console.log(outputFileName+" deleted");
+                        console.log(outputFileName + " deleted");
                     });
                 })
-            resolve(textYAYA)
             }
         )
     }
