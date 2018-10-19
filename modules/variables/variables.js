@@ -14,7 +14,7 @@ const ffmpeg = require('fluent-ffmpeg');
 ffmpeg.setFfmpegPath('./ffmpeg/bin/ffmpeg.exe')
 ffmpeg.setFfprobePath('./ffmpeg/bin/ffprobe.exe')
 
-const dialogflow;
+let dialogflow
 if (config.dialogFlowClientAccessToken) {
   dialogflow = apiai(config.dialogFlowClientAccessToken)
 } else {
