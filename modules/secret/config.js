@@ -18,7 +18,7 @@ let config = {
       222222222
   ],
       // here is id of channel to send pictures here
-  "canadianEroId": -0000000000000
+  "canadianEroId": -1000000000000
 }
 
 export default config;
