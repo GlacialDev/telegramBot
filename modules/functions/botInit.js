@@ -7,6 +7,7 @@ import talk from '../functions/talk'
 let bot = variables.bot
 let server = variables.server
 let db = variables.db
+let isDatabaseOn
 
 export default function botInit() {
     bot.sendMessage(variables.creator, `Бот инициализирован.`)
@@ -14,28 +15,36 @@ export default function botInit() {
 
     db.connect('mongodb://localhost:27017', 'second', (err) => {
         if (err) {
-            return console.log(err)
+            isDatabaseOn = false
+            console.log('Database is not available, reactions/polls disabled')
         }
         server.listen(3012, () => {
-            console.log('API listen started')
+            isDatabaseOn = true
+            console.log('Database is available, reactions/polls enabled')
         })
     })
+    
+    // проверка на наличие включенной базы данных
+    if (isDatabaseOn) {
+        bot.on('callback_query', function (msg) {
+            let data = msg.data.split('_')
+            if (data[0] == 'poll') pollManager.updatePoll(msg, data)
+            if (data[0] == 'reaction') pollManager.updateReaction(msg, data)
+        })
+    }
 
-    bot.on('callback_query', function (msg) {
-        let data = msg.data.split('_')
-        if (data[0] == 'poll') pollManager.updatePoll(msg, data)
-        if (data[0] == 'reaction') pollManager.updateReaction(msg, data)
-    })
-
-    bot.on('message', (msg) => {
-        if (msg.voice) {
-            voiceMesManager.speechConvert(msg).then((answer) => {
-                if(variables.dialogflow_voiceConvMode) {
-                    talk(answer, msg.chat.id)
-                } else {
-                    bot.sendMessage(msg.chat.id, msg.from.first_name + ' говорит: ' + answer)
-                }
-            }).catch((e) => console.log(e))
-        }
-    })   
+    // проверка на наличие ключа от яндекс спичкит ключа
+    if (config.yandexSpeechKitKey) {
+        bot.on('message', (msg) => {
+            if (msg.voice) {
+                voiceMesManager.speechConvert(msg).then((answer) => {
+                    if (variables.dialogflow_voiceConvMode) {
+                        talk(answer, msg.chat.id)
+                    } else {
+                        bot.sendMessage(msg.chat.id, msg.from.first_name + ' говорит: ' + answer)
+                    }
+                }).catch((e) => console.log(e))
+            }
+        })
+    }
 }

@@ -1,4 +1,5 @@
 import variables from './modules/variables/variables'
+import config from './modules/secret/config'
 
 import help from './modules/bot_commands/help'
 help()
@@ -17,6 +18,7 @@ pass_gen()
 import roll from './modules/bot_commands/roll'
 roll()
 import talk_with_bot from './modules/bot_commands/talk_with_bot'
+// проверка на наличие ключа к апи диалогфлоу
 if (variables.dialogflow) talk_with_bot()
 import bot_settings from './modules/bot_commands/settings'
 bot_settings()
@@ -25,11 +27,13 @@ upload()
 import upload_en_dis from './modules/bot_commands/upload_en_dis'
 upload_en_dis()
 import convert from './modules/bot_commands/convert'
+// проверка на наличие ключа к апи клаудконверта
 if (variables.cloudconvert) convert()
 import poll from './modules/bot_commands/poll'
 poll()
 import bot_say from './modules/bot_commands/bot_say'
-bot_say()
+// проверка на наличие яндекс спичкит ключа
+if (config.yandexSpeechKitKey) bot_say()
 import bot_speech_voice from './modules/bot_commands/bot_speech_voice'
 bot_speech_voice()
 import bot_speech_emotion from './modules/bot_commands/bot_speech_emotion'
@@ -38,6 +42,7 @@ import dialog_text_answer from './modules/bot_commands/dialog_text_answer'
 dialog_text_answer()
 import bot_dialog_mode from './modules/bot_commands/bot_dialog_mode'
 bot_dialog_mode()
+
 // channel management 
 import ero_set_timer from './modules/channel_management/ero_channel/commands/ero_set_timer'
 ero_set_timer()
