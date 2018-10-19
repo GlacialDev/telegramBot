@@ -19,7 +19,7 @@
     "node-telegram-bot-api": "^0.30.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
-    "yandex-speech": "0.0.13"
+    "yandex-speech": "0.0.14"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
