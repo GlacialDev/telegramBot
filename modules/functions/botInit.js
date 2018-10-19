@@ -3,6 +3,7 @@ import pollManager from '../objects/pollManager'
 import channelManager from '../channel_management/channelManager'
 import voiceMesManager from '../objects/voiceMesManager'
 import talk from '../functions/talk'
+import config from '../../modules/secret/config'
 
 let bot = variables.bot
 let server = variables.server
