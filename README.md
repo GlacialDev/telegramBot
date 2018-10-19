@@ -23,6 +23,6 @@ bot use polling; so you can run it even on your pc; just get telegram bot token 
 ***
 1. i'm really sorry for that ffmpeg folder, but i guess it is better than download it separately
 2. also there are some not used code parts in **'extra_parts'** folder; maybe someone find it interesting
-3. and yes, there is more than 1k commits; it is bad practice, i know, but i used github to transfer data on my amazon hosting where this bot running and was tested while i developed it
+3. and yes, there is more than 1k commits; it is bad practice, i know, but i used github to transfer data to my amazon hosting where this bot running and was tested while i developed it
 
 *hope someone will find this bot interesting and useful!*
