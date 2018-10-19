@@ -21,3 +21,6 @@ bot use polling; so you can run it even on your pc; just get telegram bot token 
 
 ***
 i'm really sorry for that ffmpeg folder, but i guess it is better than download it separately
+also there are some not used code parts in **'extra_parts'** folder; maybe someone find it interesting
+
+*hope someone will find this bot interesting and useful!*
