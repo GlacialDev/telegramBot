@@ -1,3 +1,5 @@
+import variables from './modules/variables/variables'
+
 import help from './modules/bot_commands/help'
 help()
 import echo from './modules/bot_commands/echo'
@@ -15,7 +17,7 @@ pass_gen()
 import roll from './modules/bot_commands/roll'
 roll()
 import talk_with_bot from './modules/bot_commands/talk_with_bot'
-talk_with_bot()
+if(variables.dialogflow) talk_with_bot()
 import bot_settings from './modules/bot_commands/settings'
 bot_settings()
 import upload from './modules/bot_commands/upload'

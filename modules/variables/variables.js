@@ -14,11 +14,18 @@ const ffmpeg = require('fluent-ffmpeg');
 ffmpeg.setFfmpegPath('./ffmpeg/bin/ffmpeg.exe')
 ffmpeg.setFfprobePath('./ffmpeg/bin/ffprobe.exe')
 
+const dialogflow
+if(config.dialogFlowClientAccessToken) {
+  dialogflow = apiai(config.dialogFlowClientAccessToken)
+} else {
+  dialogflow = null
+}
+
 let variables = {
     creator : 353140575,
     groupChat : -307924393,
     bot : new TelegramBot(config.token, { polling: true }),
-    dialogflow : apiai(config.dialogFlowClientAccessToken),
+    dialogflow : dialogflow,
     dialogflow_textMode: true,
     dialogflow_voiceConvMode: false,
     https : require('https'),
