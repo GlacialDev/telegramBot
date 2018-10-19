@@ -20,7 +20,7 @@ bot use polling; so you can run it even on your pc; just get telegram bot token 
 - also dont forget to write tokens/keys and id's in **'modules/secret/config.js'** file (open it for more info)
 
 ***
-i'm really sorry for that ffmpeg folder, but i guess it is better than download it separately
-also there are some not used code parts in **'extra_parts'** folder; maybe someone find it interesting
+1. i'm really sorry for that ffmpeg folder, but i guess it is better than download it separately
+2. also there are some not used code parts in **'extra_parts'** folder; maybe someone find it interesting
 
 *hope someone will find this bot interesting and useful!*
