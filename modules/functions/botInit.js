@@ -24,15 +24,15 @@ export default function botInit() {
             console.log('Database is available, reactions/polls enabled')
         })
     })
-    
-    // проверка на наличие включенной базы данных
-    if (isDatabaseOn) {
-        bot.on('callback_query', function (msg) {
+
+    bot.on('callback_query', function (msg) {
+        // проверка на наличие включенной базы данных
+        if (isDatabaseOn) {
             let data = msg.data.split('_')
             if (data[0] == 'poll') pollManager.updatePoll(msg, data)
             if (data[0] == 'reaction') pollManager.updateReaction(msg, data)
-        })
-    }
+        }
+    })
 
     // проверка на наличие ключа от яндекс спичкит ключа
     if (config.yandexSpeechKitKey) {
