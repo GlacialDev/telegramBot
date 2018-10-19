@@ -1,6 +1,5 @@
 import variables from '../variables/variables'
 import authCheck from '../functions/authCheck'
-import config from '../secret/config';
 
 let bot = variables.bot
 
