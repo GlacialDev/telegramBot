@@ -5,7 +5,6 @@ import db from './db'
 
 const TelegramBot = require('node-telegram-bot-api')
 const apiai = require('apiai')
-const cloudconvert = new (require('cloudconvert'))(config.cloudConvertApiKey);
 const server = express()
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
@@ -17,6 +16,13 @@ ffmpeg.setFfprobePath('./ffmpeg/bin/ffprobe.exe')
 let dialogflow
 if (config.dialogFlowClientAccessToken) {
   dialogflow = apiai(config.dialogFlowClientAccessToken)
+} else {
+  dialogflow = null
+}
+
+let cloudconvert
+if (config.cloudConvertApiKey) {
+  cloudconvert = new (require('cloudconvert'))(config.cloudConvertApiKey);
 } else {
   dialogflow = null
 }

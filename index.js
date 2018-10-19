@@ -17,7 +17,7 @@ pass_gen()
 import roll from './modules/bot_commands/roll'
 roll()
 import talk_with_bot from './modules/bot_commands/talk_with_bot'
-if(variables.dialogflow) talk_with_bot()
+if (variables.dialogflow) talk_with_bot()
 import bot_settings from './modules/bot_commands/settings'
 bot_settings()
 import upload from './modules/bot_commands/upload'
@@ -25,7 +25,7 @@ upload()
 import upload_en_dis from './modules/bot_commands/upload_en_dis'
 upload_en_dis()
 import convert from './modules/bot_commands/convert'
-convert()
+if (variables.cloudconvert) convert()
 import poll from './modules/bot_commands/poll'
 poll()
 import bot_say from './modules/bot_commands/bot_say'
