@@ -14,8 +14,9 @@ bot use polling; so you can run it even on your pc; just get telegram bot token 
 # How to install?
 
 - git clone git://github.com/Glacialix/telegramBot.git
-- download mongodb ( https://www.mongodb.com ) and run mongod.exe on localhost:27017 (optional, you can don't run it, but polls and like/dislike systems won't work)
+- cd telegramBot
 - npm install
+- *download mongodb ( https://www.mongodb.com ) and run mongod.exe on localhost:27017 (optional, you can don't run it, but polls and like/dislike systems won't work)*
 - npm start
 - also dont forget to write tokens/keys and id's in **'modules/secret/config.js'** file (open it for more info)
 
